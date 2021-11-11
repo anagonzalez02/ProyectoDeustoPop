@@ -37,7 +37,7 @@ public class Tipo {
 		return "Tipo [nombre=" + nombre + ", codigo=" + codigo + "]";
 	}
 	
-	
+	/*
 	static ArrayList <Tipo> TiposProductos = new ArrayList();
 	
 	Tipo ropa = new Tipo("ropa", 01);
@@ -52,6 +52,6 @@ public class Tipo {
 	TiposProductos.add(decoracion);
 	Tipo libros = new Tipo("Libros", 06);
 	TiposProductos.add(libros);
-	
+	*/
 
 }

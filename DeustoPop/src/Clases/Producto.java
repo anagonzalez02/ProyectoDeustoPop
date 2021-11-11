@@ -102,12 +102,13 @@ public class Producto {
 	public Tipo getTipo() {
 		return tipo;
 	}
-
+/*
 	public void setTipo(Tipo tipo) {
 		if (Tipo.TiposProductos.contains(this.tipo)) {
 			this.tipo = tipo;
+			
 		}
-	}
+	}*/
 
 
 	@Override
