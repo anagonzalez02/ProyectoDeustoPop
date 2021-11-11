@@ -3,6 +3,7 @@ package Clases;
 import java.awt.Image;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Producto {
 	
@@ -10,36 +11,45 @@ public class Producto {
 	
 	private int id;
 	private String nombre;
-	private Date fechaSubida;
-	private String descripcion;
+	private Calendar fechaSubida;
+	private String etiquetas;
 	private double precio;
 	private Image imagen;
 	private Tipo tipo;
+	private String estado;
+	private String color;
+	private Usuario usuario;
 	
 	
-	public Producto (int id, String nombre, Date fechaSubida, String descripcion, double precio, Image imagen, Tipo tipo) {
+	public Producto (int id, String nombre, Calendar fechaSubida, String etiquetas, double precio, Image imagen, Tipo tipo, String estado, String color, Usuario usuario) {
 		super();
 		contador++;
 		this.id = contador;
 		this.nombre = nombre;
-		this.fechaSubida = fechaSubida;
-		this.descripcion = descripcion;
+		this.fechaSubida = Calendar.getInstance();
+		this.etiquetas = etiquetas;
 		this.precio = precio;
 		this.imagen = imagen;
 		this.tipo = tipo;
+		this.estado = estado;
+		this.color = color;
+		this.usuario = usuario;
 	}
 
 
-	public Producto (String nombre, String descripcion, double precio, Image imagen, Tipo tipo) {
+	public Producto (String nombre, String etiquetas, double precio, Image imagen, Tipo tipo, String estado, String color, Usuario usuario) {
 		super();
 		contador++;
 		this.id = contador;
 		this.nombre = nombre;
-		this.fechaSubida = fechaSubida;
-		this.descripcion = descripcion;
+		this.fechaSubida = Calendar.getInstance();
+		this.etiquetas = etiquetas;
 		this.precio = precio;
 		this.imagen = imagen;
 		this.tipo = tipo;
+		this.estado = estado;
+		this.color = color;
+		this.usuario = usuario;
 	}
 
 
@@ -67,20 +77,20 @@ public class Producto {
 		this.nombre = nombre;
 	}
 
-	public Date getFechaSubida() {
+	public Calendar getFechaSubida() {
 		return fechaSubida;
 	}
 
-	public void setFechaSubida(Date fechaSubida) {
-		this.fechaSubida = fechaSubida;
+	public void setFechaSubida(Calendar fechaSubida) {
+		this.fechaSubida = Calendar.getInstance();
 	}
 
-	public String getDescripcion() {
-		return descripcion;
+	public String getEtiquetas() {
+		return etiquetas;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setEtiquetas(String etiquetas) {
+		this.etiquetas = etiquetas;
 	}
 
 	public double getPrecio() {
@@ -109,17 +119,42 @@ public class Producto {
 			
 		}
 	}*/
+	
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+	
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 
 
 	@Override
 	public String toString() {
-		return "Producto [id=" + id + ", nombre=" + nombre + ", fechaSubida=" + fechaSubida + ", descripcion="
-				+ descripcion + ", precio=" + precio + ", imagen=" + imagen + ", tipo=" + tipo + "]";
+		return "Producto [id=" + id + ", nombre=" + nombre + ", fechaSubida=" + fechaSubida + ", etiquetas="
+				+ etiquetas + ", precio=" + precio + ", imagen=" + imagen + ", tipo=" + tipo + ", estado=" + estado
+				+ ", color=" + color + ", usuario=" + usuario + "]";
 	}
 
-	
 
-	
 	
 	
 	

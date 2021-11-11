@@ -12,7 +12,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 
-public class DeustoPopVentanaLogin extends JFrame implements ActionListener{
+public class VentanaLogin extends JFrame implements ActionListener{
 
 	private JLabel textoNombre;
 	private JLabel textoPassword;
@@ -23,7 +23,7 @@ public class DeustoPopVentanaLogin extends JFrame implements ActionListener{
 
 	
 	
-    public DeustoPopVentanaLogin() {
+    public VentanaLogin() {
         super();                    // usamos el contructor de la clase padre JFrame
         configurarVentana();        // configuramos la ventana
         inicializarComponentes();   // inicializamos los atributos o componentes
@@ -50,7 +50,7 @@ public class DeustoPopVentanaLogin extends JFrame implements ActionListener{
         textoNombre.setText("Nombre de usuario:");   // colocamos un texto a la etiqueta
         textoNombre.setBounds(50, 30, 130, 30);		// colocamos posicion y tamanio del texto (x, y, ancho, alto)
         
-        textoPassword.setText("Contraseña:");   	// colocamos un texto a la etiqueta
+        textoPassword.setText("Contraseï¿½a:");   	// colocamos un texto a la etiqueta
         textoPassword.setBounds(50, 80, 130, 30);	// colocamos posicion y tamanio del texto (x, y, ancho, alto)
     	
         cajaNombre.setBounds(175, 30, 200, 30);
@@ -80,7 +80,7 @@ public class DeustoPopVentanaLogin extends JFrame implements ActionListener{
 	}
 
     public static void main(String[] args) {
-    	DeustoPopVentanaLogin L = new DeustoPopVentanaLogin();      // creamos una ventana
+    	VentanaLogin L = new VentanaLogin();      // creamos una ventana
         L.setVisible(true);             // hacemos visible la ventana creada
     }
 }

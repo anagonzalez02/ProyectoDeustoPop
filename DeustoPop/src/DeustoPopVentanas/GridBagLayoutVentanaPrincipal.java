@@ -10,7 +10,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-	public class GridBagLayoutDeustoPopVentanaPrincipal {
+	public class GridBagLayoutVentanaPrincipal {
 	    
 
 		final static boolean shouldFill = true;

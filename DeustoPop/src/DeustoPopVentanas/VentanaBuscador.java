@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 
-public class DeustoPopVentanaBuscador extends JFrame implements ActionListener {
+public class VentanaBuscador extends JFrame implements ActionListener {
 
     private JLabel textoBuscador;           // etiqueta o textoBuscador no editable
     private JTextField cajaBuscador;        // caja de texto, para insertar datos
@@ -16,7 +16,7 @@ public class DeustoPopVentanaBuscador extends JFrame implements ActionListener {
     private JButton botonBuscar;          // botonBuscar con una determinada accion
 
     
-    public DeustoPopVentanaBuscador() {
+    public VentanaBuscador() {
         super();                    // usamos el contructor de la clase padre JFrame
         configurarVentana();        // configuramos la ventana
         inicializarComponentes();   // inicializamos los atributos o componentes
@@ -39,7 +39,7 @@ public class DeustoPopVentanaBuscador extends JFrame implements ActionListener {
         botonBuscar = new JButton();
         
         // configuramos los componentes
-        textoBuscador.setText("¿Que producto desea buscar?");   // colocamos un texto a la etiqueta
+        textoBuscador.setText("ï¿½Que producto desea buscar?");   // colocamos un texto a la etiqueta
         textoBuscador.setBounds(50, 50, 200, 30);				// colocamos posicion y tamanio al texto (x, y, ancho, alto)
         cajaBuscador.setBounds(50, 80, 300, 35);				// colocamos posicion y tamanio a la caja (x, y, ancho, alto)
         botonVolver.setText("Volver");					// colocamos un texto al botonVolver
@@ -61,7 +61,7 @@ public class DeustoPopVentanaBuscador extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-    	DeustoPopVentanaBuscador B = new DeustoPopVentanaBuscador();      // creamos una ventana
+    	VentanaBuscador B = new VentanaBuscador();      // creamos una ventana
         B.setVisible(true);             // hacemos visible la ventana creada
     }
 }

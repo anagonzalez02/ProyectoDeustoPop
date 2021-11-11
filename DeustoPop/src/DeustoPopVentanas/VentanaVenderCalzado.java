@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class DeustoPopVentanaVenderRopa extends JFrame implements ActionListener {
+public class VentanaVenderCalzado extends JFrame implements ActionListener {
 	
 	private JLabel textoNombre;           // etiqueta o texto no editable
     private JLabel textoFt;           // etiqueta o texto no editable
@@ -28,7 +28,7 @@ public class DeustoPopVentanaVenderRopa extends JFrame implements ActionListener
     private JComboBox comboColor;
 
     
-    public DeustoPopVentanaVenderRopa() {
+    public VentanaVenderCalzado() {
         super();                    // usamos el contructor de la clase padre JFrame
         configurarVentana();        // configuramos la ventana
         inicializarComponentes();   // inicializamos los atributos o componentes
@@ -125,8 +125,8 @@ public class DeustoPopVentanaVenderRopa extends JFrame implements ActionListener
 	}
 	
     public static void main(String[] args) {
-    	DeustoPopVentanaVenderRopa R = new DeustoPopVentanaVenderRopa();      // creamos una ventana
-        R.setVisible(true);             // hacemos visible la ventana creada
+    	VentanaVenderCalzado C = new VentanaVenderCalzado();      // creamos una ventana
+        C.setVisible(true);             // hacemos visible la ventana creada
     }
     
 

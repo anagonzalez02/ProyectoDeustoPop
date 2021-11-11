@@ -15,7 +15,7 @@ import javax.swing.ScrollPaneConstants;
 import java.awt.*;
 import javax.swing.*;
 
-public class DeustoPopVentanaPrincipal extends JFrame implements ActionListener {
+public class VentanaPrincipal extends JFrame implements ActionListener {
 
 	private JScrollPane sPanelPrincipal;
 	private JPanel panelMain;
@@ -28,7 +28,7 @@ public class DeustoPopVentanaPrincipal extends JFrame implements ActionListener 
 	//No se como hacer lo de las imagenes y que se vayan generando/apareciendo nuevos porductos
 	
 	
-    public DeustoPopVentanaPrincipal() {
+    public VentanaPrincipal() {
         super();                    // usamos el contructor de la clase padre JFrame
         configurarVentana();        // configuramos la ventana
         inicializarComponentes();   // inicializamos los atributos o componentes
@@ -46,14 +46,14 @@ public class DeustoPopVentanaPrincipal extends JFrame implements ActionListener 
     
     private void inicializarComponentes() {
     	panelMain = new JPanel(new BorderLayout());
-    	panelMain.setPreferredSize(new Dimension(466, 650));	//pongo el x en 466 y no en 500 pq si no se me activa el scrollPane y no me ape tenerlo ahí activao
+    	panelMain.setPreferredSize(new Dimension(466, 650));	//pongo el x en 466 y no en 500 pq si no se me activa el scrollPane y no me ape tenerlo ahï¿½ activao
     	panelMain.setVisible(true);
     	
     	panelTop = new JPanel(new BorderLayout());
     	panelTop.setPreferredSize(new Dimension(500, 50));
     	panelTop.setVisible(true);
     	
-    	//crear nuevo panel con gridLayout y meterlo en el CENTER para postear ahí los productos
+    	//crear nuevo panel con gridLayout y meterlo en el CENTER para postear ahï¿½ los productos
     	panelMid = new JPanel(new GridLayout(0,2));
     	panelMid.setPreferredSize(new Dimension(500, 650));
     	panelMid.setVisible(true);
@@ -78,7 +78,7 @@ public class DeustoPopVentanaPrincipal extends JFrame implements ActionListener 
     	panelTop.add(botonFiltrar, BorderLayout.CENTER);
     	
     	/*
-    	//si descomentas esta parte del código tiene q comentar "botonFiltrar" pq si no se solapan
+    	//si descomentas esta parte del cï¿½digo tiene q comentar "botonFiltrar" pq si no se solapan
     	comboFiltrar = new JComboBox();
     	comboFiltrar.addItem("Color");
     	comboFiltrar.addItem("Ropa");
@@ -87,7 +87,7 @@ public class DeustoPopVentanaPrincipal extends JFrame implements ActionListener 
     	*/
     	
     	textoSaldo = new JLabel();
-    	textoSaldo.setText("*getSaldo* €");
+    	textoSaldo.setText("*getSaldo* ï¿½");
     	//textoSaldo.setSize(100, 100);
     	textoSaldo.setPreferredSize(new Dimension(100, 40));
     	//sPanelPrincipal.add(textoSaldo);
@@ -126,7 +126,7 @@ public class DeustoPopVentanaPrincipal extends JFrame implements ActionListener 
 	}
 	
     public static void main(String[] args) {
-    	DeustoPopVentanaPrincipal P = new DeustoPopVentanaPrincipal();      // creamos una ventana
+    	VentanaPrincipal P = new VentanaPrincipal();      // creamos una ventana
         P.setVisible(true);             // hacemos visible la ventana creada
     }
 }
