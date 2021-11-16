@@ -133,15 +133,16 @@ class CompCellPanel extends JPanel {
 	private JPanel pSup = new JPanel(new BorderLayout());
 	private JLabel lTexto1 = new JLabel("", JLabel.CENTER);
 	private JTextArea taMensajes = new JTextArea(15, 10);
-	private JButton boton = new JButton();
+	private JLabel precio = new JLabel();
 	private ImageIcon imagen = new ImageIcon();
 
 	CompCellPanel() {
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
 		pSup.add(taMensajes, BorderLayout.CENTER);
+		//pSup.add(imagen, BorderLayout.CENTER);
 		pSup.add(lTexto1, BorderLayout.NORTH);
-		pSup.add(boton, BorderLayout.SOUTH);
+		pSup.add(precio, BorderLayout.SOUTH);
 		add(pSup);
 	}
 
@@ -150,16 +151,18 @@ class CompCellPanel extends JPanel {
 		if (comp.numero == 0) {
 			taMensajes.setVisible(false);
 			taMensajes.setText("");
+			//imagen.setVisible(false);
 			lTexto1.setText("");
-			boton.setVisible(false);
+			precio.setVisible(false);
 			return;
 		}
 		taMensajes.setVisible(true);
 		taMensajes.setText("Panel BorderLayout de prueba numero " + comp.numero);
-		lTexto1.setText("Panel " + comp.numero);
-		boton.setVisible(true);
-		boton.setPreferredSize(new Dimension(0, 20));
-		boton.setText("hola");
+		//imagen.setVisible(true);
+		lTexto1.setText("Producto " + comp.numero);
+		precio.setVisible(true);
+		precio.setPreferredSize(new Dimension(0, 30));
+		precio.setText("precio" + " €");
 
 	}
 
