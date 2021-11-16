@@ -35,10 +35,11 @@ public class PanelInTable {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(CompTableScrollpane, BorderLayout.CENTER);
 
-        frame.setPreferredSize(new Dimension(800, 400));
-        frame.setLocation(150, 150);
+        frame.setPreferredSize(new Dimension(550, 700));
+        frame.setLocation(400, 25);
         frame.pack();
         frame.setVisible(true);
+        //frame.setResizable(false);
     }
 
     public JTable CreateCompTable() {
@@ -58,6 +59,7 @@ public class PanelInTable {
         CompModel.addRow(new Comp(3), new Comp(4));
         CompModel.addRow(new Comp(5), new Comp(6));
         CompModel.addRow(new Comp(7), new Comp(0));
+        //CompModel.addRow(new Comp(0), new Comp(8));
         
         return table;
     }
@@ -130,14 +132,17 @@ class CompCellPanel extends JPanel {
 	private int numero;
 	private JPanel pSup = new JPanel(new BorderLayout());
 	private JLabel lTexto1 = new JLabel("", JLabel.CENTER);
-	private JTextArea taMensajes = new JTextArea(10, 10);
+	private JTextArea taMensajes = new JTextArea(15, 10);
+	private JButton boton = new JButton();
 	private JScrollPane spMensajes = new JScrollPane(taMensajes);
+	private ImageIcon imagen = new ImageIcon();
 
 	CompCellPanel() {
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
 		pSup.add(spMensajes, BorderLayout.CENTER);
 		pSup.add(lTexto1, BorderLayout.NORTH);
+		pSup.add(boton, BorderLayout.SOUTH);
 		add(pSup);
 	}
 
@@ -152,6 +157,8 @@ class CompCellPanel extends JPanel {
 		taMensajes.setVisible(true);
 		taMensajes.setText("Panel BorderLayout de prueba numero " + comp.numero);
 		lTexto1.setText("Panel " + comp.numero);
+		boton.setPreferredSize(new Dimension(0, 20));
+		boton.setText("hola");
 	}
 
 	public Comp getComp() {
