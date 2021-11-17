@@ -41,7 +41,6 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
         this.setLayout(new BorderLayout());                                   // no usamos ningun layout, solo asi podremos dar posiciones a los componentes
         this.setResizable(false);                               // hacemos que la ventana no sea redimiensionable
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    // hacemos que cuando se cierre la ventana termine todo proceso
-        
     }
     
     private void inicializarComponentes() {
