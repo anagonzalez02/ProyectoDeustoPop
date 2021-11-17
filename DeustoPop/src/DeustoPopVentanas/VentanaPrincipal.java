@@ -13,7 +13,7 @@ public class VentanaPrincipal {
     private JPanel panelTop;
     private JButton bVender;
     private JButton bFiltrar;
-    private JLabel tSaldo;
+    private JLabel tPrecio;
 
     public static void main(String args[]) {
         try {
@@ -40,7 +40,7 @@ public class VentanaPrincipal {
         frame.add(CompTableScrollpane, BorderLayout.CENTER);
         
 
-        frame.setPreferredSize(new Dimension(500, 700));
+        frame.setPreferredSize(new Dimension(550, 700));
         frame.setLocation(400, 25);
         frame.pack();
         frame.setVisible(true);
@@ -53,17 +53,17 @@ public class VentanaPrincipal {
         
         bVender = new JButton();
         bVender.setText("Vender");
-        bVender.setPreferredSize(new Dimension(150, 50));
+        bVender.setPreferredSize(new Dimension(175, 50));
         panelTop.add(bVender, BorderLayout.WEST);
         
         bFiltrar = new JButton();
         bFiltrar.setText("Filtrar");
         panelTop.add(bFiltrar, BorderLayout.CENTER);
         
-        tSaldo = new JLabel();
-        tSaldo.setText("*Saldo* €");
-        tSaldo.setPreferredSize(new Dimension(150, 50));
-        panelTop.add(tSaldo, BorderLayout.EAST);
+        tPrecio = new JLabel();
+        tPrecio.setText("*Precio*");
+        tPrecio.setPreferredSize(new Dimension(175, 50));
+        panelTop.add(tPrecio, BorderLayout.EAST);
         
     }
 
@@ -163,13 +163,14 @@ class CompCellPanel extends JPanel {
 	private JLabel lTexto1 = new JLabel("", JLabel.CENTER);
 	private JTextArea taMensajes = new JTextArea(15, 10);
 	private JLabel precio = new JLabel();
-	private ImageIcon imagen = new ImageIcon();
+	private ImageIcon imagen = new ImageIcon("src/DeustoPopVentanas/patata.png", null);
+	private JLabel lImagen = new JLabel(imagen, JLabel.CENTER);
 
 	CompCellPanel() {
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
-		pSup.add(taMensajes, BorderLayout.CENTER);
-		//pSup.add(imagen, BorderLayout.CENTER);
+		//pSup.add(taMensajes, BorderLayout.CENTER);
+		pSup.add(lImagen, BorderLayout.CENTER);
 		pSup.add(lTexto1, BorderLayout.NORTH);
 		pSup.add(precio, BorderLayout.SOUTH);
 		add(pSup);
@@ -178,16 +179,17 @@ class CompCellPanel extends JPanel {
 	public void setComp(Comp comp) {
 		numero = comp.numero;
 		if (comp.numero == 0) {
-			taMensajes.setVisible(false);
-			taMensajes.setText("");
-			//imagen.setVisible(false);
+			//taMensajes.setVisible(false);
+			//taMensajes.setText("");
+			lImagen.setVisible(false);
 			lTexto1.setText("");
 			precio.setVisible(false);
 			return;
 		}
-		taMensajes.setVisible(true);
-		taMensajes.setText("Panel BorderLayout de prueba numero " + comp.numero);
-		//imagen.setVisible(true);
+		//taMensajes.setVisible(true);
+		//taMensajes.setText("Panel BorderLayout de prueba numero " + comp.numero);
+		lImagen.setVisible(true);
+		lImagen.setPreferredSize(new Dimension(10, 10));
 		lTexto1.setText("Producto " + comp.numero);
 		precio.setVisible(true);
 		precio.setPreferredSize(new Dimension(0, 30));
