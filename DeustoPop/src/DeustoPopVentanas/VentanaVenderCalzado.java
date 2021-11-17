@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
 public class VentanaVenderCalzado extends JFrame implements ActionListener {
@@ -21,13 +22,13 @@ public class VentanaVenderCalzado extends JFrame implements ActionListener {
     private JLabel textoTalla;			// etiqueta o texto no editable
     private JTextField cajaNombre;        // caja de texto, para insertar datos
     private JTextField cajaEtiqueta;        // caja de texto, para insertar datos
-    private JTextField cajaPrecio;        // caja de texto, para insertar datos
+    private JSpinner spinnerPrecio;        // spinner, para insertar precio
     private JButton botonFt;          // botonVolver con una determinada accion
     private JButton botonPublicar;          // botonBuscar con una determinada accion
     private JButton botonVolver;          // botonBuscar con una determinada accion
     private JComboBox comboEstado;
     private JComboBox comboColor;
-    private JComboBox comboTalla;
+    private JSpinner spinnerTalla;        // spinner, para insertar numero de talla
 
     
     public VentanaVenderCalzado() {
@@ -55,48 +56,49 @@ public class VentanaVenderCalzado extends JFrame implements ActionListener {
     textoTalla = new JLabel();
     cajaNombre = new JTextField();
     cajaEtiqueta = new JTextField();
-    cajaPrecio = new JTextField();
+    
     botonFt = new JButton();
     botonPublicar = new JButton();
     botonVolver = new JButton();
     comboEstado = new JComboBox();
     comboColor = new JComboBox();
-    comboTalla = new JComboBox();
+    spinnerTalla = new JSpinner();
+    spinnerPrecio = new JSpinner();
 
     
     //configuracion de componentes
     
     textoNombre.setText("Nombre del producto:");
-    textoNombre.setBounds(25, 20, 300, 20);								//(x, y, ancho, alto)
+    textoNombre.setBounds(25, 30, 300, 20);								//(x, y, ancho, alto)
     textoFt.setText("Anyade aqui la foto:");
-    textoFt.setBounds(25, 90, 300, 20);									//(x, y, ancho, alto)
+    textoFt.setBounds(25, 100, 300, 20);									//(x, y, ancho, alto)
     textoEstado.setText("Seleccione el estado de su producto:");
     textoEstado.setBounds(25, 240, 300, 20);								//(x, y, ancho, alto)
     textoEtiqueta.setText("Etiqueta tu producto:");
     textoEtiqueta.setBounds(25, 310, 300, 20);							//(x, y, ancho, alto)
-    textoPrecio.setText("Seleccione el precio de su porducto");
+    textoPrecio.setText("Seleccione el precio de su producto:");
     textoPrecio.setBounds(25, 380, 300, 20);								//(x, y, ancho, alto)
     textoColores.setText("Color del producto:");
     textoColores.setBounds(25, 450, 300, 20);								//(x, y, ancho, alto)
     textoTalla.setText("Talla del producto:");
-    textoTalla.setBounds(25, 160, 300, 20);								//(x, y, ancho, alto)
+    textoTalla.setBounds(25, 170, 300, 20);								//(x, y, ancho, alto)
     
     
-    cajaNombre.setBounds(25, 50, 400, 30);
-    cajaEtiqueta.setBounds(25, 340, 400, 30);
-    cajaPrecio.setBounds(25, 410, 400, 30);
+    cajaNombre.setBounds(25, 50, 425, 30);
+    cajaEtiqueta.setBounds(25, 330, 425, 30);
     
     botonFt.setText("Inserte una foto");
-    botonFt.setBounds(25, 120, 400, 30);
+    botonFt.setBounds(25, 120, 425, 30);
     botonPublicar.setText("Publicar");
     botonPublicar.setBounds(250, 550, 200, 70);
     botonVolver.setText("Volver");
     botonVolver.setBounds(25, 550, 200, 70);
     
-    comboEstado.setBounds(25, 270, 300, 30);
-    comboColor.setBounds(25, 480, 300, 30);
-    comboTalla.setBounds(25, 200, 300, 30);
-
+    comboEstado.setBounds(25, 260, 425, 30);
+    comboColor.setBounds(25, 470, 425, 30);
+    
+    spinnerTalla.setBounds(25, 190, 425, 30);
+    spinnerPrecio.setBounds(25, 400, 425, 30);
     
     //anyadimos los componentes
     this.add(textoNombre);
@@ -108,10 +110,11 @@ public class VentanaVenderCalzado extends JFrame implements ActionListener {
     this.add(textoTalla);
     this.add(cajaNombre);
     this.add(cajaEtiqueta);
-    this.add(cajaPrecio);
+    this.add(spinnerPrecio);
     this.add(botonFt);
     this.add(botonPublicar);
     this.add(botonVolver);
+    this.add(spinnerTalla);
     
     this.add(comboEstado);
     comboEstado.addItem("Malo");
@@ -125,12 +128,7 @@ public class VentanaVenderCalzado extends JFrame implements ActionListener {
     comboColor.addItem("Verde");
     comboColor.addItem("Gris");
     comboColor.addItem("Otro");
-    this.add(comboTalla);
-    comboTalla.addItem("XS");
-    comboTalla.addItem("S");
-    comboTalla.addItem("M");
-    comboTalla.addItem("L");
-    comboTalla.addItem("XL");
+
     }
 
 	@Override
