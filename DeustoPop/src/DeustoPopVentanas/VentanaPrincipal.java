@@ -1,131 +1,203 @@
-//no esta acabada
 package DeustoPopVentanas;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
 import java.awt.*;
+import java.util.EventObject;
 import javax.swing.*;
+import javax.swing.table.*;
 
-public class VentanaPrincipal extends JFrame implements ActionListener {
+public class VentanaPrincipal {
 
-	private JScrollPane sPanelPrincipal;
-	private JPanel panelMain;
-	private JPanel panelTop;
-	private JPanel panelMid;
-	private JButton botonVender;
-	private JButton botonFiltrar;
-	private JComboBox comboFiltrar;
-	private JLabel textoSaldo;
-	//No se como hacer lo de las imagenes y que se vayan generando/apareciendo nuevos porductos
-	
-	
-    public VentanaPrincipal() {
-        super();                    // usamos el contructor de la clase padre JFrame
-        configurarVentana();        // configuramos la ventana
-        inicializarComponentes();   // inicializamos los atributos o componentes
-    }
-    
-    private void configurarVentana() {
-        this.setTitle("DeustoPop");                   			// colocamos titulo a la ventana
-        this.setSize(500, 700);                                	// colocamos tamanio a la ventana (ancho, alto)
-        this.setLocationRelativeTo(null);                       // centramos la ventana en la pantalla
-        this.setLayout(new BorderLayout());                                   // no usamos ningun layout, solo asi podremos dar posiciones a los componentes
-        this.setResizable(false);                               // hacemos que la ventana no sea redimiensionable
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    // hacemos que cuando se cierre la ventana termine todo proceso
-    }
-    
-    private void inicializarComponentes() {
-    	panelMain = new JPanel(new BorderLayout());
-    	panelMain.setPreferredSize(new Dimension(466, 650));	//pongo el x en 466 y no en 500 pq si no se me activa el scrollPane y no me ape tenerlo ahï¿½ activao
-    	panelMain.setVisible(true);
-    	
-    	panelTop = new JPanel(new BorderLayout());
-    	panelTop.setPreferredSize(new Dimension(500, 50));
-    	panelTop.setVisible(true);
-    	
-    	//crear nuevo panel con gridLayout y meterlo en el CENTER para postear ahï¿½ los productos
-    	panelMid = new JPanel(new GridLayout(0,2));
-    	panelMid.setPreferredSize(new Dimension(500, 650));
-    	panelMid.setVisible(true);
-    	
-    	this.add(panelMain);
-    	panelMain.add(panelTop, BorderLayout.NORTH);
-    	panelMain.add(panelMid, BorderLayout.CENTER);
-    	
-    	//el orden impporta pq sta todo dentro del Jpanel
-    	
-    	botonVender = new JButton();
-    	botonVender.setText("Vender");
-    	botonVender.setPreferredSize(new Dimension(100, 40));
-    	//sPanelPrincipal.add(botonVender);
-    	panelTop.add(botonVender, BorderLayout.WEST);
-    	
-    	
-    	botonFiltrar = new JButton();
-    	botonFiltrar.setText("Filtrar");
-    	botonFiltrar.setPreferredSize(new Dimension(100, 40));
-    	//sPanelPrincipal.add(botonFiltrar);
-    	panelTop.add(botonFiltrar, BorderLayout.CENTER);
-    	
-    	/*
-    	//si descomentas esta parte del cï¿½digo tiene q comentar "botonFiltrar" pq si no se solapan
-    	comboFiltrar = new JComboBox();
-    	comboFiltrar.addItem("Color");
-    	comboFiltrar.addItem("Ropa");
-    	comboFiltrar.addItem("Libros");
-    	panelTop.add(comboFiltrar, BorderLayout.CENTER);
-    	*/
-    	
-    	textoSaldo = new JLabel();
-    	textoSaldo.setText("*getSaldo* ï¿½");
-    	//textoSaldo.setSize(100, 100);
-    	textoSaldo.setPreferredSize(new Dimension(100, 40));
-    	//sPanelPrincipal.add(textoSaldo);
-    	panelTop.add(textoSaldo, BorderLayout.EAST);
-    	
-    	/*
-    	botonPatata = new JButton();
-    	botonPatata.setText("Patata");
-    	botonPatata.setPreferredSize(new Dimension(100, 40));
-    	//sPanelPrincipal.add(botonFiltrar);
-    	panelMain.add(botonPatata, BorderLayout.CENTER);
-    	*/
-    	
-        panelMid.add(new JButton("Button 1"));
-        panelMid.add(new JButton("Button 2"));
-        panelMid.add(new JButton("Button 3"));
-        panelMid.add(new JButton("Button 4"));
-        //panelMid.add(new JButton("Button 5"));
+    private JFrame frame;
+    private JTable CompTable = null;
+    private PanelTableModel CompModel = null;
+    private JPanel panelTop;
+    private JButton bVender;
+    private JButton bFiltrar;
+    private JLabel tPrecio;
 
+    public static void main(String args[]) {
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+            //UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception fail) {
+        }
+        SwingUtilities.invokeLater(new Runnable() {
 
-    	
-    	
-    	sPanelPrincipal = new JScrollPane(panelMain);
-    	sPanelPrincipal.setPreferredSize(new Dimension(500, 700));
-    	this.add(sPanelPrincipal, BorderLayout.CENTER);
-    	sPanelPrincipal.setVisible(true);
-    	
-    	
+            @Override
+            public void run() {
+                new VentanaPrincipal().makeUI();
+            }
+        });
     }
 
+    public void makeUI() {
+        CompTable = CreateCompTable();
+        JScrollPane CompTableScrollpane = new JScrollPane(CompTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        
+        frame = new JFrame("DeustoPop");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(CompTableScrollpane, BorderLayout.CENTER);
+        
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-    public static void main(String[] args) {
-    	VentanaPrincipal P = new VentanaPrincipal();      // creamos una ventana
-        P.setVisible(true);             // hacemos visible la ventana creada
+        frame.setPreferredSize(new Dimension(500, 700));
+        frame.setLocation(400, 25);
+        frame.pack();
+        frame.setVisible(true);
+        frame.setResizable(false);
+        
+        panelTop = new JPanel(new BorderLayout());
+        panelTop.setVisible(true);
+        panelTop.setPreferredSize(new Dimension(50, 50));
+        frame.add(panelTop, BorderLayout.NORTH);
+        
+        bVender = new JButton();
+        bVender.setText("Vender");
+        bVender.setPreferredSize(new Dimension(150, 50));
+        panelTop.add(bVender, BorderLayout.WEST);
+        
+        bFiltrar = new JButton();
+        bFiltrar.setText("Filtrar");
+        panelTop.add(bFiltrar, BorderLayout.CENTER);
+        
+        tPrecio = new JLabel();
+        tPrecio.setText("*Precio*");
+        tPrecio.setPreferredSize(new Dimension(150, 50));
+        panelTop.add(tPrecio, BorderLayout.EAST);
+        
+    }
+
+    public JTable CreateCompTable() {
+        CompModel = new PanelTableModel();
+        /*
+        panelMain = new JPanel(new BorderLayout());
+        panelMain.setVisible(true);
+        panelMain.add(frame, BorderLayout.CENTER);
+        */
+        JTable table = new JTable(CompModel);
+        table.setRowHeight(new CompCellPanel().getPreferredSize().height);
+        table.setTableHeader(null);
+        PanelCellEditorRenderer PanelCellEditorRenderer = new PanelCellEditorRenderer();
+        table.setDefaultRenderer(Object.class, PanelCellEditorRenderer);
+        table.setDefaultEditor(Object.class, PanelCellEditorRenderer);
+        
+        //Se añaden los paneles al JTable
+        //Los paneles son del mismo tipo CompCellPanel y con cada instancia
+        //de la clase Comp le pasamos los datos que va a mostrar por el constructor
+        CompModel.addRow(new Comp(1), new Comp(2));
+        CompModel.addRow(new Comp(3), new Comp(4));
+        CompModel.addRow(new Comp(5), new Comp(6));
+        CompModel.addRow(new Comp(7), new Comp(0));
+        CompModel.addRow(new Comp(0), new Comp(8));
+        
+        return table;
+    }
+
+}
+
+class PanelCellEditorRenderer extends AbstractCellEditor implements TableCellRenderer, TableCellEditor {
+
+    private static final long serialVersionUID = 1L;
+    private CompCellPanel renderer = new CompCellPanel();
+    private CompCellPanel editor = new CompCellPanel();
+
+    @Override
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+   		renderer.setComp((Comp) value);
+    	
+        return renderer;
+    }
+
+    @Override
+    public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+   		editor.setComp((Comp) value);
+    	
+        return editor;
+    }
+
+    @Override
+    public Object getCellEditorValue() {
+        return editor.getComp();
+    }
+
+    @Override
+    public boolean isCellEditable(EventObject anEvent) {
+        return true;
+    }
+
+    @Override
+    public boolean shouldSelectCell(EventObject anEvent) {
+        return false;
     }
 }
+
+class PanelTableModel extends DefaultTableModel {
+
+    private static final long serialVersionUID = 1L;
+
+    @Override
+    public int getColumnCount() {
+        return 2;
+    }
+
+    public void addRow(Comp c1, Comp c2) {
+    	super.addRow(new Object[]{c1, c2});
+    }
+}
+
+//Clase con los datos a pasar a cada panel creado
+class Comp {
+
+    public int numero;
+ 
+    public Comp(int num) {
+        this.numero = num;
+    }
+}
+
+class CompCellPanel extends JPanel {
+
+	private static final long serialVersionUID = 1L;
+	private int numero;
+	private JPanel pSup = new JPanel(new BorderLayout());
+	private JLabel lTexto1 = new JLabel("", JLabel.CENTER);
+	private JTextArea taMensajes = new JTextArea(15, 10);
+	private JLabel precio = new JLabel();
+	private ImageIcon imagen = new ImageIcon();
+
+	CompCellPanel() {
+		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+
+		pSup.add(taMensajes, BorderLayout.CENTER);
+		//pSup.add(imagen, BorderLayout.CENTER);
+		pSup.add(lTexto1, BorderLayout.NORTH);
+		pSup.add(precio, BorderLayout.SOUTH);
+		add(pSup);
+	}
+
+	public void setComp(Comp comp) {
+		numero = comp.numero;
+		if (comp.numero == 0) {
+			taMensajes.setVisible(false);
+			taMensajes.setText("");
+			//imagen.setVisible(false);
+			lTexto1.setText("");
+			precio.setVisible(false);
+			return;
+		}
+		taMensajes.setVisible(true);
+		taMensajes.setText("Panel BorderLayout de prueba numero " + comp.numero);
+		//imagen.setVisible(true);
+		lTexto1.setText("Producto " + comp.numero);
+		precio.setVisible(true);
+		precio.setPreferredSize(new Dimension(0, 30));
+		precio.setText("precio" + " €");
+
+	}
+
+	public Comp getComp() {
+		return new Comp(numero);
+	}
+
+}
+

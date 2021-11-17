@@ -134,10 +134,10 @@ public class VentanaVenderRopa extends JFrame implements ActionListener {
 	    
 	    // Funciones de los componentes
 	    
-	    // En el función publicar, DE MOMENTO hemos creado el objeto producto basado en los datos recogidos
+	    // En el funciÃ³n publicar, DE MOMENTO hemos creado el objeto producto basado en los datos recogidos
 	    // y lo hemos metido (tras crearlo) en el arraylist de productos que tiene el usuario que lo ha subido y
 	    // falta por meterlo en un ArrayList de TODOS los productos de Deustopop
-	    // Además de añadir el producto a la ventana Principal 
+	    // AdemÃ¡s de aÃ±adir el producto a la ventana Principal 
 	    botonPublicar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -156,7 +156,7 @@ public class VentanaVenderRopa extends JFrame implements ActionListener {
 				
 				producto.getUsuario().getProductos().add(producto);
 				
-				// HAY QUE CREAR EN ALGÚN LADO UN ARRAYLIST DE TODOS LOS PRODUCTOS DE DEUSTOPOP Y METER AHÍ EL PRODUCTO CREADO
+				// HAY QUE CREAR EN ALGÃšN LADO UN ARRAYLIST DE TODOS LOS PRODUCTOS DE DEUSTOPOP Y METER AHÃ� EL PRODUCTO CREADO
 				
 			}
 		});
@@ -165,7 +165,7 @@ public class VentanaVenderRopa extends JFrame implements ActionListener {
 	    botonVolver.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaPrincipal ventana = new VentanaPrincipal();
+				VentanaVenderRopa ventana = new VentanaVenderRopa();
 		        ventana.setVisible(true);
 				dispose();
 			}
