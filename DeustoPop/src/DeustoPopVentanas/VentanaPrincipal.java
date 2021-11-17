@@ -13,7 +13,7 @@ public class VentanaPrincipal {
     private JPanel panelTop;
     private JButton bVender;
     private JButton bFiltrar;
-    private JLabel tPrecio;
+    private JLabel tSaldo;
 
     public static void main(String args[]) {
         try {
@@ -60,10 +60,10 @@ public class VentanaPrincipal {
         bFiltrar.setText("Filtrar");
         panelTop.add(bFiltrar, BorderLayout.CENTER);
         
-        tPrecio = new JLabel();
-        tPrecio.setText("*Precio*");
-        tPrecio.setPreferredSize(new Dimension(150, 50));
-        panelTop.add(tPrecio, BorderLayout.EAST);
+        tSaldo = new JLabel();
+        tSaldo.setText("*Saldo* €");
+        tSaldo.setPreferredSize(new Dimension(150, 50));
+        panelTop.add(tSaldo, BorderLayout.EAST);
         
     }
 
