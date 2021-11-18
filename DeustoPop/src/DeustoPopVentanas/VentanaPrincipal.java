@@ -65,6 +65,8 @@ public class VentanaPrincipal extends JFrame{
         tPrecio.setPreferredSize(new Dimension(175, 50));
         panelTop.add(tPrecio, BorderLayout.EAST);
         
+        
+        
     }
 
     public JTable CreateCompTable() {

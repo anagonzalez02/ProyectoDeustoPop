@@ -58,6 +58,17 @@ public class VentanaVender extends JFrame implements ActionListener {
         this.add(botonVenderRopa);
         this.add(botonVenderCalzado);
         this.add(botonVolver);
+        
+        botonVolver.addActionListener(new ActionListener() {
+    		@Override
+    		public void actionPerformed(ActionEvent e) {
+    			VentanaPrincipal ventana = new VentanaPrincipal();
+    			ventana.main(null);
+    	        ventana.setVisible(true);
+    			dispose();
+    		}
+    	});
+        
     }
 
 
@@ -65,4 +76,10 @@ public class VentanaVender extends JFrame implements ActionListener {
     	VentanaVender B = new VentanaVender();      // creamos una ventana
         B.setVisible(true);             // hacemos visible la ventana creada
     }
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 }
