@@ -129,6 +129,17 @@ public class VentanaVenderCalzado extends JFrame implements ActionListener {
     comboColor.addItem("Gris");
     comboColor.addItem("Otro");
 
+    
+    botonVolver.addActionListener(new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			VentanaPrincipal ventana = new VentanaPrincipal();
+			ventana.main(null);
+	        ventana.setVisible(true);
+			dispose();
+		}
+	});
+    
     }
 
 	@Override

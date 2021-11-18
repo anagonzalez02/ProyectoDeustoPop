@@ -5,7 +5,7 @@ import java.util.EventObject;
 import javax.swing.*;
 import javax.swing.table.*;
 
-public class VentanaPrincipal {
+public class VentanaPrincipal extends JFrame{
 
     private JFrame frame;
     private JTable CompTable = null;
