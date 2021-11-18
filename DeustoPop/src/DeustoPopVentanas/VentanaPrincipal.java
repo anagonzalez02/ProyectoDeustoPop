@@ -1,6 +1,8 @@
 package DeustoPopVentanas;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.EventObject;
 import javax.swing.*;
 import javax.swing.table.*;
@@ -65,7 +67,25 @@ public class VentanaPrincipal extends JFrame{
         tPrecio.setPreferredSize(new Dimension(175, 50));
         panelTop.add(tPrecio, BorderLayout.EAST);
         
+        bVender.addActionListener(new ActionListener() {
+    		@Override
+    		public void actionPerformed(ActionEvent e) {
+    			VentanaVender ventana = new VentanaVender();
+    	        ventana.setVisible(true);
+    			dispose();
+    			frame.setVisible(false);
+    		}
+    	});
         
+        bFiltrar.addActionListener(new ActionListener() {
+    		@Override
+    		public void actionPerformed(ActionEvent e) {
+    			VentanaBuscador ventana = new VentanaBuscador();
+    	        ventana.setVisible(true);
+    			dispose();
+    			frame.setVisible(false);
+    		}
+    	});
         
     }
 

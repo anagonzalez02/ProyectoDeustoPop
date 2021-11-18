@@ -133,9 +133,7 @@ public class VentanaVenderCalzado extends JFrame implements ActionListener {
     botonVolver.addActionListener(new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			VentanaPrincipal ventana = new VentanaPrincipal();
-			ventana.main(null);
-	        ventana.setVisible(true);
+			VentanaPrincipal.main(null);
 			dispose();
 		}
 	});

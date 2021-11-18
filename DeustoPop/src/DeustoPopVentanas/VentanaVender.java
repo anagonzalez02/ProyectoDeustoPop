@@ -62,12 +62,29 @@ public class VentanaVender extends JFrame implements ActionListener {
         botonVolver.addActionListener(new ActionListener() {
     		@Override
     		public void actionPerformed(ActionEvent e) {
-    			VentanaPrincipal ventana = new VentanaPrincipal();
-    			ventana.main(null);
+    			VentanaPrincipal.main(null);
+    			dispose();
+    		}
+    	});
+        
+        botonVenderRopa.addActionListener(new ActionListener() {
+    		@Override
+    		public void actionPerformed(ActionEvent e) {
+    			VentanaVenderRopa ventana = new VentanaVenderRopa();
     	        ventana.setVisible(true);
     			dispose();
     		}
     	});
+        
+        botonVenderCalzado.addActionListener(new ActionListener() {
+    		@Override
+    		public void actionPerformed(ActionEvent e) {
+    			VentanaVenderCalzado ventana = new VentanaVenderCalzado();
+    	        ventana.setVisible(true);
+    			dispose();
+    		}
+    	});
+        
         
     }
 
