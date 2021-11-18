@@ -31,42 +31,52 @@ public class VentanaPrincipal extends JFrame{
             }
         });
     }
-
+    //como si fuese el main (sin serlo)
+    //esta ventana no tiene main, y solo se crea al ser ejecutada
+    //al pasar de otra ventana a esta habra que volver a ejecutar
+    //la ventana invocando al main de esta "VentanaPrincipal.main(null);"
     public void makeUI() {
         CompTable = CreateCompTable();
+        //Crea el JScrollPane
         JScrollPane CompTableScrollpane = new JScrollPane(CompTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         
+        //gestion de el frame
         frame = new JFrame("DeustoPop");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(CompTableScrollpane, BorderLayout.CENTER);
-        
-
         frame.setPreferredSize(new Dimension(550, 700));
         frame.setLocation(400, 25);
         frame.pack();
         frame.setVisible(true);
         frame.setResizable(false);
         
+        //creacion de un panel para ponerlo arriba,
+        //y que contenga los botones vender, filtrar y el saldo
         panelTop = new JPanel(new BorderLayout());
         panelTop.setVisible(true);
         panelTop.setPreferredSize(new Dimension(50, 50));
         frame.add(panelTop, BorderLayout.NORTH);
         
+        //creacion del boton vender e implementacion en el panelTop
         bVender = new JButton();
         bVender.setText("Vender");
         bVender.setPreferredSize(new Dimension(175, 50));
         panelTop.add(bVender, BorderLayout.WEST);
         
+      //creacion del boton filtar e implementacion en el panelTop
         bFiltrar = new JButton();
         bFiltrar.setText("Filtrar");
         panelTop.add(bFiltrar, BorderLayout.CENTER);
         
+      //creacion del texto saldo e implementacion en el panelTop
         tPrecio = new JLabel();
         tPrecio.setText("Saldo: *getSaldo*");
         tPrecio.setPreferredSize(new Dimension(175, 50));
         panelTop.add(tPrecio, BorderLayout.EAST);
         
+        //implementacion del action listener en el
+        //boton vender que te transporta a otra ventana
         bVender.addActionListener(new ActionListener() {
     		@Override
     		public void actionPerformed(ActionEvent e) {
@@ -77,6 +87,8 @@ public class VentanaPrincipal extends JFrame{
     		}
     	});
         
+        //implementacion del action listener en el
+        //boton filtrar que te transporta a otra ventana
         bFiltrar.addActionListener(new ActionListener() {
     		@Override
     		public void actionPerformed(ActionEvent e) {
@@ -88,7 +100,8 @@ public class VentanaPrincipal extends JFrame{
     	});
         
     }
-
+    	
+    //creacion de la tabla
     public JTable CreateCompTable() {
         CompModel = new PanelTableModel();
         JTable table = new JTable(CompModel);
@@ -111,7 +124,7 @@ public class VentanaPrincipal extends JFrame{
     }
 
 }
-
+//necesario para el correcto funcionamiento de la tabla y en general de la ventana entera
 class PanelCellEditorRenderer extends AbstractCellEditor implements TableCellRenderer, TableCellEditor {
 
     private static final long serialVersionUID = 1L;
@@ -152,11 +165,13 @@ class PanelTableModel extends DefaultTableModel {
 
     private static final long serialVersionUID = 1L;
 
+    //crea 2 colunmas en la tabla
     @Override
     public int getColumnCount() {
         return 2;
     }
-
+    //crea las filas que hagan falta teniendo en cuenta
+    //que la cantidad de columnas sera siempre 2
     public void addRow(Comp c1, Comp c2) {
     	super.addRow(new Object[]{c1, c2});
     }
@@ -173,7 +188,9 @@ class Comp {
 }
 
 class CompCellPanel extends JPanel {
-
+	
+	//creacion de los elementos que apareceran en cada
+	//casilla de la tabla
 	private static final long serialVersionUID = 1L;
 	private int numero;
 	private JPanel pSup = new JPanel(new BorderLayout());
@@ -186,12 +203,13 @@ class CompCellPanel extends JPanel {
 	CompCellPanel() {
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
+		//anyade los elementos a cada casilla de la tabla
 		pSup.add(lImagen, BorderLayout.CENTER);
 		pSup.add(lTexto1, BorderLayout.NORTH);
 		pSup.add(precio, BorderLayout.SOUTH);
 		add(pSup);
 	}
-
+	//crea un panel(casilla en la tabla) vacio en caso de ser necesario
 	public void setComp(Comp comp) {
 		numero = comp.numero;
 		if (comp.numero == 0) {
@@ -200,6 +218,7 @@ class CompCellPanel extends JPanel {
 			precio.setVisible(false);
 			return;
 		}
+		//disenyo del resto de casillas en la tabla
 		lImagen.setVisible(true);
 		lImagen.setPreferredSize(new Dimension(10, 10));
 		lTexto1.setText("Producto " + comp.numero);
