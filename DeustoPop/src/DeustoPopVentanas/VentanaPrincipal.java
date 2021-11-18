@@ -63,7 +63,7 @@ public class VentanaPrincipal extends JFrame{
         panelTop.add(bFiltrar, BorderLayout.CENTER);
         
         tPrecio = new JLabel();
-        tPrecio.setText("*Precio*");
+        tPrecio.setText("Saldo: *getSaldo*");
         tPrecio.setPreferredSize(new Dimension(175, 50));
         panelTop.add(tPrecio, BorderLayout.EAST);
         
@@ -91,11 +91,6 @@ public class VentanaPrincipal extends JFrame{
 
     public JTable CreateCompTable() {
         CompModel = new PanelTableModel();
-        /*
-        panelMain = new JPanel(new BorderLayout());
-        panelMain.setVisible(true);
-        panelMain.add(frame, BorderLayout.CENTER);
-        */
         JTable table = new JTable(CompModel);
         table.setRowHeight(new CompCellPanel().getPreferredSize().height);
         table.setTableHeader(null);
@@ -183,7 +178,6 @@ class CompCellPanel extends JPanel {
 	private int numero;
 	private JPanel pSup = new JPanel(new BorderLayout());
 	private JLabel lTexto1 = new JLabel("", JLabel.CENTER);
-	private JTextArea taMensajes = new JTextArea(15, 10);
 	private JLabel precio = new JLabel();
 	private ImageIcon imagen = new ImageIcon("src/DeustoPopVentanas/patata.png", null);
 	private JLabel lImagen = new JLabel(imagen, JLabel.CENTER);
@@ -192,7 +186,6 @@ class CompCellPanel extends JPanel {
 	CompCellPanel() {
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
-		//pSup.add(taMensajes, BorderLayout.CENTER);
 		pSup.add(lImagen, BorderLayout.CENTER);
 		pSup.add(lTexto1, BorderLayout.NORTH);
 		pSup.add(precio, BorderLayout.SOUTH);
@@ -202,15 +195,11 @@ class CompCellPanel extends JPanel {
 	public void setComp(Comp comp) {
 		numero = comp.numero;
 		if (comp.numero == 0) {
-			//taMensajes.setVisible(false);
-			//taMensajes.setText("");
 			lImagen.setVisible(false);
 			lTexto1.setText("");
 			precio.setVisible(false);
 			return;
 		}
-		//taMensajes.setVisible(true);
-		//taMensajes.setText("Panel BorderLayout de prueba numero " + comp.numero);
 		lImagen.setVisible(true);
 		lImagen.setPreferredSize(new Dimension(10, 10));
 		lTexto1.setText("Producto " + comp.numero);
