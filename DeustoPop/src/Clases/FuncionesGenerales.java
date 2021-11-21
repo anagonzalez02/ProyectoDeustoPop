@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class FuncionesGenerales {
 	
-	ArrayList<Usuario> listaUsuarios = new ArrayList();
+	public static ArrayList<Usuario> listaUsuarios = new ArrayList();
 	
-	ArrayList<Producto> listaProductos = new ArrayList();
+	public static ArrayList<Producto> listaProductos = new ArrayList();
 	
 	
 
