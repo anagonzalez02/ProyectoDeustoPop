@@ -70,7 +70,18 @@ public class VentanaLogin extends JFrame implements ActionListener{
         this.add(password);
         this.add(botonEntrar);
         this.add(botonRegistrar);
+        /*
+	    botonRegistrar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VentanaRegistrar ventana = new VentanaRegistrar();
+		        ventana.setVisible(true);
+				dispose();
+			}
+		});
+		*/
     }
+    
 
     
 	@Override
