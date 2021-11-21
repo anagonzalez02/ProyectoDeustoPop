@@ -39,7 +39,7 @@ public class VentanaBuscador extends JFrame implements ActionListener {
         botonBuscar = new JButton();
         
         // configuramos los componentes
-        textoBuscador.setText("ï¿½Que producto desea buscar?");   // colocamos un texto a la etiqueta
+        textoBuscador.setText("¿Que producto desea buscar?");   // colocamos un texto a la etiqueta
         textoBuscador.setBounds(50, 50, 200, 30);				// colocamos posicion y tamanio al texto (x, y, ancho, alto)
         cajaBuscador.setBounds(50, 80, 300, 35);				// colocamos posicion y tamanio a la caja (x, y, ancho, alto)
         botonVolver.setText("Volver");					// colocamos un texto al botonVolver
@@ -53,12 +53,26 @@ public class VentanaBuscador extends JFrame implements ActionListener {
         this.add(cajaBuscador);
         this.add(botonVolver);
         this.add(botonBuscar);
+        
+        
+        botonVolver.addActionListener(new ActionListener() {
+    		@Override
+    		public void actionPerformed(ActionEvent e) {
+    			VentanaPrincipal.main(null);
+    			dispose();
+    		}
+    	});
     }
 
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         //String busacado = cajaBuscador.getText();                                 // obtenemos el contenido de la caja de texto
     }
+    
+    
+    
+    
 
     public static void main(String[] args) {
     	VentanaBuscador B = new VentanaBuscador();      // creamos una ventana
