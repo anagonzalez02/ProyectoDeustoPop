@@ -10,6 +10,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerListModel;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 
 public class VentanaVenderCalzado extends JFrame implements ActionListener {
 	
@@ -62,8 +65,17 @@ public class VentanaVenderCalzado extends JFrame implements ActionListener {
     botonVolver = new JButton();
     comboEstado = new JComboBox();
     comboColor = new JComboBox();
-    spinnerTalla = new JSpinner();
-    spinnerPrecio = new JSpinner();
+
+    // PARA PONER UNOS VALORES CONCRETOS DE TALLAS EN EL JSPINNER
+    // Esto hará que el mínimo de talla posible sea 15 y el máximo 50. Un rango apto para todos los pies (tanto niños como adultos)
+    final String numbers1[] = {"15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50"};
+    SpinnerModel model1 = new SpinnerListModel(numbers1);
+    spinnerTalla = new JSpinner(model1);
+    
+    // PARA PONER UNOS LIMITES A LA HORA DE PNER EL PRECIO
+    // El objetivo es que se no se pueda bajar de 0€ (es decir, que sea siempre positivo) y tenga 2 decimales
+    SpinnerNumberModel model2 = new SpinnerNumberModel(0.00, 0.00, 10000.00, 0.05);
+    spinnerPrecio = new JSpinner(model2);
 
     
     //configuracion de componentes
@@ -125,8 +137,9 @@ public class VentanaVenderCalzado extends JFrame implements ActionListener {
     comboColor.addItem("Blanco");
     comboColor.addItem("Rojo");
     comboColor.addItem("Azul");
-    comboColor.addItem("Verde");
+    comboColor.addItem("Rosa");
     comboColor.addItem("Gris");
+    comboColor.addItem("Multicolor");
     comboColor.addItem("Otro");
 
     

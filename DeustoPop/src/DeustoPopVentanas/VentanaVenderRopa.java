@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 
 import Clases.Producto;
 import Clases.Tipo;
@@ -72,7 +73,9 @@ public class VentanaVenderRopa extends JFrame implements ActionListener {
     comboEstado = new JComboBox();
     comboColor = new JComboBox();
     comboTalla = new JComboBox();
-    spinnerPrecio = new JSpinner();
+    
+    SpinnerNumberModel model = new SpinnerNumberModel(0.00, 0.00, 10000.00, 0.05);
+    spinnerPrecio = new JSpinner(model);
     
     
     //configuracion de componentes
