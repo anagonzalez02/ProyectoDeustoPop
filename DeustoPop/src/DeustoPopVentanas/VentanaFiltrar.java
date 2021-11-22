@@ -67,7 +67,7 @@ public class VentanaFiltrar extends JFrame implements ActionListener {
     textoFiltrarCategoria.setBounds(25, 30, 300, 20);								//(x, y, ancho, alto)
     textoFiltrarTexto.setText("FILTRAR POR TEXTO");
     textoFiltrarTexto.setBounds(25, 300, 300, 20);									//(x, y, ancho, alto)
-    textoCategoria.setText("Seleccione la categoría del producto que desea:");
+    textoCategoria.setText("Seleccione la categorï¿½a del producto que desea:");
     textoCategoria.setBounds(25, 60, 300, 20);								//(x, y, ancho, alto)
     textoTallaCategoria.setText("Talla del producto:");
     textoTallaCategoria.setBounds(25, 130, 300, 20);							//(x, y, ancho, alto)
@@ -142,6 +142,14 @@ public class VentanaFiltrar extends JFrame implements ActionListener {
      * 
      * 
      */
+    
+	    botonVolver.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VentanaPrincipal.main(null);
+				dispose();
+			}
+		});
 
     }
 
