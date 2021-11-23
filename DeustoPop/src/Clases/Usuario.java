@@ -4,9 +4,13 @@ import java.util.ArrayList;
 
 public class Usuario{
 	
+	private static int contadorU = 0;
+	
+	private int idUsuario;
 	private String nombre;
 	private int telefono;
 	private int tarjeta;
+	private double saldo;
 	private int DNI;
 	private String email;
 	private String contrasenia;
@@ -15,12 +19,15 @@ public class Usuario{
 	
 	
 	
-	public Usuario(String nombre, int telefono, int tarjeta, int dNI, String email, String contrasenia,
-			Lugar vivienda, ArrayList<Producto> productos) {
+	public Usuario(int idUsuario, String nombre, int telefono, int tarjeta, double saldo,
+			int dNI, String email, String contrasenia, Lugar vivienda, ArrayList<Producto> productos) {
 		super();
+		contadorU++;
+		this.idUsuario = contadorU;
 		this.nombre = nombre;
 		this.telefono = telefono;
 		this.tarjeta = tarjeta;
+		this.saldo = saldo;
 		DNI = dNI;
 		this.email = email;
 		this.contrasenia = contrasenia;
@@ -32,9 +39,12 @@ public class Usuario{
 	
 	public Usuario() {
 		super();
+		contadorU++;
+		this.idUsuario = contadorU;
 		this.nombre = nombre;
 		this.telefono = telefono;
 		this.tarjeta = tarjeta;
+		this.saldo = saldo;
 		DNI = getDNI();
 		this.email = email;
 		this.contrasenia = contrasenia;
@@ -42,6 +52,14 @@ public class Usuario{
 		this.productos = productos;
 	}
 	
+
+	public int getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = contadorU;
+	}
 
 	public String getNombre() {
 		return nombre;
@@ -61,6 +79,14 @@ public class Usuario{
 
 	public int getTarjeta() {
 		return tarjeta;
+	}
+
+	public double getSaldo() {
+		return saldo;
+	}
+
+	public void setSaldo(double saldo) {
+		this.saldo = saldo;
 	}
 
 	public void setTarjeta(int tarjeta) {
@@ -109,7 +135,7 @@ public class Usuario{
 
 	@Override
 	public String toString() {
-		return "Usuario [nombre=" + nombre + ", telefono=" + telefono + ", tarjeta=" + tarjeta + ", DNI=" + DNI
+		return "Usuario [id=" + idUsuario + ", nombre=" + nombre + ", telefono=" + telefono + ", tarjeta=" + tarjeta + ", DNI=" + DNI
 				+ ", email=" + email + ", contrasenia=" + contrasenia + ", vivienda=" + vivienda + ", productos="
 				+ productos + "]";
 	}
