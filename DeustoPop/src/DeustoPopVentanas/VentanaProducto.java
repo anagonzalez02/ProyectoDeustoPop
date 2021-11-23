@@ -86,6 +86,7 @@ public class VentanaProducto extends JFrame {
 		
 	}
 	
+	// No va
 	
 	public static void main(String[] args) {
     	VentanaProducto C = new VentanaProducto(null);      // creamos una ventana, de momento con producto nulo
