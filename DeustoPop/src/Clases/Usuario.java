@@ -2,6 +2,8 @@ package Clases;
 
 import java.util.ArrayList;
 
+import javax.swing.JPasswordField;
+
 public class Usuario{
 	
 	private String nombre;
@@ -11,21 +13,19 @@ public class Usuario{
 	private String email;
 	private String contrasenia;
 	private Lugar vivienda;
-	private ArrayList<Producto> productos;
+
 	
 	
 	
-	public Usuario(String nombre, int telefono, int tarjeta, int dNI, String email, String contrasenia,
-			Lugar vivienda, ArrayList<Producto> productos) {
+	public Usuario(String nombre, int telefono, int tarjeta, String email, String contrasenia,
+			Lugar vivienda) {
 		super();
 		this.nombre = nombre;
 		this.telefono = telefono;
 		this.tarjeta = tarjeta;
-		DNI = dNI;
 		this.email = email;
 		this.contrasenia = contrasenia;
 		this.vivienda = vivienda;
-		this.productos = productos;
 	}
 
 	// Luego esta habría que cambiarla, es solo para ayuda a la hora de una ventana
@@ -35,11 +35,9 @@ public class Usuario{
 		this.nombre = nombre;
 		this.telefono = telefono;
 		this.tarjeta = tarjeta;
-		DNI = getDNI();
 		this.email = email;
 		this.contrasenia = contrasenia;
 		this.vivienda = vivienda;
-		this.productos = productos;
 	}
 	
 
@@ -67,13 +65,6 @@ public class Usuario{
 		this.tarjeta = tarjeta;
 	}
 
-	public int getDNI() {
-		return DNI;
-	}
-
-	public void setDNI(int dNI) {
-		DNI = dNI;
-	}
 
 	public String getEmail() {
 		return email;
@@ -91,27 +82,12 @@ public class Usuario{
 		this.contrasenia = contrasenia;
 	}
 
-	public Lugar getVivienda() {
-		return vivienda;
-	}
 
-	public void setVivienda(Lugar vivienda) {
-		this.vivienda = vivienda;
-	}
-
-	public ArrayList<Producto> getProductos() {
-		return productos;
-	}
-
-	public void setProductos(ArrayList<Producto> productos) {
-		this.productos = productos;
-	}
 
 	@Override
 	public String toString() {
 		return "Usuario [nombre=" + nombre + ", telefono=" + telefono + ", tarjeta=" + tarjeta + ", DNI=" + DNI
-				+ ", email=" + email + ", contrasenia=" + contrasenia + ", vivienda=" + vivienda + ", productos="
-				+ productos + "]";
+				+ ", email=" + email + ", contrasenia=" + contrasenia + ", vivienda=" + vivienda +  "]";
 	}
 	
 	
