@@ -169,7 +169,7 @@ public class VentanaVenderCalzado extends JFrame implements ActionListener {
 				
 				Producto producto = new Producto (nombreCalzado, etiquetaCalzado, precioCalzado, imagenCalzado, tipoCalzado, estadoCalzado, colorCalzado, usuarioCalzado);
 				
-				producto.getUsuario().getProductos().add(producto);
+				producto.getUsuario().getProductosEnVenta().add(producto);
 				
 				FuncionesGenerales.listaProductos.add(producto);
 				// HAY QUE CREAR EN ALGÃšN LADO UN ARRAYLIST DE TODOS LOS PRODUCTOS DE DEUSTOPOP Y METER AHÃ� EL PRODUCTO CREADO
