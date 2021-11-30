@@ -40,23 +40,32 @@ public class FuncionesGenerales {
 	}
 	
 	
-	
-	public static void decode () {
-		String abc = "abc";
-		StringBuilder abcd = new StringBuilder(abc);
-		for (int i = 1; i == abc.length(); i++) {
-			int letra = abc.charAt(i);
-			letra ++;
+	public static String code (String contraseña) {
+		StringBuilder contra = new StringBuilder(contraseña);
+		for (int i = 0; i < contraseña.length(); i++) {
+			int letra = contraseña.charAt(i);
+			letra = letra + 3;
 			char letraC = (char) letra;
-			abcd.setCharAt(i, letraC);
+			contra.setCharAt(i, letraC);
 		}
-		System.out.println(abcd);
+		return contra.toString();
+	}
+	
+	public static String decode (String contraseña) {
+		StringBuilder contra = new StringBuilder(contraseña);
+		for (int i = 0; i < contraseña.length(); i++) {
+			int letra = contraseña.charAt(i);
+			letra = letra - 3;
+			char letraC = (char) letra;
+			contra.setCharAt(i, letraC);
+		}
+		return contra.toString();
 	}
 	
 	
-	
 	//public static void main (String arg[]) {
-	//	decode();
+		//System.out.println(code("Hey 73n"));
+		//System.out.println(decode("Hey 73n"));
 	//}
 
 }
