@@ -2,18 +2,18 @@ package Clases;
 
 public class Lugar {
 	private String direccion;
-	private int codCiu;
+	private int codCiu = 0;
 	private String nomCiu;
-	private int codPais;
+	private int codPais = 0;
 	private String nomPais;
 	
 	
-	public Lugar(String direccion, int codCiu, String nomCiu, int codPais, String nomPais) {
+	public Lugar(String direccion, String nomCiu, String nomPais) {
 		super();
 		this.direccion = direccion;
-		this.codCiu = codCiu;
+		this.codCiu = 0;
 		this.nomCiu = nomCiu;
-		this.codPais = codPais;
+		this.codPais = 0;
 		this.nomPais = nomPais;
 		
 	}

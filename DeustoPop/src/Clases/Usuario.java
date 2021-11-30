@@ -2,6 +2,8 @@ package Clases;
 
 import java.util.ArrayList;
 
+import javax.swing.JPasswordField;
+
 public class Usuario{
 	
 	private static int contadorU = 0;
@@ -11,7 +13,6 @@ public class Usuario{
 	private int telefono;
 	private int tarjeta;
 	private double saldo;
-	private int DNI;
 	private String email;
 	private String contrasenia;
 	private Lugar vivienda;
@@ -19,21 +20,36 @@ public class Usuario{
 	
 	
 	
-	public Usuario(int idUsuario, String nombre, int telefono, int tarjeta, double saldo,
-			int dNI, String email, String contrasenia, Lugar vivienda, ArrayList<Producto> productos) {
+
+	public Usuario(int idUsuario, String nombre, int telefono, int tarjeta, double saldo, String email,
+			String contrasenia, Lugar vivienda, ArrayList<Producto> productos) {
 		super();
 		contadorU++;
-		this.idUsuario = contadorU;
+		this.idUsuario = idUsuario;
 		this.nombre = nombre;
 		this.telefono = telefono;
 		this.tarjeta = tarjeta;
 		this.saldo = saldo;
-		DNI = dNI;
 		this.email = email;
 		this.contrasenia = contrasenia;
 		this.vivienda = vivienda;
 		this.productos = productos;
 	}
+
+	
+
+	public Usuario(String nombre, int telefono, int tarjeta, String email, String contrasenia,
+			Lugar vivienda) {
+		super();
+		this.nombre = nombre;
+		this.telefono = telefono;
+		this.tarjeta = tarjeta;
+		this.email = email;
+		this.contrasenia = contrasenia;
+		this.vivienda = vivienda;
+	}
+
+
 
 	// Luego esta habría que cambiarla, es solo para ayuda a la hora de una ventana
 	
@@ -45,11 +61,9 @@ public class Usuario{
 		this.telefono = telefono;
 		this.tarjeta = tarjeta;
 		this.saldo = saldo;
-		DNI = getDNI();
 		this.email = email;
 		this.contrasenia = contrasenia;
 		this.vivienda = vivienda;
-		this.productos = productos;
 	}
 	
 
@@ -58,7 +72,7 @@ public class Usuario{
 	}
 
 	public void setIdUsuario(int idUsuario) {
-		this.idUsuario = contadorU;
+		this.idUsuario = idUsuario;
 	}
 
 	public String getNombre() {
@@ -72,13 +86,17 @@ public class Usuario{
 	public int getTelefono() {
 		return telefono;
 	}
-
+	
 	public void setTelefono(int telefono) {
 		this.telefono = telefono;
 	}
 
 	public int getTarjeta() {
 		return tarjeta;
+	}
+
+	public void setTarjeta(int tarjeta) {
+		this.tarjeta = tarjeta;
 	}
 
 	public double getSaldo() {
@@ -89,18 +107,6 @@ public class Usuario{
 		this.saldo = saldo;
 	}
 
-	public void setTarjeta(int tarjeta) {
-		this.tarjeta = tarjeta;
-	}
-
-	public int getDNI() {
-		return DNI;
-	}
-
-	public void setDNI(int dNI) {
-		DNI = dNI;
-	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -108,7 +114,7 @@ public class Usuario{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public String getContrasenia() {
 		return contrasenia;
 	}
@@ -133,11 +139,14 @@ public class Usuario{
 		this.productos = productos;
 	}
 
+
+
 	@Override
 	public String toString() {
-		return "Usuario [id=" + idUsuario + ", nombre=" + nombre + ", telefono=" + telefono + ", tarjeta=" + tarjeta + ", DNI=" + DNI
+		return "Usuario [id=" + idUsuario + ", nombre=" + nombre + ", telefono=" + telefono + ", tarjeta=" + tarjeta 
 				+ ", email=" + email + ", contrasenia=" + contrasenia + ", vivienda=" + vivienda + ", productos="
 				+ productos + "]";
+
 	}
 	
 	
