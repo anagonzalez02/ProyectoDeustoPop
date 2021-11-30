@@ -38,5 +38,25 @@ public class FuncionesGenerales {
 	public static void sumarDinero (Producto productoComprar, Usuario usuarioVendedor) {
 		usuarioVendedor.setSaldo(usuarioVendedor.getSaldo() + productoComprar.getPrecio());
 	}
+	
+	
+	
+	public static void decode () {
+		String abc = "abc";
+		StringBuilder abcd = new StringBuilder(abc);
+		for (int i = 1; i == abc.length(); i++) {
+			int letra = abc.charAt(i);
+			letra ++;
+			char letraC = (char) letra;
+			abcd.setCharAt(i, letraC);
+		}
+		System.out.println(abcd);
+	}
+	
+	
+	
+	//public static void main (String arg[]) {
+	//	decode();
+	//}
 
 }
