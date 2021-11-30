@@ -16,13 +16,13 @@ public class Usuario{
 	private String email;
 	private String contrasenia;
 	private Lugar vivienda;
-	private ArrayList<Producto> productos;
-	
-	
+	ArrayList<Producto> productosEnVenta;
+	ArrayList<Producto> productosVendidos;
+	ArrayList<Producto> productosComprados;
 	
 
 	public Usuario(int idUsuario, String nombre, int telefono, int tarjeta, double saldo, String email,
-			String contrasenia, Lugar vivienda, ArrayList<Producto> productos) {
+			String contrasenia, Lugar vivienda, ArrayList<Producto> productosEnVenta, ArrayList<Producto> productosVendidos, ArrayList<Producto> productosComprados) {
 		super();
 		contadorU++;
 		this.idUsuario = idUsuario;
@@ -33,7 +33,9 @@ public class Usuario{
 		this.email = email;
 		this.contrasenia = contrasenia;
 		this.vivienda = vivienda;
-		this.productos = productos;
+		this.productosEnVenta = productosEnVenta;
+		this.productosVendidos = productosVendidos;
+		this.productosComprados = productosComprados;
 	}
 
 	
@@ -41,22 +43,8 @@ public class Usuario{
 	public Usuario(String nombre, int telefono, int tarjeta, String email, String contrasenia,
 			Lugar vivienda) {
 		super();
-		this.nombre = nombre;
-		this.telefono = telefono;
-		this.tarjeta = tarjeta;
-		this.email = email;
-		this.contrasenia = contrasenia;
-		this.vivienda = vivienda;
-	}
-
-
-
-	// Luego esta habría que cambiarla, es solo para ayuda a la hora de una ventana
-	
-	public Usuario() {
-		super();
 		contadorU++;
-		this.idUsuario = contadorU;
+		this.idUsuario = idUsuario;
 		this.nombre = nombre;
 		this.telefono = telefono;
 		this.tarjeta = tarjeta;
@@ -64,6 +52,29 @@ public class Usuario{
 		this.email = email;
 		this.contrasenia = contrasenia;
 		this.vivienda = vivienda;
+		this.productosEnVenta = productosEnVenta;
+		this.productosVendidos = productosVendidos;
+		this.productosComprados = productosComprados;
+	}
+
+
+
+	// Luego esta habría que quitarla, es solo para ayuda a la hora de una ventana
+	
+	public Usuario() {
+		super();
+		contadorU++;
+		this.idUsuario = idUsuario;
+		this.nombre = nombre;
+		this.telefono = telefono;
+		this.tarjeta = tarjeta;
+		this.saldo = saldo;
+		this.email = email;
+		this.contrasenia = contrasenia;
+		this.vivienda = vivienda;
+		this.productosEnVenta = productosEnVenta;
+		this.productosVendidos = productosVendidos;
+		this.productosComprados = productosComprados;
 	}
 	
 
@@ -131,25 +142,41 @@ public class Usuario{
 		this.vivienda = vivienda;
 	}
 
-	public ArrayList<Producto> getProductos() {
-		return productos;
+	public ArrayList<Producto> getProductosEnVenta() {
+		return productosEnVenta;
 	}
 
-	public void setProductos(ArrayList<Producto> productos) {
-		this.productos = productos;
+	public void setProductosEnVenta(ArrayList<Producto> productosEnVenta) {
+		this.productosEnVenta = productosEnVenta;
+	}
+	
+	public ArrayList<Producto> getProductosVendidos() {
+		return productosVendidos;
+	}
+
+	public void setProductosVendidos(ArrayList<Producto> productosVendidos) {
+		this.productosVendidos = productosVendidos;
+	}
+	
+	public ArrayList<Producto> getProductosComprados() {
+		return productosComprados;
+	}
+
+	public void setProductosComprados(ArrayList<Producto> productosComprados) {
+		this.productosComprados = productosComprados;
 	}
 
 
 
 	@Override
 	public String toString() {
-		return "Usuario [id=" + idUsuario + ", nombre=" + nombre + ", telefono=" + telefono + ", tarjeta=" + tarjeta 
-				+ ", email=" + email + ", contrasenia=" + contrasenia + ", vivienda=" + vivienda + ", productos="
-				+ productos + "]";
-
+		return "Usuario [idUsuario=" + idUsuario + ", nombre=" + nombre + ", telefono=" + telefono + ", tarjeta="
+				+ tarjeta + ", saldo=" + saldo + ", email=" + email + ", contrasenia=" + contrasenia + ", vivienda="
+				+ vivienda + ", productosEnVenta=" + productosEnVenta + ", productosVendidos=" + productosVendidos
+				+ ", productosComprados=" + productosComprados + "]";
 	}
-	
-	
+
+
 	
 	
 	

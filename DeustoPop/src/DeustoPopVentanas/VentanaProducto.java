@@ -9,9 +9,13 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
+import Clases.FuncionesGenerales;
 import Clases.Producto;
+import Clases.Usuario;
 
 public class VentanaProducto extends JFrame {
 	
@@ -24,14 +28,6 @@ public class VentanaProducto extends JFrame {
 	private JButton btnVolver;			
 	private JButton btnChat;
 	
-	private void configurarVentana() {
-        this.setTitle("DeustoPop");                   			// colocamos titulo a la ventana
-        this.setSize(500, 700);                                	// colocamos tamanio a la ventana (ancho, alto)
-        this.setLocationRelativeTo(null);                       // centramos la ventana en la pantalla
-        this.setLayout(null);                                   // no usamos ningun layout, solo asi podremos dar posiciones a los componentes
-        this.setResizable(false);                               // hacemos que la ventana no sea redimiensionable
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    // hacemos que cuando se cierre la ventana termine todo proceso
-    }
 	
 	public VentanaProducto (Producto p) {
 	
@@ -77,11 +73,30 @@ public class VentanaProducto extends JFrame {
 			}
 		});
 		
-		// Quedan el botón Comprar y el botón Chat
+		
+		// Hay que cambiar el usuario
+		btnComprar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int atencionPanel = JOptionPane.showConfirmDialog(null, "¿Esta seguro que quieres comprar este producto?", "Alerta!", JOptionPane.YES_NO_OPTION);
+				if (atencionPanel == JOptionPane.YES_OPTION) {
+					FuncionesGenerales.metodoComprarProducto(p, new Usuario ());
+				}
+			}
+		});
 		
 		
 		
-		configurarVentana();
+		// Queda el botón Chat
+		
+	
+		
+		
+		 this.setTitle("DeustoPop");                   			 // colocamos titulo a la ventana
+	     this.setSize(500, 700);                                 // colocamos tamanio a la ventana (ancho, alto)
+	     this.setLocationRelativeTo(null);                       // centramos la ventana en la pantalla
+	     this.setResizable(false);                               // hacemos que la ventana no sea redimiensionable
+	     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    // hacemos que cuando se cierre la ventana termine todo proceso
 		
 		
 	}
