@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import Clases.FuncionesGenerales;
 import Clases.Lugar;
 import Clases.Usuario;
 
@@ -78,7 +79,7 @@ public class VentanaRegistrar extends JFrame implements ActionListener{
     	botonRegistrar = new JButton("REGISTRARME");
 		botonRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String d = password.getText();
+				String d = FuncionesGenerales.code(password.getText());
 				String er = "[0-9]{1,}[A-Z]{1,}[a-z]{1,}";
 				boolean correcto = Pattern.matches(er, d);
 				if(correcto) {
@@ -94,7 +95,7 @@ public class VentanaRegistrar extends JFrame implements ActionListener{
 					JOptionPane.showMessageDialog(null, "Registro realizado con exito", "REGISTRO", JOptionPane.INFORMATION_MESSAGE);
 					vaciarCampos();
 				}else {
-					JOptionPane.showMessageDialog(null, "La contrasenia debe tener al menos 1 mayuscula, 1 minuscula, 1 numero", "¡¡ERROR!!",JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "La contrasenia debe tener al menos 1 mayuscula, 1 minuscula, 1 numero", "ï¿½ï¿½ERROR!!",JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}
