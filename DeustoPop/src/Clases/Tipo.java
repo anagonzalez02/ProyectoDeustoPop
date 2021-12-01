@@ -45,6 +45,10 @@ public class Tipo {
 	
 	public static Tipo ropa = new Tipo("Ropa", 01);
 	// TiposProductos.add(ropa);
+	public static Tipo calzado = new Tipo("Calzado", 02);
+	// TiposProductos.add(calzado);
+	
+	/**
 	public static Tipo tecnologia = new Tipo("Tecnología", 02);
 	// TiposProductos.add(tecnologia);
 	public static Tipo deportes = new Tipo("Deportes", 03);
@@ -55,6 +59,6 @@ public class Tipo {
 	// TiposProductos.add(decoracion);
 	public static Tipo libros = new Tipo("Libros", 06);
 	// TiposProductos.add(libros);
-
+	**/
 
 }

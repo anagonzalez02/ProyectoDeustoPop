@@ -19,9 +19,10 @@ public class Producto {
 	private String estado;
 	private String color;
 	private Usuario usuario;
+	private boolean enVenta;
 	
 	
-	public Producto (int id, String nombre, Calendar fechaSubida, String etiquetas, double precio, Image imagen, Tipo tipo, String estado, String color, Usuario usuario) {
+	public Producto (int id, String nombre, Calendar fechaSubida, String etiquetas, double precio, Image imagen, Tipo tipo, String estado, String color, Usuario usuario, boolean enVenta) {
 		super();
 		contador++;
 		this.id = contador;
@@ -34,6 +35,7 @@ public class Producto {
 		this.estado = estado;
 		this.color = color;
 		this.usuario = usuario;
+		this.enVenta = true;
 	}
 
 
@@ -50,23 +52,16 @@ public class Producto {
 		this.estado = estado;
 		this.color = color;
 		this.usuario = usuario;
+		this.enVenta = true;
 	}
-
-
-	public static int getContador() {
-		return contador;
-	}
-
-	public static void setContador(int contador) {
-		Producto.contador = contador;
-	}
+	
 
 	public int getId() {
 		return id;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.id = contador;
 	}
 
 	public String getNombre() {
@@ -112,13 +107,12 @@ public class Producto {
 	public Tipo getTipo() {
 		return tipo;
 	}
-/*
+	
 	public void setTipo(Tipo tipo) {
 		if (Tipo.TiposProductos.contains(this.tipo)) {
 			this.tipo = tipo;
-			
 		}
-	}*/
+	}
 	
 	public String getEstado() {
 		return estado;
@@ -136,14 +130,23 @@ public class Producto {
 		this.color = color;
 	}
 
-
 	public Usuario getUsuario() {
 		return usuario;
 	}
 
-
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	// Este atributo nos ayudara a saber si dicho producto esta en venta o no
+	// Este producto estara visible para los usuario de DeustoPop en caso de ser true
+	// en cambio, si es false, ningun cliente podra acceder a el, aunque seguira estando en la base de datos y los archivos de la empres
+	public boolean isEnVenta() {
+		return enVenta;
+	}
+
+	public void setEnVenta(boolean enVenta) {
+		this.enVenta = enVenta;
 	}
 
 

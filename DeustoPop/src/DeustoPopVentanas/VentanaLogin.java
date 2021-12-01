@@ -11,6 +11,9 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import Clases.FuncionesGenerales;
+import Clases.Usuario;
+
 
 public class VentanaLogin extends JFrame implements ActionListener{
 
@@ -72,7 +75,8 @@ public class VentanaLogin extends JFrame implements ActionListener{
         this.add(password);
         this.add(botonEntrar);
         this.add(botonRegistrar);
-        /*
+        
+        
 	    botonRegistrar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -81,7 +85,26 @@ public class VentanaLogin extends JFrame implements ActionListener{
 				dispose();
 			}
 		});
-		*/
+	    
+	    
+	    botonEntrar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				for (Usuario usuario : FuncionesGenerales.listaUsuarios) {
+					if (cajaNombre.getText() == usuario.getNombre() && password.getText() == FuncionesGenerales.decode(usuario.getContrasenia())) {
+						/**
+						SIGUIENTEVENTANA ventana = new SIGUIENTEVENTANA();
+				        ventana.setVisible(true);
+						dispose();
+						**/
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "El usuario o la contrasenya con incorrectos");
+					}
+				}
+			}
+		});
+		
     }
     
 

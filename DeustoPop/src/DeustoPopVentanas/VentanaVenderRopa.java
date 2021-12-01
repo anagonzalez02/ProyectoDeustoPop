@@ -15,7 +15,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 
+import Clases.FuncionesGenerales;
 import Clases.Producto;
 import Clases.Tipo;
 import Clases.Usuario;
@@ -72,7 +74,9 @@ public class VentanaVenderRopa extends JFrame implements ActionListener {
     comboEstado = new JComboBox();
     comboColor = new JComboBox();
     comboTalla = new JComboBox();
-    spinnerPrecio = new JSpinner();
+    
+    SpinnerNumberModel model = new SpinnerNumberModel(0.00, 0.00, 10000.00, 0.05);
+    spinnerPrecio = new JSpinner(model);
     
     
     //configuracion de componentes
@@ -168,9 +172,10 @@ public class VentanaVenderRopa extends JFrame implements ActionListener {
 				
 				Producto producto = new Producto (nombreRopa, etiquetaRopa, precioRopa, imagenRopa, tipoRopa, estadoRopa, colorRopa, usuarioRopa);
 				
-				//DESCOMENTAR CUANDO FUNCIONE EL getProductos();
-				//producto.getUsuario().getProductos().add(producto);
-				
+				producto.getUsuario().getProductosEnVenta().add(producto);
+
+				FuncionesGenerales.listaProductos.add(producto);
+				// HAY QUE CREAR EN ALGÃšN LADO UN ARRAYLIST DE TODOS LOS PRODUCTOS DE DEUSTOPOP Y METER AHÃ� EL PRODUCTO CREADO
 				// HAY QUE CREAR EN ALGUN LADO UN ARRAYLIST DE TODOS LOS PRODUCTOS DE DEUSTOPOP Y METER AHI EL PRODUCTO CREADO
 				//no escribais con acentos plz que se comprime raro
 				
