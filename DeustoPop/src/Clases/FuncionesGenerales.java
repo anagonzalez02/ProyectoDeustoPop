@@ -64,8 +64,8 @@ public class FuncionesGenerales {
 	
 	
 	public static void main (String arg[]) {
-		System.out.println(code("A7 Gb"));
-		//System.out.println(decode("Hey 73n"));
+		//System.out.println(code("anaguapa"));
+		System.out.println(decode("dqdjxdsd"));
 	}
 
 }
