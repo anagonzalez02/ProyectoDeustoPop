@@ -93,7 +93,7 @@ public class VentanaProducto extends JFrame {
 		// Hay que poner un corazon o rojo o vacio dependiendo de si es favorito o no
 		
 		
-		 this.setTitle("DeustoPop");                   			 // colocamos titulo a la ventana
+		 this.setTitle("" + p.getNombre());                   			 // colocamos titulo a la ventana
 	     this.setSize(500, 700);                                 // colocamos tamanio a la ventana (ancho, alto)
 	     this.setLocationRelativeTo(null);                       // centramos la ventana en la pantalla
 	     this.setResizable(false);                               // hacemos que la ventana no sea redimiensionable
