@@ -40,10 +40,10 @@ public class FuncionesGenerales {
 	}
 	
 	
-	public static String code (String contraseña) {
-		StringBuilder contra = new StringBuilder(contraseña);
-		for (int i = 0; i < contraseña.length(); i++) {
-			int letra = contraseña.charAt(i);
+	public static String code (String contrasenya) {
+		StringBuilder contra = new StringBuilder(contrasenya);
+		for (int i = 0; i < contrasenya.length(); i++) {
+			int letra = contrasenya.charAt(i);
 			letra = letra + 3;
 			char letraC = (char) letra;
 			contra.setCharAt(i, letraC);
@@ -51,10 +51,10 @@ public class FuncionesGenerales {
 		return contra.toString();
 	}
 	
-	public static String decode (String contraseña) {
-		StringBuilder contra = new StringBuilder(contraseña);
-		for (int i = 0; i < contraseña.length(); i++) {
-			int letra = contraseña.charAt(i);
+	public static String decode (String contrasenya) {
+		StringBuilder contra = new StringBuilder(contrasenya);
+		for (int i = 0; i < contrasenya.length(); i++) {
+			int letra = contrasenya.charAt(i);
 			letra = letra - 3;
 			char letraC = (char) letra;
 			contra.setCharAt(i, letraC);
