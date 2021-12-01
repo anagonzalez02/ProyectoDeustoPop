@@ -66,7 +66,6 @@ public class BaseDeDatos {
 			// e.printStackTrace();  
 		}
 	}
-	// Casi hecho
 	
 	
 	public static void crearTablaBDProducto() {
