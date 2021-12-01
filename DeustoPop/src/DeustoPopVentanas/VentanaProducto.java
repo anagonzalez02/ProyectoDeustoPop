@@ -23,7 +23,8 @@ public class VentanaProducto extends JFrame {
 	private JLabel nombreProducto;		
 	private JLabel etiquetasProducto;	
 	private JLabel nombreVendedor;		
-	private JLabel precioProducto;		
+	private JLabel precioProducto;
+	private JButton btnFavorito;
 	private JButton btnComprar;			
 	private JButton btnVolver;			
 	private JButton btnChat;
@@ -54,7 +55,7 @@ public class VentanaProducto extends JFrame {
 		panelInformacion.add(panelComprar, BorderLayout.CENTER);
 		nombreVendedor = new JLabel(p.getUsuario().getNombre());
 		panelComprar.add(nombreVendedor);
-		panelComprar.add(new JLabel());
+		panelComprar.add(btnFavorito);
 		panelComprar.add(btnChat);
 		panelComprar.add(btnComprar);
 		
@@ -87,9 +88,9 @@ public class VentanaProducto extends JFrame {
 		
 		
 		
-		// Queda el botón Chat
+		// Quedan el botón Chat y el Favorito
 		
-	
+		// Hay que poner un corazon o rojo o vacio dependiendo de si es favorito o no
 		
 		
 		 this.setTitle("DeustoPop");                   			 // colocamos titulo a la ventana

@@ -10,5 +10,7 @@ public class VentanaUsuario extends JFrame {
 	private JLabel emailUsuario;
 	private JLabel saldoUsuario;
 	private JLabel tartjetaUsuario;
+	
+	
 
 }
