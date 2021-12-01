@@ -92,6 +92,9 @@ public class VentanaRegistrar extends JFrame implements ActionListener{
 					String pais = cajaPais.getText();
 					Lugar l = new Lugar(ciudad, direccion, pais);
 					Usuario u = new Usuario(n, telf, tarj, email, d, l);
+					String query = "INSERT INTO Usuario (" + u.getIdUsuario() + ", '" + u.getNombre() + "', " + u.getTelefono() + ", " 
+							+ u.getTarjeta() + ", " + u.getSaldo() + ", '" + u.getEmail() + "', '" + u.getContrasenia() + "', '"
+							+ ")";
 					JOptionPane.showMessageDialog(null, "Registro realizado con exito", "REGISTRO", JOptionPane.INFORMATION_MESSAGE);
 					vaciarCampos();
 				}else {

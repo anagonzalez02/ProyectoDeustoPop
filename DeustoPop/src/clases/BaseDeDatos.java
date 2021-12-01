@@ -58,8 +58,9 @@ public class BaseDeDatos {
 		try {
 			statement.executeUpdate("CREATE TABLE Usuario " +
 				"(int idUsuario, , String nombre, int telefono, int tarjeta, double saldo, String email,\n"
-				+ " String contrasenia, Lugar vivienda, ArrayList<Producto> productosEnVenta, \n"
-				+ "ArrayList<Producto> productosVendidos, ArrayList<Producto> productosComprados)");
+				+ " String contrasenia, String direccion, ArrayList<Producto> productosEnVenta, \n"
+				+ "ArrayList<Producto> productosVendidos, ArrayList<Producto> productosComprados),\n"
+				+ "Primary Key (idUsuario), + Unique Key (nombre), Foreign Key (direccion) references Lugar (direccion)");
 		} catch (SQLException e) {
 			// Si hay excepción es que la tabla ya existía (lo cual es correcto)
 			// e.printStackTrace();  
