@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import Clases.FuncionesGenerales;
+import clases.FuncionesGenerales;
 
 public class FuncionesGeneralesTest {
 

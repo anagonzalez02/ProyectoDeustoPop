@@ -1,4 +1,4 @@
-package DeustoPopVentanas;
+package ventanas;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -13,9 +13,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import Clases.FuncionesGenerales;
-import Clases.Producto;
-import Clases.Usuario;
+import clases.FuncionesGenerales;
+import clases.Producto;
+import clases.Usuario;
 
 public class VentanaProducto extends JFrame {
 	

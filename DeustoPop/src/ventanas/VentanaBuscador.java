@@ -1,4 +1,4 @@
-package DeustoPopVentanas;
+package ventanas;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,7 +39,7 @@ public class VentanaBuscador extends JFrame implements ActionListener {
         botonBuscar = new JButton();
         
         // configuramos los componentes
-        textoBuscador.setText("¿Que producto desea buscar?");   // colocamos un texto a la etiqueta
+        textoBuscador.setText("ï¿½Que producto desea buscar?");   // colocamos un texto a la etiqueta
         textoBuscador.setBounds(50, 50, 200, 30);				// colocamos posicion y tamanio al texto (x, y, ancho, alto)
         cajaBuscador.setBounds(50, 80, 300, 35);				// colocamos posicion y tamanio a la caja (x, y, ancho, alto)
         botonVolver.setText("Volver");					// colocamos un texto al botonVolver

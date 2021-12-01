@@ -2,7 +2,7 @@
 
 // comentario
 
-package DeustoPopVentanas;
+package ventanas;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

@@ -1,4 +1,4 @@
-package Clases;
+package clases;
 
 import java.awt.Image;
 import java.sql.Date;
@@ -109,7 +109,7 @@ public class Producto {
 	}
 	
 	public void setTipo(Tipo tipo) {
-		if (Tipo.TiposProductos.contains(this.tipo)) {
+		if (tipo.TiposProductos.contains(this.tipo)) {
 			this.tipo = tipo;
 		}
 	}

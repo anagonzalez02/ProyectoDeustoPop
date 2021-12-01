@@ -1,4 +1,4 @@
-package DeustoPopVentanas;
+package ventanas;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,9 +13,9 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import Clases.FuncionesGenerales;
-import Clases.Lugar;
-import Clases.Usuario;
+import clases.FuncionesGenerales;
+import clases.Lugar;
+import clases.Usuario;
 
 
 public class VentanaRegistrar extends JFrame implements ActionListener{

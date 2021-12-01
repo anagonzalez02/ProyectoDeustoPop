@@ -1,4 +1,4 @@
-package DeustoPopVentanas;
+package ventanas;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,7 +38,7 @@ public class VentanaVender extends JFrame implements ActionListener {
         botonVolver = new JButton();
         
         // configuramos los componentes
-        textoVender.setText("¿Que producto desea vender?");   // colocamos un texto a la etiqueta
+        textoVender.setText("ï¿½Que producto desea vender?");   // colocamos un texto a la etiqueta
         textoVender.setBounds(50, 20, 200, 30);				// colocamos posicion y tamanio al texto (x, y, ancho, alto)
         
         botonVenderRopa.setText("Ropa");					// colocamos un texto al botonVolver
