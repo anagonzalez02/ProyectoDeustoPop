@@ -7,6 +7,8 @@ import java.util.Calendar;
 
 public class Producto {
 	
+	private static final Image Image = null;
+
 	private static int contador = 0;
 	
 	private int id;
@@ -156,9 +158,6 @@ public class Producto {
 				+ etiquetas + ", precio=" + precio + ", imagen=" + imagen + ", tipo=" + tipo + ", estado=" + estado
 				+ ", color=" + color + ", usuario=" + usuario + "]";
 	}
-
-
-	
 	
 	
 	

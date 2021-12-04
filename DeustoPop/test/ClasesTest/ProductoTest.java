@@ -18,7 +18,7 @@ public class ProductoTest {
 	Usuario uVendedor = new Usuario ("peepee", 600000000, 8727193, "pepeee@email.com", "contrasenya", new Lugar("Calle Dato 4", "Vitoria", "Españita"));
 	Producto producto = new Producto ("Zapatilla guay", "Cool", 10.65, Image, new Tipo("Zapatilla", 002), "Nuevo", "Azul", uVendedor);
 	
-	/**
+	
 	@Test
 	public void testGetNombre() {
 		assertEquals("Zapatilla guay", producto.getNombre());
@@ -28,12 +28,14 @@ public class ProductoTest {
 	public void testGetEtiquetas() {
 		assertEquals("Cool", producto.getEtiquetas());
 	}
-	**/
+	
+	/**
 	@Test
 	public void testGetPrecio() {
 		assertEquals(10.65, producto.getPrecio());
 	}
-	/**
+	**/
+	
 	@Test
 	public void testGetEstado() {
 		assertEquals("Nuevo", producto.getEstado());
@@ -43,9 +45,16 @@ public class ProductoTest {
 	public void testGetColor() {
 		assertEquals("Azul", producto.getColor());
 	}
+	
 	@Test
 	public void testGetUsuario() {
 		assertEquals(uVendedor, producto.getUsuario());
 	}
-	**/
+	
+	@Test
+	public void testSetNombre() {
+		producto.setNombre("Zapatillita");
+		assertEquals("Zapatillita", producto.getNombre());
+	}
+	
 }
