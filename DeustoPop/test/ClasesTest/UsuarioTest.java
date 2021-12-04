@@ -19,7 +19,7 @@ public class UsuarioTest {
 	
 	Producto producto = new Producto ("Zapatilla guay", "Cool", 10.65, Image, Estado.MALO, Colores.Azul, uVendedor);
 	
-	//test de getters
+	//test de getters de usuario
 	
 	
 	@Test
@@ -54,7 +54,7 @@ public class UsuarioTest {
 	
 	
 	
-	//test de getters
+	//test de getters de usuario
 	
 	
 	@Test

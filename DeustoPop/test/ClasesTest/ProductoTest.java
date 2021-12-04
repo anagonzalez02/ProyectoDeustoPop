@@ -18,8 +18,8 @@ public class ProductoTest {
 	// Las dos pruebas unitarias relacionadas con el precio dan error. REVISAR
 	
 	private static final Image Image = null;
-	Usuario uVendedor = new Usuario ("peepee", 600000000, 8727193, "pepeee@email.com", "contrasenya", new Lugar("Calle Dato 4", "Vitoria", "Españita"));
-	Usuario uVendedor2 = new Usuario ("peepee", 600000000, 8727193, "pepeee@email.com", "contrasenya", new Lugar("Calle Dato 4", "Vitoria", "Españita"));
+	Usuario uVendedor = new Usuario ("peepee", 600000000, 8727193, "pepeee@email.com", "contrasenya", new Lugar("Calle Dato 4", "Vitoria", "Espana"));
+	Usuario uVendedor2 = new Usuario ("peepee", 600000000, 8727193, "pepeee@email.com", "contrasenya", new Lugar("Calle Dato 4", "Vitoria", "Espana"));
 	
 	Producto producto = new Producto ("Zapatilla guay", "Cool", 10.65, Image, new Tipo("Zapatilla", 002), Estado.MALO, Colores.Azul, uVendedor);
 	
