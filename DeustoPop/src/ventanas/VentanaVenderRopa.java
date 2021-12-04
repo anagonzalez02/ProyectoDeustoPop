@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -17,6 +18,8 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
+import clases.Colores;
+import clases.Estado;
 import clases.FuncionesGenerales;
 import clases.Producto;
 import clases.Tipo;
@@ -130,17 +133,9 @@ public class VentanaVenderRopa extends JFrame implements ActionListener {
     this.add(comboTalla);
     
     this.add(comboEstado);
-    comboEstado.addItem("Malo");
-    comboEstado.addItem("Medio");
-    comboEstado.addItem("Bueno");
+    comboEstado.setModel(new DefaultComboBoxModel(Estado.values()));
     this.add(comboColor);
-    comboColor.addItem("Negro");
-    comboColor.addItem("Blanco");
-    comboColor.addItem("Rojo");
-    comboColor.addItem("Azul");
-    comboColor.addItem("Verde");
-    comboColor.addItem("Gris");
-    comboColor.addItem("Otro");
+    comboColor.setModel(new DefaultComboBoxModel(Colores.values()));
     this.add(comboTalla);
     comboTalla.addItem("XS");
     comboTalla.addItem("S");
@@ -161,12 +156,12 @@ public class VentanaVenderRopa extends JFrame implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				String nombreRopa = cajaNombre.getText();
 				String etiquetaRopa = cajaEtiqueta.getText();
-				int precioRopa = (Integer) spinnerPrecio.getValue();
+				double precioRopa = (double) spinnerPrecio.getValue();
 				// HAY QUE CAMBIAR ESTO (imagen)
 				Image imagenRopa = null;
 				Tipo tipoRopa = Tipo.ropa;
-				String estadoRopa = (String) comboEstado.getSelectedItem();
-				String colorRopa = (String) comboColor.getSelectedItem();
+				Estado estadoRopa = (Estado) comboEstado.getSelectedItem();
+				Colores colorRopa = (Colores) comboColor.getSelectedItem();
 				// HAY QUE CAMBIAR ESTO (usuario)
 				Usuario usuarioRopa = new Usuario();
 				

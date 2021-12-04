@@ -18,13 +18,13 @@ public class Producto {
 	private double precio;
 	private Image imagen;
 	private Tipo tipo;
-	private String estado;
-	private String color;
+	private Estado estado;
+	private Colores color;
 	private Usuario usuario;
 	private boolean enVenta;
 	
 	
-	public Producto (int id, String nombre, Calendar fechaSubida, String etiquetas, double precio, Image imagen, Tipo tipo, String estado, String color, Usuario usuario, boolean enVenta) {
+	public Producto (int id, String nombre, Calendar fechaSubida, String etiquetas, double precio, Image imagen, Tipo tipo, Estado estado, Colores color, Usuario usuario, boolean enVenta) {
 		super();
 		contador++;
 		this.id = contador;
@@ -41,7 +41,7 @@ public class Producto {
 	}
 
 
-	public Producto (String nombre, String etiquetas, double precio, Image imagen, Tipo tipo, String estado, String color, Usuario usuario) {
+	public Producto (String nombre, String etiquetas, double precio, Image imagen, Tipo tipo, Estado estado, Colores color, Usuario usuario) {
 		super();
 		contador++;
 		this.id = contador;
@@ -116,19 +116,19 @@ public class Producto {
 		}
 	}
 	
-	public String getEstado() {
+	public Estado getEstado() {
 		return estado;
 	}
 
-	public void setEstado(String estado) {
+	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
 	
-	public String getColor() {
+	public Colores getColor() {
 		return color;
 	}
 
-	public void setColor(String color) {
+	public void setColor(Colores color) {
 		this.color = color;
 	}
 

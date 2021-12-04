@@ -6,6 +6,7 @@ import java.awt.Image;
 
 import org.junit.Test;
 
+import clases.Estado;
 import clases.Lugar;
 import clases.Producto;
 import clases.Tipo;
@@ -19,7 +20,8 @@ public class ProductoTest {
 	Usuario uVendedor = new Usuario ("peepee", 600000000, 8727193, "pepeee@email.com", "contrasenya", new Lugar("Calle Dato 4", "Vitoria", "Españita"));
 	Usuario uVendedor2 = new Usuario ("peepee", 600000000, 8727193, "pepeee@email.com", "contrasenya", new Lugar("Calle Dato 4", "Vitoria", "Españita"));
 	
-	Producto producto = new Producto ("Zapatilla guay", "Cool", 10.65, Image, new Tipo("Zapatilla", 002), "Nuevo", "Azul", uVendedor);
+	Producto producto = new Producto ("Zapatilla guay", "Cool", 10.65, Image, new Tipo("Zapatilla", 002), Estado.MALO, "Azul", uVendedor);
+	
 	
 	@Test
 	public void testGetNombre() {
@@ -38,7 +40,7 @@ public class ProductoTest {
 	
 	@Test
 	public void testGetEstado() {
-		assertEquals("Nuevo", producto.getEstado());
+		assertEquals(Estado.MALO, producto.getEstado());
 	}
 	
 	@Test
@@ -67,7 +69,6 @@ public class ProductoTest {
 		producto.setEtiquetas("Vintage");
 		assertEquals("Vintage", producto.getEtiquetas());
 	}
-
 	
 	//@Test
 	//public void testSetPrecio() {
@@ -77,10 +78,9 @@ public class ProductoTest {
 	
 	@Test
 	public void testSetEstado() {
-		producto.setEstado("Viejo");
-		assertEquals("Viejo", producto.getEstado());
+		producto.setEstado(Estado.BUENO);
+		assertEquals(Estado.BUENO, producto.getEstado());
 	}
-	
 	@Test
 	public void testSetColor() {
 		producto.setColor("Negro");
@@ -98,6 +98,5 @@ public class ProductoTest {
 		producto.setEnVenta(false);
 		assertFalse(producto.isEnVenta());
 	}
-	
 	
 }
