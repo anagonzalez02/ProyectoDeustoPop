@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -25,7 +26,6 @@ public class BaseDeDatos {
 	 * @return	true si la conexión ha sido correcta, false en caso contrario
 	 * @throws SQLException 
 	 */
-	
 	
 	public static boolean abrirConexion( String nombreBD, boolean conexionBD ) throws SQLException {
 		
@@ -117,6 +117,9 @@ public class BaseDeDatos {
 		}
 	}
 	
+	/**
+	 * Crea la tabla Usuario
+	 * **/
 	
 	public static void crearTablaBDUsuario() throws SQLException {
 		Statement statement = conexion.createStatement();
@@ -140,6 +143,9 @@ public class BaseDeDatos {
 		}
 	}
 	
+	/**
+	 * Crea la tabla Calzado
+	 * **/
 	
 	// FALTAN LA IMAGEN, ESTADO Y COLORES
 	
@@ -165,6 +171,9 @@ public class BaseDeDatos {
 		}
 	}
 	
+	/**
+	 * Crea la tabla Ropa
+	 * **/
 	
 	// FALTAN LA IMAGEN, ESTADO, COLORES Y TALLA
 	
@@ -191,6 +200,9 @@ public class BaseDeDatos {
 		}
 	}
 	
+	/**
+	 * Crea la tabla Lugar
+	 * **/
 	
 	public static void crearTablaBDLugar() throws SQLException {
 		Statement statement = conexion.createStatement();
@@ -212,10 +224,195 @@ public class BaseDeDatos {
 	}
 	
 	
+	/** 
+	 * Lista los usuarios de la base de datos
+	 * @return	Lista completa de los Usuarios de nuestra plataforma, null si hay algún error
+	 */
+	
+	public static ArrayList<Usuario> getUsuarios() {
+		try (Statement statement = conexion.createStatement()) {
+			ArrayList<Usuario> listaUsuarios = new ArrayList<>();
+			consulta = "SELECT * FROM Usuario;";
+			logger.log( Level.INFO, "Statement: " + consulta );
+			ResultSet rs = statement.executeQuery( consulta );
+			while( rs.next() ) { // Leer el resultset
+				int idUsuario = rs.getInt("idUsuario");
+				String nombre = rs.getString("nombre");
+				int telefono = rs.getInt("telefono");
+				int tarjeta = rs.getInt("tarjeta");
+				double saldo = rs.getDouble("saldo");
+				String email = rs.getString("email");
+				String contrasenia = rs.getString("contrasenia");
+				
+				// QUEDAN EL LUGAR Y LOS ARRAYLISTS
+				
+				
+				
+				//listaUsuarios.add( new Producto (id, nombre, precio, new ArrayList<Compra>() ) );
+			}
+			return listaUsuarios;
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return null;
+		}
+	}
 	
 	
+	/**
+	 * Inserta un usuario en la base de datos abierta 
+	 * @param usuario		un nuevo usuario recién registrado que se introducirá en la base de Datos
+	 * @return				true si la inserción es correcta, false en caso contrario
+	 */
+	public static boolean insertarUsuario( Usuario usuario ) {
+		try (Statement statement = conexion.createStatement()) {
+			consulta = "INSERT INTO Usuario (idUsuario, nombre, telefono, tarjeta, saldo, email, contrasenia, vivienda, productosEnVenta, productosVendidos, productosComprados, productosFavoritos)"
+					+ "VALUES (" + usuario.getIdUsuario() + ", '" + usuario.getNombre() + "', " + usuario.getTelefono() + ", " + usuario.getTarjeta() + ", " + usuario.getSaldo() + ", '" + usuario.getEmail() + "', '" + usuario.getContrasenia() + "', " + usuario.getVivienda() + ", '" + usuario.getProductosEnVenta() + "', '" + usuario.getProductosVendidos() + "', '" + usuario.getProductosComprados() + "', '" + usuario.getProductosFavoritos() + "')";
+
+			logger.log( Level.INFO, "Statement: " + consulta );
+			int insertados = statement.executeUpdate( consulta );
+			if (insertados!=1) return false;  // Error en inserción
+			// Búsqueda de la fila insertada - para ello hay que recuperar la clave autogenerada. Hay varias maneras, vemos dos diferentes:
+			// Se hace utilizando método del propio objeto statement
+			ResultSet rrss = statement.getGeneratedKeys();  // Genera un resultset ficticio con las claves generadas del último comando
+			rrss.next();  // Avanza a la única fila 
+			int pk = rrss.getInt( 1 );  // Coge la única columna (la primary key autogenerada)
+			usuario.setIdUsuario( pk );
+			return true;
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return false;
+		}
+	}
 	
 	
+	/**
+	 * Eliminar un usuario de la base de datos abierta 
+	 * @param usuario		el usuario que quiere borrar su cuenta de DeustoPop
+	 * @return				true si se ha eliminado correctamente, false en caso contrario
+	 */
 	
+	public static boolean eliminarUsuario(Usuario usuario) {
+		int id = usuario.getIdUsuario();
+		try {
+			Statement statement = conexion.createStatement();
+			consulta = "DELETE FROM Usuario WHERE id = " + id + ";";
+			logger.log( Level.INFO, "Statement: " + consulta );
+			statement.executeUpdate(consulta);
+			return true;
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return false;
+		}
+	}
+	
+	
+	// REVISAR LOS ARRAYLISTS
+	
+	
+	/**
+	 * Modificar un usuario en la base de datos abierta 
+	 * @param CASI todos los atributos del Usuario		actualiza todos (excepto el ID (ya que ese es definitivo) y la contrasenia), sin importar que sean iguales
+	 * @return											true si se ha modificado correctamente, false en caso contrario
+	 */
+	
+	public static boolean modificarUsuario(String nombre, int telefono, int tarjeta, String email, String contrasenia, Lugar vivienda, ArrayList<Producto> productosEnVenta, ArrayList<Producto> productosVendidos, ArrayList<Producto> productosComprados, ArrayList<Producto> productosFavoritos) {
+		try {
+			Statement statement = conexion.createStatement();
+			consulta = "UPDATE Usuario SET nombre = '" + nombre + "', telefono = " + telefono + ", tarjeta = " + tarjeta + ", email = '" + email + "', contrasenia = '" + contrasenia + "', direccion = '" + vivienda.getDireccion() + "', productosEnVenta = '" + productosEnVenta + "', productosVendidos = '" + productosVendidos + "', productosComprados = '" + productosComprados + "', productosFavoritos = '" + productosFavoritos + "';";
+			logger.log( Level.INFO, "Statement: " + consulta );
+			statement.executeUpdate(consulta);
+			return true;
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return false;
+		}
+	} 
+	
+	
+	/** 
+	 * Para obtener un listado de todos los lugares de la base de datos
+	 * @return	Lista completa de los Lugares/Viviendas de nuestra plataforma, null si hay algún error
+	 */
+	
+	public static ArrayList<Lugar> getLugar() {
+		try (Statement statement = conexion.createStatement()) {
+			ArrayList<Lugar> listaLugares = new ArrayList<>();
+			consulta = "SELECT * FROM Lugar;";
+			logger.log( Level.INFO, "Statement: " + consulta );
+			ResultSet rs = statement.executeQuery( consulta );
+			while( rs.next() ) { // Leer el resultset
+				String direccion = rs.getString("direccion");
+				String nomCiu = rs.getString("nomCiu");
+				String nomPais = rs.getString("nomPais");
+				listaLugares.add(new Lugar (direccion, nomCiu, nomPais) );
+			}
+			return listaLugares;
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return null;
+		}
+	}
+	
+	/** 
+	 * Para obtener un lugar concreto de uno de los usuarios de la base de datos
+	 * @return	Lugar/Vivienda de una persona registrada en nuestra plataforma, null si hay algún error
+	 */
+	
+	public static Lugar getLugar(Usuario usuario) {
+		try (Statement statement = conexion.createStatement()) {
+			String direccion = usuario.getVivienda().getDireccion();
+			consulta = "SELECT * FROM Lugar WHERE direccion = " + direccion + ";";
+			logger.log( Level.INFO, "Statement: " + consulta );
+			Lugar vivienda = (Lugar) statement.executeQuery( consulta );
+			return vivienda;
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return null;
+		}
+	}
+	
+	
+	// QUEDA HACER INSERTARLUGAR pero es bastante complejo porque solo se crea un lugar mediante un Usuario
+	
+	
+	/**
+	 * Eliminar un Lugar de la base de datos 
+	 * @param vivienda			el lugar que se desea eliminar
+	 * @return				true si se ha eliminado correctamente, false en caso contrario
+	 */
+	
+	public static boolean eliminarLugar(Lugar vivienda) {
+		String direccion = vivienda.getDireccion();
+		try {
+			Statement statement = conexion.createStatement();
+			consulta = "DELETE FROM Lugar WHERE direccion = '" + direccion + "';";
+			logger.log( Level.INFO, "Statement: " + consulta );
+			statement.executeUpdate(consulta);
+			return true;
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return false;
+		}
+	}
+	
+	
+	/**
+	 * Modificar un usuario en la base de datos abierta 
+	 * @param 
+	 * @return											true si se ha modificado correctamente, false en caso contrario
+	 */
+	
+	public static boolean modificarLugar(String direccion, String nomCiu, String nomPais) {
+		try {
+			Statement statement = conexion.createStatement();
+			consulta = "UPDATE Lugar SET direccion = '" + direccion + "', nomCiu = '" + nomCiu + "', nomPais = " + nomPais + "';";
+			logger.log( Level.INFO, "Statement: " + consulta );
+			statement.executeUpdate(consulta);
+			return true;
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return false;
+		}
+	} 
 
 }
