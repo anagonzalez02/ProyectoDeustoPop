@@ -21,7 +21,7 @@ public class ProductoTest {
 	Usuario uVendedor = new Usuario ("peepee", 600000000, 8727193, "pepeee@email.com", "contrasenya", new Lugar("Calle Dato 4", "Vitoria", "Españita"));
 	Usuario uVendedor2 = new Usuario ("peepee", 600000000, 8727193, "pepeee@email.com", "contrasenya", new Lugar("Calle Dato 4", "Vitoria", "Españita"));
 	
-	Producto producto = new Producto ("Zapatilla guay", "Cool", 10.65, Image, new Tipo("Zapatilla", 002), Estado.MALO, Colores.Azul, uVendedor);
+	Producto producto = new Producto ("Zapatilla guay", "Cool", 10.65, Image, Estado.MALO, Colores.Azul, uVendedor);
 	
 	
 	@Test

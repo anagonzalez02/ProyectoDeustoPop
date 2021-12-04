@@ -19,10 +19,11 @@ public class Usuario{
 	ArrayList<Producto> productosEnVenta;
 	ArrayList<Producto> productosVendidos;
 	ArrayList<Producto> productosComprados;
+	ArrayList<Producto> productosFavoritos;
 	
 
-	public Usuario(int idUsuario, String nombre, int telefono, int tarjeta, double saldo, String email,
-			String contrasenia, Lugar vivienda, ArrayList<Producto> productosEnVenta, ArrayList<Producto> productosVendidos, ArrayList<Producto> productosComprados) {
+	public Usuario(int idUsuario, String nombre, int telefono, int tarjeta, double saldo, String email, String contrasenia, Lugar vivienda,
+			ArrayList<Producto> productosEnVenta, ArrayList<Producto> productosVendidos, ArrayList<Producto> productosComprados, ArrayList<Producto> productosFavoritos) {
 		super();
 		contadorU++;
 		this.idUsuario = idUsuario;
@@ -36,6 +37,7 @@ public class Usuario{
 		this.productosEnVenta = productosEnVenta;
 		this.productosVendidos = productosVendidos;
 		this.productosComprados = productosComprados;
+		this.productosFavoritos = productosFavoritos;
 	}
 
 	
@@ -54,6 +56,7 @@ public class Usuario{
 		this.productosEnVenta = productosEnVenta;
 		this.productosVendidos = productosVendidos;
 		this.productosComprados = productosComprados;
+		this.productosFavoritos = productosFavoritos;
 	}
 
 
@@ -74,6 +77,7 @@ public class Usuario{
 		this.productosEnVenta = productosEnVenta;
 		this.productosVendidos = productosVendidos;
 		this.productosComprados = productosComprados;
+		this.productosFavoritos = productosFavoritos;
 	}
 	
 
@@ -172,7 +176,7 @@ public class Usuario{
 		return "Usuario [idUsuario=" + idUsuario + ", nombre=" + nombre + ", telefono=" + telefono + ", tarjeta="
 				+ tarjeta + ", saldo=" + saldo + ", email=" + email + ", contrasenia=" + contrasenia + ", vivienda="
 				+ vivienda + ", productosEnVenta=" + productosEnVenta + ", productosVendidos=" + productosVendidos
-				+ ", productosComprados=" + productosComprados + "]";
+				+ ", productosComprados=" + productosComprados + ", productosFavoritos=" + productosFavoritos + "]";
 	}
 
 
