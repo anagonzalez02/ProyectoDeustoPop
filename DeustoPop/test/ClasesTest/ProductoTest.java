@@ -6,6 +6,7 @@ import java.awt.Image;
 
 import org.junit.Test;
 
+import clases.Colores;
 import clases.Estado;
 import clases.Lugar;
 import clases.Producto;
@@ -20,7 +21,7 @@ public class ProductoTest {
 	Usuario uVendedor = new Usuario ("peepee", 600000000, 8727193, "pepeee@email.com", "contrasenya", new Lugar("Calle Dato 4", "Vitoria", "Españita"));
 	Usuario uVendedor2 = new Usuario ("peepee", 600000000, 8727193, "pepeee@email.com", "contrasenya", new Lugar("Calle Dato 4", "Vitoria", "Españita"));
 	
-	Producto producto = new Producto ("Zapatilla guay", "Cool", 10.65, Image, new Tipo("Zapatilla", 002), Estado.MALO, "Azul", uVendedor);
+	Producto producto = new Producto ("Zapatilla guay", "Cool", 10.65, Image, new Tipo("Zapatilla", 002), Estado.MALO, Colores.Azul, uVendedor);
 	
 	
 	@Test
@@ -45,7 +46,7 @@ public class ProductoTest {
 	
 	@Test
 	public void testGetColor() {
-		assertEquals("Azul", producto.getColor());
+		assertEquals(Colores.Azul, producto.getColor());
 	}
 	
 	@Test
@@ -83,8 +84,8 @@ public class ProductoTest {
 	}
 	@Test
 	public void testSetColor() {
-		producto.setColor("Negro");
-		assertEquals("Negro", producto.getColor());
+		producto.setColor(Colores.Amarillo);
+		assertEquals(Colores.Amarillo, producto.getColor());
 	}
 	
 	@Test
