@@ -23,44 +23,64 @@ public class BaseDeDatos {
 	 * @param nombreBD	Nombre del fichero de base de datos
 	 * @param reiniciaBD	true si se quiere reiniciar la base de datos (se borran sus contenidos si los tuviera y se crean datos por defecto)
 	 * @return	true si la conexión ha sido correcta, false en caso contrario
+	 * @throws SQLException 
 	 */
 	
 	
-	public static boolean abrirConexion( String nombreBD, boolean conexionBD ) {
+	public static boolean abrirConexion( String nombreBD, boolean conexionBD ) throws SQLException {
+		
 		String consulta;
+		Statement statement = conexion.createStatement();
+		Scanner scanner;
+		
 		try {
+			
 			logger.log( Level.INFO, "Carga de librería org.sqlite.JDBC" );
 			Class.forName("org.sqlite.JDBC");  // Carga la clase de BD para sqlite
 			logger.log( Level.INFO, "Abriendo conexión con " + nombreBD );
 			conexion = DriverManager.getConnection("jdbc:sqlite:" + nombreBD );
+			
 			if (conexionBD) {
-				crearTablaBDUsuario();
 				
-				sent = "DROP TABLE IF EXISTS compra";
-				logger.log( Level.INFO, "Statement: " + sent );
-				statement.executeUpdate( sent );
-				sent = "CREATE TABLE compra (id INTEGER PRIMARY KEY AUTOINCREMENT, idProducto int, cliente varchar(40), fecha bigint, cantidad int);";
-				logger.log( Level.INFO, "Statement: " + sent );
-				statement.executeUpdate( sent );
+				crearTablaBDUsuario();
+				crearTablaBDCalzado();
+				crearTablaBDRopa();
+				
 				try {
-					Scanner scanner = new Scanner( BaseDatos.class.getResourceAsStream("productos-inic.txt") );
+					
+					scanner = new Scanner( BaseDeDatos.class.getResourceAsStream("Usuario-inic.txt") );
 					while (scanner.hasNextLine()) {
 						String linea = scanner.nextLine();
 						String[] datos = linea.split( "\t" );
-						sent = "insert into producto (id, nombre, precio) values (" + datos[0] + ",'" + datos[1] + "'," + datos[2] + ");";
-						logger.log( Level.INFO, "Statement: " + sent );
-						statement.executeUpdate( sent );
+						consulta = "INSERT INTO Usuario (idUsuario, nombre, telefono, tarjeta, saldo, email, contrasenia, vivienda, productosEnVenta, productosVendidos, productosComprados, productosFavoritos)"
+								+ "VALUES (" + datos[0] + ", '" + datos[1] + "', " + datos[2] + ", " + datos[3] + ", " + datos[4] + ", '" + datos[5] + "', '" + datos[6] + "', " + datos[7] + ", '" + datos[8] + "', '" + datos[9] + "', '" + datos[10] + "', '" + datos[11] + "');";
+						logger.log( Level.INFO, "Statement: " + consulta );
+						statement.executeUpdate( consulta );
 					}
 					scanner.close();
-					scanner = new Scanner( BaseDatos.class.getResourceAsStream("compras-inic.txt") );
+					
+					scanner = new Scanner( BaseDeDatos.class.getResourceAsStream("Calzado-inic.txt") );
 					while (scanner.hasNextLine()) {
 						String linea = scanner.nextLine();
 						String[] datos = linea.split( "\t" );
-						sent = "insert into compra (id, idProducto, cliente, fecha, cantidad) values (" + datos[0] + "," + datos[1] + ",'" + datos[2] + "'," + datos[3] + "," + datos[4] + ");";
-						logger.log( Level.INFO, "Statement: " + sent );
-						statement.executeUpdate( sent );
+						consulta = "INSERT INTO Calzado (id, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, tallaCalzado)"
+								+ "VALUES (" + datos[0] + ", '" + datos[1] + "', '" + datos[2] + "', '" + datos[3] + "', " + datos[4] + ", '" + datos[5] + "', '" + datos[6] + "', '" + datos[7] + "', " + datos[8] + ", " + datos[9] + ", " + datos[10] + ");";
+						logger.log( Level.INFO, "Statement: " + consulta );
+						statement.executeUpdate( consulta );
 					}
 					scanner.close();
+					
+					scanner = new Scanner( BaseDeDatos.class.getResourceAsStream("Ropa-inic.txt") );
+					while (scanner.hasNextLine()) {
+						String linea = scanner.nextLine();
+						String[] datos = linea.split( "\t" );
+						consulta = "INSERT INTO Ropa (id, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, tallaRopa)"
+								+ "VALUES (" + datos[0] + ", '" + datos[1] + "', '" + datos[2] + "', '" + datos[3] + "', " + datos[4] + ", '" + datos[5] + "', '" + datos[6] + "', '" + datos[7] + "', " + datos[8] + ", " + datos[9] + ", '" + datos[10] + "');";
+						logger.log( Level.INFO, "Statement: " + consulta );
+						statement.executeUpdate( consulta );
+					}
+					scanner.close();
+					
 				} catch(Exception e) {
 					logger.log( Level.SEVERE, "Excepción", e );
 				}
@@ -93,10 +113,61 @@ public class BaseDeDatos {
 		statement.executeUpdate( consulta );
 		
 		consulta = "CREATE TABLE Usuario " +
-				"(INT[6] idUsuario AUTO_INCREMENT NOT NULL, , VARCHAR[50] nombre NOT NULL, INT[12] telefono, INT[18] tarjeta, DOUBLE[6,2] saldo DEFAULT 0, VARCHAR[70] email,\n"
-				+ " VARCHAR[20] contrasenia NOT NULL, VARCHAR[100] direccion, ArrayList<Producto> productosEnVenta, \n"
-				+ "ArrayList<Producto> productosVendidos, ArrayList<Producto> productosComprados, ArrayList<Producto> productosFavoritos \n"
+				"(INT[6] idUsuario AUTO_INCREMENT NOT NULL, VARCHAR[20] nombre NOT NULL, INT[12] telefono, INT[18] tarjeta, DOUBLE[6,2] saldo DEFAULT 0, VARCHAR[70] email, "
+				+ " VARCHAR[20] contrasenia NOT NULL, VARCHAR[100] direccion, ArrayList<Producto> productosEnVenta, "
+				+ "ArrayList<Producto> productosVendidos, ArrayList<Producto> productosComprados, ArrayList<Producto> productosFavoritos, "
 				+ "PRIMARY KEY (idUsuario), + UNIQUE KEY (nombre), FOREIGN KEY (direccion) REFERENCES Lugar (direccion));";
+		
+		if (statement==null) return;
+		try {
+			logger.log( Level.INFO, "Statement: " + consulta );
+			statement.executeUpdate(consulta);
+		} catch (SQLException e) {
+			// Si hay excepción es que la tabla ya existía (lo cual es correcto)
+			// e.printStackTrace();  
+		}
+	}
+	
+	
+	// FALTAN LA IMAGEN, ESTADO Y COLORES
+	
+	public static void crearTablaBDCalzado() throws SQLException {
+		Statement statement = conexion.createStatement();
+		consulta = "DROP TABLE IF EXISTS Calzado";
+		logger.log( Level.INFO, "Statement: " + consulta );
+		statement.executeUpdate( consulta );
+		
+		consulta = "CREATE TABLE Calzado " +
+				"(INT[10] id AUTO_INCREMENT NOT NULL, VARCHAR[40] nombre NOT NULL, DATE fechaSubida, VARCHAR[60] etiquetas, "
+				+ "DOUBLE[4, 2] precio, "
+				+ "INT[6] idUsuario NOT NULL, BIT enVenta, DOUBLE[2,1] tallaCalzado, "
+				+ "PRIMARY KEY (id), + UNIQUE KEY (nombre), FOREIGN KEY (idUsuario) REFERENCES Usuario (idUsuario));";
+		
+		if (statement==null) return;
+		try {
+			logger.log( Level.INFO, "Statement: " + consulta );
+			statement.executeUpdate(consulta);
+		} catch (SQLException e) {
+			// Si hay excepción es que la tabla ya existía (lo cual es correcto)
+			// e.printStackTrace();  
+		}
+	}
+	
+	
+	// FALTAN LA IMAGEN, ESTADO, COLORES Y TALLA
+	
+	public static void crearTablaBDRopa() throws SQLException {
+		Statement statement = conexion.createStatement();
+		consulta = "DROP TABLE IF EXISTS Ropa";
+		logger.log( Level.INFO, "Statement: " + consulta );
+		statement.executeUpdate( consulta );
+		
+		consulta = "CREATE TABLE Ropa " +
+				"(INT[10] id AUTO_INCREMENT NOT NULL, VARCHAR[40] nombre NOT NULL, DATE fechaSubida, VARCHAR[60] etiquetas, "
+				+ "DOUBLE[4, 2] precio, "
+				+ "INT[6] idUsuario NOT NULL, BIT enVenta, DOUBLE[2,1] tallaCalzado, "
+				+ ""
+				+ "PRIMARY KEY (id), + UNIQUE KEY (nombre), FOREIGN KEY (idUsuario) REFERENCES Usuario (idUsuario));";
 		
 		if (statement==null) return;
 		try {
