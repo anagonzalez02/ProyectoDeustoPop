@@ -17,14 +17,13 @@ public class Producto {
 	private String etiquetas;
 	private double precio;
 	private Image imagen;
-	private Tipo tipo;
 	private Estado estado;
 	private Colores color;
 	private Usuario usuario;
 	private boolean enVenta;
 	
 	
-	public Producto (int id, String nombre, Calendar fechaSubida, String etiquetas, double precio, Image imagen, Tipo tipo, Estado estado, Colores color, Usuario usuario, boolean enVenta) {
+	public Producto (int id, String nombre, Calendar fechaSubida, String etiquetas, double precio, Image imagen, Estado estado, Colores color, Usuario usuario, boolean enVenta) {
 		super();
 		contador++;
 		this.id = contador;
@@ -33,7 +32,6 @@ public class Producto {
 		this.etiquetas = etiquetas;
 		this.precio = precio;
 		this.imagen = imagen;
-		this.tipo = tipo;
 		this.estado = estado;
 		this.color = color;
 		this.usuario = usuario;
@@ -41,7 +39,7 @@ public class Producto {
 	}
 
 
-	public Producto (String nombre, String etiquetas, double precio, Image imagen, Tipo tipo, Estado estado, Colores color, Usuario usuario) {
+	public Producto (String nombre, String etiquetas, double precio, Image imagen, Estado estado, Colores color, Usuario usuario) {
 		super();
 		contador++;
 		this.id = contador;
@@ -50,7 +48,6 @@ public class Producto {
 		this.etiquetas = etiquetas;
 		this.precio = precio;
 		this.imagen = imagen;
-		this.tipo = tipo;
 		this.estado = estado;
 		this.color = color;
 		this.usuario = usuario;
@@ -106,15 +103,7 @@ public class Producto {
 		this.imagen = imagen;
 	}
 
-	public Tipo getTipo() {
-		return tipo;
-	}
 	
-	public void setTipo(Tipo tipo) {
-		if (tipo.TiposProductos.contains(this.tipo)) {
-			this.tipo = tipo;
-		}
-	}
 	
 	public Estado getEstado() {
 		return estado;
@@ -155,7 +144,7 @@ public class Producto {
 	@Override
 	public String toString() {
 		return "Producto [id=" + id + ", nombre=" + nombre + ", fechaSubida=" + fechaSubida + ", etiquetas="
-				+ etiquetas + ", precio=" + precio + ", imagen=" + imagen + ", tipo=" + tipo + ", estado=" + estado
+				+ etiquetas + ", precio=" + precio + ", imagen=" + imagen + ", estado=" + estado
 				+ ", color=" + color + ", usuario=" + usuario + "]";
 	}
 	

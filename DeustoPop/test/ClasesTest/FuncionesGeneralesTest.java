@@ -12,7 +12,6 @@ import clases.Estado;
 import clases.FuncionesGenerales;
 import clases.Lugar;
 import clases.Producto;
-import clases.Tipo;
 import clases.Usuario;
 
 public class FuncionesGeneralesTest {
@@ -21,7 +20,7 @@ public class FuncionesGeneralesTest {
 	private static final Image Image = null;
 	Usuario uComprador = new Usuario ("peeepiitaa", 611111111, 63527191, "pepa@email.com", "jeje", new Lugar("Gran Via 54", "Bilbao", "Españita"));
 	Usuario uVendedor = new Usuario ("peepee", 600000000, 8727193, "pepeee@email.com", "contrasenya", new Lugar("Calle Dato 4", "Vitoria", "Españita"));
-	Producto producto = new Producto ("Zapatilla guay", "Cool", 10.67, Image, new Tipo("Zapatilla", 002), Estado.MALO, Colores.Azul, uVendedor);
+	Producto producto = new Producto ("Zapatilla guay", "Cool", 10.67, Image, Estado.MALO, Colores.Azul, uVendedor);
 	
 	// RestarDinero da error por la condicional de si restar dinero al saldo o a la tarjeta directamente
 	@Test

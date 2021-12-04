@@ -21,7 +21,6 @@ import clases.Colores;
 import clases.Estado;
 import clases.FuncionesGenerales;
 import clases.Producto;
-import clases.Tipo;
 import clases.Usuario;
 
 public class VentanaVenderCalzado extends JFrame implements ActionListener {
@@ -156,13 +155,12 @@ public class VentanaVenderCalzado extends JFrame implements ActionListener {
 				double precioCalzado = (double) spinnerPrecio.getValue();
 				// HAY QUE CAMBIAR ESTO (imagen)
 				Image imagenCalzado = null;
-				Tipo tipoCalzado = Tipo.calzado;
 				Estado estadoCalzado = (Estado) comboEstado.getSelectedItem();
 				Colores colorCalzado = (Colores) comboColor.getSelectedItem();
 				// HAY QUE CAMBIAR ESTO (usuario)
 				Usuario usuarioCalzado = new Usuario();
 				
-				Producto producto = new Producto (nombreCalzado, etiquetaCalzado, precioCalzado, imagenCalzado, tipoCalzado, estadoCalzado, colorCalzado, usuarioCalzado);
+				Producto producto = new Producto (nombreCalzado, etiquetaCalzado, precioCalzado, imagenCalzado, estadoCalzado, colorCalzado, usuarioCalzado);
 				
 				producto.getUsuario().getProductosEnVenta().add(producto);
 				
