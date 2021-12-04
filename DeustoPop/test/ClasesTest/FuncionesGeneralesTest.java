@@ -56,7 +56,6 @@ public class FuncionesGeneralesTest {
 		assertEquals("D:#Je", FuncionesGenerales.code("A7 Gb"));
 	}
 	
-	
 	@Test
 	public void testDecode() {
 		assertEquals("abcd", FuncionesGenerales.decode("defg"));

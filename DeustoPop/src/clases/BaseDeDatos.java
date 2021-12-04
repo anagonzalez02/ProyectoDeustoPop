@@ -16,6 +16,7 @@ public class BaseDeDatos {
 	
 	private static Connection conexion;
 	private static Logger logger = Logger.getLogger( "BaseDatos" );
+	static String consulta;
 	
 
 	/** Abre conexión con la base de datos
@@ -24,7 +25,7 @@ public class BaseDeDatos {
 	 * @return	true si la conexión ha sido correcta, false en caso contrario
 	 */
 	
-	/**
+	
 	public static boolean abrirConexion( String nombreBD, boolean conexionBD ) {
 		String consulta;
 		try {
@@ -33,10 +34,8 @@ public class BaseDeDatos {
 			logger.log( Level.INFO, "Abriendo conexión con " + nombreBD );
 			conexion = DriverManager.getConnection("jdbc:sqlite:" + nombreBD );
 			if (conexionBD) {
-				Statement statement = conexion.createStatement();
-				consulta = "CREATE TABLE producto (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre varchar(100), precio real);";
-				logger.log( Level.INFO, "Statement: " + consulta );
-				statement.executeUpdate( consulta );
+				crearTablaBDUsuario();
+				
 				sent = "DROP TABLE IF EXISTS compra";
 				logger.log( Level.INFO, "Statement: " + sent );
 				statement.executeUpdate( sent );
@@ -73,11 +72,10 @@ public class BaseDeDatos {
 		}
 	}
 	
-	**/
 	/**
 	 * Cierra la conexión abierta de Base de Datos
 	 */
-	/**
+	
 	public static void cerrarConexion() {
 		try {
 			conexion.close();
@@ -88,20 +86,22 @@ public class BaseDeDatos {
 	}
 	
 	
-	public static Connection getConexion() {
-		return conexion;
-	}
-	
-	
-	
-	public static void crearTablaBDUsuario() {
+	public static void crearTablaBDUsuario() throws SQLException {
+		Statement statement = conexion.createStatement();
+		consulta = "DROP TABLE IF EXISTS Usuario";
+		logger.log( Level.INFO, "Statement: " + consulta );
+		statement.executeUpdate( consulta );
+		
+		consulta = "CREATE TABLE Usuario " +
+				"(INT[6] idUsuario AUTO_INCREMENT NOT NULL, , VARCHAR[50] nombre NOT NULL, INT[12] telefono, INT[18] tarjeta, DOUBLE[6,2] saldo DEFAULT 0, VARCHAR[70] email,\n"
+				+ " VARCHAR[20] contrasenia NOT NULL, VARCHAR[100] direccion, ArrayList<Producto> productosEnVenta, \n"
+				+ "ArrayList<Producto> productosVendidos, ArrayList<Producto> productosComprados, ArrayList<Producto> productosFavoritos \n"
+				+ "PRIMARY KEY (idUsuario), + UNIQUE KEY (nombre), FOREIGN KEY (direccion) REFERENCES Lugar (direccion));";
+		
 		if (statement==null) return;
 		try {
-			statement.executeUpdate("CREATE TABLE Usuario " +
-				"(int idUsuario, , String nombre, int telefono, int tarjeta, double saldo, String email,\n"
-				+ " String contrasenia, String direccion, ArrayList<Producto> productosEnVenta, \n"
-				+ "ArrayList<Producto> productosVendidos, ArrayList<Producto> productosComprados),\n"
-				+ "Primary Key (idUsuario), + Unique Key (nombre), Foreign Key (direccion) references Lugar (direccion)");
+			logger.log( Level.INFO, "Statement: " + consulta );
+			statement.executeUpdate(consulta);
 		} catch (SQLException e) {
 			// Si hay excepción es que la tabla ya existía (lo cual es correcto)
 			// e.printStackTrace();  
@@ -109,19 +109,8 @@ public class BaseDeDatos {
 	}
 	
 	
-	public static void crearTablaBDProducto() {
-		if (statement==null) return;
-		try {
-			statement.executeUpdate("CREATE TABLE Producto " +
-				"(int id, String nombre, Calendar fechaSubida, String etiquetas, double precio, Image imagen, Tipo tipo, String estado, String color, Usuario usuario, boolean enVenta)");
-		} catch (SQLException e) {
-			// Si hay excepción es que la tabla ya existía (lo cual es correcto)
-			// e.printStackTrace();  
-		}
-	}
 	
 	
-	**/
 	
 	
 	
