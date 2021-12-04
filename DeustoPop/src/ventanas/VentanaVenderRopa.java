@@ -165,9 +165,9 @@ public class VentanaVenderRopa extends JFrame implements ActionListener {
 				// HAY QUE CAMBIAR ESTO (usuario)
 				Usuario usuarioRopa = new Usuario();
 				
-				Producto producto = new Producto (nombreRopa, etiquetaRopa, precioRopa, imagenRopa, tipoRopa, estadoRopa, colorRopa, usuarioRopa);
+				Producto prenda = new Ropa (nombreRopa, etiquetaRopa, precioRopa, imagenRopa, tipoRopa, estadoRopa, colorRopa, usuarioRopa);
 				
-				producto.getUsuario().getProductosEnVenta().add(producto);
+				prenda.getUsuario().getProductosEnVenta().add(prenda);
 
 				FuncionesGenerales.listaProductos.add(producto);
 				// HAY QUE CREAR EN ALGÃšN LADO UN ARRAYLIST DE TODOS LOS PRODUCTOS DE DEUSTOPOP Y METER AHÃ� EL PRODUCTO CREADO
