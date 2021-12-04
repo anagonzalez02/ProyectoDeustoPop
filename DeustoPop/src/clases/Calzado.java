@@ -11,6 +11,11 @@ public class Calzado extends Producto {
 		super(id, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta);
 		this.tallaCalzado = tallaCalzado;
 	}
+	
+	public Calzado(String nombre, String etiquetas, double precio, Image imagen, Estado estado, Colores color, Usuario usuario, double tallaCalzado) {
+		super(nombre, etiquetas, precio, imagen, estado, color, usuario);
+		this.tallaCalzado = tallaCalzado;
+	}
 
 	
 	public double getTallaCalzado() {
@@ -25,7 +30,9 @@ public class Calzado extends Producto {
 
 	@Override
 	public String toString() {
-		return "Calzado [tallaCalzado=" + tallaCalzado + "]";
+		return "Calzado [id=" + id + ", nombre=" + nombre + ", fechaSubida=" + fechaSubida + ", etiquetas="
+				+ etiquetas + ", precio=" + precio + ", imagen=" + imagen + ", estado=" + estado
+				+ ", color=" + color + ", usuario=" + usuario + "tallaCalzado=" + tallaCalzado + "]";
 	}
 	
 	

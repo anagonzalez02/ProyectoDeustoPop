@@ -17,6 +17,7 @@ import javax.swing.SpinnerListModel;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
+import clases.Calzado;
 import clases.Colores;
 import clases.Estado;
 import clases.FuncionesGenerales;
@@ -159,13 +160,13 @@ public class VentanaVenderCalzado extends JFrame implements ActionListener {
 				Colores colorCalzado = (Colores) comboColor.getSelectedItem();
 				// HAY QUE CAMBIAR ESTO (usuario)
 				Usuario usuarioCalzado = new Usuario();
+				double tallaCalzado = (double) spinnerTalla.getValue();
 				
-				Producto producto = new Producto (nombreCalzado, etiquetaCalzado, precioCalzado, imagenCalzado, estadoCalzado, colorCalzado, usuarioCalzado);
+				Calzado zapato = new Calzado (nombreCalzado, etiquetaCalzado, precioCalzado, imagenCalzado, estadoCalzado, colorCalzado, usuarioCalzado, tallaCalzado);
 				
-				producto.getUsuario().getProductosEnVenta().add(producto);
+				zapato.getUsuario().getProductosEnVenta().add(zapato);
 				
-				FuncionesGenerales.listaProductos.add(producto);
-				// HAY QUE CREAR EN ALGÃšN LADO UN ARRAYLIST DE TODOS LOS PRODUCTOS DE DEUSTOPOP Y METER AHÃ� EL PRODUCTO CREADO
+				FuncionesGenerales.listaProductos.add(zapato);
 				
 			}
 		});
