@@ -45,6 +45,7 @@ public class BaseDeDatos {
 				crearTablaBDUsuario();
 				crearTablaBDCalzado();
 				crearTablaBDRopa();
+				crearTablaBDLugar();
 				
 				try {
 					
@@ -76,6 +77,17 @@ public class BaseDeDatos {
 						String[] datos = linea.split( "\t" );
 						consulta = "INSERT INTO Ropa (id, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, tallaRopa)"
 								+ "VALUES (" + datos[0] + ", '" + datos[1] + "', '" + datos[2] + "', '" + datos[3] + "', " + datos[4] + ", '" + datos[5] + "', '" + datos[6] + "', '" + datos[7] + "', " + datos[8] + ", " + datos[9] + ", '" + datos[10] + "');";
+						logger.log( Level.INFO, "Statement: " + consulta );
+						statement.executeUpdate( consulta );
+					}
+					scanner.close();
+					
+					scanner = new Scanner( BaseDeDatos.class.getResourceAsStream("Lugar-inic.txt") );
+					while (scanner.hasNextLine()) {
+						String linea = scanner.nextLine();
+						String[] datos = linea.split( "\t" );
+						consulta = "INSERT INTO Lugar (direccion, codCiu, nomCiu, codPais, nomPais)"
+								+ "VALUES ('" + datos[0] + "', " + datos[1] + ", '" + datos[2] + "', " + datos[3] + ", '" + datos[4] + "');";
 						logger.log( Level.INFO, "Statement: " + consulta );
 						statement.executeUpdate( consulta );
 					}
@@ -168,6 +180,26 @@ public class BaseDeDatos {
 				+ "INT[6] idUsuario NOT NULL, BIT enVenta, DOUBLE[2,1] tallaCalzado, "
 				+ ""
 				+ "PRIMARY KEY (id), + UNIQUE KEY (nombre), FOREIGN KEY (idUsuario) REFERENCES Usuario (idUsuario));";
+		
+		if (statement==null) return;
+		try {
+			logger.log( Level.INFO, "Statement: " + consulta );
+			statement.executeUpdate(consulta);
+		} catch (SQLException e) {
+			// Si hay excepción es que la tabla ya existía (lo cual es correcto)
+			// e.printStackTrace();  
+		}
+	}
+	
+	
+	public static void crearTablaBDLugar() throws SQLException {
+		Statement statement = conexion.createStatement();
+		consulta = "DROP TABLE IF EXISTS Lugar";
+		logger.log( Level.INFO, "Statement: " + consulta );
+		statement.executeUpdate( consulta );
+		
+		consulta = "CREATE TABLE Lugar " +
+				"(VARCHAR[100] direccion NOT NULL, INT[7] codCiu, VARCHAR[35] nomCiud, INT[5] codPais, VARCHAR[25] nomPais, PRIMARY KEY (direccion));";
 		
 		if (statement==null) return;
 		try {
