@@ -23,7 +23,7 @@ public class FuncionesGenerales {
 		usuarioVendedor.productosVendidos.add(productoComprar);
 		usuarioComprador.productosComprados.add(productoComprar);
 		restarDinero (productoComprar, usuarioComprador);
-		sumarDinero (productoComprar, usuarioVendedor);
+		sumarDinero (productoComprar);
 		JOptionPane.showMessageDialog(null, "Has comprado " + productoComprar.getNombre() + ". Nos pondremos en contacto con el vendedor", "Enhorabuena", JOptionPane.DEFAULT_OPTION, null);
 	}
 	
@@ -33,9 +33,11 @@ public class FuncionesGenerales {
 		} else {
 			// CON LA TARJETA
 		}
+		
 	}
 	
-	public static void sumarDinero (Producto productoComprar, Usuario usuarioVendedor) {
+	public static void sumarDinero (Producto productoComprar) {
+		Usuario usuarioVendedor = productoComprar.getUsuario();
 		usuarioVendedor.setSaldo(usuarioVendedor.getSaldo() + productoComprar.getPrecio());
 	}
 	

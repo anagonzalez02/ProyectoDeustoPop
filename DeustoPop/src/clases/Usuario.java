@@ -40,8 +40,7 @@ public class Usuario{
 
 	
 
-	public Usuario(String nombre, int telefono, int tarjeta, String email, String contrasenia,
-			Lugar vivienda) {
+	public Usuario(String nombre, int telefono, int tarjeta, String email, String contrasenia, Lugar vivienda) {
 		super();
 		contadorU++;
 		this.idUsuario = idUsuario;
