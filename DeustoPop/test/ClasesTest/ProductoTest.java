@@ -10,7 +10,6 @@ import clases.Colores;
 import clases.Estado;
 import clases.Lugar;
 import clases.Producto;
-import clases.Tipo;
 import clases.Usuario;
 
 public class ProductoTest {
