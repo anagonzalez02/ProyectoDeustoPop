@@ -22,7 +22,8 @@ import clases.Colores;
 import clases.Estado;
 import clases.FuncionesGenerales;
 import clases.Producto;
-import clases.Tipo;
+import clases.Ropa;
+import clases.TallasRopa;
 import clases.Usuario;
 
 
@@ -137,11 +138,7 @@ public class VentanaVenderRopa extends JFrame implements ActionListener {
     this.add(comboColor);
     comboColor.setModel(new DefaultComboBoxModel(Colores.values()));
     this.add(comboTalla);
-    comboTalla.addItem("XS");
-    comboTalla.addItem("S");
-    comboTalla.addItem("M");
-    comboTalla.addItem("L");
-    comboTalla.addItem("XL");
+    comboTalla.setModel(new DefaultComboBoxModel(TallasRopa.values()));
 
     
 	    
@@ -159,18 +156,17 @@ public class VentanaVenderRopa extends JFrame implements ActionListener {
 				double precioRopa = (double) spinnerPrecio.getValue();
 				// HAY QUE CAMBIAR ESTO (imagen)
 				Image imagenRopa = null;
-				Tipo tipoRopa = Tipo.ropa;
 				Estado estadoRopa = (Estado) comboEstado.getSelectedItem();
 				Colores colorRopa = (Colores) comboColor.getSelectedItem();
 				// HAY QUE CAMBIAR ESTO (usuario)
 				Usuario usuarioRopa = new Usuario();
+				TallasRopa tallaRopa = (TallasRopa) comboTalla.getSelectedItem();
 				
-				Producto prenda = new Ropa (nombreRopa, etiquetaRopa, precioRopa, imagenRopa, tipoRopa, estadoRopa, colorRopa, usuarioRopa);
+				Ropa prenda = new Ropa (nombreRopa, etiquetaRopa, precioRopa, imagenRopa, estadoRopa, colorRopa, usuarioRopa, tallaRopa);
 				
 				prenda.getUsuario().getProductosEnVenta().add(prenda);
 
-				FuncionesGenerales.listaProductos.add(producto);
-				// HAY QUE CREAR EN ALGÃšN LADO UN ARRAYLIST DE TODOS LOS PRODUCTOS DE DEUSTOPOP Y METER AHÃ� EL PRODUCTO CREADO
+				FuncionesGenerales.listaProductos.add(prenda);
 				// HAY QUE CREAR EN ALGUN LADO UN ARRAYLIST DE TODOS LOS PRODUCTOS DE DEUSTOPOP Y METER AHI EL PRODUCTO CREADO
 				//no escribais con acentos plz que se comprime raro
 				

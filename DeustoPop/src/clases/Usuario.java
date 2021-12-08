@@ -168,6 +168,14 @@ public class Usuario{
 	public void setProductosComprados(ArrayList<Producto> productosComprados) {
 		this.productosComprados = productosComprados;
 	}
+	
+	public ArrayList<Producto> getProductosFavoritos() {
+		return productosFavoritos;
+	}
+
+	public void setProductosFavoritos(ArrayList<Producto> productosFavoritos) {
+		this.productosFavoritos = productosFavoritos;
+	}
 
 
 

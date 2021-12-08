@@ -11,16 +11,16 @@ public class Producto {
 
 	private static int contador = 0;
 	
-	private int id;
-	private String nombre;
-	private Calendar fechaSubida;
-	private String etiquetas;
-	private double precio;
-	private Image imagen;
-	private Estado estado;
-	private Colores color;
-	private Usuario usuario;
-	private boolean enVenta;
+	protected int id;
+	protected String nombre;
+	protected Calendar fechaSubida;
+	protected String etiquetas;
+	protected double precio;
+	protected Image imagen;
+	protected Estado estado;
+	protected Colores color;
+	protected Usuario usuario;
+	protected boolean enVenta;
 	
 	
 	public Producto (int id, String nombre, Calendar fechaSubida, String etiquetas, double precio, Image imagen, Estado estado, Colores color, Usuario usuario, boolean enVenta) {
