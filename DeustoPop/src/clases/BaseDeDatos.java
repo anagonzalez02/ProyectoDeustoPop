@@ -49,45 +49,50 @@ public class BaseDeDatos {
 				
 				try {
 					
-					scanner = new Scanner( BaseDeDatos.class.getResourceAsStream("Usuario-inic.txt") );
+					scanner = new Scanner( BaseDeDatos.class.getResourceAsStream("Usuario.txt") );
 					while (scanner.hasNextLine()) {
 						String linea = scanner.nextLine();
 						String[] datos = linea.split( "\t" );
 						consulta = "INSERT INTO Usuario (idUsuario, nombre, telefono, tarjeta, saldo, email, contrasenia, vivienda, productosEnVenta, productosVendidos, productosComprados, productosFavoritos)"
-								+ "VALUES (" + datos[0] + ", '" + datos[1] + "', " + datos[2] + ", " + datos[3] + ", " + datos[4] + ", '" + datos[5] + "', '" + datos[6] + "', " + datos[7] + ", '" + datos[8] + "', '" + datos[9] + "', '" + datos[10] + "', '" + datos[11] + "');";
+								+ "VALUES (" + datos[0] + ", '" + datos[1] + "', " + datos[2] + ", " + datos[3] + ", " + datos[4] + ", '" + datos[5] + "', '" + datos[6]
+								+ "', (SELECT * FROM Lugar WHERE L.idUsuario = '" + datos[7] + "'), (SELECT P.* FROM Producto P, Usuario U WHERE P.idUsuario = U.idUsuario AND P.enVenta = 1), '"
+								+ "(SELECT P.* FROM Producto P, Usuario U WHERE P.idUsuario = U.idUsuario AND P.enVenta = 0), '" + datos[10] + "', '" + datos[11] + "');";
+						
+						// QUEDA LA LISTA FAVORITOS Y LA LISTA COMPRADOS
+						
 						logger.log( Level.INFO, "Statement: " + consulta );
 						statement.executeUpdate( consulta );
 					}
 					scanner.close();
 					
-					scanner = new Scanner( BaseDeDatos.class.getResourceAsStream("Calzado-inic.txt") );
+					scanner = new Scanner( BaseDeDatos.class.getResourceAsStream("Calzado.txt") );
 					while (scanner.hasNextLine()) {
 						String linea = scanner.nextLine();
 						String[] datos = linea.split( "\t" );
-						consulta = "INSERT INTO Calzado (id, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, tallaCalzado)"
+						consulta = "INSERT INTO Calzado (id, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, idUsuario, enVenta, tallaCalzado)"
 								+ "VALUES (" + datos[0] + ", '" + datos[1] + "', '" + datos[2] + "', '" + datos[3] + "', " + datos[4] + ", '" + datos[5] + "', '" + datos[6] + "', '" + datos[7] + "', " + datos[8] + ", " + datos[9] + ", " + datos[10] + ");";
 						logger.log( Level.INFO, "Statement: " + consulta );
 						statement.executeUpdate( consulta );
 					}
 					scanner.close();
 					
-					scanner = new Scanner( BaseDeDatos.class.getResourceAsStream("Ropa-inic.txt") );
+					scanner = new Scanner( BaseDeDatos.class.getResourceAsStream("Ropa.txt") );
 					while (scanner.hasNextLine()) {
 						String linea = scanner.nextLine();
 						String[] datos = linea.split( "\t" );
-						consulta = "INSERT INTO Ropa (id, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, tallaRopa)"
+						consulta = "INSERT INTO Ropa (id, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, idUsuario, enVenta, tallaRopa)"
 								+ "VALUES (" + datos[0] + ", '" + datos[1] + "', '" + datos[2] + "', '" + datos[3] + "', " + datos[4] + ", '" + datos[5] + "', '" + datos[6] + "', '" + datos[7] + "', " + datos[8] + ", " + datos[9] + ", '" + datos[10] + "');";
 						logger.log( Level.INFO, "Statement: " + consulta );
 						statement.executeUpdate( consulta );
 					}
 					scanner.close();
 					
-					scanner = new Scanner( BaseDeDatos.class.getResourceAsStream("Lugar-inic.txt") );
+					scanner = new Scanner( BaseDeDatos.class.getResourceAsStream("Lugar.txt") );
 					while (scanner.hasNextLine()) {
 						String linea = scanner.nextLine();
 						String[] datos = linea.split( "\t" );
-						consulta = "INSERT INTO Lugar (direccion, codCiu, nomCiu, codPais, nomPais)"
-								+ "VALUES ('" + datos[0] + "', " + datos[1] + ", '" + datos[2] + "', " + datos[3] + ", '" + datos[4] + "');";
+						consulta = "INSERT INTO Lugar (direccion, nomCiu, nomPais)"
+								+ "VALUES ('" + datos[0] + "', " + datos[1] + ", '" + datos[2] + "');";
 						logger.log( Level.INFO, "Statement: " + consulta );
 						statement.executeUpdate( consulta );
 					}
@@ -211,7 +216,7 @@ public class BaseDeDatos {
 		statement.executeUpdate( consulta );
 		
 		consulta = "CREATE TABLE Lugar " +
-				"(VARCHAR[100] direccion NOT NULL, INT[7] codCiu, VARCHAR[35] nomCiud, INT[5] codPais, VARCHAR[25] nomPais, PRIMARY KEY (direccion));";
+				"(VARCHAR[100] direccion NOT NULL, VARCHAR[35] nomCiud, VARCHAR[25] nomPais PRIMARY KEY (direccion));";
 		
 		if (statement==null) return;
 		try {

@@ -67,7 +67,7 @@ public class FuncionesGenerales {
 	
 	public static void main (String arg[]) {
 		//System.out.println(code("anaguapa"));
-		System.out.println(decode("dqdjxdsd"));
+		//System.out.println(decode("dqdjxdsd"));
 	}
 
 }
