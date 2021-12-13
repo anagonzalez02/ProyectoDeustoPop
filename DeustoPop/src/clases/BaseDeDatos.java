@@ -216,7 +216,7 @@ public class BaseDeDatos {
 		statement.executeUpdate( consulta );
 		
 		consulta = "CREATE TABLE Lugar " +
-				"(VARCHAR[100] direccion NOT NULL, VARCHAR[35] nomCiud, VARCHAR[25] nomPais PRIMARY KEY (direccion));";
+				"(VARCHAR[100] direccion NOT NULL, VARCHAR[35] nomCiu, VARCHAR[25] nomPais PRIMARY KEY (direccion));";
 		
 		if (statement==null) return;
 		try {
@@ -378,6 +378,26 @@ public class BaseDeDatos {
 	
 	
 	// QUEDA HACER INSERTARLUGAR pero es bastante complejo porque solo se crea un lugar mediante un Usuario
+	
+	/**
+	 * Inserta un lugar/vivienda en la base de datos abierta 
+	 * @param lugar			un nuevo luegar recién registrado mediante un nuevo usuario que se introducirá en la base de Datos
+	 * @return				true si la inserción es correcta, false en caso contrario
+	 */
+	public static boolean insertarLugar( Lugar lugar ) {
+		try (Statement statement = conexion.createStatement()) {
+			consulta = "INSERT INTO Lugar (direccion, nomCiu, nomPais)"
+					+ "VALUES ('" + lugar.getDireccion() + "', '" + lugar.getNomCiu() + "', '" + lugar.getNomPais() + "')";
+
+			logger.log( Level.INFO, "Statement: " + consulta );
+			int insertados = statement.executeUpdate( consulta );
+			if (insertados!=1) return false;  // Error en inserción
+			return true;
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return false;
+		}
+	}
 	
 	
 	/**
