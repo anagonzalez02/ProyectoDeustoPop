@@ -3,6 +3,8 @@ package ventanas;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -15,9 +17,11 @@ import javax.swing.SpinnerListModel;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
+import clases.Calzado;
+import clases.Colores;
+import clases.Estado;
 import clases.FuncionesGenerales;
 import clases.Producto;
-import clases.Tipo;
 import clases.Usuario;
 
 public class VentanaVenderCalzado extends JFrame implements ActionListener {
@@ -135,18 +139,9 @@ public class VentanaVenderCalzado extends JFrame implements ActionListener {
 	    this.add(spinnerTalla);
 	    
 	    this.add(comboEstado);
-	    comboEstado.addItem("Malo");
-	    comboEstado.addItem("Medio");
-	    comboEstado.addItem("Bueno");
+	    comboEstado.setModel(new DefaultComboBoxModel(Estado.values()));
 	    this.add(comboColor);
-	    comboColor.addItem("Negro");
-	    comboColor.addItem("Blanco");
-	    comboColor.addItem("Rojo");
-	    comboColor.addItem("Azul");
-	    comboColor.addItem("Rosa");
-	    comboColor.addItem("Gris");
-	    comboColor.addItem("Multicolor");
-	    comboColor.addItem("Otro");
+	    comboColor.setModel(new DefaultComboBoxModel(Colores.values()));
 	
 	    
 	    // En el funciÃ³n publicar, DE MOMENTO hemos creado el objeto producto basado en los datos recogidos
@@ -158,21 +153,20 @@ public class VentanaVenderCalzado extends JFrame implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				String nombreCalzado = cajaNombre.getText();
 				String etiquetaCalzado = cajaEtiqueta.getText();
-				int precioCalzado = (Integer) spinnerPrecio.getValue();
+				double precioCalzado = (double) spinnerPrecio.getValue();
 				// HAY QUE CAMBIAR ESTO (imagen)
 				Image imagenCalzado = null;
-				Tipo tipoCalzado = Tipo.calzado;
-				String estadoCalzado = (String) comboEstado.getSelectedItem();
-				String colorCalzado = (String) comboColor.getSelectedItem();
+				Estado estadoCalzado = (Estado) comboEstado.getSelectedItem();
+				Colores colorCalzado = (Colores) comboColor.getSelectedItem();
 				// HAY QUE CAMBIAR ESTO (usuario)
 				Usuario usuarioCalzado = new Usuario();
+				double tallaCalzado = (double) spinnerTalla.getValue();
 				
-				Producto producto = new Producto (nombreCalzado, etiquetaCalzado, precioCalzado, imagenCalzado, tipoCalzado, estadoCalzado, colorCalzado, usuarioCalzado);
+				Calzado zapato = new Calzado (nombreCalzado, etiquetaCalzado, precioCalzado, imagenCalzado, estadoCalzado, colorCalzado, usuarioCalzado, tallaCalzado);
 				
-				producto.getUsuario().getProductosEnVenta().add(producto);
+				zapato.getUsuario().getProductosEnVenta().add(zapato);
 				
-				FuncionesGenerales.listaProductos.add(producto);
-				// HAY QUE CREAR EN ALGÃšN LADO UN ARRAYLIST DE TODOS LOS PRODUCTOS DE DEUSTOPOP Y METER AHÃ� EL PRODUCTO CREADO
+				FuncionesGenerales.listaProductos.add(zapato);
 				
 			}
 		});

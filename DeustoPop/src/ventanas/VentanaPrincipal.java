@@ -105,7 +105,7 @@ public class VentanaPrincipal extends JFrame{
     public JTable CreateCompTable() {
         CompModel = new PanelTableModel();
         JTable table = new JTable(CompModel);
-        table.setRowHeight(new CompCellPanel().getPreferredSize().height);
+        table.setRowHeight(300);
         table.setTableHeader(null);
         PanelCellEditorRenderer PanelCellEditorRenderer = new PanelCellEditorRenderer();
         table.setDefaultRenderer(Object.class, PanelCellEditorRenderer);
