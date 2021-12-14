@@ -15,8 +15,10 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 
 import clases.Lugar;
+import clases.Producto;
 import clases.Usuario;
 
 public class VentanaUsuario extends JFrame {
@@ -45,7 +47,7 @@ public class VentanaUsuario extends JFrame {
 		btnVolver = new JButton("Volver");
 		btnEditar = new JButton("Cambiar datos");
 		btnVerProducto = new JButton("Ver producto");
-		btnVerProducto = new JButton("Favoritos");
+		btnFavoritos = new JButton("Favoritos");
 		
 		nombreUsuario = new JLabel("" + s.getNombre());
 		emailUsuario = new JLabel("" + s.getEmail());
@@ -79,7 +81,7 @@ public class VentanaUsuario extends JFrame {
 		cPanel.setLayout(new BorderLayout());
 		
 		
-		JPanel panelGeneral = new JPanel(new GridLayout(6, 2));
+		JPanel panelGeneral = new JPanel(new GridLayout(7, 2));
 		panelGeneral.add(nombreEtiqueta);
 		panelGeneral.add(nombreUsuario);
 		panelGeneral.add(emailEtiqueta);
@@ -92,7 +94,10 @@ public class VentanaUsuario extends JFrame {
 		panelGeneral.add(tarjetaUsuario);
 		panelGeneral.add(direccionEtiqueta);
 		panelGeneral.add(direccionUsuario);
-		panelGeneral.add(btnEditar, BorderLayout.SOUTH);
+		
+		// HACER QUE EL BOTÓN SE PONGA EN MEDIO
+		panelGeneral.add(btnEditar);
+		
 		cPanel.add(panelGeneral, BorderLayout.SOUTH);
 		
 		
@@ -139,7 +144,10 @@ public class VentanaUsuario extends JFrame {
 		btnVerProducto.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// OTRA VENTANA
+				Producto p = (Producto) listaProductos.getSelectedValue();
+				VentanaProducto ventana = new VentanaProducto(p);
+				ventana.setVisible(true);
+				dispose();
 			}
 		});
 		
