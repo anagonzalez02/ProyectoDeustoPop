@@ -3,6 +3,7 @@ package ventanas;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -13,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
@@ -33,7 +35,7 @@ public class VentanaProducto extends JFrame {
 	private JButton btnFavorito;
 	private JButton btnComprar;			
 	private JButton btnVolver;			
-	private JButton btnChat;
+	private JButton btnComentario;
 	
 	Usuario uComprador = new Usuario ("peeepiitaa", 611111111, 63527191, "pepa@email.com", "jeje", new Lugar("Gran Via 54", "Bilbao", "Españita"));
 	
@@ -43,9 +45,13 @@ public class VentanaProducto extends JFrame {
 		btnFavorito = new JButton("<3");
 		btnComprar = new JButton("Comprar");
 		btnVolver = new JButton("Volver");
-		btnChat = new JButton("Chat");
+		btnComentario = new JButton("Chat");
+		
+		Font us = new Font("Times New Roman", Font.ITALIC, 15);
+		
 		nombreVendedor = new JLabel("@" + p.getUsuario().getNombre(), SwingConstants.RIGHT);
 		nombreVendedor.setForeground(Color.GRAY);
+		nombreVendedor.setFont(us);
 	
 		// PANELES
 		
@@ -54,7 +60,9 @@ public class VentanaProducto extends JFrame {
 		
 		
 		JPanel panelInformacion = new JPanel(new GridLayout(1, 2));
+		Font prod = new Font("Times New Roman", Font.BOLD, 20);
 		nombreProducto = new JLabel("" + p.getNombre());
+		nombreProducto.setFont(prod);
 		panelInformacion.add(nombreProducto);
 		precioProducto = new JLabel("" + p.getPrecio() + "€");
 		panelInformacion.add(precioProducto);
@@ -71,7 +79,7 @@ public class VentanaProducto extends JFrame {
 		panelBotonera.add(btnFavorito);
 		
 		
-		JPanel panelResto = new JPanel (new GridLayout(3, 1));
+		JPanel panelResto = new JPanel (new GridLayout(4, 1));
 		panelResto.add(panelInfGeneral);
 		panelResto.add(new JLabel(""));
 		panelResto.add(panelBotonera);
@@ -84,9 +92,14 @@ public class VentanaProducto extends JFrame {
 		
 		
 		JPanel panelInferior = new JPanel(new GridLayout(1, 2));
-		panelInferior.add(btnChat);
+		panelInferior.add(btnComentario);
 		panelInferior.add(btnVolver);
 	
+		
+		cPanel.add(panelPrincipal);
+		cPanel.add(nombreVendedor, BorderLayout.NORTH);
+		cPanel.add(panelInferior, BorderLayout.SOUTH);
+		
 		
 		// BOTONES
 		
@@ -126,18 +139,13 @@ public class VentanaProducto extends JFrame {
 		});
 		
 		// Hay que cambiar el usuario
-		btnChat.addActionListener(new ActionListener() {
+		btnComentario.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// LLEVAR A CHAT O HACER COMENTARIO
 			}
 		});
 				
-		
-		
-		cPanel.add(panelPrincipal);
-		cPanel.add(nombreVendedor, BorderLayout.NORTH);
-		cPanel.add(panelInferior, BorderLayout.SOUTH);
 		
 		
 		// Quedan el botón Chat y el Favorito
