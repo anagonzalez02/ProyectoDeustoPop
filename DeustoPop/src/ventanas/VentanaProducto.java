@@ -40,7 +40,7 @@ public class VentanaProducto extends JFrame {
 	Usuario uComprador = new Usuario ("peeepiitaa", 611111111, 63527191, "pepa@email.com", "jeje", new Lugar("Gran Via 54", "Bilbao", "Españita"));
 	
 	
-	public VentanaProducto (Producto p) {
+	public VentanaProducto (Producto p, Usuario u) {
 		
 		btnFavorito = new JButton("<3");
 		btnComprar = new JButton("Comprar");
@@ -106,8 +106,14 @@ public class VentanaProducto extends JFrame {
 		btnVolver.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaPrincipal.main(null);
-				dispose();
+				if (p.getUsuario() == u) {
+					VentanaUsuario ventana = new VentanaUsuario(u);
+					ventana.setVisible(true);
+					dispose();
+				} else {
+					VentanaPrincipal.main(null);
+					dispose();
+				}
 			}
 		});
 		
@@ -169,7 +175,7 @@ public class VentanaProducto extends JFrame {
 		Usuario uVendedor = new Usuario ("peepee", 600000000, 8727193, "pepeee@email.com", "contrasenya", new Lugar("Calle Dato 4", "Vitoria", "Espana"));
 		Producto producto = new Producto ("Zapatilla guay", "Cool", 10.65, Image, Estado.MALO, Colores.Azul, uVendedor);
     	
-		VentanaProducto C = new VentanaProducto(producto);      // creamos una ventana, de momento con producto nulo
+		VentanaProducto C = new VentanaProducto(producto, uVendedor);      // creamos una ventana, de momento con producto nulo
         C.setVisible(true);             // hacemos visible la ventana creada
     }
 	

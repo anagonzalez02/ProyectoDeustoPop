@@ -42,19 +42,19 @@ public class VentanaUsuario extends JFrame {
 	private JButton btnVerProducto;
 	
 	
-	public VentanaUsuario (Usuario s) {
+	public VentanaUsuario (Usuario u) {
 		
 		btnVolver = new JButton("Volver");
 		btnEditar = new JButton("Cambiar datos");
 		btnVerProducto = new JButton("Ver producto");
 		btnFavoritos = new JButton("Favoritos");
 		
-		nombreUsuario = new JLabel("" + s.getNombre());
-		emailUsuario = new JLabel("" + s.getEmail());
-		telefonoUsuario = new JLabel("" + s.getTelefono());
-		saldoUsuario = new JLabel("" + s.getSaldo());
-		tarjetaUsuario = new JLabel("" + s.getTarjeta());
-		direccionUsuario = new JLabel("" + s.getVivienda().getDireccion() + ", " + s.getVivienda().getNomCiu() + ", " + s.getVivienda().getNomPais());
+		nombreUsuario = new JLabel("" + u.getNombre());
+		emailUsuario = new JLabel("" + u.getEmail());
+		telefonoUsuario = new JLabel("" + u.getTelefono());
+		saldoUsuario = new JLabel("" + u.getSaldo());
+		tarjetaUsuario = new JLabel("" + u.getTarjeta());
+		direccionUsuario = new JLabel("" + u.getVivienda().getDireccion() + ", " + u.getVivienda().getNomCiu() + ", " + u.getVivienda().getNomPais());
 		
 		Font letra = new Font("Times New Roman", Font.BOLD, 16);
 		
@@ -145,7 +145,7 @@ public class VentanaUsuario extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Producto p = (Producto) listaProductos.getSelectedValue();
-				VentanaProducto ventana = new VentanaProducto(p);
+				VentanaProducto ventana = new VentanaProducto(p, u);
 				ventana.setVisible(true);
 				dispose();
 			}
@@ -159,7 +159,7 @@ public class VentanaUsuario extends JFrame {
 		});
 		
 		
-		this.setTitle("@" + s.getNombre());                   			 // colocamos titulo a la ventana
+		this.setTitle("@" + u.getNombre());                   			 // colocamos titulo a la ventana
 	    this.setSize(500, 700);                                 // colocamos tamanio a la ventana (ancho, alto)
 	    this.setLocationRelativeTo(null);                       // centramos la ventana en la pantalla
 	    this.setResizable(false);                               // hacemos que la ventana no sea redimiensionable
