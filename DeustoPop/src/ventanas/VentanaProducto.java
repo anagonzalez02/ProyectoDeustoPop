@@ -1,4 +1,4 @@
-package DeustoPopVentanas;
+package ventanas;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -13,9 +13,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import Clases.FuncionesGenerales;
-import Clases.Producto;
-import Clases.Usuario;
+import clases.FuncionesGenerales;
+import clases.Producto;
+import clases.Usuario;
 
 public class VentanaProducto extends JFrame {
 	
@@ -23,7 +23,8 @@ public class VentanaProducto extends JFrame {
 	private JLabel nombreProducto;		
 	private JLabel etiquetasProducto;	
 	private JLabel nombreVendedor;		
-	private JLabel precioProducto;		
+	private JLabel precioProducto;
+	private JButton btnFavorito;
 	private JButton btnComprar;			
 	private JButton btnVolver;			
 	private JButton btnChat;
@@ -54,7 +55,7 @@ public class VentanaProducto extends JFrame {
 		panelInformacion.add(panelComprar, BorderLayout.CENTER);
 		nombreVendedor = new JLabel(p.getUsuario().getNombre());
 		panelComprar.add(nombreVendedor);
-		panelComprar.add(new JLabel());
+		panelComprar.add(btnFavorito);
 		panelComprar.add(btnChat);
 		panelComprar.add(btnComprar);
 		
@@ -87,12 +88,12 @@ public class VentanaProducto extends JFrame {
 		
 		
 		
-		// Queda el botón Chat
+		// Quedan el botón Chat y el Favorito
 		
-	
+		// Hay que poner un corazon o rojo o vacio dependiendo de si es favorito o no
 		
 		
-		 this.setTitle("DeustoPop");                   			 // colocamos titulo a la ventana
+		 this.setTitle("" + p.getNombre());                   			 // colocamos titulo a la ventana
 	     this.setSize(500, 700);                                 // colocamos tamanio a la ventana (ancho, alto)
 	     this.setLocationRelativeTo(null);                       // centramos la ventana en la pantalla
 	     this.setResizable(false);                               // hacemos que la ventana no sea redimiensionable

@@ -1,4 +1,4 @@
-package DeustoPopVentanas;
+package ventanas;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,15 +23,13 @@ public class VentanaLogin extends JFrame implements ActionListener{
 	private JPasswordField password;
 	private JButton botonEntrar;
 	private JButton botonRegistrar;
-	private JFrame ventanaActual;
-	
+
 	
 	
     public VentanaLogin() {
-        super();    				// usamos el contructor de la clase padre JFrame
+        super();                    // usamos el contructor de la clase padre JFrame
         configurarVentana();        // configuramos la ventana
-        inicializarComponentes();	// inicializamos los atributos o componentes
-        ventanaActual = this;
+        inicializarComponentes();   // inicializamos los atributos o componentes
     }
     
     private void configurarVentana() {
@@ -55,7 +53,7 @@ public class VentanaLogin extends JFrame implements ActionListener{
         textoNombre.setText("Nombre de usuario:");   // colocamos un texto a la etiqueta
         textoNombre.setBounds(50, 30, 130, 30);		// colocamos posicion y tamanio del texto (x, y, ancho, alto)
         
-        textoPassword.setText("Contrasenia:");   	// colocamos un texto a la etiqueta
+        textoPassword.setText("Contrase�a:");   	// colocamos un texto a la etiqueta
         textoPassword.setBounds(50, 80, 130, 30);	// colocamos posicion y tamanio del texto (x, y, ancho, alto)
     	
         cajaNombre.setBounds(175, 30, 200, 30);

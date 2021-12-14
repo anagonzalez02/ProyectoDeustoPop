@@ -1,4 +1,4 @@
-package DeustoPopVentanas;
+package ventanas;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,9 +13,9 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import Clases.FuncionesGenerales;
-import Clases.Lugar;
-import Clases.Usuario;
+import clases.FuncionesGenerales;
+import clases.Lugar;
+import clases.Usuario;
 
 
 public class VentanaRegistrar extends JFrame implements ActionListener{
@@ -92,6 +92,9 @@ public class VentanaRegistrar extends JFrame implements ActionListener{
 					String pais = cajaPais.getText();
 					Lugar l = new Lugar(ciudad, direccion, pais);
 					Usuario u = new Usuario(n, telf, tarj, email, d, l);
+					String query = "INSERT INTO Usuario (" + u.getIdUsuario() + ", '" + u.getNombre() + "', " + u.getTelefono() + ", " 
+							+ u.getTarjeta() + ", " + u.getSaldo() + ", '" + u.getEmail() + "', '" + u.getContrasenia() + "', '"
+							+ ")";
 					JOptionPane.showMessageDialog(null, "Registro realizado con exito", "REGISTRO", JOptionPane.INFORMATION_MESSAGE);
 					vaciarCampos();
 				}else {

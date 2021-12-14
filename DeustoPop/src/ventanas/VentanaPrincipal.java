@@ -1,4 +1,4 @@
-package DeustoPopVentanas;
+package ventanas;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -111,7 +111,7 @@ public class VentanaPrincipal extends JFrame{
         table.setDefaultRenderer(Object.class, PanelCellEditorRenderer);
         table.setDefaultEditor(Object.class, PanelCellEditorRenderer);
         
-        //Se añaden los paneles al JTable
+        //Se aï¿½aden los paneles al JTable
         //Los paneles son del mismo tipo CompCellPanel y con cada instancia
         //de la clase Comp le pasamos los datos que va a mostrar por el constructor
         CompModel.addRow(new Comp(1), new Comp(2));
@@ -224,7 +224,7 @@ class CompCellPanel extends JPanel {
 		lTexto1.setText("Producto " + comp.numero);
 		precio.setVisible(true);
 		precio.setPreferredSize(new Dimension(0, 30));
-		precio.setText("precio" + " €");
+		precio.setText("precio" + " ï¿½");
 
 	}
 

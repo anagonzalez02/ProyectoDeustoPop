@@ -1,4 +1,4 @@
-package DeustoPopVentanas;
+package ventanas;
 
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -15,10 +15,10 @@ import javax.swing.SpinnerListModel;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
-import Clases.FuncionesGenerales;
-import Clases.Producto;
-import Clases.Tipo;
-import Clases.Usuario;
+import clases.FuncionesGenerales;
+import clases.Producto;
+import clases.Tipo;
+import clases.Usuario;
 
 public class VentanaVenderCalzado extends JFrame implements ActionListener {
 	
