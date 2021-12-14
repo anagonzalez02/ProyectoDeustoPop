@@ -85,6 +85,29 @@ public class FuncionesGenerales {
 	
 	
 	/**
+	 * FUNCIÓN RECURSIVA
+	 * Se trata de una función recursiva donde, al pulsar el botón de recomendaciones, 
+	 * el programa se encarga de buscar todos los productos en venta de la web que el usuario pueda comprar con el saldo que tiene en DeustoPop.
+	 * 
+	 * @param u				Usuario para el que buscaremos los productos recomendados basándonos en su saldo
+	 * @param n				Será la variable que recorra toda la lista de los productos en venta que hay en DeustoPop. Este irá incrementándose a medida que se llame a la función recursivamente
+	 * @param posibles		Será el ArrayList al que se irá añadiendo los productos aptos basándose en el saldo del usuario.
+	 * @return				Devuelve el ArrayList de los productos recomendados para el usuario, basado en el saldo del usuario.
+	 * **/
+	
+	
+	public static ArrayList<Producto> buscarProductosRecomendados (Usuario u, int n, ArrayList<Producto> posibles) {
+		if (n + 1 <= listaProductos.size()) {
+			if (listaProductos.get(n).getPrecio() <= u.getSaldo() && listaProductos.get(n).isEnVenta() == true) {
+				posibles.add(listaProductos.get(n));
+			}
+			buscarProductosRecomendados (u, n + 1, posibles);
+		}
+		return listaProductos;
+	}
+	
+	
+	/**
 	 * El método code se encarga de codificar la contraseña que el usuario meta nada más registrarse.
 	 * Esto hará que, al meter al usuario a la base de datos, incluyendo la contraseña, nadie pueda acceder a la verdadera contraseña ya que estará codificada.
 	 * 
