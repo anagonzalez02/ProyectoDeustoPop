@@ -173,5 +173,7 @@ public class VentanaUsuario extends JFrame {
         C.setVisible(true);             // hacemos visible la ventana creada
     }
 	
+	
+	// comentario
 
 }
