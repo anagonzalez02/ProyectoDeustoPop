@@ -169,9 +169,13 @@ public class VentanaProducto extends JFrame {
 		btnEliminar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				p.getUsuario().getProductosEnVenta().remove(p);
-				
-				// BASE DE DATOS ELIMINAR PRODUCTO 
+				int cuidadoPanel = JOptionPane.showConfirmDialog(null, "¿Esta seguro que quieres eliminar este producto?", "Alerta!", JOptionPane.YES_NO_OPTION);
+				if (cuidadoPanel == JOptionPane.YES_OPTION) {
+					p.getUsuario().getProductosEnVenta().remove(p);
+					
+					// BASE DE DATOS ELIMINAR PRODUCTO 
+
+				}
 			}
 		});
 				
