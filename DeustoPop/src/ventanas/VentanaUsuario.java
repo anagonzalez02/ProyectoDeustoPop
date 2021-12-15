@@ -107,9 +107,6 @@ public class VentanaUsuario extends JFrame {
 		JScrollPane scrollLista = new JScrollPane(listaProductos);
 		scrollLista.setPreferredSize(new Dimension(450, 260));
 		panelProductos.add(scrollLista, BorderLayout.CENTER);
-		
-		
-		
 		panelProductos.add(btnVerProducto);
 		
 		
@@ -174,6 +171,4 @@ public class VentanaUsuario extends JFrame {
     }
 	
 	
-	// comentario
-
 }

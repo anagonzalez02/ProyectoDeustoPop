@@ -36,6 +36,7 @@ public class VentanaProducto extends JFrame {
 	private JButton btnComprar;			
 	private JButton btnVolver;			
 	private JButton btnComentario;
+	private JButton btnEliminar;
 	
 	Usuario uComprador = new Usuario ("peeepiitaa", 611111111, 63527191, "pepa@email.com", "jeje", new Lugar("Gran Via 54", "Bilbao", "Españita"));
 	
@@ -46,6 +47,7 @@ public class VentanaProducto extends JFrame {
 		btnComprar = new JButton("Comprar");
 		btnVolver = new JButton("Volver");
 		btnComentario = new JButton("Chat");
+		btnEliminar = new JButton("Eliminar producto");
 		
 		Font us = new Font("Times New Roman", Font.ITALIC, 15);
 		
@@ -64,7 +66,7 @@ public class VentanaProducto extends JFrame {
 		nombreProducto = new JLabel("" + p.getNombre());
 		nombreProducto.setFont(prod);
 		panelInformacion.add(nombreProducto);
-		precioProducto = new JLabel("" + p.getPrecio() + "€");
+		precioProducto = new JLabel("" + p.getPrecio() + "€", SwingConstants.RIGHT);
 		panelInformacion.add(precioProducto);
 		
 		
@@ -74,25 +76,36 @@ public class VentanaProducto extends JFrame {
 		panelInfGeneral.add(etiquetasProducto);
 		
 		
-		JPanel panelBotonera = new JPanel(new GridLayout(1, 2));
-		panelBotonera.add(btnComprar);
-		panelBotonera.add(btnFavorito);
-		
-		
-		JPanel panelResto = new JPanel (new GridLayout(4, 1));
-		panelResto.add(panelInfGeneral);
-		panelResto.add(new JLabel(""));
-		panelResto.add(panelBotonera);
-		
-		
 		JPanel panelPrincipal = new JPanel (new GridLayout(2, 1));
 		// AQUÍ HAY QUE METER LA IMAGEN
 		panelPrincipal.add(new JLabel("Imagen"), BorderLayout.CENTER);
-		panelPrincipal.add(panelResto, BorderLayout.CENTER);
+		
+		if (u == p.getUsuario()) {
+			JPanel panelResto = new JPanel (new GridLayout(1, 1));
+			panelResto.add(panelInfGeneral);
+
+			panelPrincipal.add(panelResto, BorderLayout.CENTER);
+		} else {
+			JPanel panelBotonera = new JPanel(new GridLayout(1, 2));
+			panelBotonera.add(btnComprar);
+			panelBotonera.add(btnFavorito);
+			
+			JPanel panelResto = new JPanel (new GridLayout(3, 1));
+			panelResto.add(panelInfGeneral);
+			panelResto.add(new JLabel(""));
+			panelResto.add(panelBotonera);
+			
+			panelPrincipal.add(panelResto, BorderLayout.CENTER);
+		}
+		
 		
 		
 		JPanel panelInferior = new JPanel(new GridLayout(1, 2));
-		panelInferior.add(btnComentario);
+		if (p.getUsuario()==u) {
+			panelInferior.add(btnEliminar);
+		} else {
+			panelInferior.add(btnComentario);
+		}
 		panelInferior.add(btnVolver);
 	
 		
@@ -149,6 +162,20 @@ public class VentanaProducto extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// LLEVAR A CHAT O HACER COMENTARIO
+			}
+		});
+		
+		// Hay que cambiar el usuario
+		btnEliminar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int cuidadoPanel = JOptionPane.showConfirmDialog(null, "¿Esta seguro que quieres eliminar este producto?", "Alerta!", JOptionPane.YES_NO_OPTION);
+				if (cuidadoPanel == JOptionPane.YES_OPTION) {
+					p.getUsuario().getProductosEnVenta().remove(p);
+					
+					// BASE DE DATOS ELIMINAR PRODUCTO 
+
+				}
 			}
 		});
 				
