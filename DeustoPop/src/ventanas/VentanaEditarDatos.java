@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,10 +16,9 @@ import javax.swing.JTextField;
 
 import clases.BaseDeDatos;
 import clases.Lugar;
-import clases.Producto;
 import clases.Usuario;
 
-public class VentanaEditar extends JFrame {
+public class VentanaEditarDatos extends JFrame {
 	
 	private JTextField nombreUsuario;
 	private JTextField emailUsuario;
@@ -40,8 +38,7 @@ public class VentanaEditar extends JFrame {
 	private JButton btnCancelar;
 	private JButton btnGuardar;
 	
-	
-	public VentanaEditar (Usuario u) {
+	public VentanaEditarDatos (Usuario u)  {
 		
 		btnCancelar = new JButton("Cancelar");
 		btnGuardar = new JButton("Guardar");
@@ -75,33 +72,43 @@ public class VentanaEditar extends JFrame {
 		
 		// PANELES
 		
-		Container cPanel = this.getContentPane();
-		cPanel.setLayout(new BorderLayout());
-	
-		JPanel panelBotonera = new JPanel(new GridLayout(1, 2));
-		panelBotonera.add(btnCancelar);
-		panelBotonera.add(btnGuardar);
-		cPanel.add(panelBotonera, BorderLayout.SOUTH);
+		nombreEtiqueta.setBounds(50, 30, 130, 30);
+		nombreUsuario.setBounds(150, 30, 250, 30);
+		emailEtiqueta.setBounds(50, 80, 130, 30);
+		emailUsuario.setBounds(150, 80, 250, 30);
+		telefonoEtiqueta.setBounds(50, 130, 130, 30);
+		telefonoUsuario.setBounds(150, 130, 250, 30);
+		tarjetaEtiqueta.setBounds(50, 180, 130, 30);
+		tarjetaUsuario.setBounds(150, 180, 250, 30);
+		direccionEtiqueta.setBounds(50, 230, 130, 30);
+		direccionUsuario.setBounds(150, 230, 250, 30);
+		ciudadEtiqueta.setBounds(50, 280, 130, 30);
+		ciudadUsuario.setBounds(150, 280, 250, 30);
+		direccionEtiqueta.setBounds(50, 330, 130, 30);
+		direccionUsuario.setBounds(150, 330, 250, 30);
+		paisEtiqueta.setBounds(50, 380, 130, 30);
+		paisUsuario.setBounds(150, 380, 250, 30);
 		
-		JPanel panelGeneral = new JPanel(new GridLayout(8, 2));
-		panelGeneral.add(nombreEtiqueta);
-		panelGeneral.add(nombreUsuario);
-		panelGeneral.add(emailEtiqueta);
-		panelGeneral.add(emailUsuario);
-		panelGeneral.add(telefonoEtiqueta);
-		panelGeneral.add(telefonoUsuario);
-		panelGeneral.add(tarjetaEtiqueta);
-		panelGeneral.add(tarjetaUsuario);
-		panelGeneral.add(direccionEtiqueta);
-		panelGeneral.add(direccionUsuario);
-		panelGeneral.add(ciudadEtiqueta);
-		panelGeneral.add(ciudadUsuario);
-		panelGeneral.add(direccionEtiqueta);
-		panelGeneral.add(direccionUsuario);
-		panelGeneral.add(paisEtiqueta);
-		panelGeneral.add(paisUsuario);
+		btnCancelar.setBounds(50, 450, 150, 30);
+		btnGuardar.setBounds(225, 450, 150, 30);
 		
-		cPanel.add(panelGeneral);
+		this.add(nombreEtiqueta);
+		this.add(nombreUsuario);
+		this.add(emailEtiqueta);
+		this.add(emailUsuario);
+		this.add(telefonoEtiqueta);
+		this.add(telefonoUsuario);
+		this.add(tarjetaEtiqueta);
+		this.add(tarjetaUsuario);
+		this.add(direccionEtiqueta);
+		this.add(direccionUsuario);
+		this.add(ciudadEtiqueta);
+		this.add(ciudadUsuario);
+		this.add(direccionEtiqueta);
+		this.add(direccionEtiqueta);
+		this.add(paisEtiqueta);
+		this.add(paisUsuario);
+		
 		
 		
 		// BOTONES
@@ -179,17 +186,18 @@ public class VentanaEditar extends JFrame {
 		});
 		
 		this.setTitle("Editar @" + u.getNombre());              // colocamos titulo a la ventana
-	    this.setSize(450, 500);                                 // colocamos tamanio a la ventana (ancho, alto)
+	    this.setSize(450, 600);                                 // colocamos tamanio a la ventana (ancho, alto)
 	    this.setLocationRelativeTo(null);                       // centramos la ventana en la pantalla
 	    this.setResizable(false);                               // hacemos que la ventana no sea redimiensionable
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    // hacemos que cuando se cierre la ventana termine todo proceso
 		
-		
 	}
+	
+	
 	
 	public static void main(String[] args) {
 		Usuario usuario = new Usuario ("peepee", 600000000, 8727193, "pepeee@email.com", "contrasenya", new Lugar("Calle Dato 4", "Vitoria", "Espana"));
-		VentanaEditar ventana = new VentanaEditar(usuario);      // creamos una ventana, de momento con producto nulo
+		VentanaEditarDatos ventana = new VentanaEditarDatos(usuario);      // creamos una ventana, de momento con producto nulo
         ventana.setVisible(true);             // hacemos visible la ventana creada
     }
 
