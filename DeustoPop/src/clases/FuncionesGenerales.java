@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-public class FuncionesGenerales {
+public class FuncionesGenerales { 
 	
 	public static ArrayList<Usuario> listaUsuarios = new ArrayList();
 	
