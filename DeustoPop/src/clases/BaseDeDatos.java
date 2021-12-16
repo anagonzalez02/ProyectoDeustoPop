@@ -440,67 +440,6 @@ public class BaseDeDatos {
 			logger.log( Level.SEVERE, "Excepción", e );
 			return false;
 		}
-	}
-	
-	public static void crearTablaBDProducto() throws SQLException {
-		Statement statement = conexion.createStatement();
-		consulta = "DROP TABLE IF EXISTS Producto";
-		logger.log( Level.INFO, "Statement: " + consulta );
-		statement.executeUpdate( consulta );
-		
-		consulta = "CREATE TABLE Producto " +
-				"(INT[6] id AUTO_INCREMENT NOT NULL, VARCHAR[35] nombre, DATE fechaSubida, VARCHAR[60] etiquetas,  \"\n"
-				+ "	+ \"DOUBLE[4, 2] precio, INT[6] idUsuario NOT NULL, BIT enVenta, PRIMARY KEY(id));";
-		
-		if (statement==null) return;
-		try {
-			logger.log( Level.INFO, "Statement: " + consulta );
-			statement.executeUpdate(consulta);
-		} catch (SQLException e) {
-			// Si hay excepción es que la tabla ya existía (lo cual es correcto)
-			// e.printStackTrace();  
-		}
-	}
-	
-	public static ArrayList<Producto> getProducto() {
-		try (Statement statement = conexion.createStatement()) {
-			ArrayList<Producto> listaProductos = new ArrayList<>();
-			consulta = "SELECT * FROM Producto;";
-			logger.log( Level.INFO, "Statement: " + consulta );
-			ResultSet rs = statement.executeQuery( consulta );
-			while( rs.next() ) { // Leer el resultset
-				int id = rs.getInt("id");
-				String nombre = rs.getString("nombre");
-				Date fechaSubida = rs.getDate("fechaSubida");
-				String etiquetas = rs.getString("etiquetas");
-				Double precio = rs.getDouble("precio");
-				int idUsuario = rs.getInt("idUsuario");
-				Boolean enVenta = rs.getBoolean("enVenta");
-				
-//				listaProductos.add(new Producto(id, nombre, fechaSubida, etiquetas, precio, idUsuario, enVenta) );
-			}
-			return listaProductos;
-		} catch (Exception e) {
-			logger.log( Level.SEVERE, "Excepción", e );
-			return null;
-		}
-	}
-	
-	public static boolean insertarProducto( Producto producto) {
-		try (Statement statement = conexion.createStatement()) {
-			consulta = "INSERT INTO Producto (id, nombre, fechaSubida, etiquetas, precio, idUsuario, enVenta)"
-					+ "VALUES ('" + producto.getId() + "', '" + producto.getNombre() + "', '" + producto.getFechaSubida() + 
-					"', '" + producto.getEtiquetas() + "', '" + producto.getPrecio() + "', '" + producto.getUsuario() + "', '" + producto.enVenta + "')";
-
-			logger.log( Level.INFO, "Statement: " + consulta );
-			int insertados = statement.executeUpdate( consulta );
-			if (insertados!=1) return false;  // Error en inserción
-			return true;
-		} catch (Exception e) {
-			logger.log( Level.SEVERE, "Excepción", e );
-			return false;
-		}
-	}
-	
+	} 
 
 }
