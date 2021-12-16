@@ -320,10 +320,10 @@ public class BaseDeDatos {
 	 * @return											true si se ha modificado correctamente, false en caso contrario
 	 */
 	
-	public static boolean modificarUsuario(int id, String nombre, int telefono, int tarjeta, String email, String contrasenia, Lugar vivienda, ArrayList<Producto> productosEnVenta, ArrayList<Producto> productosVendidos, ArrayList<Producto> productosComprados, ArrayList<Producto> productosFavoritos) {
+	public static boolean modificarUsuario(int id, String nombre, int telefono, int tarjeta, String email, Lugar vivienda, ArrayList<Producto> productosEnVenta, ArrayList<Producto> productosVendidos, ArrayList<Producto> productosComprados, ArrayList<Producto> productosFavoritos) {
 		try {
 			Statement statement = conexion.createStatement();
-			consulta = "UPDATE Usuario SET nombre = '" + nombre + "', telefono = " + telefono + ", tarjeta = " + tarjeta + ", email = '" + email + "', contrasenia = '" + contrasenia + "', direccion = '" + vivienda.getDireccion()
+			consulta = "UPDATE Usuario SET nombre = '" + nombre + "', telefono = " + telefono + ", tarjeta = " + tarjeta + ", email = '" + email + "', direccion = '" + vivienda.getDireccion()
 			+ "', productosEnVenta = '" + productosEnVenta + "', productosVendidos = '" + productosVendidos + "', productosComprados = '" + productosComprados + "', productosFavoritos = '" + productosFavoritos 
 			+ "' WHERE idUsuario = " + id + ";";
 			logger.log( Level.INFO, "Statement: " + consulta );
