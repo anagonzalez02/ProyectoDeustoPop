@@ -134,9 +134,7 @@ public class VentanaUsuario extends JFrame {
 		btnEditar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaEditar ventanaE = new VentanaEditar(u);      // creamos una ventana, de momento con producto nulo
-		        ventanaE.setVisible(true);  
-		        dispose();
+				// OTRA VENTANA
 			}
 		});
 		
