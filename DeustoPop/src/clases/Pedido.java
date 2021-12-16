@@ -3,7 +3,7 @@ package clases;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-public class Pedido {
+public class Pedido { 
 	
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	private int precioTotal = 0;

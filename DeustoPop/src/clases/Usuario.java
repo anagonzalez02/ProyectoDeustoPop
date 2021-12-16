@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.JPasswordField;
 
-public class Usuario{
+public class Usuario{ 
 	
 	private static int contadorU = 0;
 	

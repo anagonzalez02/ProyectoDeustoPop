@@ -5,7 +5,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class Producto {
+public class Producto { 
 	
 	private static final Image Image = null;
 

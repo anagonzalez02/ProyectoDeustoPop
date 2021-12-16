@@ -1,7 +1,7 @@
 package clases;
 
 public class Lugar {
-	private String direccion;
+	private String direccion; 
 	private String nomCiu;
 	private String nomPais;
 	
