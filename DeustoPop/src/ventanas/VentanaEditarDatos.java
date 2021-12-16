@@ -84,10 +84,8 @@ public class VentanaEditarDatos extends JFrame {
 		direccionUsuario.setBounds(150, 230, 250, 30);
 		ciudadEtiqueta.setBounds(50, 280, 130, 30);
 		ciudadUsuario.setBounds(150, 280, 250, 30);
-		direccionEtiqueta.setBounds(50, 330, 130, 30);
-		direccionUsuario.setBounds(150, 330, 250, 30);
-		paisEtiqueta.setBounds(50, 380, 130, 30);
-		paisUsuario.setBounds(150, 380, 250, 30);
+		paisEtiqueta.setBounds(50, 330, 130, 30);
+		paisUsuario.setBounds(150, 330, 250, 30);
 		
 		btnCancelar.setBounds(50, 450, 150, 30);
 		btnGuardar.setBounds(225, 450, 150, 30);

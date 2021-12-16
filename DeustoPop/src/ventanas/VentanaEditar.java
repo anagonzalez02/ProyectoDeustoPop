@@ -83,7 +83,7 @@ public class VentanaEditar extends JFrame {
 		panelBotonera.add(btnGuardar);
 		cPanel.add(panelBotonera, BorderLayout.SOUTH);
 		
-		JPanel panelGeneral = new JPanel(new GridLayout(8, 2));
+		JPanel panelGeneral = new JPanel(new GridLayout(7, 2));
 		panelGeneral.add(nombreEtiqueta);
 		panelGeneral.add(nombreUsuario);
 		panelGeneral.add(emailEtiqueta);
@@ -96,8 +96,6 @@ public class VentanaEditar extends JFrame {
 		panelGeneral.add(direccionUsuario);
 		panelGeneral.add(ciudadEtiqueta);
 		panelGeneral.add(ciudadUsuario);
-		panelGeneral.add(direccionEtiqueta);
-		panelGeneral.add(direccionUsuario);
 		panelGeneral.add(paisEtiqueta);
 		panelGeneral.add(paisUsuario);
 		
