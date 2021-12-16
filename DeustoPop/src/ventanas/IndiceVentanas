@@ -1,0 +1,35 @@
+EXPLICACIÓN DE LAS VENTANAS
+
+
+1.-Buscador
+Ventana en la que se busca un objeto mediante palabras clave.
+
+2.-Editar
+Ventana para editar los datos del usuario.
+
+3.-Filtrar
+Ventana para buscar un producto mediante filtrado.
+
+4.-Login
+Ventana para iniciar sesión.
+
+5.-Principal
+Ventana main en la que se muestran productos aleatoriamente además de los distintos menús.
+
+6.-Producto
+Ventana en la que aparece toda la información relacionada con un producto al que haces click.
+
+7.-Registrar
+Ventana en la que un usuario introduce sus datos.
+
+8.-Usuario
+Ventana en la que un usuario puede consultar sus datos.
+
+9.-Vender
+Ventana en la que un usuario decide qué tipo de producto vender.
+
+10.-VenderCalzado
+Ventana en la que se añade el calzado para ser vendido.
+
+11.-VenderRopa
+Ventana en la que se añade la ropa para ser vendida.
