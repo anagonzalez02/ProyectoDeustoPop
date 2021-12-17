@@ -168,7 +168,7 @@ public class VentanaEditar extends JFrame {
 					u.setVivienda(nuevoVivienda);
 					
 					BaseDeDatos.modificarLugar(viejaDireccion, nuevoDireccion, nuevoCiudad, nuevoPais);
-					BaseDeDatos.modificarUsuario(u.getIdUsuario(), nuevoNombre, nuevoTelefono, nuevoTarjeta, nuevoEmail, nuevoVivienda, u.getProductosEnVenta(), u.getProductosVendidos(), u.getProductosComprados(), u.getProductosFavoritos());
+					BaseDeDatos.modificarUsuario(u.getIdUsuario(), nuevoNombre, nuevoTelefono, nuevoTarjeta, u.getSaldo(), nuevoEmail, nuevoVivienda, u.getProductosEnVenta(), u.getProductosVendidos(), u.getProductosComprados(), u.getProductosFavoritos());
 					// QUEDA MODIFICARCUENTABANCARIA
 					
 					

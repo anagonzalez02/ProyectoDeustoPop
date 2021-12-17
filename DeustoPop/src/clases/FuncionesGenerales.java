@@ -62,8 +62,10 @@ public class FuncionesGenerales {
 	public static void restarDinero (Producto productoComprar, Usuario usuarioComprador) {
 		if (usuarioComprador.getSaldo() - productoComprar.getPrecio() >= 0) {
 			usuarioComprador.setSaldo(usuarioComprador.getSaldo() - productoComprar.getPrecio());
+			BaseDeDatos.modificarUsuario(usuarioComprador.getIdUsuario(), usuarioComprador.getNombre(), usuarioComprador.getTelefono(), usuarioComprador.getCuentaB().getnTarjeta(), usuarioComprador.getSaldo() - productoComprar.getPrecio(), usuarioComprador.getEmail(), usuarioComprador.getVivienda(), usuarioComprador.getProductosEnVenta(), usuarioComprador.getProductosVendidos(), usuarioComprador.getProductosComprados(), usuarioComprador.getProductosFavoritos());
 		} else {
 			usuarioComprador.getCuentaB().setDineroTotal(usuarioComprador.getCuentaB().getDineroTotal() - productoComprar.getPrecio());
+			BaseDeDatos.modificarCuentaBancaria(usuarioComprador.getCuentaB().getnTarjeta(), usuarioComprador.getIdUsuario(), usuarioComprador.getCuentaB().getnTarjeta(), usuarioComprador.getCuentaB().getDineroTotal() - productoComprar.getPrecio());
 		}
 	}
 	
@@ -81,6 +83,7 @@ public class FuncionesGenerales {
 	public static void sumarDinero (Producto productoComprar) {
 		Usuario usuarioVendedor = productoComprar.getUsuario();
 		usuarioVendedor.setSaldo(usuarioVendedor.getSaldo() + productoComprar.getPrecio());
+		BaseDeDatos.modificarUsuario(usuarioVendedor.getIdUsuario(), usuarioVendedor.getNombre(), usuarioVendedor.getTelefono(), usuarioVendedor.getCuentaB().getnTarjeta(), usuarioVendedor.getSaldo() + productoComprar.getPrecio(), usuarioVendedor.getEmail(), usuarioVendedor.getVivienda(), usuarioVendedor.getProductosEnVenta(), usuarioVendedor.getProductosVendidos(), usuarioVendedor.getProductosComprados(), usuarioVendedor.getProductosFavoritos());
 	}
 	
 	
