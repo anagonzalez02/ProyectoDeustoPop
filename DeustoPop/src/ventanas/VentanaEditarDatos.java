@@ -164,7 +164,7 @@ public class VentanaEditarDatos extends JFrame {
 					String viejaDireccion = u.getVivienda().getDireccion();
 					if (direccionUsuario.getText() == null && ciudadUsuario.getText() == null && paisUsuario.getText() == null) {
 						nuevoDireccion = u.getVivienda().getDireccion();
-						nuevoCiudad = u.getVivienda().getNomCiu();
+						nuevoCiudad = u.getVivienda().getNomCiud();
 						nuevoPais = u.getVivienda().getNomPais();
 					} else {
 						nuevoDireccion = direccionUsuario.getText();

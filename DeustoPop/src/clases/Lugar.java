@@ -2,14 +2,14 @@ package clases;
 
 public class Lugar {
 	private String direccion; 
-	private String nomCiu;
+	private String nomCiud;
 	private String nomPais;
 	
 	
-	public Lugar(String direccion, String nomCiu, String nomPais) {
+	public Lugar(String direccion, String nomCiud, String nomPais) {
 		super();
 		this.direccion = direccion;
-		this.nomCiu = nomCiu;
+		this.nomCiud = nomCiud;
 		this.nomPais = nomPais;
 	}
 
@@ -22,12 +22,12 @@ public class Lugar {
 		this.direccion = direccion;
 	}
 
-	public String getNomCiu() {
-		return nomCiu;
+	public String getNomCiud() {
+		return nomCiud;
 	}
 
-	public void setNomCiu(String nomCiu) {
-		this.nomCiu = nomCiu;
+	public void setNomCiud(String nomCiud) {
+		this.nomCiud = nomCiud;
 	}
 
 	public String getNomPais() {

@@ -46,6 +46,7 @@ public class BaseDeDatos {
 				crearTablaBDCalzado();
 				crearTablaBDRopa();
 				crearTablaBDLugar();
+				crearTablaBDCuentaBancaria();
 				
 				try {
 					
@@ -59,6 +60,28 @@ public class BaseDeDatos {
 						
 						// QUEDA LA LISTA FAVORITOS Y LA LISTA COMPRADOS
 						
+						logger.log( Level.INFO, "Statement: " + consulta );
+						statement.executeUpdate( consulta );
+					}
+					scanner.close();
+					
+					scanner = new Scanner( BaseDeDatos.class.getResourceAsStream("CuentaBancaria.txt") );
+					while (scanner.hasNextLine()) {
+						String linea = scanner.nextLine();
+						String[] datos = linea.split( "\t" );
+						consulta = "INSERT INTO CuentaBancaria (idUsuario, nTarjeta, dineroTotal)"
+								+ "VALUES (" + datos[0] + ", " + datos[1] + ", " + datos[2] + ");";
+						logger.log( Level.INFO, "Statement: " + consulta );
+						statement.executeUpdate( consulta );
+					}
+					scanner.close();
+					
+					scanner = new Scanner( BaseDeDatos.class.getResourceAsStream("Lugar.txt") );
+					while (scanner.hasNextLine()) {
+						String linea = scanner.nextLine();
+						String[] datos = linea.split( "\t" );
+						consulta = "INSERT INTO Lugar (direccion, nomCiud, nomPais)"
+								+ "VALUES ('" + datos[0] + "', " + datos[1] + ", '" + datos[2] + "');";
 						logger.log( Level.INFO, "Statement: " + consulta );
 						statement.executeUpdate( consulta );
 					}
@@ -81,17 +104,6 @@ public class BaseDeDatos {
 						String[] datos = linea.split( "\t" );
 						consulta = "INSERT INTO Ropa (id, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, idUsuario, enVenta, tallaRopa)"
 								+ "VALUES (" + datos[0] + ", '" + datos[1] + "', '" + datos[2] + "', '" + datos[3] + "', " + datos[4] + ", '" + datos[5] + "', '" + datos[6] + "', '" + datos[7] + "', " + datos[8] + ", " + datos[9] + ", '" + datos[10] + "');";
-						logger.log( Level.INFO, "Statement: " + consulta );
-						statement.executeUpdate( consulta );
-					}
-					scanner.close();
-					
-					scanner = new Scanner( BaseDeDatos.class.getResourceAsStream("Lugar.txt") );
-					while (scanner.hasNextLine()) {
-						String linea = scanner.nextLine();
-						String[] datos = linea.split( "\t" );
-						consulta = "INSERT INTO Lugar (direccion, nomCiu, nomPais)"
-								+ "VALUES ('" + datos[0] + "', " + datos[1] + ", '" + datos[2] + "');";
 						logger.log( Level.INFO, "Statement: " + consulta );
 						statement.executeUpdate( consulta );
 					}
@@ -132,9 +144,58 @@ public class BaseDeDatos {
 		statement.executeUpdate( consulta );
 		
 		consulta = "CREATE TABLE Usuario " +
-				"(INT[6] idUsuario AUTO_INCREMENT NOT NULL, VARCHAR[20] nombre NOT NULL, INT[12] telefono, INT[18] tarjeta, DOUBLE[6,2] saldo DEFAULT 0, VARCHAR[70] email, "
+				"(INT[6] idUsuario AUTO_INCREMENT NOT NULL, VARCHAR[20] nombre NOT NULL, INT[12] telefono, INT[18] nTarjeta, DOUBLE[6,2] saldo DEFAULT 0, VARCHAR[70] email, "
 				+ " VARCHAR[20] contrasenia NOT NULL, VARCHAR[100] direccion, "
-				+ "PRIMARY KEY (idUsuario), + UNIQUE KEY (nombre), FOREIGN KEY (direccion) REFERENCES Lugar (direccion));";
+				+ "PRIMARY KEY (idUsuario), UNIQUE KEY (nombre), FOREIGN KEY (nTarjeta) REFERENCES CuentaBancaria (nTarjeta), FOREIGN KEY (direccion) REFERENCES Lugar (direccion));";
+		
+		if (statement==null) return;
+		try {
+			logger.log( Level.INFO, "Statement: " + consulta );
+			statement.executeUpdate(consulta);
+		} catch (SQLException e) {
+			// Si hay excepción es que la tabla ya existía (lo cual es correcto)
+			// e.printStackTrace();  
+		}
+	}
+	
+	
+	/**
+	 * Crea la tabla CuentaBancaria
+	 * **/
+	
+	public static void crearTablaBDCuentaBancaria() throws SQLException {
+		Statement statement = conexion.createStatement();
+		consulta = "DROP TABLE IF EXISTS CuentaBancaria";
+		logger.log( Level.INFO, "Statement: " + consulta );
+		statement.executeUpdate( consulta );
+		
+		consulta = "CREATE TABLE CuentaBancaria " +
+				"(INT[6] idUsuario NOT NULL, INT[18] nTarjeta NOT NULL, DOUBLE[8.2] dineroTotal, "
+				+ "PRIMARY KEY (nTarjeta), FOREIGN KEY (idUsuario) REFERENCES CuentaBancaria (idUsuario));";
+		
+		if (statement==null) return;
+		try {
+			logger.log( Level.INFO, "Statement: " + consulta );
+			statement.executeUpdate(consulta);
+		} catch (SQLException e) {
+			// Si hay excepción es que la tabla ya existía (lo cual es correcto)
+			// e.printStackTrace();  
+		}
+	}
+	
+	
+	/**
+	 * Crea la tabla Lugar
+	 * **/
+	
+	public static void crearTablaBDLugar() throws SQLException {
+		Statement statement = conexion.createStatement();
+		consulta = "DROP TABLE IF EXISTS Lugar";
+		logger.log( Level.INFO, "Statement: " + consulta );
+		statement.executeUpdate( consulta );
+		
+		consulta = "CREATE TABLE Lugar " +
+				"(VARCHAR[100] direccion NOT NULL, VARCHAR[35] nomCiud, VARCHAR[25] nomPais PRIMARY KEY (direccion));";
 		
 		if (statement==null) return;
 		try {
@@ -203,18 +264,16 @@ public class BaseDeDatos {
 		}
 	}
 	
-	/**
-	 * Crea la tabla Lugar
-	 * **/
 	
-	public static void crearTablaBDLugar() throws SQLException {
+	public static void crearTablaBDProducto() throws SQLException {
 		Statement statement = conexion.createStatement();
-		consulta = "DROP TABLE IF EXISTS Lugar";
+		consulta = "DROP TABLE IF EXISTS Producto";
 		logger.log( Level.INFO, "Statement: " + consulta );
 		statement.executeUpdate( consulta );
 		
-		consulta = "CREATE TABLE Lugar " +
-				"(VARCHAR[100] direccion NOT NULL, VARCHAR[35] nomCiud, VARCHAR[25] nomPais PRIMARY KEY (direccion));";
+		consulta = "CREATE TABLE Producto " +
+				"(INT[6] id AUTO_INCREMENT NOT NULL, VARCHAR[35] nombre, DATE fechaSubida, VARCHAR[60] etiquetas,  \"\n"
+				+ "	+ \"DOUBLE[4, 2] precio, INT[6] idUsuario NOT NULL, BIT enVenta, PRIMARY KEY(id));";
 		
 		if (statement==null) return;
 		try {
@@ -225,6 +284,7 @@ public class BaseDeDatos {
 			// e.printStackTrace();  
 		}
 	}
+	
 	
 	
 	/** 
@@ -260,7 +320,6 @@ public class BaseDeDatos {
 		}
 	}
 	
-	
 	/**
 	 * Inserta un usuario en la base de datos abierta 
 	 * @param usuario		un nuevo usuario recién registrado que se introducirá en la base de Datos
@@ -286,7 +345,6 @@ public class BaseDeDatos {
 			return false;
 		}
 	}
-	
 	
 	/**
 	 * Eliminar un usuario de la base de datos abierta 
@@ -334,6 +392,115 @@ public class BaseDeDatos {
 	} 
 	
 	
+	
+	/** 
+	 * Para obtener un listado de todas las cuentas bancarias de la base de datos
+	 * @return	Lista completa de las cuentas bancarias de nuestra plataforma, null si hay algún error
+	 */
+	
+	public static ArrayList<CuentaBancaria> getCuentaBancaria() {
+		try (Statement statement = conexion.createStatement()) {
+			ArrayList<CuentaBancaria> listaCuentasB = new ArrayList<>();
+			consulta = "SELECT * FROM CuentaBancaria;";
+			logger.log( Level.INFO, "Statement: " + consulta );
+			ResultSet rs = statement.executeQuery( consulta );
+			while( rs.next() ) { // Leer el resultset
+				int idUsuario = rs.getInt("idUsuario");
+				int nTarjeta = rs.getInt("nTarjeta");
+				double dineroTotal = rs.getDouble("dineroTotal");
+				listaCuentasB.add(new CuentaBancaria (nTarjeta, dineroTotal) );
+			}
+			return listaCuentasB;
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return null;
+		}
+	}
+	
+	/** 
+	 * Para obtener una cuenta bancaria concreta de uno de los usuarios de la base de datos
+	 * @return	Cuenta bancaria de una persona registrada en nuestra plataforma, null si hay algún error
+	 */
+	
+	public static CuentaBancaria getCuentaBancaria(Usuario usuario) {
+		try (Statement statement = conexion.createStatement()) {
+			int nTarjeta = usuario.getCuentaB().getnTarjeta();
+			consulta = "SELECT * FROM CuentaBancaria WHERE nTarjeta = " + nTarjeta + ";";
+			logger.log( Level.INFO, "Statement: " + consulta );
+			CuentaBancaria cuenta = (CuentaBancaria) statement.executeQuery( consulta );
+			return cuenta;
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return null;
+		}
+	}
+	
+	/**
+	 * Inserta un lugar/vivienda en la base de datos abierta 
+	 * @param lugar			un nuevo luegar recién registrado mediante un nuevo usuario que se introducirá en la base de Datos
+	 * @return				true si la inserción es correcta, false en caso contrario
+	 */
+	
+	public static boolean insertarCuentaBancaria( CuentaBancaria cuenta, Usuario usuario ) {
+		try (Statement statement = conexion.createStatement()) {
+			consulta = "INSERT INTO CuentaBancaria (idUsuario, nTarjeta, dineroTotal)"
+					+ "VALUES (" + usuario.getIdUsuario() + ", " + cuenta.getnTarjeta() + "', '" + cuenta.getDineroTotal() + "')";
+			logger.log( Level.INFO, "Statement: " + consulta );
+			int insertados = statement.executeUpdate( consulta );
+			if (insertados!=1) return false;  // Error en inserción
+			return true;
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return false;
+		}
+	}
+	
+	
+	/**
+	 * Eliminar un Lugar de la base de datos 
+	 * @param vivienda		el lugar que se desea eliminar
+	 * @return				true si se ha eliminado correctamente, false en caso contrario
+	 */
+	
+	public static boolean eliminarCuentaBancaria(CuentaBancaria cuenta) {
+		int nTarjeta = cuenta.getnTarjeta();
+		try {
+			Statement statement = conexion.createStatement();
+			consulta = "DELETE FROM CuentaBancaria WHERE nTarjeta = '" + nTarjeta + "';";
+			logger.log( Level.INFO, "Statement: " + consulta );
+			statement.executeUpdate(consulta);
+			return true;
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return false;
+		}
+	}
+	
+	
+	/**
+	 * Modificar un usuario en la base de datos abierta 
+	 * @param direccionV	Direccion Vieja, será el identificativo para saber qué Lugar modificar
+	 * @param direccion		Direccion que se vaya a cambiar en la base de datos
+	 * @para, nomCiud		Nombre de la ciudad que se vaya a cambiar en la base de datos
+	 * @param nomPais 		Nombre del país que se vaya a cambiar en la base de datos
+	 * @return				true si se ha modificado correctamente, false en caso contrario
+	 */
+	
+	public static boolean modificarCuentaBancaria(int nTarjetaV, int idUsuario, int nTarjeta, int dineroTotal) {
+		try {
+			Statement statement = conexion.createStatement();
+			consulta = "UPDATE CuentaBancaria SET idUsuario = " + idUsuario + ", nTarjeta = " + nTarjeta + ", dineroTotal = " + dineroTotal + "  WHERE nTarjeta = " + nTarjetaV + ";";
+			logger.log( Level.INFO, "Statement: " + consulta );
+			statement.executeUpdate(consulta);
+			return true;
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return false;
+		}
+	}
+	
+	
+	
 	/** 
 	 * Para obtener un listado de todos los lugares de la base de datos
 	 * @return	Lista completa de los Lugares/Viviendas de nuestra plataforma, null si hay algún error
@@ -347,9 +514,9 @@ public class BaseDeDatos {
 			ResultSet rs = statement.executeQuery( consulta );
 			while( rs.next() ) { // Leer el resultset
 				String direccion = rs.getString("direccion");
-				String nomCiu = rs.getString("nomCiu");
+				String nomCiud = rs.getString("nomCiud");
 				String nomPais = rs.getString("nomPais");
-				listaLugares.add(new Lugar (direccion, nomCiu, nomPais) );
+				listaLugares.add(new Lugar (direccion, nomCiud, nomPais) );
 			}
 			return listaLugares;
 		} catch (Exception e) {
@@ -376,16 +543,16 @@ public class BaseDeDatos {
 		}
 	}
 	
-	
 	/**
 	 * Inserta un lugar/vivienda en la base de datos abierta 
 	 * @param lugar			un nuevo luegar recién registrado mediante un nuevo usuario que se introducirá en la base de Datos
 	 * @return				true si la inserción es correcta, false en caso contrario
 	 */
-	public static boolean insertarLugar( Lugar lugar ) {
+	
+	public static boolean insertarLugar( Lugar vivienda ) {
 		try (Statement statement = conexion.createStatement()) {
-			consulta = "INSERT INTO Lugar (direccion, nomCiu, nomPais)"
-					+ "VALUES ('" + lugar.getDireccion() + "', '" + lugar.getNomCiu() + "', '" + lugar.getNomPais() + "')";
+			consulta = "INSERT INTO Lugar (direccion, nomCiud, nomPais)"
+					+ "VALUES ('" + vivienda.getDireccion() + "', '" + vivienda.getNomCiud() + "', '" + vivienda.getNomPais() + "')";
 
 			logger.log( Level.INFO, "Statement: " + consulta );
 			int insertados = statement.executeUpdate( consulta );
@@ -400,7 +567,7 @@ public class BaseDeDatos {
 	
 	/**
 	 * Eliminar un Lugar de la base de datos 
-	 * @param vivienda			el lugar que se desea eliminar
+	 * @param vivienda		el lugar que se desea eliminar
 	 * @return				true si se ha eliminado correctamente, false en caso contrario
 	 */
 	
@@ -421,14 +588,17 @@ public class BaseDeDatos {
 	
 	/**
 	 * Modificar un usuario en la base de datos abierta 
-	 * @param 
-	 * @return											true si se ha modificado correctamente, false en caso contrario
+	 * @param direccionV	Direccion Vieja, será el identificativo para saber qué Lugar modificar
+	 * @param direccion		Direccion que se vaya a cambiar en la base de datos
+	 * @para, nomCiud		Nombre de la ciudad que se vaya a cambiar en la base de datos
+	 * @param nomPais 		Nombre del país que se vaya a cambiar en la base de datos
+	 * @return				true si se ha modificado correctamente, false en caso contrario
 	 */
 	
-	public static boolean modificarLugar(String direccionV, String direccion, String nomCiu, String nomPais) {
+	public static boolean modificarLugar(String direccionV, String direccion, String nomCiud, String nomPais) {
 		try {
 			Statement statement = conexion.createStatement();
-			consulta = "UPDATE Lugar SET direccion = '" + direccion + "', nomCiu = '" + nomCiu + "', nomPais = " + nomPais + "'  WHERE direccion = " + direccionV + ";";
+			consulta = "UPDATE Lugar SET direccion = '" + direccion + "', nomCiud = '" + nomCiud + "', nomPais = " + nomPais + "'  WHERE direccion = '" + direccionV + "';";
 			logger.log( Level.INFO, "Statement: " + consulta );
 			statement.executeUpdate(consulta);
 			return true;
@@ -438,25 +608,8 @@ public class BaseDeDatos {
 		}
 	}
 	
-	public static void crearTablaBDProducto() throws SQLException {
-		Statement statement = conexion.createStatement();
-		consulta = "DROP TABLE IF EXISTS Producto";
-		logger.log( Level.INFO, "Statement: " + consulta );
-		statement.executeUpdate( consulta );
-		
-		consulta = "CREATE TABLE Producto " +
-				"(INT[6] id AUTO_INCREMENT NOT NULL, VARCHAR[35] nombre, DATE fechaSubida, VARCHAR[60] etiquetas,  \"\n"
-				+ "	+ \"DOUBLE[4, 2] precio, INT[6] idUsuario NOT NULL, BIT enVenta, PRIMARY KEY(id));";
-		
-		if (statement==null) return;
-		try {
-			logger.log( Level.INFO, "Statement: " + consulta );
-			statement.executeUpdate(consulta);
-		} catch (SQLException e) {
-			// Si hay excepción es que la tabla ya existía (lo cual es correcto)
-			// e.printStackTrace();  
-		}
-	}
+	
+
 	
 	public static ArrayList<Producto> getProducto() {
 		try (Statement statement = conexion.createStatement()) {

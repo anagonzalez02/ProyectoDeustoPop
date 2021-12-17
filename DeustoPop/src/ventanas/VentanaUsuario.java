@@ -55,7 +55,7 @@ public class VentanaUsuario extends JFrame {
 		telefonoUsuario = new JLabel("" + u.getTelefono());
 		saldoUsuario = new JLabel("" + u.getSaldo());
 		tarjetaUsuario = new JLabel("" + u.getCuentaB().getnTarjeta());
-		direccionUsuario = new JLabel("" + u.getVivienda().getDireccion() + ", " + u.getVivienda().getNomCiu() + ", " + u.getVivienda().getNomPais());
+		direccionUsuario = new JLabel("" + u.getVivienda().getDireccion() + ", " + u.getVivienda().getNomCiud() + ", " + u.getVivienda().getNomPais());
 		
 		Font letra = new Font("Times New Roman", Font.BOLD, 16);
 		
