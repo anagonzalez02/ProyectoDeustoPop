@@ -55,8 +55,7 @@ public class BaseDeDatos {
 						String[] datos = linea.split( "\t" );
 						consulta = "INSERT INTO Usuario (idUsuario, nombre, telefono, tarjeta, saldo, email, contrasenia, vivienda, productosEnVenta, productosVendidos, productosComprados, productosFavoritos)"
 								+ "VALUES (" + datos[0] + ", '" + datos[1] + "', " + datos[2] + ", " + datos[3] + ", " + datos[4] + ", '" + datos[5] + "', '" + datos[6]
-								+ "', (SELECT * FROM Lugar WHERE L.idUsuario = '" + datos[7] + "'), (SELECT P.* FROM Producto P, Usuario U WHERE P.idUsuario = U.idUsuario AND P.enVenta = 1), '"
-								+ "(SELECT P.* FROM Producto P, Usuario U WHERE P.idUsuario = U.idUsuario AND P.enVenta = 0), '" + datos[10] + "', '" + datos[11] + "');";
+								+ "', (SELECT * FROM Lugar WHERE L.idUsuario = '" + datos[7] + "');";
 						
 						// QUEDA LA LISTA FAVORITOS Y LA LISTA COMPRADOS
 						
@@ -134,8 +133,7 @@ public class BaseDeDatos {
 		
 		consulta = "CREATE TABLE Usuario " +
 				"(INT[6] idUsuario AUTO_INCREMENT NOT NULL, VARCHAR[20] nombre NOT NULL, INT[12] telefono, INT[18] tarjeta, DOUBLE[6,2] saldo DEFAULT 0, VARCHAR[70] email, "
-				+ " VARCHAR[20] contrasenia NOT NULL, VARCHAR[100] direccion, ArrayList<Producto> productosEnVenta, "
-				+ "ArrayList<Producto> productosVendidos, ArrayList<Producto> productosComprados, ArrayList<Producto> productosFavoritos, "
+				+ " VARCHAR[20] contrasenia NOT NULL, VARCHAR[100] direccion, "
 				+ "PRIMARY KEY (idUsuario), + UNIQUE KEY (nombre), FOREIGN KEY (direccion) REFERENCES Lugar (direccion));";
 		
 		if (statement==null) return;
@@ -271,7 +269,7 @@ public class BaseDeDatos {
 	public static boolean insertarUsuario( Usuario usuario ) {
 		try (Statement statement = conexion.createStatement()) {
 			consulta = "INSERT INTO Usuario (idUsuario, nombre, telefono, tarjeta, saldo, email, contrasenia, vivienda, productosEnVenta, productosVendidos, productosComprados, productosFavoritos)"
-					+ "VALUES (" + usuario.getIdUsuario() + ", '" + usuario.getNombre() + "', " + usuario.getTelefono() + ", " + usuario.getTarjeta() + ", " + usuario.getSaldo() + ", '" + usuario.getEmail() + "', '" + usuario.getContrasenia() + "', " + usuario.getVivienda() + ", '" + usuario.getProductosEnVenta() + "', '" + usuario.getProductosVendidos() + "', '" + usuario.getProductosComprados() + "', '" + usuario.getProductosFavoritos() + "')";
+					+ "VALUES (" + usuario.getIdUsuario() + ", '" + usuario.getNombre() + "', " + usuario.getTelefono() + ", " + usuario.getCuentaB().getnTarjeta() + ", " + usuario.getSaldo() + ", '" + usuario.getEmail() + "', '" + usuario.getContrasenia() + "', " + usuario.getVivienda() + ", '" + usuario.getProductosEnVenta() + "', '" + usuario.getProductosVendidos() + "', '" + usuario.getProductosComprados() + "', '" + usuario.getProductosFavoritos() + "')";
 
 			logger.log( Level.INFO, "Statement: " + consulta );
 			int insertados = statement.executeUpdate( consulta );

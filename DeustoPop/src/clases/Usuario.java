@@ -11,7 +11,7 @@ public class Usuario{
 	private int idUsuario;
 	private String nombre;
 	private int telefono;
-	private int tarjeta;
+	private CuentaBancaria cuentaB;
 	private double saldo;
 	private String email;
 	private String contrasenia;
@@ -22,14 +22,14 @@ public class Usuario{
 	ArrayList<Producto> productosFavoritos;
 	
 
-	public Usuario(int idUsuario, String nombre, int telefono, int tarjeta, double saldo, String email, String contrasenia, Lugar vivienda,
+	public Usuario(int idUsuario, String nombre, int telefono, CuentaBancaria cuentaB, double saldo, String email, String contrasenia, Lugar vivienda,
 			ArrayList<Producto> productosEnVenta, ArrayList<Producto> productosVendidos, ArrayList<Producto> productosComprados, ArrayList<Producto> productosFavoritos) {
 		super();
 		contadorU++;
-		this.idUsuario = idUsuario;
+		this.idUsuario = contadorU;
 		this.nombre = nombre;
 		this.telefono = telefono;
-		this.tarjeta = tarjeta;
+		this.cuentaB = cuentaB;
 		this.saldo = saldo;
 		this.email = email;
 		this.contrasenia = contrasenia;
@@ -42,13 +42,13 @@ public class Usuario{
 
 	
 
-	public Usuario(String nombre, int telefono, int tarjeta, String email, String contrasenia, Lugar vivienda) {
+	public Usuario(String nombre, int telefono, CuentaBancaria cuentaB, String email, String contrasenia, Lugar vivienda) {
 		super();
 		contadorU++;
-		this.idUsuario = idUsuario;
+		this.idUsuario = contadorU;
 		this.nombre = nombre;
 		this.telefono = telefono;
-		this.tarjeta = tarjeta;
+		this.cuentaB = cuentaB;
 		this.saldo = saldo;
 		this.email = email;
 		this.contrasenia = contrasenia;
@@ -66,10 +66,10 @@ public class Usuario{
 	public Usuario() {
 		super();
 		contadorU++;
-		this.idUsuario = idUsuario;
+		this.idUsuario = contadorU;
 		this.nombre = nombre;
 		this.telefono = telefono;
-		this.tarjeta = tarjeta;
+		this.cuentaB = cuentaB;
 		this.saldo = saldo;
 		this.email = email;
 		this.contrasenia = contrasenia;
@@ -105,12 +105,12 @@ public class Usuario{
 		this.telefono = telefono;
 	}
 
-	public int getTarjeta() {
-		return tarjeta;
+	public CuentaBancaria getCuentaB() {
+		return cuentaB;
 	}
 
-	public void setTarjeta(int tarjeta) {
-		this.tarjeta = tarjeta;
+	public void setCuentaB(CuentaBancaria cuentaB) {
+		this.cuentaB = cuentaB;
 	}
 
 	public double getSaldo() {
@@ -181,8 +181,8 @@ public class Usuario{
 
 	@Override
 	public String toString() {
-		return "Usuario [idUsuario=" + idUsuario + ", nombre=" + nombre + ", telefono=" + telefono + ", tarjeta="
-				+ tarjeta + ", saldo=" + saldo + ", email=" + email + ", contrasenia=" + contrasenia + ", vivienda="
+		return "Usuario [idUsuario=" + idUsuario + ", nombre=" + nombre + ", telefono=" + telefono + ", cuentaB="
+				+ cuentaB + ", saldo=" + saldo + ", email=" + email + ", contrasenia=" + contrasenia + ", vivienda="
 				+ vivienda + ", productosEnVenta=" + productosEnVenta + ", productosVendidos=" + productosVendidos
 				+ ", productosComprados=" + productosComprados + ", productosFavoritos=" + productosFavoritos + "]";
 	}

@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import clases.CuentaBancaria;
 import clases.FuncionesGenerales;
 import clases.Lugar;
 import clases.Usuario;
@@ -91,9 +92,9 @@ public class VentanaRegistrar extends JFrame implements ActionListener{
 					String direccion= cajaDireccion.getText();
 					String pais = cajaPais.getText();
 					Lugar l = new Lugar(ciudad, direccion, pais);
-					Usuario u = new Usuario(n, telf, tarj, email, d, l);
+					Usuario u = new Usuario(n, telf, new CuentaBancaria(tarj, 0), email, d, l);
 					String query = "INSERT INTO Usuario (" + u.getIdUsuario() + ", '" + u.getNombre() + "', " + u.getTelefono() + ", " 
-							+ u.getTarjeta() + ", " + u.getSaldo() + ", '" + u.getEmail() + "', '" + u.getContrasenia() + "', '"
+							+ u.getCuentaB().getnTarjeta() + ", " + u.getSaldo() + ", '" + u.getEmail() + "', '" + u.getContrasenia() + "', '"
 							+ ")";
 					JOptionPane.showMessageDialog(null, "Registro realizado con exito", "REGISTRO", JOptionPane.INFORMATION_MESSAGE);
 					vaciarCampos();

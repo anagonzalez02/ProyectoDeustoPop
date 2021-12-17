@@ -7,6 +7,7 @@ import java.awt.Image;
 import org.junit.Test;
 
 import clases.Colores;
+import clases.CuentaBancaria;
 import clases.Estado;
 import clases.Lugar;
 import clases.Producto;
@@ -15,7 +16,7 @@ import clases.Usuario;
 public class UsuarioTest {
 
 	private static final Image Image = null;
-	Usuario uVendedor = new Usuario ("peepee", 600000000, 8727193, "pepeee@email.com", "contrasenya", new Lugar("Calle Dato 4", "Vitoria", "Espana"));
+	Usuario uVendedor = new Usuario ("peepee", 600000000, new CuentaBancaria(8727193, 3), "pepeee@email.com", "contrasenya", new Lugar("Calle Dato 4", "Vitoria", "Espana"));
 	
 	Producto producto = new Producto ("Zapatilla guay", "Cool", 10.65, Image, Estado.MALO, Colores.Azul, uVendedor);
 	
@@ -34,9 +35,11 @@ public class UsuarioTest {
 	}
 	
 	
+	// DA ERROR
 	@Test
-	public void testGetTarjeta() {
-		assertEquals(8727193, uVendedor.getTarjeta());
+	public void testGetCuentaB() {
+		CuentaBancaria cbTest = new CuentaBancaria(8727193, 3);
+		assertEquals(cbTest, uVendedor.getCuentaB());
 	}
 	
 	
@@ -70,9 +73,10 @@ public class UsuarioTest {
 	}
 
 	@Test
-	public void testSetTarjeta() {
-		uVendedor.setTarjeta(1234567);
-		assertEquals(1234567, uVendedor.getTarjeta());
+	public void testSetCuentaB() {
+		CuentaBancaria cbTest = new CuentaBancaria(9235281, -50.00);
+		uVendedor.setCuentaB(cbTest);
+		assertEquals(cbTest, uVendedor.getCuentaB());
 	}
 	
 	@Test

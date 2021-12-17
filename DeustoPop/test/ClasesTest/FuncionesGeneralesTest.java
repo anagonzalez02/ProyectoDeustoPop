@@ -8,6 +8,7 @@ import java.util.Calendar;
 import org.junit.Test;
 
 import clases.Colores;
+import clases.CuentaBancaria;
 import clases.Estado;
 import clases.FuncionesGenerales;
 import clases.Lugar;
@@ -18,8 +19,8 @@ public class FuncionesGeneralesTest {
 	
 	
 	private static final Image Image = null;
-	Usuario uComprador = new Usuario ("peeepiitaa", 611111111, 63527191, "pepa@email.com", "jeje", new Lugar("Gran Via 54", "Bilbao", "Españita"));
-	Usuario uVendedor = new Usuario ("peepee", 600000000, 8727193, "pepeee@email.com", "contrasenya", new Lugar("Calle Dato 4", "Vitoria", "Españita"));
+	Usuario uComprador = new Usuario ("peeepiitaa", 611111111, new CuentaBancaria(63527191, 3), "pepa@email.com", "jeje", new Lugar("Gran Via 54", "Bilbao", "Españita"));
+	Usuario uVendedor = new Usuario ("peepee", 600000000, new CuentaBancaria(8727193, 625.50), "pepeee@email.com", "contrasenya", new Lugar("Calle Dato 4", "Vitoria", "Españita"));
 	Producto producto = new Producto ("Zapatilla guay", "Cool", 10.67, Image, Estado.MALO, Colores.Azul, uVendedor);
 	
 	// RestarDinero da error por la condicional de si restar dinero al saldo o a la tarjeta directamente

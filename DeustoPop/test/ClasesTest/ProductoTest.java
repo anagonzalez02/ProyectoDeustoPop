@@ -7,6 +7,7 @@ import java.awt.Image;
 import org.junit.Test;
 
 import clases.Colores;
+import clases.CuentaBancaria;
 import clases.Estado;
 import clases.Lugar;
 import clases.Producto;
@@ -21,8 +22,8 @@ public class ProductoTest {
 	 * **/
 	
 	private static final Image Image = null;
-	Usuario uVendedor = new Usuario ("peepee", 600000000, 8727193, "pepeee@email.com", "contrasenya", new Lugar("Calle Dato 4", "Vitoria", "Espana"));
-	Usuario uVendedor2 = new Usuario ("peeepiitaa", 611111111, 63527191, "pepa@email.com", "jeje", new Lugar("Gran Via 54", "Bilbao", "Españita"));
+	Usuario uVendedor = new Usuario ("peepee", 600000000, new CuentaBancaria(8727193, 3), "pepeee@email.com", "contrasenya", new Lugar("Calle Dato 4", "Vitoria", "Espana"));
+	Usuario uVendedor2 = new Usuario ("peeepiitaa", 611111111, new CuentaBancaria(8727136, 5252.00), "pepa@email.com", "jeje", new Lugar("Gran Via 54", "Bilbao", "Españita"));
 	
 	Producto producto = new Producto ("Zapatilla guay", "Cool", 10.65, Image, Estado.MALO, Colores.Azul, uVendedor);
 	

@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
+import clases.CuentaBancaria;
 import clases.Lugar;
 import clases.Producto;
 import clases.Usuario;
@@ -53,7 +54,7 @@ public class VentanaUsuario extends JFrame {
 		emailUsuario = new JLabel("" + u.getEmail());
 		telefonoUsuario = new JLabel("" + u.getTelefono());
 		saldoUsuario = new JLabel("" + u.getSaldo());
-		tarjetaUsuario = new JLabel("" + u.getTarjeta());
+		tarjetaUsuario = new JLabel("" + u.getCuentaB().getnTarjeta());
 		direccionUsuario = new JLabel("" + u.getVivienda().getDireccion() + ", " + u.getVivienda().getNomCiu() + ", " + u.getVivienda().getNomPais());
 		
 		Font letra = new Font("Times New Roman", Font.BOLD, 16);
@@ -167,7 +168,7 @@ public class VentanaUsuario extends JFrame {
 	}
 	
 	public static void main(String[] args) {
-		Usuario usuario = new Usuario ("peepee", 600000000, 8727193, "pepeee@email.com", "contrasenya", new Lugar("Calle Dato 4", "Vitoria", "Espana"));
+		Usuario usuario = new Usuario ("peepee", 600000000, new CuentaBancaria(8727193, 3), "pepeee@email.com", "contrasenya", new Lugar("Calle Dato 4", "Vitoria", "Espana"));
 		VentanaUsuario C = new VentanaUsuario(usuario);      // creamos una ventana, de momento con producto nulo
         C.setVisible(true);             // hacemos visible la ventana creada
     }

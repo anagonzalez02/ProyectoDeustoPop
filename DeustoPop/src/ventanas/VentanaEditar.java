@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import clases.BaseDeDatos;
+import clases.CuentaBancaria;
 import clases.Lugar;
 import clases.Producto;
 import clases.Usuario;
@@ -145,10 +146,10 @@ public class VentanaEditar extends JFrame {
 					}
 					int nuevoTarjeta;
 					if (tarjetaUsuario.getText() == null) {
-						nuevoTarjeta = u.getTarjeta();
+						nuevoTarjeta = u.getCuentaB().getnTarjeta();
 					} else {
 						nuevoTarjeta = Integer.parseInt(tarjetaUsuario.getText());
-						u.setTarjeta(nuevoTarjeta);
+						u.setCuentaB(new CuentaBancaria(nuevoTarjeta, 0));;
 					}
 					String nuevoDireccion;
 					String nuevoCiudad;
@@ -168,6 +169,8 @@ public class VentanaEditar extends JFrame {
 					
 					BaseDeDatos.modificarLugar(viejaDireccion, nuevoDireccion, nuevoCiudad, nuevoPais);
 					BaseDeDatos.modificarUsuario(u.getIdUsuario(), nuevoNombre, nuevoTelefono, nuevoTarjeta, nuevoEmail, nuevoVivienda, u.getProductosEnVenta(), u.getProductosVendidos(), u.getProductosComprados(), u.getProductosFavoritos());
+					// QUEDA MODIFICARCUENTABANCARIA
+					
 					
 					VentanaUsuario ventana = new VentanaUsuario(u);
 					ventana.setVisible(true);
@@ -186,7 +189,7 @@ public class VentanaEditar extends JFrame {
 	}
 	
 	public static void main(String[] args) {
-		Usuario usuario = new Usuario ("peepee", 600000000, 8727193, "pepeee@email.com", "contrasenya", new Lugar("Calle Dato 4", "Vitoria", "Espana"));
+		Usuario usuario = new Usuario ("peepee", 600000000, new CuentaBancaria(8727193, 3), "pepeee@email.com", "contrasenya", new Lugar("Calle Dato 4", "Vitoria", "Espana"));
 		VentanaEditar ventana = new VentanaEditar(usuario);      // creamos una ventana, de momento con producto nulo
         ventana.setVisible(true);             // hacemos visible la ventana creada
     }

@@ -19,6 +19,7 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
 import clases.Colores;
+import clases.CuentaBancaria;
 import clases.Estado;
 import clases.FuncionesGenerales;
 import clases.Lugar;
@@ -38,7 +39,7 @@ public class VentanaProducto extends JFrame {
 	private JButton btnComentario;
 	private JButton btnEliminar;
 	
-	Usuario uComprador = new Usuario ("peeepiitaa", 611111111, 63527191, "pepa@email.com", "jeje", new Lugar("Gran Via 54", "Bilbao", "Españita"));
+	Usuario uComprador = new Usuario ("peeepiitaa", 611111111, new CuentaBancaria(8727193, 3), "pepa@email.com", "jeje", new Lugar("Gran Via 54", "Bilbao", "Españita"));
 	
 	
 	public VentanaProducto (Producto p, Usuario u) {
@@ -199,7 +200,7 @@ public class VentanaProducto extends JFrame {
 	
 	public static void main(String[] args) {
 		final Image Image = null;
-		Usuario uVendedor = new Usuario ("peepee", 600000000, 8727193, "pepeee@email.com", "contrasenya", new Lugar("Calle Dato 4", "Vitoria", "Espana"));
+		Usuario uVendedor = new Usuario ("peepee", 600000000, new CuentaBancaria(8727193, 3), "pepeee@email.com", "contrasenya", new Lugar("Calle Dato 4", "Vitoria", "Espana"));
 		Producto producto = new Producto ("Zapatilla guay", "Cool", 10.65, Image, Estado.MALO, Colores.Azul, uVendedor);
     	
 		VentanaProducto C = new VentanaProducto(producto, uVendedor);      // creamos una ventana, de momento con producto nulo
