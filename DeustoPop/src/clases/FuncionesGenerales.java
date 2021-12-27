@@ -6,10 +6,6 @@ import javax.swing.JOptionPane;
 
 public class FuncionesGenerales { 
 	
-	public static ArrayList<Usuario> listaUsuarios = new ArrayList();
-	
-	public static ArrayList<Producto> listaProductos = new ArrayList();
-	
 	/**
 	 * Este método es a lo que se llama cada vez que un cliente de DeustoPop compra un producto.
 	 * 
@@ -100,13 +96,13 @@ public class FuncionesGenerales {
 	
 	
 	public static ArrayList<Producto> buscarProductosRecomendados (Usuario u, int n, ArrayList<Producto> posibles) {
-		if (n + 1 <= listaProductos.size()) {
-			if (listaProductos.get(n).getPrecio() <= u.getSaldo() && listaProductos.get(n).isEnVenta() == true) {
-				posibles.add(listaProductos.get(n));
+		if (n + 1 <= BaseDeDatos.getProducto().size()) {
+			if (BaseDeDatos.getProducto().get(n).getPrecio() <= u.getSaldo() && BaseDeDatos.getProducto().get(n).isEnVenta() == true) {
+				posibles.add(BaseDeDatos.getProducto().get(n));
 			}
 			buscarProductosRecomendados (u, n + 1, posibles);
 		}
-		return listaProductos;
+		return posibles;
 	}
 	
 	
