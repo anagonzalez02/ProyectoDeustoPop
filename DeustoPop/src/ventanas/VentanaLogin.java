@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import clases.BaseDeDatos;
 import clases.FuncionesGenerales;
 import clases.Usuario;
 
@@ -88,7 +89,7 @@ public class VentanaLogin extends JFrame implements ActionListener{
 	    botonEntrar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				for (Usuario usuario : FuncionesGenerales.listaUsuarios) {
+				for (Usuario usuario : BaseDeDatos.getUsuarios()) {
 					if (cajaNombre.getText() == usuario.getNombre() && password.getText() == FuncionesGenerales.decode(usuario.getContrasenia())) {
 						/**
 						SIGUIENTEVENTANA ventana = new SIGUIENTEVENTANA();

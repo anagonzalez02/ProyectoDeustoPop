@@ -17,6 +17,7 @@ import javax.swing.SpinnerListModel;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
+import clases.BaseDeDatos;
 import clases.Calzado;
 import clases.Colores;
 import clases.Estado;
@@ -166,7 +167,7 @@ public class VentanaVenderCalzado extends JFrame implements ActionListener {
 				
 				zapato.getUsuario().getProductosEnVenta().add(zapato);
 				
-				FuncionesGenerales.listaProductos.add(zapato);
+				BaseDeDatos.insertarProducto(zapato);
 				
 			}
 		});

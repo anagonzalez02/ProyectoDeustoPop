@@ -18,6 +18,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
+import clases.BaseDeDatos;
 import clases.Colores;
 import clases.Estado;
 import clases.FuncionesGenerales;
@@ -166,7 +167,7 @@ public class VentanaVenderRopa extends JFrame implements ActionListener {
 				
 				prenda.getUsuario().getProductosEnVenta().add(prenda);
 
-				FuncionesGenerales.listaProductos.add(prenda);
+				BaseDeDatos.insertarProducto(prenda);
 				// HAY QUE CREAR EN ALGUN LADO UN ARRAYLIST DE TODOS LOS PRODUCTOS DE DEUSTOPOP Y METER AHI EL PRODUCTO CREADO
 				//no escribais con acentos plz que se comprime raro
 				
