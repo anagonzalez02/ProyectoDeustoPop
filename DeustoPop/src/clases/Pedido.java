@@ -3,6 +3,7 @@ package clases;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Esta es la clase Pedido, a la que se recurrirá cada vez que un usuario le compre a otro un producto.
@@ -31,9 +32,9 @@ public class Pedido {
 
 	public Pedido(double precioTotal, Date fechaCompra, Date fechaEntrega, int numeroPedido, Usuario usuarioComprador, Producto productoComprado) {
 		super();
-		this.precioTotal = precioTotal;
-		this.fechaCompra = fechaCompra;
-		this.fechaEntrega = fechaEntrega;
+		this.precioTotal = productoComprado.getPrecio() + 3.90;
+		this.fechaCompra = (Date) Calendar.getInstance().getTime();
+		this.fechaEntrega = sumarDiasFecha(fechaCompra, 15);
 		this.numeroPedido = numeroPedido;
 		this.usuarioComprador = usuarioComprador;
 		this.productoComprado = productoComprado;
@@ -41,13 +42,20 @@ public class Pedido {
 	
 	public Pedido(Usuario usuarioComprador, Producto productoComprado) {
 		super();
-		this.precioTotal = precioTotal;
-		this.fechaCompra = fechaCompra;
-		this.fechaEntrega = fechaEntrega;
+		this.precioTotal = productoComprado.getPrecio() + 3.90;
+		this.fechaCompra = (Date) Calendar.getInstance().getTime();
+		this.fechaEntrega = sumarDiasFecha(fechaCompra, 15);
 		this.numeroPedido = numeroPedido;
 		this.usuarioComprador = usuarioComprador;
 		this.productoComprado = productoComprado;
 	}
+	
+	public Date sumarDiasFecha(Date fecha, int dias){
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(fecha);
+		calendar.add(Calendar.DAY_OF_YEAR, dias);
+		return (Date) calendar.getTime();
+	} 
 
 	public double getPrecioTotal() {
 		return precioTotal;
@@ -63,7 +71,7 @@ public class Pedido {
 	}
 
 	public void setFechaCompra(Date fechaCompra) {
-		this.fechaCompra = fechaCompra;
+		this.fechaCompra = (Date) Calendar.getInstance().getTime();
 	}
 
 	public Date getFechaEntrega() {
@@ -71,7 +79,7 @@ public class Pedido {
 	}
 
 	public void setFechaEntrega(Date fechaEntrega) {
-		this.fechaEntrega = fechaEntrega;
+		this.fechaEntrega = sumarDiasFecha(fechaCompra, 15);
 	}
 	
 
