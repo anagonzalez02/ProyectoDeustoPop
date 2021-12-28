@@ -53,10 +53,10 @@ public class ProductoTest {
 	 * De ser el mismo, la prueba nos dará correcta, en caso incorrecto, será rojo.
 	 * **/
 	
-	//@Test
-	//public void testGetPrecio() {
-	//	assertEquals(10.65, producto.getPrecio());
-	//}
+	@Test
+	public void testGetPrecio() {
+		assertTrue(10.65 == producto.getPrecio());
+	}
 	
 	/**
 	 * El método getEstado devuelve el estado registrado del producto, uno de los de la enumeracion Estado. Por ello lo compararemos con su estado.
@@ -128,11 +128,11 @@ public class ProductoTest {
 	 * De ser el mismo, la prueba nos dará correcta, en caso incorrecto, será rojo.
 	 * **/
 	
-	//@Test
-	//public void testSetPrecio() {
-	//	producto.setPrecio(66.54);
-	//	assertEquals(66.54, producto.getPrecio());
-	//}
+	@Test
+	public void testSetPrecio() {
+		producto.setPrecio(66.54);
+		assertTrue(66.54 == producto.getPrecio());
+	}
 	
 	/**
 	 * El método setEstado inicializa el estado del producto. 
