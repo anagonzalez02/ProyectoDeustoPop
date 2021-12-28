@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import clases.BaseDeDatos;
 import clases.CuentaBancaria;
 import clases.FuncionesGenerales;
 import clases.Lugar;
@@ -81,25 +82,37 @@ public class VentanaRegistrar extends JFrame implements ActionListener{
 		botonRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String d = FuncionesGenerales.code(password.getText());
-				String er = "[0-9]{1,}[A-Z]{1,}[a-z]{1,}";
-				boolean correcto = Pattern.matches(er, d);
-				if(correcto) {
-					String n= cajaNombre.getText();
-					int telf = Integer.parseInt(cajaTelefono.getText());
-					int tarj = Integer.parseInt(cajaTarjeta.getText());
-					String email= cajaEmail.getText();
-					String ciudad= cajaCiudad.getText();
-					String direccion= cajaDireccion.getText();
-					String pais = cajaPais.getText();
-					Lugar l = new Lugar(ciudad, direccion, pais);
-					Usuario u = new Usuario(n, telf, new CuentaBancaria(tarj, 0), email, d, l);
-					String query = "INSERT INTO Usuario (" + u.getIdUsuario() + ", '" + u.getNombre() + "', " + u.getTelefono() + ", " 
-							+ u.getCuentaB().getnTarjeta() + ", " + u.getSaldo() + ", '" + u.getEmail() + "', '" + u.getContrasenia() + "', '"
-							+ ")";
-					JOptionPane.showMessageDialog(null, "Registro realizado con exito", "REGISTRO", JOptionPane.INFORMATION_MESSAGE);
-					vaciarCampos();
-				}else {
-					JOptionPane.showMessageDialog(null, "La contrasenia debe tener al menos 1 mayuscula, 1 minuscula, 1 numero", "��ERROR!!",JOptionPane.ERROR_MESSAGE);
+				if (d.length() >= 8) {
+					String er = "[0-9]{1,}[A-Z]{1,}[a-z]{1,}";
+					boolean correcto = Pattern.matches(er, d);
+					if (correcto) {
+						String n= cajaNombre.getText();
+						int telf = Integer.parseInt(cajaTelefono.getText());
+						int tarj = Integer.parseInt(cajaTarjeta.getText());
+						CuentaBancaria cuenta = new CuentaBancaria(tarj, 5.00);
+						String email= cajaEmail.getText();
+						String ciudad= cajaCiudad.getText();
+						String direccion= cajaDireccion.getText();
+						String pais = cajaPais.getText();
+						if (BaseDeDatos.existeEmailUsuario(email) == false && BaseDeDatos.existeNombreUsuario(n) == false) {
+							Lugar l = new Lugar(ciudad, direccion, pais);
+							BaseDeDatos.insertarLugar(l);
+							Usuario u = new Usuario(n, telf, cuenta, email, d, l);
+							BaseDeDatos.insertarUsuario(u);
+							BaseDeDatos.insertarCuentaBancaria(cuenta, u);
+							JOptionPane.showMessageDialog(null, "Registro realizado con exito", "REGISTRO", JOptionPane.INFORMATION_MESSAGE);
+							vaciarCampos();
+							
+							// CAMBIAR DE VENTANA
+							
+						} else {
+							JOptionPane.showMessageDialog(null, "El nombre o email introducido ya exisste. Prueba con otro", "¡¡ERROR!!",JOptionPane.ERROR_MESSAGE);
+						}
+					} else {
+						JOptionPane.showMessageDialog(null, "La contrasenia debe tener al menos 1 mayuscula, 1 minuscula, 1 numero", "¡¡ERROR!!",JOptionPane.ERROR_MESSAGE);
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "La contrasenia debe tener al menos 8 caracteres", "¡¡ERROR!!",JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}

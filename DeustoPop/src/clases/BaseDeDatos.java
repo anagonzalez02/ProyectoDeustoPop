@@ -391,6 +391,51 @@ public class BaseDeDatos {
 		}
 	} 
 	
+	/**
+	 * Revisa en la base de datos si hay algún usuario en DeustoPop con los parametros introducidos
+	 * @param nombre	Revisa si existe algún nombre de usuario como el introducido
+	 * @return			True si existe, false si no existe
+	 * **/
+	
+	public static boolean existeNombreUsuario(String nombre) {
+		try (Statement statement = conexion.createStatement()) {
+			ArrayList<Usuario> listaUsuarios = new ArrayList<>();
+			consulta = "SELECT * FROM Usuario WHERE nombre = '" + nombre + "';";
+			logger.log( Level.INFO, "Statement: " + consulta );
+			ResultSet rs = statement.executeQuery( consulta );
+			if (rs == null) {
+				return false;
+			} else {
+				return true;
+			}
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return false;
+		}
+	}
+	
+	/**
+	 * Revisa en la base de datos si hay algún usuario en DeustoPop con los parametros introducidos
+	 * @param email		Revisa si existe algún email de usuario como el introducido
+	 * @return			True si existe, false si no existe
+	 * **/
+	
+	public static boolean existeEmailUsuario(String email) {
+		try (Statement statement = conexion.createStatement()) {
+			ArrayList<Usuario> listaUsuarios = new ArrayList<>();
+			consulta = "SELECT * FROM Usuario WHERE email = '" + email + "';";
+			logger.log( Level.INFO, "Statement: " + consulta );
+			ResultSet rs = statement.executeQuery( consulta );
+			if (rs == null) {
+				return false;
+			} else {
+				return true;
+			}
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return false;
+		}
+	}
 	
 	
 	/** 
