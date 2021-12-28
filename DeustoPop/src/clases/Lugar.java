@@ -1,5 +1,12 @@
 package clases;
 
+/**
+ * La clase lugar, relacionada con la clase usuario, define la vivienda a la que se deben mandar los pedidos.
+ * Para ello, tenemos como atributos la dirección, el nombre de la ciudad y el país.
+ * Tenemos un constructor en el que habrá que definir los tres atributos.
+ * **/
+
+
 public class Lugar {
 	private String direccion; 
 	private String nomCiud;
