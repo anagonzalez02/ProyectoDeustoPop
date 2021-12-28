@@ -17,6 +17,7 @@ import clases.BaseDeDatos;
 import clases.CuentaBancaria;
 import clases.FuncionesGenerales;
 import clases.Lugar;
+import clases.Producto;
 import clases.Usuario;
 
 
@@ -42,23 +43,28 @@ public class VentanaRegistrar extends JFrame implements ActionListener{
 	private JTextField cajaDireccion;
 	private JButton botonVolver;
 	
-    public VentanaRegistrar() {
+    public VentanaRegistrar(String ventanaVolver, Producto producto) {
+    	
         super();    				// usamos el contructor de la clase padre JFrame
         configurarVentana();        // configuramos la ventana
-        inicializarComponentes();	// inicializamos los atributos o componentes
+        inicializarComponentes(ventanaVolver, producto);	// inicializamos los atributos o componentes
         ventanaActual = this;
+        
     }
     
     private void configurarVentana() {
+    	
         this.setTitle("DeustoPop");                   			// colocamos titulo a la ventana
         this.setSize(450, 550);                                	// colocamos tamanio a la ventana (ancho, alto)
         this.setLocationRelativeTo(null);                       // centramos la ventana en la pantalla
         this.setLayout(null);                                   // no usamos ningun layout, solo asi podremos dar posiciones a los componentes
         this.setResizable(false);                               // hacemos que la ventana no sea redimiensionable
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    // hacemos que cuando se cierre la ventana termine todo proceso
+   
     }
     
-    private void inicializarComponentes() {
+    private void inicializarComponentes(String ventanaVolver, Producto producto) {
+    	
     	textoNombre = new JLabel();
     	textoPassword = new JLabel();
     	cajaNombre = new JTextField();
@@ -78,7 +84,8 @@ public class VentanaRegistrar extends JFrame implements ActionListener{
     	botonVolver = new JButton();
     	
    
-    	botonRegistrar = new JButton("REGISTRARME");
+    	botonRegistrar = new JButton("Registrarme");
+    	
 		botonRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String d = FuncionesGenerales.code(password.getText());
@@ -103,7 +110,15 @@ public class VentanaRegistrar extends JFrame implements ActionListener{
 							JOptionPane.showMessageDialog(null, "Registro realizado con exito", "REGISTRO", JOptionPane.INFORMATION_MESSAGE);
 							vaciarCampos();
 							
-							// CAMBIAR DE VENTANA
+							if (ventanaVolver == "VentanaUsuario") {
+								VentanaUsuario ventana = new VentanaUsuario(u);
+						        ventana.setVisible(true);
+								dispose();
+							} else if (ventanaVolver == "VentanaProducto") {
+								VentanaProducto ventana = new VentanaProducto(producto, u);
+						        ventana.setVisible(true);
+								dispose();
+							}
 							
 						} else {
 							JOptionPane.showMessageDialog(null, "El nombre o email introducido ya exisste. Prueba con otro", "¡¡ERROR!!",JOptionPane.ERROR_MESSAGE);
@@ -117,6 +132,17 @@ public class VentanaRegistrar extends JFrame implements ActionListener{
 				
 			}
 		});
+		
+		botonVolver = new JButton("Volver");
+		
+		botonVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaLogin ventana = new VentanaLogin(ventanaVolver, producto);
+		        ventana.setVisible(true);
+				dispose();
+			}
+		});
+		
     	
         textoNombre.setText("Nombre de usuario:");   // colocamos un texto a la etiqueta
         textoNombre.setBounds(50, 30, 130, 30);		// colocamos posicion y tamanio del texto (x, y, ancho, alto)
@@ -186,11 +212,8 @@ public class VentanaRegistrar extends JFrame implements ActionListener{
         this.add(textoTarjeta);
         this.add(cajaTarjeta);
         
-        
     }
 
- 
-		
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -199,8 +222,8 @@ public class VentanaRegistrar extends JFrame implements ActionListener{
 }
 
     public static void main(String[] args) {
-    	VentanaRegistrar L = new VentanaRegistrar();      // creamos una ventana
-        L.setVisible(true);             // hacemos visible la ventana creada
+    	//VentanaRegistrar L = new VentanaRegistrar();      // creamos una ventana
+        //L.setVisible(true);             // hacemos visible la ventana creada
     }
 
 	private void vaciarCampos() {

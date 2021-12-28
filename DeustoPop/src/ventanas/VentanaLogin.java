@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 
 import clases.BaseDeDatos;
 import clases.FuncionesGenerales;
+import clases.Producto;
 import clases.Usuario;
 
 
@@ -24,37 +25,39 @@ public class VentanaLogin extends JFrame implements ActionListener{
 	private JPasswordField password;
 	private JButton botonEntrar;
 	private JButton botonRegistrar;
+	private JButton botonVolver;
 
 	
 	
-    public VentanaLogin() {
+    public VentanaLogin(String ventanaVolver, Producto producto) {
         super();                    // usamos el contructor de la clase padre JFrame
         configurarVentana();        // configuramos la ventana
-        inicializarComponentes();   // inicializamos los atributos o componentes
+        inicializarComponentes(ventanaVolver, producto);   // inicializamos los atributos o componentes
     }
     
     private void configurarVentana() {
         this.setTitle("DeustoPop");                   			// colocamos titulo a la ventana
-        this.setSize(450, 250);                                	// colocamos tamanio a la ventana (ancho, alto)
+        this.setSize(450, 260);                                	// colocamos tamanio a la ventana (ancho, alto)
         this.setLocationRelativeTo(null);                       // centramos la ventana en la pantalla
         this.setLayout(null);                                   // no usamos ningun layout, solo asi podremos dar posiciones a los componentes
         this.setResizable(false);                               // hacemos que la ventana no sea redimiensionable
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    // hacemos que cuando se cierre la ventana termine todo proceso
     }
     
-    private void inicializarComponentes() {
+    private void inicializarComponentes(String ventanaVolver, Producto producto) {
     	textoNombre = new JLabel();
     	textoPassword = new JLabel();
     	cajaNombre = new JTextField();
     	password = new JPasswordField();
     	botonEntrar = new JButton();
     	botonRegistrar = new JButton();
+    	botonVolver = new JButton();
 
     	
         textoNombre.setText("Nombre de usuario:");   // colocamos un texto a la etiqueta
         textoNombre.setBounds(50, 30, 130, 30);		// colocamos posicion y tamanio del texto (x, y, ancho, alto)
         
-        textoPassword.setText("Contrase�a:");   	// colocamos un texto a la etiqueta
+        textoPassword.setText("Contraseña:");   	// colocamos un texto a la etiqueta
         textoPassword.setBounds(50, 80, 130, 30);	// colocamos posicion y tamanio del texto (x, y, ancho, alto)
     	
         cajaNombre.setBounds(175, 30, 200, 30);
@@ -66,6 +69,9 @@ public class VentanaLogin extends JFrame implements ActionListener{
         
         botonRegistrar.setText("Registrarme");
         botonRegistrar.setBounds(50, 130, 150, 40);
+        
+        botonVolver.setText("Volver");
+        botonVolver.setBounds(150, 180, 150, 35);
 
         
         this.add(textoNombre);
@@ -74,12 +80,13 @@ public class VentanaLogin extends JFrame implements ActionListener{
         this.add(password);
         this.add(botonEntrar);
         this.add(botonRegistrar);
+        this.add(botonVolver);
         
         
 	    botonRegistrar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaRegistrar ventana = new VentanaRegistrar();
+				VentanaRegistrar ventana = new VentanaRegistrar(ventanaVolver, producto);
 		        ventana.setVisible(true);
 				dispose();
 			}
@@ -89,21 +96,42 @@ public class VentanaLogin extends JFrame implements ActionListener{
 	    botonEntrar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				for (Usuario usuario : BaseDeDatos.getUsuarios()) {
-					if (cajaNombre.getText() == usuario.getNombre() && password.getText() == FuncionesGenerales.decode(usuario.getContrasenia())) {
-						/**
-						SIGUIENTEVENTANA ventana = new SIGUIENTEVENTANA();
-				        ventana.setVisible(true);
+				Usuario usuario = BaseDeDatos.getUsuarios(cajaNombre.getText(), password.getText());
+				
+				if (usuario != null) {
+					if (ventanaVolver == "VentanaUsuario") {
+						VentanaUsuario ventana = new VentanaUsuario(usuario);
+					       ventana.setVisible(true);
 						dispose();
-						**/
+					} else if (ventanaVolver == "VentanaProducto") {
+						VentanaProducto ventana = new VentanaProducto(producto, usuario);
+					       ventana.setVisible(true);
+						dispose();
 					}
-					else {
-						JOptionPane.showMessageDialog(null, "El usuario o la contrasenya con incorrectos");
-					}
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "El usuario o la contraseña con incorrectos.");
 				}
 			}
 		});
 		
+	    
+	    botonVolver.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (ventanaVolver == "VentanaProducto") {
+					VentanaProducto ventana = new VentanaProducto(producto, null);
+			        ventana.setVisible(true);
+					dispose();
+					JOptionPane.showMessageDialog(null, "Para poder comprar el producto deberás iniciar sesión en DeustoPop.");
+				} else if (ventanaVolver == "VentanaUsuario") {
+					VentanaPrincipal.main(null);
+	    			dispose();
+					JOptionPane.showMessageDialog(null, "Para poder entrar al perfil deberás iniciar sesión en DeustoPop.");
+				}
+			}
+		});
+	    
     }
     
 
@@ -115,7 +143,7 @@ public class VentanaLogin extends JFrame implements ActionListener{
 	}
 
     public static void main(String[] args) {
-    	VentanaLogin L = new VentanaLogin();      // creamos una ventana
-        L.setVisible(true);             // hacemos visible la ventana creada
+    	//VentanaLogin L = new VentanaLogin();      // creamos una ventana
+        //L.setVisible(true);             // hacemos visible la ventana creada
     }
 }

@@ -195,7 +195,7 @@ public class BaseDeDatos {
 		statement.executeUpdate( consulta );
 		
 		consulta = "CREATE TABLE Lugar " +
-				"(VARCHAR[100] direccion NOT NULL, VARCHAR[35] nomCiud, VARCHAR[25] nomPais PRIMARY KEY (direccion));";
+				"(VARCHAR[100] direccion NOT NULL, VARCHAR[35] nomCiud, VARCHAR[25] nomPais, PRIMARY KEY (direccion));";
 		
 		if (statement==null) return;
 		try {
@@ -314,6 +314,64 @@ public class BaseDeDatos {
 				//listaUsuarios.add( new Producto (id, nombre, precio, new ArrayList<Compra>() ) );
 			}
 			return listaUsuarios;
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return null;
+		}
+	}
+	
+	/** 
+	 * Lista los usuarios de la base de datos
+	 * @return	Lista completa de los Usuarios de nuestra plataforma, null si hay algún error
+	 */
+	
+	public static Usuario getUsuarios(String nombre, String contra) {
+		try (Statement statement = conexion.createStatement()) {
+			String contraseña = FuncionesGenerales.code(contra);
+			consulta = "SELECT * FROM Usuario WHERE nombre = '" + nombre + "' AND contrasenia = '" + contraseña + "';";
+			logger.log( Level.INFO, "Statement: " + consulta );
+			ResultSet rs = statement.executeQuery( consulta );
+			
+			if (rs != null) {
+				
+				int idUsuario = rs.getInt("idUsuario");
+				String nom = rs.getString("nombre");
+				int telefono = rs.getInt("telefono");
+				int tarjeta = rs.getInt("tarjeta");
+				double saldo = rs.getDouble("saldo");
+				String email = rs.getString("email");
+				String contrasenia = rs.getString("contrasenia");
+				String direccion = rs.getString("direccion");	
+				
+				
+				String consultaCuenta = "SELECT * FROM CuentaBancaria WHERE idUsuario = " + idUsuario + ";";
+				logger.log( Level.INFO, "Statement: " + consultaCuenta );
+				ResultSet rsCuenta = statement.executeQuery( consultaCuenta );
+				int idUsuarioCuenta = rsCuenta.getInt("idUsuario");
+				int nTarjeta = rsCuenta.getInt("nTarjeta");
+				double dineroTotal = rsCuenta.getDouble("dineroTotal");
+				CuentaBancaria cuenta = new CuentaBancaria(nTarjeta, dineroTotal);
+				
+				
+				String consultaLugar = "SELECT * FROM Lugar WHERE direccion = '" + direccion + "';";
+				logger.log( Level.INFO, "Statement: " + consultaLugar );
+				ResultSet rsLugar = statement.executeQuery( consultaLugar );
+				String direc = rsLugar.getString("direccion");
+				String nomCiud = rsLugar.getString("nomCiud");
+				String nomPais = rsLugar.getString("nomPais");
+				Lugar vivienda = new Lugar(direc, nomCiud, nomPais);
+				
+				
+				
+				
+				Usuario usuario = new Usuario();
+				
+				return usuario;
+			
+			} else {
+				return null;
+			}
+			
 		} catch (Exception e) {
 			logger.log( Level.SEVERE, "Excepción", e );
 			return null;

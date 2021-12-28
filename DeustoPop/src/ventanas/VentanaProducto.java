@@ -136,6 +136,14 @@ public class VentanaProducto extends JFrame {
 		btnComprar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if (u == null) {
+					VentanaLogin ventana = new VentanaLogin("VentanaProducto", p);
+			        ventana.setVisible(true);
+					dispose();
+					
+				}
+				
+				
 				int atencionPanel = JOptionPane.showConfirmDialog(null, "¿Esta seguro que quieres comprar este producto?", "Alerta!", JOptionPane.YES_NO_OPTION);
 				if (atencionPanel == JOptionPane.YES_OPTION) {
 					FuncionesGenerales.metodoComprarProducto(p, uComprador);
