@@ -79,11 +79,11 @@ public class VentanaFavoritos {
         //Se a�aden los paneles al JTable
         //Los paneles son del mismo tipo CompCellPanelFav y con cada instancia
         //de la clase Comp le pasamos los datos que va a mostrar por el constructor
-        CompModel.addRow(new Comp(1), new Comp(2));
-        CompModel.addRow(new Comp(3), new Comp(4));
-        CompModel.addRow(new Comp(5), new Comp(6));
-        CompModel.addRow(new Comp(7), new Comp(0));
-        CompModel.addRow(new Comp(0), new Comp(8));
+        CompModel.addRow(new CompFav(1), new CompFav(2));
+        CompModel.addRow(new CompFav(3), new CompFav(4));
+        CompModel.addRow(new CompFav(5), new CompFav(6));
+        CompModel.addRow(new CompFav(7), new CompFav(0));
+        CompModel.addRow(new CompFav(0), new CompFav(8));
         
         return table;
     }
@@ -94,26 +94,26 @@ public class VentanaFavoritos {
         class PanelCellEditorRendererFav extends AbstractCellEditor implements TableCellRenderer, TableCellEditor {
 
             private static final long serialVersionUID = 1L;
-            private CompCellPanel renderer = new CompCellPanel();
-            private CompCellPanel editor = new CompCellPanel();
+            private CompCellPanelFav renderer = new CompCellPanelFav();
+            private CompCellPanelFav editor = new CompCellPanelFav();
 
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-           		renderer.setComp((Comp) value);
+           		renderer.setCompFav((CompFav) value);
             	
                 return renderer;
             }
 
             @Override
             public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-           		editor.setComp((Comp) value);
+           		editor.setCompFav((CompFav) value);
             	
                 return editor;
             }
 
             @Override
             public Object getCellEditorValue() {
-                return editor.getComp();
+                return editor.getCompFav();
             }
 
             @Override
@@ -138,7 +138,7 @@ public class VentanaFavoritos {
             }
             //crea las filas que hagan falta teniendo en cuenta
             //que la cantidad de columnas sera siempre 2
-            public void addRow(Comp c1, Comp c2) {
+            public void addRow(CompFav c1, CompFav c2) {
             	super.addRow(new Object[]{c1, c2});
             }
         }
@@ -176,9 +176,9 @@ public class VentanaFavoritos {
         		add(pSup);
         	}
         	//crea un panel(casilla en la tabla) vacio en caso de ser necesario
-        	public void setCompFav(Comp comp) {
-        		numero = comp.numero;
-        		if (comp.numero == 0) {
+        	public void setCompFav(CompFav compFav) {
+        		numero = compFav.numero;
+        		if (compFav.numero == 0) {
         			lImagen.setVisible(false);
         			lTexto1.setText("");
         			precio.setVisible(false);
@@ -187,7 +187,7 @@ public class VentanaFavoritos {
         		//disenyo del resto de casillas en la tabla
         		lImagen.setVisible(true);
         		lImagen.setPreferredSize(new Dimension(10, 10));
-        		lTexto1.setText("Producto " + comp.numero);
+        		lTexto1.setText("Producto " + compFav.numero);
         		precio.setVisible(true);
         		precio.setPreferredSize(new Dimension(0, 30));
         		precio.setText("precio" + " �");
