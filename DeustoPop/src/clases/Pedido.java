@@ -7,13 +7,12 @@ import java.util.ArrayList;
 /**
  * Esta es la clase Pedido, a la que se recurrirá cada vez que un usuario le compre a otro un producto.
  * Por cada compra, se creará un pedido nuevo, cuyos atributos serán:
- * 		precioTotal -> será el precio del producto más los gastos de envíos
- * 		fechaCompra -> la fecha en la que el producto ha sido comprado
- * 		fechaEntrega -> una fecha estimada en la que debería llegar el producto comprado, se estima una espera de 15 días
- * 		numeroPedido -> será el identificativo del pedido, que se creará en la base de datos
- * 		usuarioCompador -> el usuario que compre el producto
- * 		usuarioVendedor -> usuario que venda el producto
- * 		productoComprado -> el producto por el que se hace la compra
+ * 		precioTotal -> 			Será el precio del producto más los gastos de envíos (3.90€)
+ * 		fechaCompra -> 			La fecha en la que el producto ha sido comprado
+ * 		fechaEntrega -> 		Una fecha estimada en la que debería llegar el producto comprado, se estima una espera de 15 días
+ * 		numeroPedido -> 		Será el identificativo del pedido, que se creará en la base de datos
+ * 		usuarioCompador -> 		El usuario que compre el producto
+ * 		productoComprado -> 	El producto por el que se hace la compra
  * 
  * Se registrará un pedido en la base de datos, y podrá accederse a él en caso de haber algún error.
  * **/
@@ -21,34 +20,41 @@ import java.util.ArrayList;
 public class Pedido { 
 	
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	private int precioTotal = 0;
+	private double precioTotal = 0;
 	private Date fechaCompra;
 	private Date fechaEntrega;
 	private int numeroPedido = 0;
 	private Usuario usuarioComprador;
-	private Usuario usuarioVendedor;
 	private Producto productoComprado;
 	
 	
 
-	public Pedido(int precioTotal, Date fechaCompra, Date fechaEntrega, int numeroPedido, Usuario usuarioComprador,
-			Usuario usuarioVendedor, Producto productoComprado) {
+	public Pedido(double precioTotal, Date fechaCompra, Date fechaEntrega, int numeroPedido, Usuario usuarioComprador, Producto productoComprado) {
 		super();
 		this.precioTotal = precioTotal;
 		this.fechaCompra = fechaCompra;
 		this.fechaEntrega = fechaEntrega;
 		this.numeroPedido = numeroPedido;
 		this.usuarioComprador = usuarioComprador;
-		this.usuarioVendedor = usuarioVendedor;
+		this.productoComprado = productoComprado;
+	}
+	
+	public Pedido(Usuario usuarioComprador, Producto productoComprado) {
+		super();
+		this.precioTotal = precioTotal;
+		this.fechaCompra = fechaCompra;
+		this.fechaEntrega = fechaEntrega;
+		this.numeroPedido = numeroPedido;
+		this.usuarioComprador = usuarioComprador;
 		this.productoComprado = productoComprado;
 	}
 
-	public int getPrecioTotal() {
+	public double getPrecioTotal() {
 		return precioTotal;
 	}
 
-	public void setPrecioTotal(int precioTotal) {
-		this.precioTotal = precioTotal;
+	public void setPrecioTotal(double precioTotal) {
+		this.precioTotal = productoComprado.getPrecio() + 3.90;
 	}
 
 	
@@ -85,14 +91,6 @@ public class Pedido {
 		this.usuarioComprador = usuarioComprador;
 	}
 
-	public Usuario getUsuarioVendedor() {
-		return usuarioVendedor;
-	}
-
-	public void setUsuarioVendedor(Usuario usuarioVendedor) {
-		this.usuarioVendedor = usuarioVendedor;
-	}
-
 	public Producto getProductoComprado() {
 		return productoComprado;
 	}
@@ -105,7 +103,7 @@ public class Pedido {
 	public String toString() {
 		return "Pedido [precioTotal=" + precioTotal + ", fechaCompra=" + fechaCompra
 				+ ", fechaEntrega=" + fechaEntrega + ", numeroPedido=" + numeroPedido + ", usuarioComprador="
-				+ usuarioComprador + ", usuarioVendedor=" + usuarioVendedor + ", productoComprado=" + productoComprado
+				+ usuarioComprador + ", productoComprado=" + productoComprado
 				+ "]";
 	}
 
