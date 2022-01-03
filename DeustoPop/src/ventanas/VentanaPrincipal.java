@@ -33,7 +33,7 @@ public class VentanaPrincipal extends JFrame{
     }
     //como si fuese el main (sin serlo)
     //esta ventana no tiene main, y solo se crea al ser ejecutada
-    //al pasar de otra ventana a esta habra que volver a ejecutar
+    //al pasar de otra ventana a esta habra que volver a ejecutarla
     //la ventana invocando al main de esta "VentanaPrincipal.main(null);"
     public void makeUI() {
         CompTable = CreateCompTable();
@@ -76,7 +76,8 @@ public class VentanaPrincipal extends JFrame{
         panelTop.add(tPrecio, BorderLayout.EAST);
         
         //implementacion del action listener en el
-        //boton vender que te transporta a otra ventana
+        //boton vender que te transporta a la ventana vender
+        //al clicar el boton "vender"
         bVender.addActionListener(new ActionListener() {
     		@Override
     		public void actionPerformed(ActionEvent e) {
@@ -88,7 +89,8 @@ public class VentanaPrincipal extends JFrame{
     	});
         
         //implementacion del action listener en el
-        //boton filtrar que te transporta a otra ventana
+        //boton filtrar que te transporta a ventana filtrar
+        //al clicar el boton "filtrar"
         bFiltrar.addActionListener(new ActionListener() {
     		@Override
     		public void actionPerformed(ActionEvent e) {
@@ -196,7 +198,7 @@ class CompCellPanel extends JPanel {
 	private JPanel pSup = new JPanel(new BorderLayout());
 	private JLabel lTexto1 = new JLabel("", JLabel.CENTER);
 	private JLabel precio = new JLabel();
-	private ImageIcon imagen = new ImageIcon("src/DeustoPopVentanas/patata.png", null);
+	private ImageIcon imagen = new ImageIcon("src/DeustoPopVentanas/hola.png", null);
 	private JLabel lImagen = new JLabel(imagen, JLabel.CENTER);
 	
 
@@ -224,7 +226,7 @@ class CompCellPanel extends JPanel {
 		lTexto1.setText("Producto " + comp.numero);
 		precio.setVisible(true);
 		precio.setPreferredSize(new Dimension(0, 30));
-		precio.setText("precio" + " �");
+		precio.setText("precio " + "€");
 
 	}
 
