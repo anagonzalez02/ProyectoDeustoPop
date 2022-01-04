@@ -16,8 +16,7 @@ import clases.Usuario;
 public class UsuarioTest {
 
 	private static final Image Image = null;
-	//Usuario uVendedor = new Usuario ("peepee", 600000000, new CuentaBancaria(8727193, 3), "pepeee@email.com", "contrasenya", new Lugar("Calle Dato 4", "Vitoria", "Espana"));
-	Usuario uVendedor = new Usuario (1, "peepee", 600000000, new CuentaBancaria(8727193, 0), 3, "pepeee@email.com", "contrasenya", new Lugar("Calle Dato 4", "Vitoria", "Espana"), null, null, null, null);
+	Usuario uVendedor = new Usuario ("peepee", 600000000, new CuentaBancaria(8727193, 3), "pepeee@email.com", "contrasenya", new Lugar("Calle Dato 4", "Vitoria", "Espana"));
 
 	Producto producto = new Producto ("Zapatilla guay", "Cool", 10.65, Image, Estado.MALO, Colores.Azul, uVendedor);
 	
@@ -39,8 +38,8 @@ public class UsuarioTest {
 	// DA ERROR
 	@Test
 	public void testGetCuentaB() {
-		CuentaBancaria cbTest = new CuentaBancaria(8727193, 3);
-		assertEquals(cbTest, uVendedor.getCuentaB());
+		CuentaBancaria cbTest1 = new CuentaBancaria(8727193, 3);
+		assertEquals(cbTest1, uVendedor.getCuentaB());
 	}
 	
 	
@@ -75,9 +74,9 @@ public class UsuarioTest {
 
 	@Test
 	public void testSetCuentaB() {
-		CuentaBancaria cbTest = new CuentaBancaria(9235281, -50.00);
-		uVendedor.setCuentaB(cbTest);
-		assertEquals(cbTest, uVendedor.getCuentaB());
+		CuentaBancaria cbTest2 = new CuentaBancaria(9235281, -50.00);
+		uVendedor.setCuentaB(cbTest2);
+		assertEquals(cbTest2, uVendedor.getCuentaB());
 	}
 	
 	@Test
