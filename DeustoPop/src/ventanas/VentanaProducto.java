@@ -18,6 +18,7 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
+import clases.BaseDeDatos;
 import clases.Colores;
 import clases.CuentaBancaria;
 import clases.Estado;
@@ -26,13 +27,28 @@ import clases.Lugar;
 import clases.Producto;
 import clases.Usuario;
 
+/**
+ * La VentanaProducto es la JFrame que muestra el producto elegido por el usuario. Este producto deberá estar en venta.
+ * La ventana será un poco distintinto si el usuario que ha elegido ver el producto es un comprador o el vendedor del producto mismo.
+ * Un comprador podrá comentar el producto, añadirlo a favoritos y, claramente, comprarlo.
+ * El vendedor en cambio, no podrá llevar a cabo esas opciones, pero será capaz de borrar el producto completamente de la web:
+ * tanto para ser visible para el resto como de la base de datos.
+ * **/
+
 public class VentanaProducto extends JFrame {
 	
-	private Image imagen;				
+	private Image imagen;
+	/**
+	 * Necesitaremos unos JLabels para enseñar en la ventana cierta información.
+	 * En este caso mostraremos: el nombre del producto, las etiquetas que este tenga, el nombre de usuario del vendedor y el precio del producto.
+	 * **/
 	private JLabel nombreProducto;		
 	private JLabel etiquetasProducto;	
 	private JLabel nombreVendedor;		
 	private JLabel precioProducto;
+	/**
+	 * Estos serán los JButtons que tendrá el JFrame
+	 * **/
 	private JButton btnFavorito;
 	private JButton btnComprar;			
 	private JButton btnVolver;			
@@ -41,52 +57,98 @@ public class VentanaProducto extends JFrame {
 	
 	Usuario uComprador = new Usuario ("peeepiitaa", 611111111, new CuentaBancaria(8727193, 3), "pepa@email.com", "jeje", new Lugar("Gran Via 54", "Bilbao", "Españita"));
 	
-	
-	public VentanaProducto (Producto p, Usuario u) {
+	/**
+	 * Para inicializar la VentanaProducto se necesitará recibir un producto y un usuarios (el usuario que esté viendo el producto).
+	 * El producto se necesitará para coger la información que mostraremos en la ventana (mediante los JLabels).
+	 * El usuario se necesitará para saber quién es está viendo el producto.
+	 * En caso de ser null el usuario, no pasará nada, excepto si hace click en los botones: btnFavorito, btnComprar y btnComentario.
+	 * Se requerirá el usuario ya que en caso de querer meterlo a la favoritos, habrá que saber de quién es la lista; 
+	 * en caso de querer comprar, habrá que saber quién es el comprador; y en caso de querer comentar, habrá que saber de quién es el comentario.
+	 * El String volver nos indicará a dónde tendrá que volver el usuario (de dónde venía) al salir de la ventana.
+	 * **/
+	public VentanaProducto (Producto p, Usuario u, String ventanaVolver) {
 		
+		/**
+		 * Se inicializarán los botones, eliguiendo el texto que se verá por pantalla.
+		 * **/
 		btnFavorito = new JButton("<3");
 		btnComprar = new JButton("Comprar");
 		btnVolver = new JButton("Volver");
 		btnComentario = new JButton("Chat");
 		btnEliminar = new JButton("Eliminar producto");
 		
+		/**
+		 * Creamos una nueva fuente de letra para el usuario (us).
+		 * Esta tendrá letra Times New Roman, estará escrito en cursiva y tendrá un tamaño de 15.
+		 * **/
 		Font us = new Font("Times New Roman", Font.ITALIC, 15);
 		
+		/**
+		 * Inicializaremos el JLabel nombreVendedor. Lo colocaremos a la derecha, con una letra grisacea y al fuente previamente creada.
+		 * **/
 		nombreVendedor = new JLabel("@" + p.getUsuario().getNombre(), SwingConstants.RIGHT);
 		nombreVendedor.setForeground(Color.GRAY);
 		nombreVendedor.setFont(us);
 	
-		// PANELES
 		
+		// PANELES
+		/**
+		 * Creamos un contenedor llamado "cPanel".
+		 * Gracias a él, podremos añadir componentes a la ventana.
+		 * **/
 		Container cPanel = this.getContentPane();
 		cPanel.setLayout(new BorderLayout());
 		
-		
+		/**
+		 * Creamos el panelInformacion, que será un GridLayout con 1 fila y 2 columnas.
+		 * Al ser el nombre, y lo más importante junto a la imagen para que el comprador se haga una idea del producto, hacemos una fuente nueva
+		 * exclusivamente para el producto (prod). Esta estará escrita en Times New Roman, en negrita y en tamaño 20.
+		 * Inicializamos el JLabel nombreProducto (previamente creado) con el nombre del producto. Y le ponemos la fuente que hemos hecho.
+		 * Añadimos el JLabel al panelInformacion
+		 * **/
 		JPanel panelInformacion = new JPanel(new GridLayout(1, 2));
 		Font prod = new Font("Times New Roman", Font.BOLD, 20);
-		nombreProducto = new JLabel("" + p.getNombre());
+		nombreProducto = new JLabel(p.getNombre());
 		nombreProducto.setFont(prod);
 		panelInformacion.add(nombreProducto);
-		precioProducto = new JLabel("" + p.getPrecio() + "€", SwingConstants.RIGHT);
+		/**
+		 * Hacemos lo mismo con el precio del producto: lo inicializamos y lo añadimos al panelInformacion.
+		 * Aunque esta vez no le ponemos ninguna fuente, dejamos la que trae por defecto. Y cuando lo metemos al panel, nos aseguramos de que esté a la derecha.
+		 * **/
+		precioProducto = new JLabel(p.getPrecio() + "€", SwingConstants.RIGHT);
 		panelInformacion.add(precioProducto);
 		
-		
+		/**
+		 * Crearemos otro panel llamado panelInfGeneral, que tendrá dos filas y una única columna.
+		 * A este le añadiremos el oanel anterior como primera fila y el JLabel (ya inicializado) de las etiquetas.
+		 * **/
 		JPanel panelInfGeneral = new JPanel(new GridLayout(2, 1));
 		panelInfGeneral.add(panelInformacion);
 		etiquetasProducto = new JLabel("" + p.getEtiquetas());
 		panelInfGeneral.add(etiquetasProducto);
 		
-		
+		/**
+		 * Establecemos otro panel, llamado panelPrincipal, que tendrá dos filas.
+		 * La primera será para la imagen del producto y la segunda será diferente dependiendo del comprador o del vendedor.
+		 * **/
 		JPanel panelPrincipal = new JPanel (new GridLayout(2, 1));
 		// AQUÍ HAY QUE METER LA IMAGEN
-		panelPrincipal.add(new JLabel("Imagen"), BorderLayout.CENTER);
+		panelPrincipal.add(new JLabel("Imagen"));
 		
 		if (u == p.getUsuario()) {
-			JPanel panelResto = new JPanel (new GridLayout(1, 1));
-			panelResto.add(panelInfGeneral);
-
-			panelPrincipal.add(panelResto, BorderLayout.CENTER);
+			/**
+			 * En caso de que el usuario que está en esta ventana es igual al usuario vendedor del producto,
+			 * añadimos el panelIngGeneral tal cual al panelPrincipal.
+			 * **/
+			panelPrincipal.add(panelInfGeneral, BorderLayout.CENTER);
 		} else {
+			/**
+			 * De no ser así, es decir, que el usuario no es igual al vendedor del producto y, por lo tanto, se trata de un comprador, tendremos otro diseño.
+			 * Para empezar crearemos un panel llamado panelBotonera, con 1 fila y dos columnas, al que se le añadirán los botones btnComprar y btnFavorito.
+			 * Además de tener otro panel (panelResto) al que se le añadirá en la primera fila el panelInfGeneral, en la segunda fila un JLabel que hará de espacio,
+			 * y por último, el panelBotonera anterior.
+			 * Este panel se le añadirá al panelPrincipal.
+			 * **/
 			JPanel panelBotonera = new JPanel(new GridLayout(1, 2));
 			panelBotonera.add(btnComprar);
 			panelBotonera.add(btnFavorito);
@@ -96,11 +158,15 @@ public class VentanaProducto extends JFrame {
 			panelResto.add(new JLabel(""));
 			panelResto.add(panelBotonera);
 			
-			panelPrincipal.add(panelResto, BorderLayout.CENTER);
+			panelPrincipal.add(panelResto);
 		}
 		
 		
-		
+		/**
+		 * Crearemos un último panel, para colocarlo en la parte inferior del JFrame. Dispondrá de una sola fila y dos columnas.
+		 * Si el usuario es el vendedor, en primer lugar irá el botón eliminar. En cambio, si es un comprador, irá el botón comentario.
+		 * Para ambos casos, el segundo componente será el botón volver.
+		 * **/
 		JPanel panelInferior = new JPanel(new GridLayout(1, 2));
 		if (p.getUsuario()==u) {
 			panelInferior.add(btnEliminar);
@@ -109,14 +175,28 @@ public class VentanaProducto extends JFrame {
 		}
 		panelInferior.add(btnVolver);
 	
-		
+		/**
+		 * Añadimos al contenedor del JFrame, el panelPrincipal. Este se situará en medio.
+		 * En la parte superior, gracias al BorderLayout.NORTH, pondremos en nombre del vendedor. A la derecha, como ya hemos dicho antes.
+		 * Y por último, en la parte inferior irá este último panel.
+		 * **/
 		cPanel.add(panelPrincipal);
 		cPanel.add(nombreVendedor, BorderLayout.NORTH);
 		cPanel.add(panelInferior, BorderLayout.SOUTH);
 		
 		
 		// BOTONES
+		/**
+		 * Aunque los botones sean diferentes dependiendo del usuario,
+		 * a todos les añadiremos un ActionListener para asegurarnos de que cumplen con su deber.
+		 * **/
 		
+		/**
+		 * El botón btnVolver, aunque es el único igual para todos, actuará de forma distinta.
+		 * En caso de ser el vendedor, volverá a la ventana anterior, la VentanaUsuario.
+		 * En caso de ser un comprador, volverá a la ventana anterior, pero eso solo lo sabremos con uno de los tres parámetros introducidos a VentanaProducto.
+		 * Pueden ser: VentanaPrincipal, VentanaFavorito o VentanaRecomendado.
+		 * **/
 		btnVolver.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -125,34 +205,61 @@ public class VentanaProducto extends JFrame {
 					ventana.setVisible(true);
 					dispose();
 				} else {
-					VentanaPrincipal.main(null);
-					dispose();
+					if (ventanaVolver == "VentanaPrincipal") {
+						VentanaPrincipal.main(null);
+						dispose();
+					} else if (ventanaVolver == "VentanaFavoritos") {
+						VentanaFavoritos.main(null);
+						dispose();
+					} else if (ventanaVolver == "VentanaRecomendados") {
+						//VentanaRecomendados.main(null);
+						dispose();
+					}
 				}
 			}
 		});
 		
-		
-		// Hay que cambiar el usuario
+		/**
+		 * El botón comprar, solo apto para los compradores, hace el proceso de comprar el producto.
+		 * Para ello, necesitará tener un usuario comprador, por en caso de que el usuario introducido es igual a null, el botón se encargará de llevar
+		 * al usuario a la VentanaLogin para que inicie sesión o, en caso de no tener cuenta, se registre. Una vez hecho eso, podrá volver y comprar el producto.
+		 * Para comprar el producto, saldrá un mensaje de confirmación, que, si el usuario le da click a sí, se llevará a cabo la compra.
+		 * Para ello, llamará al método metodoComprarProducto de FuncionesGenerales, indicando que el producto es el producto actual y el usuario el usuario que lo quiere comprar.
+		 * Una vez hecho esto, redigirá al usuario a la ventana de la que ha venido (teniendo en cuenta el parametro ventanaVolver).
+		 * **/
 		btnComprar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (u == null) {
 					VentanaLogin ventana = new VentanaLogin("VentanaProducto", p);
 			        ventana.setVisible(true);
-					dispose();
-					
-				}
-				
-				
-				int atencionPanel = JOptionPane.showConfirmDialog(null, "¿Esta seguro que quieres comprar este producto?", "Alerta!", JOptionPane.YES_NO_OPTION);
-				if (atencionPanel == JOptionPane.YES_OPTION) {
-					FuncionesGenerales.metodoComprarProducto(p, uComprador);
+					dispose();	
+				} else {
+					int atencionPanel = JOptionPane.showConfirmDialog(null, "¿Esta seguro que quieres comprar este producto?", "Alerta!", JOptionPane.YES_NO_OPTION);
+					if (atencionPanel == JOptionPane.YES_OPTION) {
+						FuncionesGenerales.metodoComprarProducto(p, uComprador);
+						if (ventanaVolver == "VentanaPrincipal") {
+							VentanaPrincipal.main(null);
+							dispose();
+						} else if (ventanaVolver == "VentanaFavoritos") {
+							VentanaFavoritos.main(null);
+							dispose();
+						} else if (ventanaVolver == "VentanaRecomendados") {
+							VentanaRecomendadosSaldo.main(null);
+							dispose();
+						}
+					}
 				}
 			}
 		});
 		
-		
-		// Hay que cambiar el usuario
+		/**
+		 * Cada usuario tiene una serie de productos destacados. Este botón es el encargado de destacarlo o quietarlo de destacados. 
+		 * El botón será visible para todo aquel que no sea el dueño del producto, es decir, para los compradores.
+		 * En caso de querer destacarlo, al pinchar en el botón, se añadirá a la lista de productosFavoritos del comprador y saldrá un mensaje afirmando que se ha añadido.
+		 * En caso de querer quitarlo de destacados, pasará lo contrario.
+		 * Para ver estos productos, habrá que ir al perfil (VentanaUsuario) y hacer click en el botón "Favoritos" (btnFavoritos).
+		 * **/
 		btnFavorito.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -174,32 +281,37 @@ public class VentanaProducto extends JFrame {
 			}
 		});
 		
-		// Hay que cambiar el usuario
+		/**
+		 * El JButton eliminar es únicamente visible para el vendedor.
+		 * Como el propio nombre indica, este botón será el encargado de borrar definitivamente el producto de la plataforma. No quedará registro alguno de él.
+		 * Por ello, sabiendo lo que esto implica, al hacer click en el botón, saldrá un mensaje de confirmación para borrarlo. Si se pincha en no, no pasará nada,
+		 * pero si se pincha en sí, el programa llamará a la base de datos para eliminar el producto.
+		 * Si se eliminar correctamente, aparecrerá por pantalla un mensaje. Si no, aparecerá otro mensaje explicando que ha habido un error.
+		 * **/
 		btnEliminar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int cuidadoPanel = JOptionPane.showConfirmDialog(null, "¿Esta seguro que quieres eliminar este producto?", "Alerta!", JOptionPane.YES_NO_OPTION);
 				if (cuidadoPanel == JOptionPane.YES_OPTION) {
-					p.getUsuario().getProductosEnVenta().remove(p);
-					
-					// BASE DE DATOS ELIMINAR PRODUCTO 
-
+					boolean correcto = BaseDeDatos.eliminarProducto(p);
+					if (correcto) {
+						JOptionPane.showMessageDialog(null, p.getNombre() + "ha sido eliminado.");
+					} else {
+						JOptionPane.showMessageDialog(null, "¡Oh! Ha habido un error. Vuelve a intentarlo más tarde.");
+					}
 				}
 			}
 		});
 				
 		
-		
-		// Quedan el botón Chat y el Favorito
-		
-		// Hay que poner un corazon o rojo o vacio dependiendo de si es favorito o no
-		
-		
-		 this.setTitle("" + p.getNombre());                   	 // colocamos titulo a la ventana
-	     this.setSize(500, 700);                                 // colocamos tamanio a la ventana (ancho, alto)
-	     this.setLocationRelativeTo(null);                       // centramos la ventana en la pantalla
-	     this.setResizable(false);                               // hacemos que la ventana no sea redimiensionable
-	     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    // hacemos que cuando se cierre la ventana termine todo proceso
+		/**
+		 * Solo nos queda dar unos últimos retoques a la ventana.
+		 * **/
+		 this.setTitle(p.getNombre());                   	 	// Ponemos de título el nombre del producto
+	     this.setSize(500, 700);                                // Le asignamos un tamaño de 500 de ancho y 700 de alto
+	     this.setLocationRelativeTo(null);                      // Centramos la ventana en la pantalla
+	     this.setResizable(false);                              // La ventana no se podrá agrandar
+	     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   // Cuando se cierre la ventana, terminá todo proceso
 		
 		
 	}
@@ -211,7 +323,7 @@ public class VentanaProducto extends JFrame {
 		Usuario uVendedor = new Usuario ("peepee", 600000000, new CuentaBancaria(8727193, 3), "pepeee@email.com", "contrasenya", new Lugar("Calle Dato 4", "Vitoria", "Espana"));
 		Producto producto = new Producto ("Zapatilla guay", "Cool", 10.65, Image, Estado.MALO, Colores.Azul, uVendedor);
     	
-		VentanaProducto C = new VentanaProducto(producto, uVendedor);      // creamos una ventana, de momento con producto nulo
+		VentanaProducto C = new VentanaProducto(producto, uVendedor, null);      // creamos una ventana, de momento con producto nulo
         C.setVisible(true);             // hacemos visible la ventana creada
     }
 	
