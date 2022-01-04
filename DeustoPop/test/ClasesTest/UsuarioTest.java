@@ -16,8 +16,9 @@ import clases.Usuario;
 public class UsuarioTest {
 
 	private static final Image Image = null;
-	Usuario uVendedor = new Usuario ("peepee", 600000000, new CuentaBancaria(8727193, 3), "pepeee@email.com", "contrasenya", new Lugar("Calle Dato 4", "Vitoria", "Espana"));
-	
+	//Usuario uVendedor = new Usuario ("peepee", 600000000, new CuentaBancaria(8727193, 3), "pepeee@email.com", "contrasenya", new Lugar("Calle Dato 4", "Vitoria", "Espana"));
+	Usuario uVendedor = new Usuario (1, "peepee", 600000000, new CuentaBancaria(8727193, 0), 3, "pepeee@email.com", "contrasenya", new Lugar("Calle Dato 4", "Vitoria", "Espana"), null, null, null, null);
+
 	Producto producto = new Producto ("Zapatilla guay", "Cool", 10.65, Image, Estado.MALO, Colores.Azul, uVendedor);
 	
 	//test de getters de usuario
