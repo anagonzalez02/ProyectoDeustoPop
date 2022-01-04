@@ -208,6 +208,29 @@ public class BaseDeDatos {
 	}
 	
 	/**
+	 * Crea la tabla Pedido
+	 * **/
+	
+	public static void crearTablaPedido() throws SQLException {
+		Statement statement = conexion.createStatement();
+		consulta = "DROP TABLE IF EXISTS Pedido";
+		logger.log( Level.INFO, "Statement: " + consulta );
+		statement.executeUpdate( consulta );
+		
+		consulta = "CREATE TABLE Pedido " +
+				"(DOUBLE[4, 2] precioTotal, DATE fechaCompra, DATE fechaEntrega, INT[8] numeroPedido, VARCHAR[40] usuarioComprador, VARCHAR[40] productoComprado";
+	
+	if (statement==null) return;
+	try {
+		logger.log( Level.INFO, "Statement: " + consulta );
+		statement.executeUpdate(consulta);
+	} catch (SQLException e) {
+		// Si hay excepción es que la tabla ya existía (lo cual es correcto)
+		// e.printStackTrace();  
+	}
+}
+
+	/**
 	 * Crea la tabla Calzado
 	 * **/
 	
