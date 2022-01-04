@@ -104,7 +104,7 @@ public class VentanaLogin extends JFrame implements ActionListener{
 					       ventana.setVisible(true);
 						dispose();
 					} else if (ventanaVolver == "VentanaProducto") {
-						VentanaProducto ventana = new VentanaProducto(producto, usuario);
+						VentanaProducto ventana = new VentanaProducto(producto, usuario, ventanaVolver);
 					       ventana.setVisible(true);
 						dispose();
 					}
@@ -120,7 +120,7 @@ public class VentanaLogin extends JFrame implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (ventanaVolver == "VentanaProducto") {
-					VentanaProducto ventana = new VentanaProducto(producto, null);
+					VentanaProducto ventana = new VentanaProducto(producto, null, ventanaVolver);
 			        ventana.setVisible(true);
 					dispose();
 					JOptionPane.showMessageDialog(null, "Para poder comprar el producto deberás iniciar sesión en DeustoPop.");

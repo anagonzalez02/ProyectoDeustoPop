@@ -115,7 +115,7 @@ public class VentanaRegistrar extends JFrame implements ActionListener{
 						        ventana.setVisible(true);
 								dispose();
 							} else if (ventanaVolver == "VentanaProducto") {
-								VentanaProducto ventana = new VentanaProducto(producto, u);
+								VentanaProducto ventana = new VentanaProducto(producto, u, ventanaVolver);
 						        ventana.setVisible(true);
 								dispose();
 							}
