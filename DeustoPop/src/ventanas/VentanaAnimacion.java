@@ -15,8 +15,38 @@ public class VentanaAnimacion extends JFrame implements ActionListener{
 	private JLabel labelTexto;
 	private int x = 0;
 	private final String titulo1 = "\n Deusto  o  \n";
-	private final String titulo2 = "\n Deusto -o- \n";
-	private final String titulo3 = "\n Deusto Pop \n";
+	private final String titulo2 = "       \|/ \n Deusto --o-- \n         /|\  ";
+	private final String titulo3 = "       \|/ \n Deusto -Pop- \n         /|\  ";
+	//da error porque eclipse lee las barras raro
+	
+	
+	/*
+	 * 
+	 * al pulsar botonIniciar, en la ventana va apareciendo el titulo1
+	 * 
+	 * D
+	 * De
+	 * Deu
+	 * Deus
+	 * Deust
+	 * Deusto
+	 * Deusto 
+	 * Deusto  
+	 * Deusto  o
+	 * Deusto  o 
+	 * 
+	 * luego titulo2
+	 * 
+	 *         \|/
+	 * Deusto --o--
+	 *         /|\
+	 *        
+	 * y por último titulo3
+	 * 
+	 *         \|/
+	 * Deusto -Pop-
+	 *         /|\
+	 */
 	
 	public VentanaAnimacion() {
 	    configurarVentana();        // configuramos la ventana
