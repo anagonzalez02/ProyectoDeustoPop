@@ -1,5 +1,7 @@
 package ventanas;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Timer;
@@ -16,8 +18,8 @@ public class VentanaAnimacion extends JFrame implements ActionListener{
 	private JLabel labelTexto;
 	private int x = 0;
 	private final String titulo1 = "\n Deusto  o  \n";
-	private final String titulo2 = "       \|/ \n Deusto --o-- \n         /|\  ";
-	private final String titulo3 = "       \|/ \n Deusto -Pop- \n         /|\  ";
+	private final String titulo2 = "\n Deusto --o-- \n";
+	private final String titulo3 = "\n Deusto -Pop- \n";
 	//da error porque eclipse lee las barras raro
 	
 	
@@ -58,7 +60,7 @@ public class VentanaAnimacion extends JFrame implements ActionListener{
 	public void configurarVentana() {
 
 		this.setTitle("DeustoPop");                   			// colocamos titulo a la ventana
-	    this.setSize(500, 700);                                	// colocamos tamanio a la ventana (ancho, alto)
+	    this.setSize(600, 400);                                	// colocamos tamanio a la ventana (ancho, alto)
 	    this.setLocationRelativeTo(null);                       // centramos la ventana en la pantalla
 	    this.setLayout(null);                                   // no usamos ningun layout, solo asi podremos dar posiciones a los componentes
 	    this.setResizable(false);                               // hacemos que la ventana no sea redimiensionable
@@ -72,11 +74,19 @@ public class VentanaAnimacion extends JFrame implements ActionListener{
 		
 		
 		botonIniciar.setText("Iniciar");
-	    botonIniciar.setBounds(140, 570, 200, 50);
+	    botonIniciar.setBounds(200, 250, 200, 50);
 	    
 	    this.add(botonIniciar);
 	    
+	    labelTexto = new JLabel();
 	    
+	    labelTexto.setText("Deusto -Pop-");
+	    labelTexto.setFont(new Font("Arial", Font.PLAIN, 50));
+	    labelTexto.setBounds(160, 80, 300, 100);
+	    
+	    this.add(labelTexto);
+	    
+	    //this.setBackground(Color.yellow);
 	    
 	    
 	    
@@ -95,18 +105,6 @@ public class VentanaAnimacion extends JFrame implements ActionListener{
 					System.out.println("ERROR");
 				}
 				
-			    TimerTask tk=new TimerTask() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						
-					}
-				};
-			    t = new Timer();
-			    t.schedule(tk, 50);
-				
-				
 				
 				VentanaPrincipal.main(null);
 				dispose();
@@ -114,7 +112,17 @@ public class VentanaAnimacion extends JFrame implements ActionListener{
 		});
 	    
 
-	    
+	    TimerTask tk=new TimerTask() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+	    t = new Timer();
+	    t.schedule(tk, 50);
+		
 	    
 	    
 	   

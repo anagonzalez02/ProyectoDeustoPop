@@ -293,7 +293,7 @@ public class VentanaProducto extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int cuidadoPanel = JOptionPane.showConfirmDialog(null, "¿Esta seguro que quieres eliminar este producto?", "Alerta!", JOptionPane.YES_NO_OPTION);
 				if (cuidadoPanel == JOptionPane.YES_OPTION) {
-					boolean correcto = BaseDeDatos.eliminarProducto(p);
+					boolean correcto = BaseDeDatos.eliminarProducto(p); //no existe eliminarProducto, habria que crearlo en la clase "BaseDeDatos"
 					if (correcto) {
 						JOptionPane.showMessageDialog(null, p.getNombre() + "ha sido eliminado.");
 					} else {
