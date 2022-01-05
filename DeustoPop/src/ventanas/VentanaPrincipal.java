@@ -8,6 +8,8 @@ import javax.swing.*;
 import javax.swing.table.*;
 
 public class VentanaPrincipal extends JFrame{
+	public VentanaPrincipal() {
+	}
 
     private JFrame frame;
     private JTable CompTable = null;
@@ -44,7 +46,7 @@ public class VentanaPrincipal extends JFrame{
         //gestion de el frame
         frame = new JFrame("DeustoPop");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(CompTableScrollpane, BorderLayout.CENTER);
+        frame.getContentPane().add(CompTableScrollpane, BorderLayout.CENTER);
         frame.setPreferredSize(new Dimension(550, 700));
         frame.setLocation(400, 25);
         frame.pack();
@@ -56,7 +58,7 @@ public class VentanaPrincipal extends JFrame{
         panelTop = new JPanel(new BorderLayout());
         panelTop.setVisible(true);
         panelTop.setPreferredSize(new Dimension(50, 50));
-        frame.add(panelTop, BorderLayout.NORTH);
+        frame.getContentPane().add(panelTop, BorderLayout.NORTH);
         
         //creacion del boton vender e implementacion en el panelTop
         bVender = new JButton();
@@ -107,7 +109,7 @@ public class VentanaPrincipal extends JFrame{
     public JTable CreateCompTable() {
         CompModel = new PanelTableModel();
         JTable table = new JTable(CompModel);
-        table.setRowHeight(300);
+        table.setRowHeight(350);
         //table.setRowHeight(new CompCellPanel().getPreferredSize().height);
         table.setTableHeader(null);
         PanelCellEditorRenderer PanelCellEditorRenderer = new PanelCellEditorRenderer();
@@ -199,7 +201,7 @@ class CompCellPanel extends JPanel {
 	private JPanel pSup = new JPanel(new BorderLayout());
 	private JLabel lTexto1 = new JLabel("", JLabel.CENTER);
 	private JLabel precio = new JLabel();
-	private ImageIcon imagen = new ImageIcon("C:\\Users\\aitor\\git\\ProyectoDeustoPop\\DeustoPop\\src\\ventanas\\hola.jpeg", null);
+	private ImageIcon imagen = new ImageIcon("C:\\Users\\aitor\\git\\ProyectoDeustoPop\\DeustoPop\\src\\ventanas\\defaultImage.png", null);
 	private JLabel lImagen = new JLabel(imagen, JLabel.CENTER);
 	
 
@@ -223,6 +225,7 @@ class CompCellPanel extends JPanel {
 		}
 		//disenyo del resto de casillas en la tabla
 		lImagen.setVisible(true);
+		lImagen.setIcon(imagen);
 		lImagen.setPreferredSize(new Dimension(10, 10));
 		lTexto1.setText("Producto " + comp.numero);
 		precio.setVisible(true);

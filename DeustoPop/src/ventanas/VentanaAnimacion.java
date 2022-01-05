@@ -4,12 +4,16 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import java.awt.ScrollPane;
 
 public class VentanaAnimacion extends JFrame implements ActionListener{
 	
@@ -20,7 +24,7 @@ public class VentanaAnimacion extends JFrame implements ActionListener{
 	private final String titulo1 = "\n Deusto  o  \n";
 	private final String titulo2 = "\n Deusto --o-- \n";
 	private final String titulo3 = "\n Deusto -Pop- \n";
-	//da error porque eclipse lee las barras raro
+	private ArrayList<String> titulo = new ArrayList<String>();
 	
 	
 	/*
@@ -62,7 +66,7 @@ public class VentanaAnimacion extends JFrame implements ActionListener{
 		this.setTitle("DeustoPop");                   			// colocamos titulo a la ventana
 	    this.setSize(600, 400);                                	// colocamos tamanio a la ventana (ancho, alto)
 	    this.setLocationRelativeTo(null);                       // centramos la ventana en la pantalla
-	    this.setLayout(null);                                   // no usamos ningun layout, solo asi podremos dar posiciones a los componentes
+	    getContentPane().setLayout(null);                                   // no usamos ningun layout, solo asi podremos dar posiciones a los componentes
 	    this.setResizable(false);                               // hacemos que la ventana no sea redimiensionable
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    // hacemos que cuando se cierre la ventana termine todo proceso
 	}
@@ -76,7 +80,7 @@ public class VentanaAnimacion extends JFrame implements ActionListener{
 		botonIniciar.setText("Iniciar");
 	    botonIniciar.setBounds(200, 250, 200, 50);
 	    
-	    this.add(botonIniciar);
+	    getContentPane().add(botonIniciar);
 	    
 	    labelTexto = new JLabel();
 	    
@@ -84,9 +88,19 @@ public class VentanaAnimacion extends JFrame implements ActionListener{
 	    labelTexto.setFont(new Font("Arial", Font.PLAIN, 50));
 	    labelTexto.setBounds(160, 80, 300, 100);
 	    
-	    this.add(labelTexto);
+	    getContentPane().add(labelTexto);
 	    
-	    //this.setBackground(Color.yellow);
+	    this.getContentPane().setBackground(Color.lightGray);
+	    
+	    titulo.add("D");
+	    titulo.add("De");
+	    titulo.add("Deu");
+	    titulo.add("Deus");
+	    titulo.add("Deust");
+	    titulo.add("Deusto");
+	    System.out.println(titulo);
+	    
+
 	    
 	    
 	    
@@ -141,5 +155,4 @@ public class VentanaAnimacion extends JFrame implements ActionListener{
     	VentanaAnimacion C = new VentanaAnimacion();      // creamos una ventana
         C.setVisible(true);             // hacemos visible la ventana creada
     }
-
 }
