@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -770,6 +771,66 @@ public class BaseDeDatos {
 			logger.log( Level.INFO, "Statement: " + consulta );
 			int insertados = statement.executeUpdate( consulta );
 			if (insertados!=1) return false;  // Error en inserción
+			return true;
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return false;
+		}
+	}
+	
+	public static boolean modificarProducto(int id, boolean enVenta) {
+		try {
+			Statement statement = conexion.createStatement();
+			consulta = "UPDATE Producto SET enVenta = 0 WHERE id = " + id + ";";
+			logger.log( Level.INFO, "Statement: " + consulta );
+			statement.executeUpdate(consulta);
+			return true;
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return false;
+		}
+	}
+	
+	
+	public static boolean eliminarProducto(Producto producto) {
+		int id = producto.getId();
+		try {
+			Statement statement = conexion.createStatement();
+			consulta = "DELETE FROM Producto WHERE id = " + id + ";";
+			logger.log( Level.INFO, "Statement: " + consulta );
+			statement.executeUpdate(consulta);
+			eliminarCalzado(producto);
+			eliminarRopa(producto);
+			return true;
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return false;
+		}
+	}
+	
+	
+	public static boolean eliminarCalzado(Producto producto) {
+		int id = producto.getId();
+		try {
+			Statement statement = conexion.createStatement();
+			consulta = "DELETE FROM Calzado WHERE id = " + id + ";";
+			logger.log( Level.INFO, "Statement: " + consulta );
+			statement.executeUpdate(consulta);
+			return true;
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return false;
+		}
+	}
+	
+	
+	public static boolean eliminarRopa(Producto producto) {
+		int id = producto.getId();
+		try {
+			Statement statement = conexion.createStatement();
+			consulta = "DELETE FROM Ropa WHERE id = " + id + ";";
+			logger.log( Level.INFO, "Statement: " + consulta );
+			statement.executeUpdate(consulta);
 			return true;
 		} catch (Exception e) {
 			logger.log( Level.SEVERE, "Excepción", e );

@@ -41,6 +41,7 @@ public class VentanaUsuario extends JFrame {
 	private JButton btnEditar;
 	private JButton btnFavoritos;
 	private JButton btnVerProducto;
+	private JButton btnRecomendadosSaldo;
 	
 	
 	public VentanaUsuario (Usuario u) {
@@ -57,6 +58,7 @@ public class VentanaUsuario extends JFrame {
 			btnEditar = new JButton("Cambiar datos");
 			btnVerProducto = new JButton("Ver producto");
 			btnFavoritos = new JButton("Favoritos");
+			btnRecomendadosSaldo = new JButton("Productos recomendados por saldo");
 			
 			nombreUsuario = new JLabel("" + u.getNombre());
 			emailUsuario = new JLabel("" + u.getEmail());
@@ -120,8 +122,11 @@ public class VentanaUsuario extends JFrame {
 			panelGrande.add(panelProductos);
 			cPanel.add(panelGrande);
 			
-			JPanel panelInferior = new JPanel(new GridLayout(1, 2));
-			panelInferior.add(btnFavoritos);
+			JPanel panelInferior = new JPanel(new GridLayout(2, 1));
+			JPanel panel1 = new JPanel(new GridLayout(1, 2));
+			panel1.add(btnFavoritos);
+			panel1.add(btnRecomendadosSaldo);
+			panelInferior.add(panel1);
 			panelInferior.add(btnVolver);
 			cPanel.add(panelInferior, BorderLayout.SOUTH);
 			
@@ -149,7 +154,7 @@ public class VentanaUsuario extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					Producto p = (Producto) listaProductos.getSelectedValue();
-					VentanaProducto ventana = new VentanaProducto(p, u);
+					VentanaProducto ventana = new VentanaProducto(p, u, null);
 					ventana.setVisible(true);
 					dispose();
 				}
@@ -158,13 +163,23 @@ public class VentanaUsuario extends JFrame {
 			btnFavoritos.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					// OTRA VENTANA
+					VentanaFavoritos.main(null);
+					dispose();
+				}
+			});
+			
+			btnRecomendadosSaldo.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+					VentanaRecomendadosSaldo.main(null);
+					dispose();
 				}
 			});
 			
 			
 			this.setTitle("@" + u.getNombre());                   			 // colocamos titulo a la ventana
-		    this.setSize(500, 700);                                 // colocamos tamanio a la ventana (ancho, alto)
+		    this.setSize(550, 700);                                 // colocamos tamanio a la ventana (ancho, alto)
 		    this.setLocationRelativeTo(null);                       // centramos la ventana en la pantalla
 		    this.setResizable(false);                               // hacemos que la ventana no sea redimiensionable
 		    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    // hacemos que cuando se cierre la ventana termine todo proceso

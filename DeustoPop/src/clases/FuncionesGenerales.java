@@ -21,26 +21,29 @@ public class FuncionesGenerales {
 	 * **/
 	
 	
-	// REVISAR POR QUÉ DA ERROR EL TRY-CATCH
-	public static void metodoComprarProducto (Producto productoComprar, Usuario usuarioComprador) {
-		//try {
-			productoComprar.setEnVenta(false);
-			Usuario usuarioVendedor = productoComprar.getUsuario();
-			int num = 0;
-			for (Producto prod : usuarioVendedor.productosEnVenta) {
-				if (prod == productoComprar) {
-					usuarioVendedor.productosEnVenta.remove(num);
-				}
-				num++;
+	public static void metodoComprarProducto(Producto productoComprar, Usuario usuarioComprador) {
+		BaseDeDatos.modificarProducto(productoComprar.getId(), false);
+		restarDinero(productoComprar, usuarioComprador);
+		sumarDinero(productoComprar);
+		Usuario usuarioVendedor = productoComprar.getUsuario();
+		int num = 0;
+		ArrayList<Producto> productosEnVenta = usuarioVendedor.getProductosEnVenta();
+		for (Producto prod : productosEnVenta) {
+			if (prod == productoComprar) {
+				productosEnVenta.remove(num);
 			}
-			usuarioVendedor.productosVendidos.add(productoComprar);
-			usuarioComprador.productosComprados.add(productoComprar);
-			restarDinero (productoComprar, usuarioComprador);
-			sumarDinero (productoComprar);
-			JOptionPane.showMessageDialog(null, "Has comprado " + productoComprar.getNombre() + ". Nos pondremos en contacto con el vendedor", "Enhorabuena", JOptionPane.DEFAULT_OPTION, null);
-		//} catch {
-			//JOptionPane.showMessageDialog(null, "¡Vaya! ¡Ha debido de haber un error al comprar  " + productoComprar.getNombre() + "! Vuelve a intentarlo", "ERROR", JOptionPane.DEFAULT_OPTION, null);
-		//}
+			num++;
+		}
+		ArrayList<Producto> productosVendidos = usuarioVendedor.getProductosVendidos();
+		productosVendidos.add(productoComprar);
+		BaseDeDatos.modificarUsuario(usuarioVendedor.getIdUsuario(), usuarioVendedor.getNombre(), usuarioVendedor.getTelefono(), usuarioVendedor.getCuentaB().getnTarjeta(), usuarioVendedor.getSaldo(),
+				usuarioVendedor.getEmail(), usuarioVendedor.getVivienda(), productosEnVenta, productosVendidos, usuarioVendedor.getProductosComprados(), usuarioVendedor.getProductosFavoritos());
+		ArrayList<Producto> productosComprados = usuarioComprador.getProductosComprados();
+		productosComprados.add(productoComprar);
+		BaseDeDatos.modificarUsuario(usuarioComprador.getIdUsuario(), usuarioComprador.getNombre(), usuarioComprador.getTelefono(), usuarioComprador.getCuentaB().getnTarjeta(), usuarioComprador.getSaldo(),
+				usuarioComprador.getEmail(), usuarioComprador.getVivienda(), usuarioComprador.getProductosEnVenta(), usuarioComprador.getProductosVendidos(), productosComprados, usuarioComprador.getProductosFavoritos());
+		JOptionPane.showMessageDialog(null,
+				"Has comprado " + productoComprar.getNombre() + ". Nos pondremos en contacto con el vendedor", "Enhorabuena", JOptionPane.DEFAULT_OPTION, null);
 	}
 	
 	
@@ -95,12 +98,12 @@ public class FuncionesGenerales {
 	 * **/
 	
 	
-	public static ArrayList<Producto> buscarProductosRecomendados (Usuario u, int n, ArrayList<Producto> posibles) {
+	public static ArrayList<Producto> buscarProductosRecomendadosSaldo (Usuario u, int n, ArrayList<Producto> posibles) {
 		if (n + 1 <= BaseDeDatos.getProducto().size()) {
-			if (BaseDeDatos.getProducto().get(n).getPrecio() <= u.getSaldo() && BaseDeDatos.getProducto().get(n).isEnVenta() == true) {
+			if (BaseDeDatos.getProducto().get(n).getPrecio() <= u.getSaldo() && BaseDeDatos.getProducto().get(n).isEnVenta() == true && BaseDeDatos.getProducto().get(n).getUsuario() != u) {
 				posibles.add(BaseDeDatos.getProducto().get(n));
 			}
-			buscarProductosRecomendados (u, n + 1, posibles);
+			buscarProductosRecomendadosSaldo (u, n + 1, posibles);
 		}
 		return posibles;
 	}
