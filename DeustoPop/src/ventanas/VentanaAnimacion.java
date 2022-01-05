@@ -3,6 +3,7 @@ package ventanas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -86,7 +87,7 @@ public class VentanaAnimacion extends JFrame implements ActionListener{
 			public void actionPerformed(ActionEvent e) {
 				x = x+1;
 				if (x == titulo1.length()) {
-					t.stop();
+					t.cancel();
 				}
 				try {
 					((Appendable) labelTexto).append(titulo1.substring(x,x+1));
@@ -94,13 +95,25 @@ public class VentanaAnimacion extends JFrame implements ActionListener{
 					System.out.println("ERROR");
 				}
 				
+			    TimerTask tk=new TimerTask() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						
+					}
+				};
+			    t = new Timer();
+			    t.schedule(tk, 50);
+				
 				
 				
 				VentanaPrincipal.main(null);
 				dispose();
 			}
 		});
-	    t = new Timer(50);
+	    
+
 	    
 	    
 	    
