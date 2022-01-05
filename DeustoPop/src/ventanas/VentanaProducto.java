@@ -302,7 +302,7 @@ public class VentanaProducto extends JFrame {
 				}
 			}
 		});
-				
+		
 		
 		/**
 		 * Solo nos queda dar unos últimos retoques a la ventana.

@@ -108,12 +108,13 @@ public class VentanaPrincipal extends JFrame{
         CompModel = new PanelTableModel();
         JTable table = new JTable(CompModel);
         table.setRowHeight(300);
+        //table.setRowHeight(new CompCellPanel().getPreferredSize().height);
         table.setTableHeader(null);
         PanelCellEditorRenderer PanelCellEditorRenderer = new PanelCellEditorRenderer();
         table.setDefaultRenderer(Object.class, PanelCellEditorRenderer);
         table.setDefaultEditor(Object.class, PanelCellEditorRenderer);
         
-        //Se a�aden los paneles al JTable
+        //Se añaden los paneles al JTable
         //Los paneles son del mismo tipo CompCellPanel y con cada instancia
         //de la clase Comp le pasamos los datos que va a mostrar por el constructor
         CompModel.addRow(new Comp(1), new Comp(2));
@@ -198,7 +199,7 @@ class CompCellPanel extends JPanel {
 	private JPanel pSup = new JPanel(new BorderLayout());
 	private JLabel lTexto1 = new JLabel("", JLabel.CENTER);
 	private JLabel precio = new JLabel();
-	private ImageIcon imagen = new ImageIcon("src/DeustoPopVentanas/hola.png", null);
+	private ImageIcon imagen = new ImageIcon("/ProyectoDeustoPop/DeustoPop/src/ventanas/patata.png", null);
 	private JLabel lImagen = new JLabel(imagen, JLabel.CENTER);
 	
 
