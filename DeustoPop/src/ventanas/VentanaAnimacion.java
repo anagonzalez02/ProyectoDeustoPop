@@ -80,7 +80,7 @@ public class VentanaAnimacion extends JFrame implements ActionListener{
 	    
 	    
 	    
-	    /*
+	    
 	    botonIniciar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -103,7 +103,8 @@ public class VentanaAnimacion extends JFrame implements ActionListener{
 	    t = new Timer(50);
 	    
 	    
-	*/   
+	    
+	   
 	}
 	
 	
