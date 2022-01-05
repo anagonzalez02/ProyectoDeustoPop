@@ -46,7 +46,19 @@ public class VentanaVenderRopa extends JFrame implements ActionListener {
     private JComboBox comboEstado;
     private JComboBox comboColor;
     private JComboBox comboTalla;        // combo, para seleccionar talla
-
+    
+    /*
+    //INTENTO LOGGER PRENDA VENDIDA
+    
+    static Logger log;
+    try {
+    	log = Logger.getLogger( "prendaVendida" );
+    } catch (Exception e) {
+    }
+    log.log( Level.INFO,  "Prenda vendida" + (textoNombre) + (textoPrecio));
+    
+    */
+    
     
     public VentanaVenderRopa() {
         super();                    // usamos el contructor de la clase padre JFrame
@@ -169,7 +181,9 @@ public class VentanaVenderRopa extends JFrame implements ActionListener {
 
 				BaseDeDatos.insertarProducto(prenda);
 				// HAY QUE CREAR EN ALGUN LADO UN ARRAYLIST DE TODOS LOS PRODUCTOS DE DEUSTOPOP Y METER AHI EL PRODUCTO CREADO
-				//no escribais con acentos plz que se comprime raro
+				
+			    //INTENTO LOGGER PRENDA VENDIDA
+				//log.log(Level.INFO "Prenda vendida." );
 				
 			}
 		});
