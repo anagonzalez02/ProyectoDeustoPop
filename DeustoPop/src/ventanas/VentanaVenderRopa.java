@@ -52,10 +52,11 @@ public class VentanaVenderRopa extends JFrame implements ActionListener {
     
     static Logger log;
     try {
-    	log = Logger.getLogger( "prendaVendida" );
+    	log = Logger.getLogger( "RopaVendida" );
+    	log.addHandler( new FileHandler( "ropaVendida.xml") );
     } catch (Exception e) {
     }
-    log.log( Level.INFO,  "Prenda vendida" + (textoNombre) + (textoPrecio));
+    log.log( Level.INFO,  "Ropa vendida" + (textoNombre) + (textoPrecio));
     
     */
     
@@ -183,7 +184,7 @@ public class VentanaVenderRopa extends JFrame implements ActionListener {
 				// HAY QUE CREAR EN ALGUN LADO UN ARRAYLIST DE TODOS LOS PRODUCTOS DE DEUSTOPOP Y METER AHI EL PRODUCTO CREADO
 				
 			    //INTENTO LOGGER PRENDA VENDIDA
-				//log.log(Level.INFO "Prenda vendida." );
+				//log.log(Level.INFO "Ropa vendida." );
 				
 			}
 		});
