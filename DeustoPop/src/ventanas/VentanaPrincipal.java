@@ -201,7 +201,7 @@ class CompCellPanel extends JPanel {
 	private JPanel pSup = new JPanel(new BorderLayout());
 	private JLabel lTexto1 = new JLabel("", JLabel.CENTER);
 	private JLabel precio = new JLabel();
-	private ImageIcon imagen = new ImageIcon("/ProyectoDeustoPop/DeustoPop/src/bancoDeImagenes/chaqueta arizona vintage.jpg", null);
+	private ImageIcon imagen = new ImageIcon("C:\\Users\\aitor\\git\\ProyectoDeustoPop\\DeustoPop\\src\\ventanas\\defaultImage.png", null);
 	private JLabel lImagen = new JLabel(imagen, JLabel.CENTER);
 	
 
