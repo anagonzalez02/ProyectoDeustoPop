@@ -18,7 +18,7 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
-import clases.BaseDeDatos;
+import BaseDatos.BaseDeDatos;
 import clases.Colores;
 import clases.CuentaBancaria;
 import clases.Estado;

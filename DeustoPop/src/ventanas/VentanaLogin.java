@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import clases.BaseDeDatos;
+import BaseDatos.BaseDeDatos;
 import clases.FuncionesGenerales;
 import clases.Producto;
 import clases.Usuario;

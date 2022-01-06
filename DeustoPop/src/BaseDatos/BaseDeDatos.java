@@ -1,4 +1,4 @@
-package clases;
+package BaseDatos;
 
 import java.awt.Image;
 import java.sql.Connection;
@@ -13,6 +13,12 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import clases.CuentaBancaria;
+import clases.FuncionesGenerales;
+import clases.Lugar;
+import clases.Producto;
+import clases.Usuario;
 
 public class BaseDeDatos {
 	

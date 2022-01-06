@@ -46,7 +46,7 @@ public class Producto {
 	protected Estado estado;
 	protected Colores color;
 	protected Usuario usuario;
-	protected boolean enVenta;
+	public boolean enVenta;
 	protected HashMap <Usuario, String> comentario;
 	
 	

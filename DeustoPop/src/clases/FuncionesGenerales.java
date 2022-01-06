@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import BaseDatos.BaseDeDatos;
+
 public class FuncionesGenerales { 
 	
 	/**
