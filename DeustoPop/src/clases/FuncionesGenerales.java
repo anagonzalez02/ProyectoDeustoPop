@@ -38,12 +38,12 @@ public class FuncionesGenerales {
 		}
 		ArrayList<Producto> productosVendidos = usuarioVendedor.getProductosVendidos();
 		productosVendidos.add(productoComprar);
-		BaseDeDatos.modificarUsuario(usuarioVendedor.getIdUsuario(), usuarioVendedor.getNombre(), usuarioVendedor.getTelefono(), usuarioVendedor.getCuentaB().getnTarjeta(), usuarioVendedor.getSaldo(),
-				usuarioVendedor.getEmail(), usuarioVendedor.getVivienda(), productosEnVenta, productosVendidos, usuarioVendedor.getProductosComprados(), usuarioVendedor.getProductosFavoritos());
+		//BaseDeDatos.modificarUsuario(usuarioVendedor.getIdUsuario(), usuarioVendedor.getNombre(), usuarioVendedor.getTelefono(), usuarioVendedor.getCuentaB().getnTarjeta(), usuarioVendedor.getSaldo(),
+				//usuarioVendedor.getEmail(), usuarioVendedor.getVivienda(), productosEnVenta, productosVendidos, usuarioVendedor.getProductosComprados(), usuarioVendedor.getProductosFavoritos());
 		ArrayList<Producto> productosComprados = usuarioComprador.getProductosComprados();
 		productosComprados.add(productoComprar);
-		BaseDeDatos.modificarUsuario(usuarioComprador.getIdUsuario(), usuarioComprador.getNombre(), usuarioComprador.getTelefono(), usuarioComprador.getCuentaB().getnTarjeta(), usuarioComprador.getSaldo(),
-				usuarioComprador.getEmail(), usuarioComprador.getVivienda(), usuarioComprador.getProductosEnVenta(), usuarioComprador.getProductosVendidos(), productosComprados, usuarioComprador.getProductosFavoritos());
+		//BaseDeDatos.modificarUsuario(usuarioComprador.getIdUsuario(), usuarioComprador.getNombre(), usuarioComprador.getTelefono(), usuarioComprador.getCuentaB().getnTarjeta(), usuarioComprador.getSaldo(),
+		//		usuarioComprador.getEmail(), usuarioComprador.getVivienda(), usuarioComprador.getProductosEnVenta(), usuarioComprador.getProductosVendidos(), productosComprados, usuarioComprador.getProductosFavoritos());
 		JOptionPane.showMessageDialog(null,
 				"Has comprado " + productoComprar.getNombre() + ". Nos pondremos en contacto con el vendedor", "Enhorabuena", JOptionPane.DEFAULT_OPTION, null);
 	}
@@ -63,7 +63,7 @@ public class FuncionesGenerales {
 	public static void restarDinero (Producto productoComprar, Usuario usuarioComprador) {
 		if (usuarioComprador.getSaldo() - productoComprar.getPrecio() >= 0) {
 			usuarioComprador.setSaldo(usuarioComprador.getSaldo() - productoComprar.getPrecio());
-			BaseDeDatos.modificarUsuario(usuarioComprador.getIdUsuario(), usuarioComprador.getNombre(), usuarioComprador.getTelefono(), usuarioComprador.getCuentaB().getnTarjeta(), usuarioComprador.getSaldo() - productoComprar.getPrecio(), usuarioComprador.getEmail(), usuarioComprador.getVivienda(), usuarioComprador.getProductosEnVenta(), usuarioComprador.getProductosVendidos(), usuarioComprador.getProductosComprados(), usuarioComprador.getProductosFavoritos());
+			//BaseDeDatos.modificarUsuario(usuarioComprador.getIdUsuario(), usuarioComprador.getNombre(), usuarioComprador.getTelefono(), usuarioComprador.getCuentaB().getnTarjeta(), usuarioComprador.getSaldo() - productoComprar.getPrecio(), usuarioComprador.getEmail(), usuarioComprador.getVivienda(), usuarioComprador.getProductosEnVenta(), usuarioComprador.getProductosVendidos(), usuarioComprador.getProductosComprados(), usuarioComprador.getProductosFavoritos());
 		} else {
 			usuarioComprador.getCuentaB().setDineroTotal(usuarioComprador.getCuentaB().getDineroTotal() - productoComprar.getPrecio());
 			BaseDeDatos.modificarCuentaBancaria(usuarioComprador.getCuentaB().getnTarjeta(), usuarioComprador.getIdUsuario(), usuarioComprador.getCuentaB().getnTarjeta(), usuarioComprador.getCuentaB().getDineroTotal() - productoComprar.getPrecio());
@@ -84,7 +84,7 @@ public class FuncionesGenerales {
 	public static void sumarDinero (Producto productoComprar) {
 		Usuario usuarioVendedor = productoComprar.getUsuario();
 		usuarioVendedor.setSaldo(usuarioVendedor.getSaldo() + productoComprar.getPrecio());
-		BaseDeDatos.modificarUsuario(usuarioVendedor.getIdUsuario(), usuarioVendedor.getNombre(), usuarioVendedor.getTelefono(), usuarioVendedor.getCuentaB().getnTarjeta(), usuarioVendedor.getSaldo() + productoComprar.getPrecio(), usuarioVendedor.getEmail(), usuarioVendedor.getVivienda(), usuarioVendedor.getProductosEnVenta(), usuarioVendedor.getProductosVendidos(), usuarioVendedor.getProductosComprados(), usuarioVendedor.getProductosFavoritos());
+		//BaseDeDatos.modificarUsuario(usuarioVendedor.getIdUsuario(), usuarioVendedor.getNombre(), usuarioVendedor.getTelefono(), usuarioVendedor.getCuentaB().getnTarjeta(), usuarioVendedor.getSaldo() + productoComprar.getPrecio(), usuarioVendedor.getEmail(), usuarioVendedor.getVivienda(), usuarioVendedor.getProductosEnVenta(), usuarioVendedor.getProductosVendidos(), usuarioVendedor.getProductosComprados(), usuarioVendedor.getProductosFavoritos());
 	}
 	
 	

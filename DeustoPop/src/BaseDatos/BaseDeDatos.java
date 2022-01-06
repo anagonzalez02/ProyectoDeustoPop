@@ -61,12 +61,9 @@ public class BaseDeDatos {
 					while (scanner.hasNextLine()) {
 						String linea = scanner.nextLine();
 						String[] datos = linea.split( "\t" );
-						consulta = "INSERT INTO Usuario (idUsuario, nombre, telefono, tarjeta, saldo, email, contrasenia, vivienda, productosEnVenta, productosVendidos, productosComprados, productosFavoritos)"
+						consulta = "INSERT INTO Usuario (idUsuario, nombre, telefono, nTarjeta, saldo, email, contrasenia, direccion)"
 								+ "VALUES (" + datos[0] + ", '" + datos[1] + "', " + datos[2] + ", " + datos[3] + ", " + datos[4] + ", '" + datos[5] + "', '" + datos[6]
-								+ "', (SELECT * FROM Lugar WHERE L.idUsuario = '" + datos[7] + "');";
-						
-						// QUEDA LA LISTA FAVORITOS Y LA LISTA COMPRADOS
-						
+								+ "', '" + datos[7] + "');";
 						logger.log( Level.INFO, "Statement: " + consulta );
 						statement.executeUpdate( consulta );
 					}
@@ -151,7 +148,7 @@ public class BaseDeDatos {
 		statement.executeUpdate( consulta );
 		
 		consulta = "CREATE TABLE Usuario " +
-				"(INT[6] idUsuario AUTO_INCREMENT NOT NULL, VARCHAR[20] nombre NOT NULL, INT[12] telefono, INT[18] nTarjeta, DOUBLE[6,2] saldo DEFAULT 0, VARCHAR[70] email, "
+				"(INT[6] idUsuario AUTO_INCREMENT NOT NULL, VARCHAR[20] nombre NOT NULL, INT[12] telefono, INT[18] nTarjeta, DOUBLE[6,2] saldo DEFAULT 5, VARCHAR[70] email, "
 				+ " VARCHAR[20] contrasenia NOT NULL, VARCHAR[100] direccion, "
 				+ "PRIMARY KEY (idUsuario), UNIQUE KEY (nombre), FOREIGN KEY (nTarjeta) REFERENCES CuentaBancaria (nTarjeta), FOREIGN KEY (direccion) REFERENCES Lugar (direccion));";
 		
@@ -329,19 +326,35 @@ public class BaseDeDatos {
 			logger.log( Level.INFO, "Statement: " + consulta );
 			ResultSet rs = statement.executeQuery( consulta );
 			while( rs.next() ) { // Leer el resultset
+				
 				int idUsuario = rs.getInt("idUsuario");
 				String nombre = rs.getString("nombre");
 				int telefono = rs.getInt("telefono");
-				int tarjeta = rs.getInt("tarjeta");
+				int nTarjeta1 = rs.getInt("nTarjeta");
 				double saldo = rs.getDouble("saldo");
 				String email = rs.getString("email");
 				String contrasenia = rs.getString("contrasenia");
+				String direccion = rs.getString("direccion");
 				
-				// QUEDAN EL LUGAR Y LOS ARRAYLISTS
+				String consultaCuenta = "SELECT * FROM CuentaBancaria WHERE idUsuario = " + idUsuario + ";";
+				logger.log( Level.INFO, "Statement: " + consultaCuenta );
+				ResultSet rsCuenta = statement.executeQuery( consultaCuenta );
+				int idUsuarioCuenta = rsCuenta.getInt("idUsuario");
+				int nTarjeta = rsCuenta.getInt("nTarjeta");
+				double dineroTotal = rsCuenta.getDouble("dineroTotal");
+				CuentaBancaria cuenta = new CuentaBancaria(nTarjeta, dineroTotal);
+				
+				String consultaLugar = "SELECT * FROM Lugar WHERE direccion = '" + direccion + "';";
+				logger.log( Level.INFO, "Statement: " + consultaLugar );
+				ResultSet rsLugar = statement.executeQuery( consultaLugar );
+				String direc = rsLugar.getString("direccion");
+				String nomCiud = rsLugar.getString("nomCiud");
+				String nomPais = rsLugar.getString("nomPais");
+				Lugar vivienda = new Lugar(direc, nomCiud, nomPais);
 				
 				
-				
-				//listaUsuarios.add( new Producto (id, nombre, precio, new ArrayList<Compra>() ) );
+				// FALTAN LOS METODOS PARA LOS ARRAYLIST
+				//listaUsuarios.add (new Usuario (idUsuario, nombre, telefono, cuenta, saldo, email, contrasenia, vivienda, ...));
 			}
 			return listaUsuarios;
 		} catch (Exception e) {
@@ -367,7 +380,7 @@ public class BaseDeDatos {
 				int idUsuario = rs.getInt("idUsuario");
 				String nom = rs.getString("nombre");
 				int telefono = rs.getInt("telefono");
-				int tarjeta = rs.getInt("tarjeta");
+				int nTarjeta1 = rs.getInt("nTarjeta");
 				double saldo = rs.getDouble("saldo");
 				String email = rs.getString("email");
 				String contrasenia = rs.getString("contrasenia");
@@ -392,7 +405,8 @@ public class BaseDeDatos {
 				Lugar vivienda = new Lugar(direc, nomCiud, nomPais);
 				
 				
-				
+				// FALTAN LOS METODOS PARA LOS ARRAYLIST
+				//listaUsuarios.add (new Usuario (idUsuario, nombre, telefono, cuenta, saldo, email, contrasenia, vivienda, ...));
 				
 				Usuario usuario = new Usuario();
 				
@@ -415,9 +429,10 @@ public class BaseDeDatos {
 	 */
 	public static boolean insertarUsuario( Usuario usuario ) {
 		try (Statement statement = conexion.createStatement()) {
-			consulta = "INSERT INTO Usuario (idUsuario, nombre, telefono, tarjeta, saldo, email, contrasenia, vivienda, productosEnVenta, productosVendidos, productosComprados, productosFavoritos)"
-					+ "VALUES (" + usuario.getIdUsuario() + ", '" + usuario.getNombre() + "', " + usuario.getTelefono() + ", " + usuario.getCuentaB().getnTarjeta() + ", " + usuario.getSaldo() + ", '" + usuario.getEmail() + "', '" + usuario.getContrasenia() + "', " + usuario.getVivienda() + ", '" + usuario.getProductosEnVenta() + "', '" + usuario.getProductosVendidos() + "', '" + usuario.getProductosComprados() + "', '" + usuario.getProductosFavoritos() + "')";
-
+			consulta = "INSERT INTO Usuario (idUsuario, nombre, telefono, nTarjeta, saldo, email, contrasenia, direccion)"
+					+ "VALUES (" + usuario.getIdUsuario() + ", '" + usuario.getNombre() + "', " + usuario.getTelefono() + ", " + usuario.getCuentaB().getnTarjeta() + ", " + usuario.getSaldo() + ", '" + usuario.getEmail() + "', '" + usuario.getContrasenia() + "', '" + usuario.getVivienda().getDireccion() + "')";
+			// Al ser un usuario nuevo, no tendrá ningún producto en venta, venidido, comprado ni en favoritos
+			
 			logger.log( Level.INFO, "Statement: " + consulta );
 			int insertados = statement.executeUpdate( consulta );
 			if (insertados!=1) return false;  // Error en inserción
@@ -445,6 +460,9 @@ public class BaseDeDatos {
 		try {
 			Statement statement = conexion.createStatement();
 			consulta = "DELETE FROM Usuario WHERE id = " + id + ";";
+			
+			// ELIMINAR LOS PRODUCTOS
+			
 			logger.log( Level.INFO, "Statement: " + consulta );
 			statement.executeUpdate(consulta);
 			return true;
@@ -455,20 +473,16 @@ public class BaseDeDatos {
 	}
 	
 	
-	// REVISAR LOS ARRAYLISTS
-	
-	
 	/**
 	 * Modificar un usuario en la base de datos abierta 
 	 * @param CASI todos los atributos del Usuario		actualiza todos (excepto el ID (ya que ese es definitivo) y la contrasenia), sin importar que sean iguales
 	 * @return											true si se ha modificado correctamente, false en caso contrario
 	 */
 	
-	public static boolean modificarUsuario(int id, String nombre, int telefono, int tarjeta, double saldo, String email, Lugar vivienda, ArrayList<Producto> productosEnVenta, ArrayList<Producto> productosVendidos, ArrayList<Producto> productosComprados, ArrayList<Producto> productosFavoritos) {
+	public static boolean modificarUsuario(int id, String nombre, int telefono, int nTarjeta, double saldo, String email, String direccion) {
 		try {
 			Statement statement = conexion.createStatement();
-			consulta = "UPDATE Usuario SET nombre = '" + nombre + "', telefono = " + telefono + ", tarjeta = " + tarjeta + ", saldo = " + saldo + ", email = '" + email + "', direccion = '" + vivienda.getDireccion()
-			+ "', productosEnVenta = '" + productosEnVenta + "', productosVendidos = '" + productosVendidos + "', productosComprados = '" + productosComprados + "', productosFavoritos = '" + productosFavoritos 
+			consulta = "UPDATE Usuario SET nombre = '" + nombre + "', telefono = " + telefono + ", nTarjeta = " + nTarjeta + ", saldo = " + saldo + ", email = '" + email + "', direccion = '" + direccion
 			+ "' WHERE idUsuario = " + id + ";";
 			logger.log( Level.INFO, "Statement: " + consulta );
 			statement.executeUpdate(consulta);
@@ -599,7 +613,7 @@ public class BaseDeDatos {
 		int nTarjeta = cuenta.getnTarjeta();
 		try {
 			Statement statement = conexion.createStatement();
-			consulta = "DELETE FROM CuentaBancaria WHERE nTarjeta = '" + nTarjeta + "';";
+			consulta = "DELETE FROM CuentaBancaria WHERE nTarjeta = " + nTarjeta + ";";
 			logger.log( Level.INFO, "Statement: " + consulta );
 			statement.executeUpdate(consulta);
 			return true;
@@ -649,7 +663,7 @@ public class BaseDeDatos {
 				String direccion = rs.getString("direccion");
 				String nomCiud = rs.getString("nomCiud");
 				String nomPais = rs.getString("nomPais");
-				listaLugares.add(new Lugar (direccion, nomCiud, nomPais) );
+				listaLugares.add(new Lugar (direccion, nomCiud, nomPais));
 			}
 			return listaLugares;
 		} catch (Exception e) {
@@ -666,7 +680,7 @@ public class BaseDeDatos {
 	public static Lugar getLugar(Usuario usuario) {
 		try (Statement statement = conexion.createStatement()) {
 			String direccion = usuario.getVivienda().getDireccion();
-			consulta = "SELECT * FROM Lugar WHERE direccion = " + direccion + ";";
+			consulta = "SELECT * FROM Lugar WHERE direccion = '" + direccion + "';";
 			logger.log( Level.INFO, "Statement: " + consulta );
 			Lugar vivienda = (Lugar) statement.executeQuery( consulta );
 			return vivienda;
