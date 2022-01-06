@@ -3,13 +3,19 @@ package ventanas;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -17,6 +23,7 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import clases.BaseDeDatos;
 import clases.Colores;
@@ -257,6 +264,33 @@ public class VentanaVenderRopa extends JFrame implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				VentanaPrincipal.main(null);
 				dispose();
+			}
+		});
+		
+		// NO FUNCIONA
+		// necesita convertir el File en imagen
+		botonFt.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser selector=new JFileChooser();
+			    FileNameExtensionFilter filtroImagen=new FileNameExtensionFilter("JPG & PNG", "jpg","png");
+			    selector.setFileFilter(filtroImagen);
+			    int seleccion=selector.showOpenDialog(null);
+			    if (seleccion == JFileChooser.APPROVE_OPTION) {
+			    	File file=selector.getSelectedFile();
+			    	/**
+			    	try {
+			    	    // Retrieve Image
+			    	    BufferedImage buffer = ImageIO.read(new File("old.png"));;
+			    	    // Here you can rotate your image as you want (making your magic)
+			    	    File outputfile = new File("saved.png");
+			    	    ImageIO.write(buffer, "png", outputfile); // Write the Buffered Image into an output file
+			    	    Image image  = ImageIO.read(new File("saved.png")); // Opening again as an Image
+			    	} catch (IOException e2) {
+			    	    
+			    	}
+			    	**/
+			    }
 			}
 		});
 
