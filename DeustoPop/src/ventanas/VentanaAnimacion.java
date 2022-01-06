@@ -100,9 +100,6 @@ public class VentanaAnimacion extends JFrame implements ActionListener{
 	    titulo.add("Deusto");
 	    System.out.println(titulo);
 	    
-
-	    
-	    
 	    
 	    
 	    

@@ -231,7 +231,7 @@ class CompCellPanel extends JPanel {
 		precio.setVisible(true);
 		precio.setPreferredSize(new Dimension(0, 30));
 		precio.setText("precio " + "€");
-
+		
 	}
 
 	public Comp getComp() {
