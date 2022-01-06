@@ -46,7 +46,6 @@ public class VentanaVenderCalzado extends JFrame implements ActionListener {
 	 * Estas opciones serán opciones de las enumeraciones de dichos campos.
 	 * Y por último tendremos el JButton para subir la imagen. Y otros dos para publicar el calzado y para volver a la página anterior.
 	 * **/
-	
 	private JLabel textoNombre;       		// Texto no editable indicando el espacio para el nombre
     private JLabel textoFt;          		// Texto no editable indicando dónde subir la foto
     private JLabel textoEstado;        	 	// Texto no editable indicando las opciones de distintos estados
@@ -92,7 +91,7 @@ public class VentanaVenderCalzado extends JFrame implements ActionListener {
      * **/
     private void inicializarComponentes() {
     	/**
-    	 * inicializamos los JLabels. JTextFields, JComboBox y JButtons
+    	 * Inicializamos los JLabels. JTextFields, JComboBox y JButtons
     	 * **/
 	    textoNombre = new JLabel();
 	    textoFt = new JLabel();
@@ -205,7 +204,7 @@ public class VentanaVenderCalzado extends JFrame implements ActionListener {
 	     * **/
 	    
 	    /**
-	     * Al hacer click en el botonPublicar, recogeremos toda la información pedida en la ventana y crearemos un nuevo objeto de Zapato, además de producto.
+	     * Al hacer click en el botonPublicar, recogeremos toda la información pedida en la ventana y crearemos un nuevo objeto Calzado, además de producto.
 	     * Deberemos contactar con la Base de Datos (tendremos que abrir la conexion) e insertar tanto el zapato como el producto.
 	     * Se meterán en las tablas. No necesitaremos meterlo en el ArrayList de productosEnVenta del usuario, ya que no hay ningún atributo de esa clase en la base de datos,
 	     * y además, podremos conseguirlo (los productos en venta del usuario en cuesión) mediante una consulta.
