@@ -14,10 +14,14 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import clases.Calzado;
+import clases.Colores;
 import clases.CuentaBancaria;
+import clases.Estado;
 import clases.FuncionesGenerales;
 import clases.Lugar;
 import clases.Producto;
+import clases.Ropa;
 import clases.Usuario;
 
 public class BaseDeDatos {
@@ -52,8 +56,12 @@ public class BaseDeDatos {
 				crearTablaBDUsuario();
 				crearTablaBDCuentaBancaria();
 				crearTablaBDLugar();
+				crearTablaBDProducto();
 				crearTablaBDCalzado();
 				crearTablaBDRopa();
+				//crearTablaBDPedido();
+				crearTablaBDFavoritos();
+				crearTablaBDComentarios();
 				
 				try {
 					
@@ -91,11 +99,22 @@ public class BaseDeDatos {
 					}
 					scanner.close();
 					
+					scanner = new Scanner( BaseDeDatos.class.getResourceAsStream("Producto.txt") );
+					while (scanner.hasNextLine()) {
+						String linea = scanner.nextLine();
+						String[] datos = linea.split( "\t" );
+						consulta = "INSERT INTO Calzado (idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, idUsuario, enVenta)"
+								+ "VALUES (" + datos[0] + ", '" + datos[1] + "', '" + datos[2] + "', '" + datos[3] + "', " + datos[4] + ", '" + datos[5] + "', '" + datos[6] + "', '" + datos[7] + "', " + datos[8] + ", " + datos[9] + ");";
+						logger.log( Level.INFO, "Statement: " + consulta );
+						statement.executeUpdate( consulta );
+					}
+					scanner.close();
+					
 					scanner = new Scanner( BaseDeDatos.class.getResourceAsStream("Calzado.txt") );
 					while (scanner.hasNextLine()) {
 						String linea = scanner.nextLine();
 						String[] datos = linea.split( "\t" );
-						consulta = "INSERT INTO Calzado (id, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, idUsuario, enVenta, tallaCalzado)"
+						consulta = "INSERT INTO Calzado (idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, idUsuario, enVenta, tallaCalzado)"
 								+ "VALUES (" + datos[0] + ", '" + datos[1] + "', '" + datos[2] + "', '" + datos[3] + "', " + datos[4] + ", '" + datos[5] + "', '" + datos[6] + "', '" + datos[7] + "', " + datos[8] + ", " + datos[9] + ", " + datos[10] + ");";
 						logger.log( Level.INFO, "Statement: " + consulta );
 						statement.executeUpdate( consulta );
@@ -106,8 +125,30 @@ public class BaseDeDatos {
 					while (scanner.hasNextLine()) {
 						String linea = scanner.nextLine();
 						String[] datos = linea.split( "\t" );
-						consulta = "INSERT INTO Ropa (id, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, idUsuario, enVenta, tallaRopa)"
+						consulta = "INSERT INTO Ropa (idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, idUsuario, enVenta, tallaRopa)"
 								+ "VALUES (" + datos[0] + ", '" + datos[1] + "', '" + datos[2] + "', '" + datos[3] + "', " + datos[4] + ", '" + datos[5] + "', '" + datos[6] + "', '" + datos[7] + "', " + datos[8] + ", " + datos[9] + ", '" + datos[10] + "');";
+						logger.log( Level.INFO, "Statement: " + consulta );
+						statement.executeUpdate( consulta );
+					}
+					scanner.close();
+					
+					scanner = new Scanner( BaseDeDatos.class.getResourceAsStream("Favoritos.txt") );
+					while (scanner.hasNextLine()) {
+						String linea = scanner.nextLine();
+						String[] datos = linea.split( "\t" );
+						consulta = "INSERT INTO Favoritos (idProducto, idUsuario, fechaInsertada)"
+								+ "VALUES (" + datos[0] + ", " + datos[1] + ", '" + datos[2] + "');";
+						logger.log( Level.INFO, "Statement: " + consulta );
+						statement.executeUpdate( consulta );
+					}
+					scanner.close();
+					
+					scanner = new Scanner( BaseDeDatos.class.getResourceAsStream("Comentarios.txt") );
+					while (scanner.hasNextLine()) {
+						String linea = scanner.nextLine();
+						String[] datos = linea.split( "\t" );
+						consulta = "INSERT INTO Comentarios (idProducto, idUsuario, comentario, fechaInsertada)"
+								+ "VALUES (" + datos[0] + ", " + datos[1] + ", '" + datos[2] + "', '" + datos[3] + "');";
 						logger.log( Level.INFO, "Statement: " + consulta );
 						statement.executeUpdate( consulta );
 					}
@@ -238,8 +279,6 @@ public class BaseDeDatos {
 	 * Crea la tabla Calzado
 	 * **/
 	
-	// FALTAN LA IMAGEN, ESTADO Y COLORES
-	
 	public static void crearTablaBDCalzado() throws SQLException {
 		Statement statement = conexion.createStatement();
 		consulta = "DROP TABLE IF EXISTS Calzado";
@@ -247,10 +286,9 @@ public class BaseDeDatos {
 		statement.executeUpdate( consulta );
 		
 		consulta = "CREATE TABLE Calzado " +
-				"(INT[10] id AUTO_INCREMENT NOT NULL, VARCHAR[40] nombre NOT NULL, DATE fechaSubida, VARCHAR[60] etiquetas, "
-				+ "DOUBLE[4, 2] precio, "
-				+ "INT[6] idUsuario NOT NULL, BIT enVenta, DOUBLE[2,1] tallaCalzado, "
-				+ "PRIMARY KEY (id), + UNIQUE KEY (nombre), FOREIGN KEY (idUsuario) REFERENCES Usuario (idUsuario));";
+				"(INT[10] idProducto AUTO_INCREMENT NOT NULL, VARCHAR[40] nombre NOT NULL, DATE fechaSubida, VARCHAR[60] etiquetas, DOUBLE[4, 2] precio, "
+				+ "VARCHAR[60] imagen, CHAR[5] estado, CHAR[10] color, INT[6] idUsuario NOT NULL, VARCHAR[5] enVenta NOT NULL, DOUBLE[2,1] tallaCalzado, "
+				+ "PRIMARY KEY (id), UNIQUE KEY (nombre), FOREIGN KEY (idUsuario) REFERENCES Usuario (idUsuario));";
 		
 		if (statement==null) return;
 		try {
@@ -266,8 +304,6 @@ public class BaseDeDatos {
 	 * Crea la tabla Ropa
 	 * **/
 	
-	// FALTAN LA IMAGEN, ESTADO, COLORES Y TALLA
-	
 	public static void crearTablaBDRopa() throws SQLException {
 		Statement statement = conexion.createStatement();
 		consulta = "DROP TABLE IF EXISTS Ropa";
@@ -275,11 +311,9 @@ public class BaseDeDatos {
 		statement.executeUpdate( consulta );
 		
 		consulta = "CREATE TABLE Ropa " +
-				"(INT[10] id AUTO_INCREMENT NOT NULL, VARCHAR[40] nombre NOT NULL, DATE fechaSubida, VARCHAR[60] etiquetas, "
-				+ "DOUBLE[4, 2] precio, "
-				+ "INT[6] idUsuario NOT NULL, BIT enVenta, DOUBLE[2,1] tallaCalzado, "
-				+ ""
-				+ "PRIMARY KEY (id), + UNIQUE KEY (nombre), FOREIGN KEY (idUsuario) REFERENCES Usuario (idUsuario));";
+				"(INT[10] idProducto AUTO_INCREMENT NOT NULL, VARCHAR[40] nombre NOT NULL, DATE fechaSubida, VARCHAR[60] etiquetas, DOUBLE[4, 2] precio, "
+				+ "VARCHAR[60] imagen, CHAR[5] estado, CHAR[10] color, INT[6] idUsuario NOT NULL, VARCHAR[5] enVenta NOT NULL, CHAR[1] tallaCalzado, "
+				+ "PRIMARY KEY (id), UNIQUE KEY (nombre), FOREIGN KEY (idUsuario) REFERENCES Usuario (idUsuario));";
 		
 		if (statement==null) return;
 		try {
@@ -292,6 +326,11 @@ public class BaseDeDatos {
 	}
 	
 	
+	/**
+	 * Crea la tabla Producto
+	 * Esta tabla tendrá todas las tuplas tanto de calzado como de ropa.
+	 * **/
+	
 	public static void crearTablaBDProducto() throws SQLException {
 		Statement statement = conexion.createStatement();
 		consulta = "DROP TABLE IF EXISTS Producto";
@@ -299,8 +338,59 @@ public class BaseDeDatos {
 		statement.executeUpdate( consulta );
 		
 		consulta = "CREATE TABLE Producto " +
-				"(INT[6] id AUTO_INCREMENT NOT NULL, VARCHAR[35] nombre, DATE fechaSubida, VARCHAR[60] etiquetas,  \"\n"
-				+ "	+ \"DOUBLE[4, 2] precio, INT[6] idUsuario NOT NULL, BIT enVenta, PRIMARY KEY(id));";
+				"(INT[6] idProducto AUTO_INCREMENT NOT NULL, VARCHAR[35] nombre NOT NULL, DATE fechaSubida, VARCHAR[60] etiquetas,  "
+				+ "DOUBLE[4, 2] precio, VARCHAR[60] imagen, CHAR[5] estado, CHAR[10] color, INT[6] idUsuario NOT NULL, VARCHAR[5] enVenta NOT NULL, "
+				+ "PRIMARY KEY(idProducto), UNIQUE KEY (nombre), FOREIGN KEY (idUsuario) REFERENCES Usuario (idUsuario));";
+		
+		if (statement==null) return;
+		try {
+			logger.log( Level.INFO, "Statement: " + consulta );
+			statement.executeUpdate(consulta);
+		} catch (SQLException e) {
+			// Si hay excepción es que la tabla ya existía (lo cual es correcto)
+			// e.printStackTrace();  
+		}
+	}
+	
+	
+	/**
+	 * Crea la tabla Favorito
+	 * **/
+	
+	public static void crearTablaBDFavoritos() throws SQLException {
+		Statement statement = conexion.createStatement();
+		consulta = "DROP TABLE IF EXISTS Usuario";
+		logger.log( Level.INFO, "Statement: " + consulta );
+		statement.executeUpdate( consulta );
+		
+		consulta = "CREATE TABLE Usuario " +
+				"(INT[6] idUsuario NOT NULL, INT[10] idProducto NOT NULL, DATE fechaInsertada"
+				+ "PRIMARY KEY (idUsuario), UNIQUE KEY (idProducto), FOREIGN KEY (idUsuario) REFERENCES Usuario (idUsuario), FOREIGN KEY (idProducto) REFERENCES Producto (idProducto));";
+		
+		if (statement==null) return;
+		try {
+			logger.log( Level.INFO, "Statement: " + consulta );
+			statement.executeUpdate(consulta);
+		} catch (SQLException e) {
+			// Si hay excepción es que la tabla ya existía (lo cual es correcto)
+			// e.printStackTrace();  
+		}
+	}
+	
+	
+	/**
+	 * Crea la tabla Comentarios
+	 * **/
+	
+	public static void crearTablaBDComentarios() throws SQLException {
+		Statement statement = conexion.createStatement();
+		consulta = "DROP TABLE IF EXISTS Usuario";
+		logger.log( Level.INFO, "Statement: " + consulta );
+		statement.executeUpdate( consulta );
+		
+		consulta = "CREATE TABLE Usuario " +
+				"(INT[6] idUsuario NOT NULL, INT[10] idProducto NOT NULL, VARCHAR[200] comentario, DATE fechaInsertada"
+				+ "PRIMARY KEY (idUsuario), UNIQUE KEY (idProducto), FOREIGN KEY (idUsuario) REFERENCES Usuario (idUsuario), FOREIGN KEY (idProducto) REFERENCES Producto (idProducto));";
 		
 		if (statement==null) return;
 		try {
@@ -353,8 +443,10 @@ public class BaseDeDatos {
 				Lugar vivienda = new Lugar(direc, nomCiud, nomPais);
 				
 				
+				ArrayList<Producto> productosFavoritos = getFavoritosUsuario(idUsuario);
+				
 				// FALTAN LOS METODOS PARA LOS ARRAYLIST
-				//listaUsuarios.add (new Usuario (idUsuario, nombre, telefono, cuenta, saldo, email, contrasenia, vivienda, ...));
+				//listaUsuarios.add (new Usuario (idUsuario, nombre, telefono, cuenta, saldo, email, contrasenia, vivienda, ..., productosFavoritos));
 			}
 			return listaUsuarios;
 		} catch (Exception e) {
@@ -362,6 +454,59 @@ public class BaseDeDatos {
 			return null;
 		}
 	}
+	
+	
+	/** 
+	 * Lista los usuarios de la base de datos
+	 * @return	Lista completa de los Usuarios de nuestra plataforma, null si hay algún error
+	 */
+	
+	public static Usuario getUsuario(int idU) {
+		try (Statement statement = conexion.createStatement()) {
+			consulta = "SELECT * FROM Usuario WHERE idUsuario = " + idU + ";";
+			logger.log( Level.INFO, "Statement: " + consulta );
+			ResultSet rs = statement.executeQuery( consulta );
+			
+			int idUsuario = rs.getInt("idUsuario");
+			String nombre = rs.getString("nombre");
+			int telefono = rs.getInt("telefono");
+			int nTarjeta1 = rs.getInt("nTarjeta");
+			double saldo = rs.getDouble("saldo");
+			String email = rs.getString("email");
+			String contrasenia = rs.getString("contrasenia");
+			String direccion = rs.getString("direccion");
+				
+			String consultaCuenta = "SELECT * FROM CuentaBancaria WHERE idUsuario = " + idUsuario + ";";
+			logger.log( Level.INFO, "Statement: " + consultaCuenta );
+			ResultSet rsCuenta = statement.executeQuery( consultaCuenta );
+			int idUsuarioCuenta = rsCuenta.getInt("idUsuario");
+			int nTarjeta = rsCuenta.getInt("nTarjeta");
+			double dineroTotal = rsCuenta.getDouble("dineroTotal");
+			CuentaBancaria cuenta = new CuentaBancaria(nTarjeta, dineroTotal);
+				
+			String consultaLugar = "SELECT * FROM Lugar WHERE direccion = '" + direccion + "';";
+			logger.log( Level.INFO, "Statement: " + consultaLugar );
+			ResultSet rsLugar = statement.executeQuery( consultaLugar );
+			String direc = rsLugar.getString("direccion");
+			String nomCiud = rsLugar.getString("nomCiud");
+			String nomPais = rsLugar.getString("nomPais");
+			Lugar vivienda = new Lugar(direc, nomCiud, nomPais);
+			
+			
+			
+			ArrayList<Producto> productosFavoritos = getFavoritosUsuario(idUsuario);
+				
+				
+				// FALTAN LOS METODOS PARA LOS ARRAYLIST
+				//listaUsuarios.add (new Usuario (idUsuario, nombre, telefono, cuenta, saldo, email, contrasenia, vivienda, ..., productosFavoritos));
+			}
+			return usuario;
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return null;
+		}
+	}
+	
 	
 	/** 
 	 * Lista los usuarios de la base de datos
@@ -405,8 +550,10 @@ public class BaseDeDatos {
 				Lugar vivienda = new Lugar(direc, nomCiud, nomPais);
 				
 				
+				ArrayList<Producto> productosFavoritos = getFavoritosUsuario(idUsuario);
+				
 				// FALTAN LOS METODOS PARA LOS ARRAYLIST
-				//listaUsuarios.add (new Usuario (idUsuario, nombre, telefono, cuenta, saldo, email, contrasenia, vivienda, ...));
+				//listaUsuarios.add (new Usuario (idUsuario, nombre, telefono, cuenta, saldo, email, contrasenia, vivienda, ..., productosFavoritos));
 				
 				Usuario usuario = new Usuario();
 				
@@ -501,7 +648,6 @@ public class BaseDeDatos {
 	
 	public static boolean existeNombreUsuario(String nombre) {
 		try (Statement statement = conexion.createStatement()) {
-			ArrayList<Usuario> listaUsuarios = new ArrayList<>();
 			consulta = "SELECT * FROM Usuario WHERE nombre = '" + nombre + "';";
 			logger.log( Level.INFO, "Statement: " + consulta );
 			ResultSet rs = statement.executeQuery( consulta );
@@ -524,7 +670,6 @@ public class BaseDeDatos {
 	
 	public static boolean existeEmailUsuario(String email) {
 		try (Statement statement = conexion.createStatement()) {
-			ArrayList<Usuario> listaUsuarios = new ArrayList<>();
 			consulta = "SELECT * FROM Usuario WHERE email = '" + email + "';";
 			logger.log( Level.INFO, "Statement: " + consulta );
 			ResultSet rs = statement.executeQuery( consulta );
@@ -548,11 +693,10 @@ public class BaseDeDatos {
 	public static ArrayList<CuentaBancaria> getCuentaBancaria() {
 		try (Statement statement = conexion.createStatement()) {
 			ArrayList<CuentaBancaria> listaCuentasB = new ArrayList<>();
-			consulta = "SELECT * FROM CuentaBancaria;";
+			consulta = "SELECT nTarjeta, dineroTotal FROM CuentaBancaria;";
 			logger.log( Level.INFO, "Statement: " + consulta );
 			ResultSet rs = statement.executeQuery( consulta );
 			while( rs.next() ) { // Leer el resultset
-				int idUsuario = rs.getInt("idUsuario");
 				int nTarjeta = rs.getInt("nTarjeta");
 				double dineroTotal = rs.getDouble("dineroTotal");
 				listaCuentasB.add(new CuentaBancaria (nTarjeta, dineroTotal) );
@@ -571,10 +715,13 @@ public class BaseDeDatos {
 	
 	public static CuentaBancaria getCuentaBancaria(Usuario usuario) {
 		try (Statement statement = conexion.createStatement()) {
-			int nTarjeta = usuario.getCuentaB().getnTarjeta();
-			consulta = "SELECT * FROM CuentaBancaria WHERE nTarjeta = " + nTarjeta + ";";
+			int idUsuario = usuario.getIdUsuario();
+			consulta = "SELECT nTarjeta, dineroTotal FROM CuentaBancaria WHERE idUsuario = " + idUsuario + ";";
 			logger.log( Level.INFO, "Statement: " + consulta );
-			CuentaBancaria cuenta = (CuentaBancaria) statement.executeQuery( consulta );
+			ResultSet rs = statement.executeQuery( consulta );
+			int nTarjeta = rs.getInt("nTarjeta");
+			double dineroTotal = rs.getDouble("dineroTotal");
+			CuentaBancaria cuenta = new CuentaBancaria (nTarjeta, dineroTotal);
 			return cuenta;
 		} catch (Exception e) {
 			logger.log( Level.SEVERE, "Excepción", e );
@@ -680,9 +827,12 @@ public class BaseDeDatos {
 	public static Lugar getLugar(Usuario usuario) {
 		try (Statement statement = conexion.createStatement()) {
 			String direccion = usuario.getVivienda().getDireccion();
-			consulta = "SELECT * FROM Lugar WHERE direccion = '" + direccion + "';";
+			consulta = "SELECT nomCiud, nomPais FROM Lugar WHERE direccion = '" + direccion + "';";
 			logger.log( Level.INFO, "Statement: " + consulta );
-			Lugar vivienda = (Lugar) statement.executeQuery( consulta );
+			ResultSet rs = statement.executeQuery( consulta );
+			String nomCiud = rs.getString("nomCiud");
+			String nomPais = rs.getString("nomPais");
+			Lugar vivienda = new Lugar (direccion, nomCiud, nomPais);
 			return vivienda;
 		} catch (Exception e) {
 			logger.log( Level.SEVERE, "Excepción", e );
@@ -765,15 +915,40 @@ public class BaseDeDatos {
 			logger.log( Level.INFO, "Statement: " + consulta );
 			ResultSet rs = statement.executeQuery( consulta );
 			while( rs.next() ) { // Leer el resultset
-				int id = rs.getInt("id");
+				int idProducto = rs.getInt("idProducto");
 				String nombre = rs.getString("nombre");
 				Date fechaSubida = rs.getDate("fechaSubida");
 				String etiquetas = rs.getString("etiquetas");
 				Double precio = rs.getDouble("precio");
+				String imagen = rs.getString("imagen");
+				// HAY QUE CAMBIARLO
+				Image foto = null;
+				String estadoStr = rs.getString("estado");
+				Estado estado;
+				if (estadoStr == "MALO") {estado = Estado.MALO;}
+				else if (estadoStr == "MEDIO") {estado = Estado.MEDIO;}
+				else if (estadoStr == "BUENO") {estado = Estado.BUENO;}
+				String colorStr = rs.getString("color");
+				Colores color;
+				if (colorStr == "Negro") {color = Colores.Negro;}
+				else if (colorStr == "Blanco") {color = Colores.Blanco;}
+				else if (colorStr == "Rojo") {color = Colores.Rojo;}
+				else if (colorStr == "Azul") {color = Colores.Azul;}
+				else if (colorStr == "Verde") {color = Colores.Verde;}
+				else if (colorStr == "Gris") {color = Colores.Gris;}
+				else if (colorStr == "Rosa") {color = Colores.Rosa;}
+				else if (colorStr == "Amarillo") {color = Colores.Amarillo;}
+				else if (colorStr == "Multicolor") {color = Colores.Multicolor;}
+				else if (colorStr == "Otro") {color = Colores.Otro;}
 				int idUsuario = rs.getInt("idUsuario");
-				Boolean enVenta = rs.getBoolean("enVenta");
+				Usuario usuario = getUsuario(idUsuario);
+				String enVentaStr = rs.getString("enVenta");
+				Boolean enVenta;
+				if (enVentaStr == "true") {enVenta = true;}
+				else {enVenta = false;}
+				HashMap <Usuario, String> comentarios = getComentariosProducto(idProducto);
 				
-//				listaProductos.add(new Producto(id, nombre, fechaSubida, etiquetas, precio, idUsuario, enVenta) );
+				listaProductos.add(new Producto(idProducto, nombre, fechaSubida, etiquetas, precio, foto, estado, color, usuario, enVenta, comentarios));
 			}
 			return listaProductos;
 		} catch (Exception e) {
@@ -782,7 +957,7 @@ public class BaseDeDatos {
 		}
 	}
 	
-	public static boolean insertarProducto( Producto producto) {
+	public static boolean insertarProducto (Producto producto) {
 		try (Statement statement = conexion.createStatement()) {
 			consulta = "INSERT INTO Producto (id, nombre, fechaSubida, etiquetas, precio, idUsuario, enVenta)"
 					+ "VALUES ('" + producto.getId() + "', '" + producto.getNombre() + "', '" + producto.getFechaSubida() + 
@@ -857,6 +1032,216 @@ public class BaseDeDatos {
 			return false;
 		}
 	}
+	
+	
+	
+	
+	
+	/**
+	 * Devuelve un ArrayList de todos los Productos favoritos del usuario introducido
+	 * @param usuario		Usuario del que se quiere saber qué productos tiene en Favoritos
+	 * @return				El ArrayList de los productos favoritos del usuario. Lo que para él/ella sería su atributo productosFavoritos.
+	 * **/
+	
+	public static ArrayList<Producto> getFavoritosUsuario(int idUsuario) {
+		ArrayList<Producto> productosFavoritos = new ArrayList<>();
+		try (Statement statement = conexion.createStatement()) {
+			consulta = "SELECT idProducto FROM Favoritos WHERE idUsuario = " + idUsuario + ";";
+			logger.log( Level.INFO, "Statement: " + consulta );
+			ResultSet rs = statement.executeQuery( consulta );
+			
+			while( rs.next() ) { // Leer el resultset
+				int idProducto = rs.getInt("idProducto");
+				if (getCalzado(idProducto) == null) {
+					Ropa prenda = getRopa(idProducto);
+					productosFavorito.add(prenda);
+				} else {
+					Calzado calzado = getCalzado(idProducto);
+					productosFavorito.add(calzado);
+				}
+			}
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return null;
+		}
+		return productosFavoritos;
+	}
+	
+	
+	/**
+	 * Devuelve un ArrayList de todos los Usuarios a los que les ha gustado un producto
+	 * @param producto		Producto del que se quiere saber a quién les gusta
+	 * @return				El ArrayList de los usuarios
+	 * **/
+	
+	public static ArrayList<Usuario> getFavoritosProducto(Producto producto) {
+		ArrayList<Usuario> usuariosConFavorito = new ArrayList<>();
+		try (Statement statement = conexion.createStatement()) {
+			consulta = "SELECT idUsuario FROM Favoritos WHERE idProducto = " + producto.getId() + ";";
+			logger.log( Level.INFO, "Statement: " + consulta );
+			ResultSet rs = statement.executeQuery( consulta );
+			
+			while( rs.next() ) { // Leer el resultset
+				int idUsuario = rs.getInt("idUsuario");
+				Usuario u = getUsuario(idUsuario);
+				usuariosConFavorito.add(u);
+			}
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return null;
+		}
+		return usuariosConFavorito;
+	}
+	
+	
+	/**
+	 * Cuando un usuario le de a me gusta a un producto, se creará una tupla en la tabla Favoritos.
+	 * @param usuario		El usuario que le ha dado me gusta a un producto
+	 * @param producto		El producto que le ha gustado al usuario
+	 * @param fecha			Cuándo le ha dado me gusta
+	 * @return				true si la inserción es correcta, false en caso contrario
+	 */
+	public static boolean insertarFavorito (Usuario usuario, Producto producto, Date fecha) {
+		try (Statement statement = conexion.createStatement()) {
+			consulta = "INSERT INTO Favoritos (idUsuario, idProducto, fechaInsertada)"
+					+ "VALUES (" + usuario.getIdUsuario() + ", " + producto.getId() + ", '" + fecha + "')";
+			
+			logger.log( Level.INFO, "Statement: " + consulta );
+			int insertados = statement.executeUpdate( consulta );
+			if (insertados!=1) return false;  // Error en inserción
+			return true;
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return false;
+		}
+	}
+	
+	/**
+	 * Cuando un usuario quiere sacar un producto de su lista de favoritos 
+	 * @param usuario		El usuario que quiere borrar el producto de su cuenta
+	 * @param producto		El producto que ya no le gusta
+	 * @return				true si se ha eliminado correctamente, false en caso contrario
+	 */
+	
+	public static boolean eliminarFavoritos(Usuario usuario, Producto producto) {
+		try {
+			Statement statement = conexion.createStatement();
+			consulta = "DELETE FROM Favoritos WHERE idUsuario = " + usuario.getIdUsuario() + " AND idProducto = " + producto.getId() + ";";
+			logger.log( Level.INFO, "Statement: " + consulta );
+			statement.executeUpdate(consulta);
+			return true;
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return false;
+		}
+	}
+	
+	
+	/**
+	 * Revisa en la base de datos si existe la relación Favorito entre un usuario y un producto
+	 * @param usuario		Usuario del que se quiere saber si hay relación con un producto
+	 * @param producto		Producto del que se quiere saber si hay relacion con un usuario
+	 * @return				True si existe, false si no existe
+	 * **/
+	
+	public static boolean existeFavorito(Usuario usuario, Producto producto) {
+		try (Statement statement = conexion.createStatement()) {
+			consulta = "SELECT * FROM Usuario WHERE idUsuario = " + usuario.getIdUsuario() + "AND idProducto = " + producto.getId() + ";";
+			logger.log( Level.INFO, "Statement: " + consulta );
+			ResultSet rs = statement.executeQuery( consulta );
+			if (rs == null) {
+				return false;
+			} else {
+				return true;
+			}
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return false;
+		}
+	}
+	
+	
+	
+	/**
+	 * Devuelve un HashMap de todos los comentarios que ha hecho un usuario concreto
+	 * @param idUsuario		Identificativo del usuario del que se quiere saber qué comentarios ha hecho
+	 * @return				El HashMap de los comentarios hechos
+	 * **/
+	
+	public static HashMap <Producto, String> getComentariosUsuario(int idUsuario) {
+		HashMap <Producto, String> comentariosHechos = new HashMap <Producto, String>();
+		try (Statement statement = conexion.createStatement()) {
+			consulta = "SELECT idProducto, comentario FROM Comentarios WHERE idUsuario = " + idUsuario + ";";
+			logger.log( Level.INFO, "Statement: " + consulta );
+			ResultSet rs = statement.executeQuery( consulta );
+			
+			while (rs.next()) { // Leer el resultset
+				int idProducto = rs.getInt("idProducto");
+				String comentario = rs.getString("comentario");
+				if (getCalzado(idProducto) == null) {comentariosHechos.put(getRopa(idProducto), comentario);}
+				else {comentariosHechos.put(getCalzado(idProducto), comentario);}	
+			}
+			
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return null;
+		}
+		return comentariosHechos;
+	}
+	
+	
+	/**
+	 * Devuelve un HashMap de todos los comentarios que ha tenido un producto concreto
+	 * @param idProducto		Identificativo del producto del que se quiere saber los comentarios que ha tenido
+	 * @return					El HashMap de los comentarios y los usuarios que han comentado
+	 * **/
+	
+	public static HashMap <Usuario, String> getComentariosProducto(int idProducto) {
+		HashMap <Usuario, String> comentariosObtenidos = new HashMap <Usuario, String>();
+		try (Statement statement = conexion.createStatement()) {
+			consulta = "SELECT idUsuario, comentario FROM Comentarios WHERE idProducto = " + idProducto + ";";
+			logger.log( Level.INFO, "Statement: " + consulta );
+			ResultSet rs = statement.executeQuery( consulta );
+			
+			while( rs.next() ) { // Leer el resultset
+				int idUsuario = rs.getInt("idUsuario");
+				Usuario u = getUsuario(idUsuario);
+				String comentario = rs.getString("comentario");
+				comentariosObtenidos.put(u, comentario);
+			}
+			
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return null;
+		}
+		return comentariosObtenidos;
+	}
+	
+	
+	/**
+	 * Cuando un usuario comenta una opinión sobre un producto, se llamará a esta función
+	 * @param usuario		El usuario que ha comentado
+	 * @param producto		El producto comentado
+	 * @param comentario	Comentario hecho
+	 * @param fecha			Cuándo ha comentado
+	 * @return				true si la inserción es correcta, false en caso contrario
+	 */
+	public static boolean insertarComentario (Usuario usuario, Producto producto, String comentario, Date fecha) {
+		try (Statement statement = conexion.createStatement()) {
+			consulta = "INSERT INTO Favoritos (idUsuario, idProducto, comentario, fechaInsertada)"
+					+ "VALUES (" + usuario.getIdUsuario() + ", " + producto.getId() + ", '" + comentario + "', '" + fecha + "')";
+			
+			logger.log( Level.INFO, "Statement: " + consulta );
+			int insertados = statement.executeUpdate( consulta );
+			if (insertados!=1) return false;  // Error en inserción
+			return true;
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return false;
+		}
+	}
+	
+	
 	
 
 }

@@ -39,7 +39,7 @@ public class Producto {
 	
 	protected int id;
 	protected String nombre;
-	protected Calendar fechaSubida;
+	protected Date fechaSubida;
 	protected String etiquetas;
 	protected double precio;
 	protected Image imagen;
@@ -50,7 +50,7 @@ public class Producto {
 	protected HashMap <Usuario, String> comentario;
 	
 	
-	public Producto (int id, String nombre, Calendar fechaSubida, String etiquetas, double precio, Image imagen, Estado estado, Colores color, Usuario usuario, boolean enVenta, HashMap <Usuario, String> comentario) {
+	public Producto (int id, String nombre, Date fechaSubida, String etiquetas, double precio, Image imagen, Estado estado, Colores color, Usuario usuario, boolean enVenta, HashMap <Usuario, String> comentario) {
 		super();
 		contador++;
 		this.id = contador;
