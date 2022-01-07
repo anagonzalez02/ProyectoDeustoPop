@@ -35,7 +35,6 @@ public class UsuarioTest {
 	}
 	
 	
-	// DA ERROR
 	@Test
 	public void testGetCuentaB() {
 		CuentaBancaria cbTest1 = new CuentaBancaria(8727193, 3);

@@ -36,6 +36,7 @@ public class ProductoTest {
 	@Test
 	public void testGetNombre() {
 		assertEquals("Zapatilla guay", producto.getNombre());
+		assertTrue(producto.getNombre().equals("Zapatilla guay"));
 	}
 	
 	/**
