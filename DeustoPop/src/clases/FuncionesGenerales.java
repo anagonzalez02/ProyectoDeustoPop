@@ -1,5 +1,6 @@
 package clases;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -23,28 +24,14 @@ public class FuncionesGenerales {
 	 * **/
 	
 	public static void metodoComprarProducto(Producto productoComprar, Usuario usuarioComprador) {
-		BaseDeDatos.modificarProducto(productoComprar.getId(), false);
+		BaseDeDatos.modificarProductoEnVenta(productoComprar.getId());
 		restarDinero(productoComprar, usuarioComprador);
 		sumarDinero(productoComprar);
-		Usuario usuarioVendedor = productoComprar.getUsuario();
-		int num = 0;
-		ArrayList<Producto> productosEnVenta = usuarioVendedor.getProductosEnVenta();
-		for (Producto prod : productosEnVenta) {
-			if (prod == productoComprar) {
-				productosEnVenta.remove(num);
-			}
-			num++;
-		}
-		ArrayList<Producto> productosVendidos = usuarioVendedor.getProductosVendidos();
-		productosVendidos.add(productoComprar);
-		//BaseDeDatos.modificarUsuario(usuarioVendedor.getIdUsuario(), usuarioVendedor.getNombre(), usuarioVendedor.getTelefono(), usuarioVendedor.getCuentaB().getnTarjeta(), usuarioVendedor.getSaldo(),
-				//usuarioVendedor.getEmail(), usuarioVendedor.getVivienda(), productosEnVenta, productosVendidos, usuarioVendedor.getProductosComprados(), usuarioVendedor.getProductosFavoritos());
-		ArrayList<Producto> productosComprados = usuarioComprador.getProductosComprados();
-		productosComprados.add(productoComprar);
-		//BaseDeDatos.modificarUsuario(usuarioComprador.getIdUsuario(), usuarioComprador.getNombre(), usuarioComprador.getTelefono(), usuarioComprador.getCuentaB().getnTarjeta(), usuarioComprador.getSaldo(),
-		//		usuarioComprador.getEmail(), usuarioComprador.getVivienda(), usuarioComprador.getProductosEnVenta(), usuarioComprador.getProductosVendidos(), productosComprados, usuarioComprador.getProductosFavoritos());
-		JOptionPane.showMessageDialog(null,
-				"Has comprado " + productoComprar.getNombre() + ". Nos pondremos en contacto con el vendedor", "Enhorabuena", JOptionPane.DEFAULT_OPTION, null);
+		
+		Pedido pedido = new Pedido(usuarioComprador, productoComprar);
+		BaseDeDatos.insertarPedido(pedido);
+		
+		JOptionPane.showMessageDialog(null, "Has comprado " + productoComprar.getNombre() + ". Nos pondremos en contacto con el vendedor", "Enhorabuena", JOptionPane.DEFAULT_OPTION, null);
 	}
 	
 	

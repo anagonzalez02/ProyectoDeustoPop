@@ -20,6 +20,7 @@ import clases.CuentaBancaria;
 import clases.Estado;
 import clases.FuncionesGenerales;
 import clases.Lugar;
+import clases.Pedido;
 import clases.Producto;
 import clases.Ropa;
 import clases.TallasRopa;
@@ -1181,7 +1182,7 @@ public class BaseDeDatos {
 		}
 	}
 	
-	public static boolean modificarProducto(int id, boolean enVenta) {
+	public static boolean modificarProductoEnVenta(int id) {
 		try {
 			Statement statement = conexion.createStatement();
 			consulta = "UPDATE Producto SET enVenta = 0 WHERE id = " + id + ";";
@@ -1388,7 +1389,26 @@ public class BaseDeDatos {
 	 * **********************************************************************************************************************************************************/
 	
 	
-	
+	/**
+	 * Cuando un usuario le de a me gusta a un producto, se creará una tupla en la tabla Favoritos.
+	 * @param usuario		El usuario que le ha dado me gusta a un producto
+	 * @param producto		El producto que le ha gustado al usuario
+	 * @param fecha			Cuándo le ha dado me gusta
+	 * @return				true si la inserción es correcta, false en caso contrario
+	 */
+	public static boolean insertarPedido (Pedido pedido) {
+		try (Statement statement = conexion.createStatement()) {
+			consulta = "INSERT INTO Pedido (numeroPedido, precioTotal, fechaCompra, fechaEntrega, idUsuario, idProducto)"
+					+ "VALUES (" + pedido.getNumeroPedido() + ", " + pedido.getPrecioTotal() + ", '" + pedido.getFechaCompra() + "', '" + pedido.getFechaEntrega() + "', " + pedido.getUsuarioComprador().getIdUsuario() + ", " + pedido.getProductoComprado().getId() + ")";
+			logger.log( Level.INFO, "Statement: " + consulta );
+			int insertados = statement.executeUpdate( consulta );
+			if (insertados!=1) return false;  // Error en inserción
+			return true;
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return false;
+		}
+	}
 	
 	
 	
