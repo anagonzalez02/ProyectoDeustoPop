@@ -55,7 +55,7 @@ public class Producto {
 		contador++;
 		this.id = contador;
 		this.nombre = nombre;
-		this.fechaSubida = Calendar.getInstance();
+		this.fechaSubida = new Date (Calendar.getInstance().getTimeInMillis());
 		this.etiquetas = etiquetas;
 		this.precio = precio;
 		this.imagen = imagen;
@@ -72,7 +72,7 @@ public class Producto {
 		contador++;
 		this.id = id;
 		this.nombre = nombre;
-		this.fechaSubida = Calendar.getInstance();
+		this.fechaSubida = new Date (Calendar.getInstance().getTimeInMillis());
 		this.etiquetas = etiquetas;
 		this.precio = precio;
 		this.imagen = imagen;
@@ -100,12 +100,12 @@ public class Producto {
 		this.nombre = nombre;
 	}
 
-	public Calendar getFechaSubida() {
+	public Date getFechaSubida() {
 		return fechaSubida;
 	}
 
-	public void setFechaSubida(Calendar fechaSubida) {
-		this.fechaSubida = Calendar.getInstance();
+	public void setFechaSubida(Date fechaSubida) {
+		this.fechaSubida = new Date (Calendar.getInstance().getTimeInMillis());;
 	}
 
 	public String getEtiquetas() {
