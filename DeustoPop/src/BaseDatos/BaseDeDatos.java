@@ -22,6 +22,7 @@ import clases.FuncionesGenerales;
 import clases.Lugar;
 import clases.Producto;
 import clases.Ropa;
+import clases.TallasRopa;
 import clases.Usuario;
 
 public class BaseDeDatos {
@@ -103,8 +104,8 @@ public class BaseDeDatos {
 					while (scanner.hasNextLine()) {
 						String linea = scanner.nextLine();
 						String[] datos = linea.split( "\t" );
-						consulta = "INSERT INTO Calzado (idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, idUsuario, enVenta)"
-								+ "VALUES (" + datos[0] + ", '" + datos[1] + "', '" + datos[2] + "', '" + datos[3] + "', " + datos[4] + ", '" + datos[5] + "', '" + datos[6] + "', '" + datos[7] + "', " + datos[8] + ", " + datos[9] + ");";
+						consulta = "INSERT INTO Calzado (idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, idUsuario, enVenta, tipoProducto)"
+								+ "VALUES (" + datos[0] + ", '" + datos[1] + "', '" + datos[2] + "', '" + datos[3] + "', " + datos[4] + ", '" + datos[5] + "', '" + datos[6] + "', '" + datos[7] + "', " + datos[8] + ", " + datos[9] + ", '" + datos[10] + "');";
 						logger.log( Level.INFO, "Statement: " + consulta );
 						statement.executeUpdate( consulta );
 					}
@@ -345,7 +346,7 @@ public class BaseDeDatos {
 		
 		consulta = "CREATE TABLE Producto " +
 				"(INT[6] idProducto AUTO_INCREMENT NOT NULL, VARCHAR[35] nombre NOT NULL, DATE fechaSubida, VARCHAR[60] etiquetas,  "
-				+ "DOUBLE[4, 2] precio, VARCHAR[60] imagen, CHAR[5] estado, CHAR[10] color, INT[6] idUsuario NOT NULL, VARCHAR[5] enVenta NOT NULL, "
+				+ "DOUBLE[4, 2] precio, VARCHAR[60] imagen, CHAR[5] estado, CHAR[10] color, INT[6] idUsuario NOT NULL, VARCHAR[5] enVenta NOT NULL, VARCHAR[10] tipoProducto"
 				+ "PRIMARY KEY(idProducto), UNIQUE KEY (nombre), FOREIGN KEY (idUsuario) REFERENCES Usuario (idUsuario));";
 		
 		if (statement==null) return;
@@ -438,22 +439,9 @@ public class BaseDeDatos {
 				String contrasenia = rs.getString("contrasenia");
 				String direccion = rs.getString("direccion");
 				
-				String consultaCuenta = "SELECT * FROM CuentaBancaria WHERE idUsuario = " + idUsuario + ";";
-				logger.log( Level.INFO, "Statement: " + consultaCuenta );
-				ResultSet rsCuenta = statement.executeQuery( consultaCuenta );
-				int idUsuarioCuenta = rsCuenta.getInt("idUsuario");
-				int nTarjeta = rsCuenta.getInt("nTarjeta");
-				double dineroTotal = rsCuenta.getDouble("dineroTotal");
-				CuentaBancaria cuenta = new CuentaBancaria(nTarjeta, dineroTotal);
+				CuentaBancaria cuenta = getCuentaBancaria(idUsuario);
 				
-				String consultaLugar = "SELECT * FROM Lugar WHERE direccion = '" + direccion + "';";
-				logger.log( Level.INFO, "Statement: " + consultaLugar );
-				ResultSet rsLugar = statement.executeQuery( consultaLugar );
-				String direc = rsLugar.getString("direccion");
-				String nomCiud = rsLugar.getString("nomCiud");
-				String nomPais = rsLugar.getString("nomPais");
-				Lugar vivienda = new Lugar(direc, nomCiud, nomPais);
-				
+				Lugar vivienda = getLugar(direccion);
 				
 				ArrayList<Producto> productosFavoritos = getFavoritosUsuario(idUsuario);
 				
@@ -488,23 +476,9 @@ public class BaseDeDatos {
 			String contrasenia = rs.getString("contrasenia");
 			String direccion = rs.getString("direccion");
 				
-			String consultaCuenta = "SELECT * FROM CuentaBancaria WHERE idUsuario = " + idUsuario + ";";
-			logger.log( Level.INFO, "Statement: " + consultaCuenta );
-			ResultSet rsCuenta = statement.executeQuery( consultaCuenta );
-			int idUsuarioCuenta = rsCuenta.getInt("idUsuario");
-			int nTarjeta = rsCuenta.getInt("nTarjeta");
-			double dineroTotal = rsCuenta.getDouble("dineroTotal");
-			CuentaBancaria cuenta = new CuentaBancaria(nTarjeta, dineroTotal);
+			CuentaBancaria cuenta = getCuentaBancaria(idUsuario);
 				
-			String consultaLugar = "SELECT * FROM Lugar WHERE direccion = '" + direccion + "';";
-			logger.log( Level.INFO, "Statement: " + consultaLugar );
-			ResultSet rsLugar = statement.executeQuery( consultaLugar );
-			String direc = rsLugar.getString("direccion");
-			String nomCiud = rsLugar.getString("nomCiud");
-			String nomPais = rsLugar.getString("nomPais");
-			Lugar vivienda = new Lugar(direc, nomCiud, nomPais);
-			
-			
+			Lugar vivienda = getLugar(direccion);
 			
 			ArrayList<Producto> productosFavoritos = getFavoritosUsuario(idUsuario);
 				
@@ -541,26 +515,11 @@ public class BaseDeDatos {
 				double saldo = rs.getDouble("saldo");
 				String email = rs.getString("email");
 				String contrasenia = rs.getString("contrasenia");
-				String direccion = rs.getString("direccion");	
+				String direccion = rs.getString("direccion");
 				
+				CuentaBancaria cuenta = getCuentaBancaria(idUsuario);
 				
-				String consultaCuenta = "SELECT * FROM CuentaBancaria WHERE idUsuario = " + idUsuario + ";";
-				logger.log( Level.INFO, "Statement: " + consultaCuenta );
-				ResultSet rsCuenta = statement.executeQuery( consultaCuenta );
-				int idUsuarioCuenta = rsCuenta.getInt("idUsuario");
-				int nTarjeta = rsCuenta.getInt("nTarjeta");
-				double dineroTotal = rsCuenta.getDouble("dineroTotal");
-				CuentaBancaria cuenta = new CuentaBancaria(nTarjeta, dineroTotal);
-				
-				
-				String consultaLugar = "SELECT * FROM Lugar WHERE direccion = '" + direccion + "';";
-				logger.log( Level.INFO, "Statement: " + consultaLugar );
-				ResultSet rsLugar = statement.executeQuery( consultaLugar );
-				String direc = rsLugar.getString("direccion");
-				String nomCiud = rsLugar.getString("nomCiud");
-				String nomPais = rsLugar.getString("nomPais");
-				Lugar vivienda = new Lugar(direc, nomCiud, nomPais);
-				
+				Lugar vivienda = getLugar(direccion);
 				
 				ArrayList<Producto> productosFavoritos = getFavoritosUsuario(idUsuario);
 				
@@ -731,9 +690,8 @@ public class BaseDeDatos {
 	 * @return	Cuenta bancaria de una persona registrada en nuestra plataforma, null si hay algún error
 	 */
 	
-	public static CuentaBancaria getCuentaBancaria(Usuario usuario) {
+	public static CuentaBancaria getCuentaBancaria(int idUsuario) {
 		try (Statement statement = conexion.createStatement()) {
-			int idUsuario = usuario.getIdUsuario();
 			consulta = "SELECT nTarjeta, dineroTotal FROM CuentaBancaria WHERE idUsuario = " + idUsuario + ";";
 			logger.log( Level.INFO, "Statement: " + consulta );
 			ResultSet rs = statement.executeQuery( consulta );
@@ -848,9 +806,8 @@ public class BaseDeDatos {
 	 * @return	Lugar/Vivienda de una persona registrada en nuestra plataforma, null si hay algún error
 	 */
 	
-	public static Lugar getLugar(Usuario usuario) {
+	public static Lugar getLugar(String direccion) {
 		try (Statement statement = conexion.createStatement()) {
-			String direccion = usuario.getVivienda().getDireccion();
 			consulta = "SELECT nomCiud, nomPais FROM Lugar WHERE direccion = '" + direccion + "';";
 			logger.log( Level.INFO, "Statement: " + consulta );
 			ResultSet rs = statement.executeQuery( consulta );
@@ -934,9 +891,13 @@ public class BaseDeDatos {
 	 * 																		TABLA PRODUCTO
 	 * **********************************************************************************************************************************************************/
 	
+	/**
+	 * Esta función devolverá TODOS los productos que hay en la base de datos, y por lo tanto, en DeustoPop.
+	 * Devolverá tanto los que están en venta como los que ya están comprados.
+	 * Los devolverá todos de tipo Producto.
+	 * **/
 	
-	
-	public static ArrayList<Producto> getProducto() {
+	public static ArrayList<Producto> getProductos() {
 		try (Statement statement = conexion.createStatement()) {
 			ArrayList<Producto> listaProductos = new ArrayList<>();
 			consulta = "SELECT * FROM Producto;";
@@ -985,6 +946,127 @@ public class BaseDeDatos {
 		}
 	}
 	
+	
+	/**
+	 * DIFERENCIA ENTRE ESTA FUNCIÓN Y LA ANTERIOR:
+	 * La función anterior devolvía un ArrayList de tipo Producto (únicamente nivel de producto) de todos los productos de la plataforma.
+	 * Esta función, en cambio, devuleve un ArrayList de tipo Producto, pero estos productos serán de las clases hijas.
+	 * Es decir, devolverá o de tipo Calzado o de tipo Ropa
+	 * **/
+	
+	public static ArrayList<Producto> getProductosCompleto() {
+		try (Statement statement = conexion.createStatement()) {
+			ArrayList<Producto> listaProductos = new ArrayList<>();
+			consulta = "SELECT * FROM Producto;";
+			logger.log( Level.INFO, "Statement: " + consulta );
+			ResultSet rs = statement.executeQuery( consulta );
+			while( rs.next() ) { // Leer el resultset
+				int idProducto = rs.getInt("idProducto");
+				String nombre = rs.getString("nombre");
+				Date fechaSubida = rs.getDate("fechaSubida");
+				String etiquetas = rs.getString("etiquetas");
+				Double precio = rs.getDouble("precio");
+				String imagen = rs.getString("imagen");
+				// HAY QUE CAMBIARLO
+				Image foto = null;
+				String estadoStr = rs.getString("estado");
+				Estado estado;
+				if (estadoStr == "MALO") {estado = Estado.MALO;}
+				else if (estadoStr == "MEDIO") {estado = Estado.MEDIO;}
+				else if (estadoStr == "BUENO") {estado = Estado.BUENO;}
+				String colorStr = rs.getString("color");
+				Colores color;
+				if (colorStr == "Negro") {color = Colores.Negro;}
+				else if (colorStr == "Blanco") {color = Colores.Blanco;}
+				else if (colorStr == "Rojo") {color = Colores.Rojo;}
+				else if (colorStr == "Azul") {color = Colores.Azul;}
+				else if (colorStr == "Verde") {color = Colores.Verde;}
+				else if (colorStr == "Gris") {color = Colores.Gris;}
+				else if (colorStr == "Rosa") {color = Colores.Rosa;}
+				else if (colorStr == "Amarillo") {color = Colores.Amarillo;}
+				else if (colorStr == "Multicolor") {color = Colores.Multicolor;}
+				else if (colorStr == "Otro") {color = Colores.Otro;}
+				int idUsuario = rs.getInt("idUsuario");
+				Usuario usuario = getUsuario(idUsuario);
+				String enVentaStr = rs.getString("enVenta");
+				Boolean enVenta;
+				if (enVentaStr == "true") {enVenta = true;}
+				else {enVenta = false;}
+				HashMap <Usuario, String> comentarios = getComentariosProducto(idProducto);
+				String tipoProducto = rs.getString("tipoProducto");
+				
+				if (tipoProducto == "Calzado") {
+					double talla = getCalzado(idProducto).getTallaCalzado();
+					listaProductos.add(new Calzado(idProducto, nombre, fechaSubida, etiquetas, precio, foto, estado, color, usuario, enVenta, talla, comentarios));
+				} else if (tipoProducto == "Ropa") {
+					TallasRopa talla = getRopa(idProducto).getTallaRopa();
+					listaProductos.add(new Ropa(idProducto, nombre, fechaSubida, etiquetas, precio, foto, estado, color, usuario, enVenta, talla, comentarios));
+				}
+			}
+			return listaProductos;
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return null;
+		}
+	}
+	
+	
+	/**
+	 * Devuelve un ArrayList de todos los productos que están en venta, es decir que nadie ha comprado aún, en DeustoPop
+	 * **/
+	
+	public static ArrayList<Producto> getProductosEnVenta() {
+		try (Statement statement = conexion.createStatement()) {
+			ArrayList<Producto> listaProductosEnVenta = new ArrayList<>();
+			consulta = "SELECT * FROM Producto;";
+			logger.log( Level.INFO, "Statement: " + consulta );
+			ResultSet rs = statement.executeQuery( consulta );
+			while( rs.next() ) { // Leer el resultset
+				int idProducto = rs.getInt("idProducto");
+				String nombre = rs.getString("nombre");
+				Date fechaSubida = rs.getDate("fechaSubida");
+				String etiquetas = rs.getString("etiquetas");
+				Double precio = rs.getDouble("precio");
+				String imagen = rs.getString("imagen");
+				// HAY QUE CAMBIARLO
+				Image foto = null;
+				String estadoStr = rs.getString("estado");
+				Estado estado;
+				if (estadoStr == "MALO") {estado = Estado.MALO;}
+				else if (estadoStr == "MEDIO") {estado = Estado.MEDIO;}
+				else if (estadoStr == "BUENO") {estado = Estado.BUENO;}
+				String colorStr = rs.getString("color");
+				Colores color;
+				if (colorStr == "Negro") {color = Colores.Negro;}
+				else if (colorStr == "Blanco") {color = Colores.Blanco;}
+				else if (colorStr == "Rojo") {color = Colores.Rojo;}
+				else if (colorStr == "Azul") {color = Colores.Azul;}
+				else if (colorStr == "Verde") {color = Colores.Verde;}
+				else if (colorStr == "Gris") {color = Colores.Gris;}
+				else if (colorStr == "Rosa") {color = Colores.Rosa;}
+				else if (colorStr == "Amarillo") {color = Colores.Amarillo;}
+				else if (colorStr == "Multicolor") {color = Colores.Multicolor;}
+				else if (colorStr == "Otro") {color = Colores.Otro;}
+				int idUsuario = rs.getInt("idUsuario");
+				Usuario usuario = getUsuario(idUsuario);
+				String enVentaStr = rs.getString("enVenta");
+				Boolean enVenta;
+				if (enVentaStr == "true") {enVenta = true;}
+				else {enVenta = false;}
+				HashMap <Usuario, String> comentarios = getComentariosProducto(idProducto);
+				
+				if (enVenta) {
+					listaProductosEnVenta.add(new Producto(idProducto, nombre, fechaSubida, etiquetas, precio, foto, estado, color, usuario, enVenta, comentarios));
+				}
+			}
+			return listaProductosEnVenta;
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return null;
+		}
+	}
+	
+	
 	public static boolean insertarProducto (Producto producto) {
 		try (Statement statement = conexion.createStatement()) {
 			consulta = "INSERT INTO Producto (id, nombre, fechaSubida, etiquetas, precio, idUsuario, enVenta)"
@@ -1022,8 +1104,8 @@ public class BaseDeDatos {
 			consulta = "DELETE FROM Producto WHERE id = " + id + ";";
 			logger.log( Level.INFO, "Statement: " + consulta );
 			statement.executeUpdate(consulta);
-			eliminarCalzado(producto);
-			eliminarRopa(producto);
+			eliminarCalzado(producto.getId());
+			eliminarRopa(producto.getId());
 			return true;
 		} catch (Exception e) {
 			logger.log( Level.SEVERE, "Excepción", e );
@@ -1037,11 +1119,73 @@ public class BaseDeDatos {
 	 * **********************************************************************************************************************************************************/
 	
 	
-	public static boolean eliminarCalzado(Producto producto) {
-		int id = producto.getId();
+	/**
+	 * Devuelve el Calzado buscado
+	 * @param idCalzado		El identificativo del calzado que se busca
+	 * @return el calzado buscado
+	 * **/
+	
+	public static Calzado getCalzado(int idProducto) {
+		try (Statement statement = conexion.createStatement()) {
+			ArrayList<Producto> listaProductos = new ArrayList<>();
+			consulta = "SELECT * FROM Calzado WHERE idProducto = " + idProducto + ";";
+			logger.log( Level.INFO, "Statement: " + consulta );
+			ResultSet rs = statement.executeQuery( consulta );
+			int id = rs.getInt("idProducto");
+			String nombre = rs.getString("nombre");
+			Date fechaSubida = rs.getDate("fechaSubida");
+			String etiquetas = rs.getString("etiquetas");
+			Double precio = rs.getDouble("precio");
+			String imagen = rs.getString("imagen");
+			// HAY QUE CAMBIARLO
+			Image foto = null;
+			String estadoStr = rs.getString("estado");
+			Estado estado;
+			if (estadoStr == "MALO") {estado = Estado.MALO;}
+			else if (estadoStr == "MEDIO") {estado = Estado.MEDIO;}
+			else if (estadoStr == "BUENO") {estado = Estado.BUENO;}
+			String colorStr = rs.getString("color");
+			Colores color;
+			if (colorStr == "Negro") {color = Colores.Negro;}
+			else if (colorStr == "Blanco") {color = Colores.Blanco;}
+			else if (colorStr == "Rojo") {color = Colores.Rojo;}
+			else if (colorStr == "Azul") {color = Colores.Azul;}
+			else if (colorStr == "Verde") {color = Colores.Verde;}
+			else if (colorStr == "Gris") {color = Colores.Gris;}
+			else if (colorStr == "Rosa") {color = Colores.Rosa;}
+			else if (colorStr == "Amarillo") {color = Colores.Amarillo;}
+			else if (colorStr == "Multicolor") {color = Colores.Multicolor;}
+			else if (colorStr == "Otro") {color = Colores.Otro;}
+			int idUsuario = rs.getInt("idUsuario");
+			Usuario usuario = getUsuario(idUsuario);
+			String enVentaStr = rs.getString("enVenta");
+			Boolean enVenta;
+			if (enVentaStr == "true") {enVenta = true;}
+			else {enVenta = false;}
+			double talla = rs.getDouble("tallaCalzado");
+				
+			HashMap <Usuario, String> comentarios = getComentariosProducto(idProducto);
+				
+			Calzado calzado = new Calzado(idProducto, nombre, fechaSubida, etiquetas, precio, foto, estado, color, usuario, enVenta, talla, comentarios);
+			
+			return calzado;
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return null;
+		}
+	}
+	
+	
+	/**
+	 * Elimina un calzado concreto
+	 * @param idProducto	El identificativo del calzado que se quiere eliminar de DeustoPop
+	 * @return 				True si se ha eliminado correctamente, false en caso contrario
+	 * **/
+	
+	public static boolean eliminarCalzado(int idProducto) {
 		try {
 			Statement statement = conexion.createStatement();
-			consulta = "DELETE FROM Calzado WHERE id = " + id + ";";
+			consulta = "DELETE FROM Calzado WHERE idProducto = " + idProducto + ";";
 			logger.log( Level.INFO, "Statement: " + consulta );
 			statement.executeUpdate(consulta);
 			return true;
@@ -1057,11 +1201,79 @@ public class BaseDeDatos {
 	 * **********************************************************************************************************************************************************/
 	
 	
-	public static boolean eliminarRopa(Producto producto) {
-		int id = producto.getId();
+	/**
+	 * Devuelve el Calzado buscado
+	 * @param idCalzado		El identificativo del calzado que se busca
+	 * @return el calzado buscado
+	 * **/
+	
+	public static Ropa getRopa(int idProducto) {
+		try (Statement statement = conexion.createStatement()) {
+			ArrayList<Producto> listaProductos = new ArrayList<>();
+			consulta = "SELECT * FROM Ropa WHERE idProducto = " + idProducto + ";";
+			logger.log( Level.INFO, "Statement: " + consulta );
+			ResultSet rs = statement.executeQuery( consulta );
+			int id = rs.getInt("idProducto");
+			String nombre = rs.getString("nombre");
+			Date fechaSubida = rs.getDate("fechaSubida");
+			String etiquetas = rs.getString("etiquetas");
+			Double precio = rs.getDouble("precio");
+			String imagen = rs.getString("imagen");
+			// HAY QUE CAMBIARLO
+			Image foto = null;
+			String estadoStr = rs.getString("estado");
+			Estado estado;
+			if (estadoStr == "MALO") {estado = Estado.MALO;}
+			else if (estadoStr == "MEDIO") {estado = Estado.MEDIO;}
+			else if (estadoStr == "BUENO") {estado = Estado.BUENO;}
+			String colorStr = rs.getString("color");
+			Colores color;
+			if (colorStr == "Negro") {color = Colores.Negro;}
+			else if (colorStr == "Blanco") {color = Colores.Blanco;}
+			else if (colorStr == "Rojo") {color = Colores.Rojo;}
+			else if (colorStr == "Azul") {color = Colores.Azul;}
+			else if (colorStr == "Verde") {color = Colores.Verde;}
+			else if (colorStr == "Gris") {color = Colores.Gris;}
+			else if (colorStr == "Rosa") {color = Colores.Rosa;}
+			else if (colorStr == "Amarillo") {color = Colores.Amarillo;}
+			else if (colorStr == "Multicolor") {color = Colores.Multicolor;}
+			else if (colorStr == "Otro") {color = Colores.Otro;}
+			int idUsuario = rs.getInt("idUsuario");
+			Usuario usuario = getUsuario(idUsuario);
+			String enVentaStr = rs.getString("enVenta");
+			Boolean enVenta;
+			if (enVentaStr == "true") {enVenta = true;}
+			else {enVenta = false;}
+			String tallaR = rs.getString("tallaRopa");
+			TallasRopa talla;
+			if (tallaR == "XS") { talla = TallasRopa.XS;}
+			else if (tallaR == "S") { talla = TallasRopa.S;}
+			else if (tallaR == "M") { talla = TallasRopa.M;}
+			else if (tallaR == "L") { talla = TallasRopa.L;}
+			else if (tallaR == "XL") { talla = TallasRopa.XL;}
+				
+			HashMap <Usuario, String> comentarios = getComentariosProducto(idProducto);
+				
+			Ropa ropa = new Ropa(idProducto, nombre, fechaSubida, etiquetas, precio, foto, estado, color, usuario, enVenta, talla, comentarios);
+			
+			return ropa;
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return null;
+		}
+	}
+	
+	
+	/**
+	 * Elimina una prenda concreta
+	 * @param idProducto	El identificativo de la prenda que se quiere eliminar de DeustoPop
+	 * @return 				True si se ha eliminado correctamente, false en caso contrario
+	 * **/
+	
+	public static boolean eliminarRopa(int idProducto) {
 		try {
 			Statement statement = conexion.createStatement();
-			consulta = "DELETE FROM Ropa WHERE id = " + id + ";";
+			consulta = "DELETE FROM Ropa WHERE idProducto = " + idProducto + ";";
 			logger.log( Level.INFO, "Statement: " + consulta );
 			statement.executeUpdate(consulta);
 			return true;
