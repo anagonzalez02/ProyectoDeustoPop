@@ -443,10 +443,23 @@ public class BaseDeDatos {
 				
 				Lugar vivienda = getLugar(direccion);
 				
+				ArrayList<Producto> listaProductos = getProductosCompleto(idUsuario);
+				ArrayList<Producto> productosEnVenta = new ArrayList<>();
+				ArrayList<Producto> productosVendidos = new ArrayList<>();
+				
+				for (Producto p : listaProductos) {
+					if (p.isEnVenta()) {
+						productosEnVenta.add(p);
+					} else {
+						productosVendidos.add(p);
+					}
+				}
+				
+				ArrayList<Producto> productosComprados = new ArrayList<>();
+				
 				ArrayList<Producto> productosFavoritos = getFavoritosUsuario(idUsuario);
 				
-				// FALTAN LOS METODOS PARA LOS ARRAYLIST
-				//listaUsuarios.add (new Usuario (idUsuario, nombre, telefono, cuenta, saldo, email, contrasenia, vivienda, ..., productosFavoritos));
+				listaUsuarios.add (new Usuario (idUsuario, nombre, telefono, cuenta, saldo, email, contrasenia, vivienda, productosEnVenta, productosVendidos, productosComprados, productosFavoritos));
 			}
 			return listaUsuarios;
 		} catch (Exception e) {
@@ -480,12 +493,24 @@ public class BaseDeDatos {
 				
 			Lugar vivienda = getLugar(direccion);
 			
-			ArrayList<Producto> productosFavoritos = getFavoritosUsuario(idUsuario);
-				
-				
-				// FALTAN LOS METODOS PARA LOS ARRAYLIST
-				//listaUsuarios.add (new Usuario (idUsuario, nombre, telefono, cuenta, saldo, email, contrasenia, vivienda, ..., productosFavoritos));
+			ArrayList<Producto> listaProductos = getProductosCompleto(idUsuario);
+			ArrayList<Producto> productosEnVenta = new ArrayList<>();
+			ArrayList<Producto> productosVendidos = new ArrayList<>();
+			
+			for (Producto p : listaProductos) {
+				if (p.isEnVenta()) {
+					productosEnVenta.add(p);
+				} else {
+					productosVendidos.add(p);
+				}
 			}
+			
+			ArrayList<Producto> productosComprados = new ArrayList<>();
+			
+			ArrayList<Producto> productosFavoritos = getFavoritosUsuario(idUsuario);
+			
+			Usuario usuario = new Usuario (idUsuario, nombre, telefono, cuenta, saldo, email, contrasenia, vivienda, productosEnVenta, productosVendidos, productosComprados, productosFavoritos);
+			
 			return usuario;
 		} catch (Exception e) {
 			logger.log( Level.SEVERE, "Excepción", e );
@@ -521,15 +546,25 @@ public class BaseDeDatos {
 				
 				Lugar vivienda = getLugar(direccion);
 				
+				ArrayList<Producto> listaProductos = getProductosCompleto(idUsuario);
+				ArrayList<Producto> productosEnVenta = new ArrayList<>();
+				ArrayList<Producto> productosVendidos = new ArrayList<>();
+				
+				for (Producto p : listaProductos) {
+					if (p.isEnVenta()) {
+						productosEnVenta.add(p);
+					} else {
+						productosVendidos.add(p);
+					}
+				}
+				
+				ArrayList<Producto> productosComprados = new ArrayList<>();
+				
 				ArrayList<Producto> productosFavoritos = getFavoritosUsuario(idUsuario);
 				
-				// FALTAN LOS METODOS PARA LOS ARRAYLIST
-				//listaUsuarios.add (new Usuario (idUsuario, nombre, telefono, cuenta, saldo, email, contrasenia, vivienda, ..., productosFavoritos));
-				
-				Usuario usuario = new Usuario();
+				Usuario usuario = new Usuario (idUsuario, nombre, telefono, cuenta, saldo, email, contrasenia, vivienda, productosEnVenta, productosVendidos, productosComprados, productosFavoritos);
 				
 				return usuario;
-			
 			} else {
 				return null;
 			}
@@ -913,12 +948,12 @@ public class BaseDeDatos {
 				// HAY QUE CAMBIARLO
 				Image foto = null;
 				String estadoStr = rs.getString("estado");
-				Estado estado;
+				Estado estado = null;
 				if (estadoStr == "MALO") {estado = Estado.MALO;}
 				else if (estadoStr == "MEDIO") {estado = Estado.MEDIO;}
 				else if (estadoStr == "BUENO") {estado = Estado.BUENO;}
 				String colorStr = rs.getString("color");
-				Colores color;
+				Colores color = null;
 				if (colorStr == "Negro") {color = Colores.Negro;}
 				else if (colorStr == "Blanco") {color = Colores.Blanco;}
 				else if (colorStr == "Rojo") {color = Colores.Rojo;}
@@ -970,12 +1005,12 @@ public class BaseDeDatos {
 				// HAY QUE CAMBIARLO
 				Image foto = null;
 				String estadoStr = rs.getString("estado");
-				Estado estado;
+				Estado estado = null;
 				if (estadoStr == "MALO") {estado = Estado.MALO;}
 				else if (estadoStr == "MEDIO") {estado = Estado.MEDIO;}
 				else if (estadoStr == "BUENO") {estado = Estado.BUENO;}
 				String colorStr = rs.getString("color");
-				Colores color;
+				Colores color = null;
 				if (colorStr == "Negro") {color = Colores.Negro;}
 				else if (colorStr == "Blanco") {color = Colores.Blanco;}
 				else if (colorStr == "Rojo") {color = Colores.Rojo;}
@@ -987,6 +1022,69 @@ public class BaseDeDatos {
 				else if (colorStr == "Multicolor") {color = Colores.Multicolor;}
 				else if (colorStr == "Otro") {color = Colores.Otro;}
 				int idUsuario = rs.getInt("idUsuario");
+				Usuario usuario = getUsuario(idUsuario);
+				String enVentaStr = rs.getString("enVenta");
+				Boolean enVenta;
+				if (enVentaStr == "true") {enVenta = true;}
+				else {enVenta = false;}
+				HashMap <Usuario, String> comentarios = getComentariosProducto(idProducto);
+				String tipoProducto = rs.getString("tipoProducto");
+				
+				if (tipoProducto == "Calzado") {
+					double talla = getCalzado(idProducto).getTallaCalzado();
+					listaProductos.add(new Calzado(idProducto, nombre, fechaSubida, etiquetas, precio, foto, estado, color, usuario, enVenta, talla, comentarios));
+				} else if (tipoProducto == "Ropa") {
+					TallasRopa talla = getRopa(idProducto).getTallaRopa();
+					listaProductos.add(new Ropa(idProducto, nombre, fechaSubida, etiquetas, precio, foto, estado, color, usuario, enVenta, talla, comentarios));
+				}
+			}
+			return listaProductos;
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return null;
+		}
+	}
+	
+	
+	/**
+	 * Devuelve todos los productos (tanto en venta como vendidos) de un usuario concreto
+	 * @param idUsuario		El identificativo del usuario del que queremos saber sus productos
+	 * @return				Todos sus productos
+	 * **/
+	
+	public static ArrayList<Producto> getProductosCompleto(int idUsuario) {
+		try (Statement statement = conexion.createStatement()) {
+			ArrayList<Producto> listaProductos = new ArrayList<>();
+			consulta = "SELECT * FROM Producto WHERE idUsuario = " + idUsuario + ";";
+			logger.log( Level.INFO, "Statement: " + consulta );
+			ResultSet rs = statement.executeQuery( consulta );
+			while( rs.next() ) { // Leer el resultset
+				int idProducto = rs.getInt("idProducto");
+				String nombre = rs.getString("nombre");
+				Date fechaSubida = rs.getDate("fechaSubida");
+				String etiquetas = rs.getString("etiquetas");
+				Double precio = rs.getDouble("precio");
+				String imagen = rs.getString("imagen");
+				// HAY QUE CAMBIARLO
+				Image foto = null;
+				String estadoStr = rs.getString("estado");
+				Estado estado = null;
+				if (estadoStr == "MALO") {estado = Estado.MALO;}
+				else if (estadoStr == "MEDIO") {estado = Estado.MEDIO;}
+				else if (estadoStr == "BUENO") {estado = Estado.BUENO;}
+				String colorStr = rs.getString("color");
+				Colores color = null;
+				if (colorStr == "Negro") {color = Colores.Negro;}
+				else if (colorStr == "Blanco") {color = Colores.Blanco;}
+				else if (colorStr == "Rojo") {color = Colores.Rojo;}
+				else if (colorStr == "Azul") {color = Colores.Azul;}
+				else if (colorStr == "Verde") {color = Colores.Verde;}
+				else if (colorStr == "Gris") {color = Colores.Gris;}
+				else if (colorStr == "Rosa") {color = Colores.Rosa;}
+				else if (colorStr == "Amarillo") {color = Colores.Amarillo;}
+				else if (colorStr == "Multicolor") {color = Colores.Multicolor;}
+				else if (colorStr == "Otro") {color = Colores.Otro;}
+				int id = rs.getInt("idUsuario");
 				Usuario usuario = getUsuario(idUsuario);
 				String enVentaStr = rs.getString("enVenta");
 				Boolean enVenta;
@@ -1031,12 +1129,12 @@ public class BaseDeDatos {
 				// HAY QUE CAMBIARLO
 				Image foto = null;
 				String estadoStr = rs.getString("estado");
-				Estado estado;
+				Estado estado = null;
 				if (estadoStr == "MALO") {estado = Estado.MALO;}
 				else if (estadoStr == "MEDIO") {estado = Estado.MEDIO;}
 				else if (estadoStr == "BUENO") {estado = Estado.BUENO;}
 				String colorStr = rs.getString("color");
-				Colores color;
+				Colores color = null;
 				if (colorStr == "Negro") {color = Colores.Negro;}
 				else if (colorStr == "Blanco") {color = Colores.Blanco;}
 				else if (colorStr == "Rojo") {color = Colores.Rojo;}
@@ -1140,12 +1238,12 @@ public class BaseDeDatos {
 			// HAY QUE CAMBIARLO
 			Image foto = null;
 			String estadoStr = rs.getString("estado");
-			Estado estado;
+			Estado estado = null;
 			if (estadoStr == "MALO") {estado = Estado.MALO;}
 			else if (estadoStr == "MEDIO") {estado = Estado.MEDIO;}
 			else if (estadoStr == "BUENO") {estado = Estado.BUENO;}
 			String colorStr = rs.getString("color");
-			Colores color;
+			Colores color = null;
 			if (colorStr == "Negro") {color = Colores.Negro;}
 			else if (colorStr == "Blanco") {color = Colores.Blanco;}
 			else if (colorStr == "Rojo") {color = Colores.Rojo;}
@@ -1222,12 +1320,12 @@ public class BaseDeDatos {
 			// HAY QUE CAMBIARLO
 			Image foto = null;
 			String estadoStr = rs.getString("estado");
-			Estado estado;
+			Estado estado = null;
 			if (estadoStr == "MALO") {estado = Estado.MALO;}
 			else if (estadoStr == "MEDIO") {estado = Estado.MEDIO;}
 			else if (estadoStr == "BUENO") {estado = Estado.BUENO;}
 			String colorStr = rs.getString("color");
-			Colores color;
+			Colores color = null;
 			if (colorStr == "Negro") {color = Colores.Negro;}
 			else if (colorStr == "Blanco") {color = Colores.Blanco;}
 			else if (colorStr == "Rojo") {color = Colores.Rojo;}
@@ -1245,7 +1343,7 @@ public class BaseDeDatos {
 			if (enVentaStr == "true") {enVenta = true;}
 			else {enVenta = false;}
 			String tallaR = rs.getString("tallaRopa");
-			TallasRopa talla;
+			TallasRopa talla = null;
 			if (tallaR == "XS") { talla = TallasRopa.XS;}
 			else if (tallaR == "S") { talla = TallasRopa.S;}
 			else if (tallaR == "M") { talla = TallasRopa.M;}
