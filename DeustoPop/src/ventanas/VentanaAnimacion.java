@@ -24,7 +24,7 @@ public class VentanaAnimacion extends JFrame implements ActionListener{
 	private final String titulo1 = "\n Deusto  o  \n";
 	private final String titulo2 = "\n Deusto --o-- \n";
 	private final String titulo3 = "\n Deusto -Pop- \n";
-	private ArrayList<String> titulo = new ArrayList<String>();
+	private static ArrayList<String> titulo = new ArrayList<String>();
 	
 	
 	/*
@@ -98,8 +98,7 @@ public class VentanaAnimacion extends JFrame implements ActionListener{
 	    titulo.add("Deus");
 	    titulo.add("Deust");
 	    titulo.add("Deusto");
-	    System.out.println(titulo);
-	    
+  	    
 	    
 	    
 	    

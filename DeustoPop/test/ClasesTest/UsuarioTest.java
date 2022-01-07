@@ -39,7 +39,8 @@ public class UsuarioTest {
 	@Test
 	public void testGetCuentaB() {
 		CuentaBancaria cbTest1 = new CuentaBancaria(8727193, 3);
-		assertEquals(cbTest1, uVendedor.getCuentaB());
+		assertTrue(cbTest1.getDineroTotal() == uVendedor.getCuentaB().getDineroTotal());
+		assertTrue(cbTest1.getnTarjeta() == uVendedor.getCuentaB().getnTarjeta());
 	}
 	
 	
