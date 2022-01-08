@@ -17,14 +17,8 @@ import java.awt.ScrollPane;
 
 public class VentanaAnimacion extends JFrame implements ActionListener{
 	
-	private Timer t;
 	private JButton botonIniciar;
 	private JLabel labelTexto;
-	private int x = 0;
-	private final String titulo1 = "\n Deusto  o  \n";
-	private final String titulo2 = "\n Deusto --o-- \n";
-	private final String titulo3 = "\n Deusto -Pop- \n";
-	private static ArrayList<String> titulo = new ArrayList<String>();
 	
 	
 	/*
@@ -37,22 +31,10 @@ public class VentanaAnimacion extends JFrame implements ActionListener{
 	 * Deus
 	 * Deust
 	 * Deusto
-	 * Deusto 
-	 * Deusto  
-	 * Deusto  o
-	 * Deusto  o 
-	 * 
-	 * luego titulo2
-	 * 
-	 *         \|/
-	 * Deusto --o--
-	 *         /|\
-	 *        
-	 * y por último titulo3
-	 * 
-	 *         \|/
-	 * Deusto -Pop-
-	 *         /|\
+	 * DeustoP
+	 * DeustoPo
+	 * DeustoPop
+	 * Deusto Pop
 	 */
 	
 	public VentanaAnimacion() {
@@ -72,7 +54,6 @@ public class VentanaAnimacion extends JFrame implements ActionListener{
 	}
 	
 	private void inicializarComponentes() {
-		//labelTexto.setText(String.copyValueOf(titulo1.length()));
 		
 		botonIniciar = new JButton();
 		
@@ -92,49 +73,42 @@ public class VentanaAnimacion extends JFrame implements ActionListener{
 	    
 	    this.getContentPane().setBackground(Color.lightGray);
 	    
-	    titulo.add("D");
-	    titulo.add("De");
-	    titulo.add("Deu");
-	    titulo.add("Deus");
-	    titulo.add("Deust");
-	    titulo.add("Deusto");
-  	    
-	    
-	    
 	    
 	    botonIniciar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				x = x+1;
-				if (x == titulo1.length()) {
-					t.cancel();
-				}
-				try {
-					((Appendable) labelTexto).append(titulo1.substring(x,x+1));
-				} catch(Exception err) {
-					System.out.println("ERROR");
-				}
+				Thread hilo = new Thread(new Runnable() {
+					public void run() {
+						String palabra = "DeustoPop";
+						String frase = "";
+						for(char c : palabra.toCharArray()) {
+							frase+= c;
+							labelTexto.setText(frase);
+							try {
+								Thread.sleep(400);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+						labelTexto.setText("Deusto Pop");
+						try {
+							Thread.sleep(600);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					
+						
+						VentanaPrincipal.main(null);
+						dispose();
+					}
+				});
 				
-				
-				VentanaPrincipal.main(null);
-				dispose();
+				hilo.start();
 			}
 		});
-	    
-
-	    TimerTask tk=new TimerTask() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				
-			}
-		};
-	    t = new Timer();
-	    t.schedule(tk, 50);
-		
-	    
-	    
+	    	    
 	   
 	}
 	
