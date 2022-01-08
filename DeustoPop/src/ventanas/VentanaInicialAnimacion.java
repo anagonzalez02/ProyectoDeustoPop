@@ -15,7 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.ScrollPane;
 
-public class VentanaAnimacion extends JFrame implements ActionListener{
+public class VentanaInicialAnimacion extends JFrame implements ActionListener{
 	
 	private JButton botonIniciar;
 	private JLabel labelTexto;
@@ -37,7 +37,7 @@ public class VentanaAnimacion extends JFrame implements ActionListener{
 	 * Deusto Pop
 	 */
 	
-	public VentanaAnimacion() {
+	public VentanaInicialAnimacion() {
 	    configurarVentana();        // configuramos la ventana
         inicializarComponentes();   // inicializamos los atributos o componentes
     }
@@ -122,7 +122,7 @@ public class VentanaAnimacion extends JFrame implements ActionListener{
 	}
 	
     public static void main(String[] args) {
-    	VentanaAnimacion C = new VentanaAnimacion();      // creamos una ventana
+    	VentanaInicialAnimacion C = new VentanaInicialAnimacion();      // creamos una ventana
         C.setVisible(true);             // hacemos visible la ventana creada
     }
 }
