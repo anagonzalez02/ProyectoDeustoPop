@@ -39,23 +39,23 @@ public class Producto {
 	
 	protected int id;
 	protected String nombre;
-	protected Calendar fechaSubida;
+	protected Date fechaSubida;
 	protected String etiquetas;
 	protected double precio;
 	protected Image imagen;
 	protected Estado estado;
 	protected Colores color;
 	protected Usuario usuario;
-	protected boolean enVenta;
+	public boolean enVenta;
 	protected HashMap <Usuario, String> comentario;
 	
 	
-	public Producto (int id, String nombre, Calendar fechaSubida, String etiquetas, double precio, Image imagen, Estado estado, Colores color, Usuario usuario, boolean enVenta, HashMap <Usuario, String> comentario) {
+	public Producto (int id, String nombre, Date fechaSubida, String etiquetas, double precio, Image imagen, Estado estado, Colores color, Usuario usuario, boolean enVenta, HashMap <Usuario, String> comentario) {
 		super();
 		contador++;
 		this.id = contador;
 		this.nombre = nombre;
-		this.fechaSubida = Calendar.getInstance();
+		this.fechaSubida = new Date (Calendar.getInstance().getTimeInMillis());
 		this.etiquetas = etiquetas;
 		this.precio = precio;
 		this.imagen = imagen;
@@ -72,7 +72,7 @@ public class Producto {
 		contador++;
 		this.id = id;
 		this.nombre = nombre;
-		this.fechaSubida = Calendar.getInstance();
+		this.fechaSubida = new Date (Calendar.getInstance().getTimeInMillis());
 		this.etiquetas = etiquetas;
 		this.precio = precio;
 		this.imagen = imagen;
@@ -100,12 +100,12 @@ public class Producto {
 		this.nombre = nombre;
 	}
 
-	public Calendar getFechaSubida() {
+	public Date getFechaSubida() {
 		return fechaSubida;
 	}
 
-	public void setFechaSubida(Calendar fechaSubida) {
-		this.fechaSubida = Calendar.getInstance();
+	public void setFechaSubida(Date fechaSubida) {
+		this.fechaSubida = new Date (Calendar.getInstance().getTimeInMillis());;
 	}
 
 	public String getEtiquetas() {

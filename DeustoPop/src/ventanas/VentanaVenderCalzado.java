@@ -17,7 +17,7 @@ import javax.swing.SpinnerListModel;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
-import clases.BaseDeDatos;
+import BaseDatos.BaseDeDatos;
 import clases.Calzado;
 import clases.Colores;
 import clases.Estado;

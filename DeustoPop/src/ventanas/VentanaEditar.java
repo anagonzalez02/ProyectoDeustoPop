@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import clases.BaseDeDatos;
+import BaseDatos.BaseDeDatos;
 import clases.CuentaBancaria;
 import clases.Lugar;
 import clases.Usuario;
@@ -320,7 +320,7 @@ public class VentanaEditar extends JFrame {
 						Lugar nuevoVivienda = new Lugar(nuevoDireccion, nuevoCiudad, nuevoPais);
 						
 						BaseDeDatos.modificarLugar(viejaDireccion, nuevoDireccion, nuevoCiudad, nuevoPais);
-						BaseDeDatos.modificarUsuario(u.getIdUsuario(), nuevoNombre, nuevoTelefono, nuevoTarjeta, u.getSaldo(), nuevoEmail, nuevoVivienda, u.getProductosEnVenta(), u.getProductosVendidos(), u.getProductosComprados(), u.getProductosFavoritos());
+						BaseDeDatos.modificarUsuario(u.getIdUsuario(), nuevoNombre, nuevoTelefono, nuevoTarjeta, u.getSaldo(), nuevoEmail, nuevoDireccion);
 						BaseDeDatos.modificarCuentaBancaria(u.getCuentaB().getnTarjeta(), u.getIdUsuario(), nuevoTarjeta, u.getCuentaB().getDineroTotal());
 						
 						BaseDeDatos.cerrarConexion();

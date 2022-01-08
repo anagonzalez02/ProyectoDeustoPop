@@ -1,8 +1,11 @@
 package clases;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
+
+import BaseDatos.BaseDeDatos;
 
 public class FuncionesGenerales { 
 	
@@ -20,30 +23,15 @@ public class FuncionesGenerales {
 	 * @param usuarioComprador		el usuario que quiere comprar el producto
 	 * **/
 	
-	
 	public static void metodoComprarProducto(Producto productoComprar, Usuario usuarioComprador) {
-		BaseDeDatos.modificarProducto(productoComprar.getId(), false);
+		BaseDeDatos.modificarProductoEnVenta(productoComprar.getId());
 		restarDinero(productoComprar, usuarioComprador);
 		sumarDinero(productoComprar);
-		Usuario usuarioVendedor = productoComprar.getUsuario();
-		int num = 0;
-		ArrayList<Producto> productosEnVenta = usuarioVendedor.getProductosEnVenta();
-		for (Producto prod : productosEnVenta) {
-			if (prod == productoComprar) {
-				productosEnVenta.remove(num);
-			}
-			num++;
-		}
-		ArrayList<Producto> productosVendidos = usuarioVendedor.getProductosVendidos();
-		productosVendidos.add(productoComprar);
-		BaseDeDatos.modificarUsuario(usuarioVendedor.getIdUsuario(), usuarioVendedor.getNombre(), usuarioVendedor.getTelefono(), usuarioVendedor.getCuentaB().getnTarjeta(), usuarioVendedor.getSaldo(),
-				usuarioVendedor.getEmail(), usuarioVendedor.getVivienda(), productosEnVenta, productosVendidos, usuarioVendedor.getProductosComprados(), usuarioVendedor.getProductosFavoritos());
-		ArrayList<Producto> productosComprados = usuarioComprador.getProductosComprados();
-		productosComprados.add(productoComprar);
-		BaseDeDatos.modificarUsuario(usuarioComprador.getIdUsuario(), usuarioComprador.getNombre(), usuarioComprador.getTelefono(), usuarioComprador.getCuentaB().getnTarjeta(), usuarioComprador.getSaldo(),
-				usuarioComprador.getEmail(), usuarioComprador.getVivienda(), usuarioComprador.getProductosEnVenta(), usuarioComprador.getProductosVendidos(), productosComprados, usuarioComprador.getProductosFavoritos());
-		JOptionPane.showMessageDialog(null,
-				"Has comprado " + productoComprar.getNombre() + ". Nos pondremos en contacto con el vendedor", "Enhorabuena", JOptionPane.DEFAULT_OPTION, null);
+		
+		Pedido pedido = new Pedido(usuarioComprador, productoComprar);
+		BaseDeDatos.insertarPedido(pedido);
+		
+		JOptionPane.showMessageDialog(null, "Has comprado " + productoComprar.getNombre() + ". Nos pondremos en contacto con el vendedor", "Enhorabuena", JOptionPane.DEFAULT_OPTION, null);
 	}
 	
 	
@@ -61,7 +49,7 @@ public class FuncionesGenerales {
 	public static void restarDinero (Producto productoComprar, Usuario usuarioComprador) {
 		if (usuarioComprador.getSaldo() - productoComprar.getPrecio() >= 0) {
 			usuarioComprador.setSaldo(usuarioComprador.getSaldo() - productoComprar.getPrecio());
-			BaseDeDatos.modificarUsuario(usuarioComprador.getIdUsuario(), usuarioComprador.getNombre(), usuarioComprador.getTelefono(), usuarioComprador.getCuentaB().getnTarjeta(), usuarioComprador.getSaldo() - productoComprar.getPrecio(), usuarioComprador.getEmail(), usuarioComprador.getVivienda(), usuarioComprador.getProductosEnVenta(), usuarioComprador.getProductosVendidos(), usuarioComprador.getProductosComprados(), usuarioComprador.getProductosFavoritos());
+			BaseDeDatos.modificarUsuario(usuarioComprador.getIdUsuario(), usuarioComprador.getNombre(), usuarioComprador.getTelefono(), usuarioComprador.getCuentaB().getnTarjeta(), usuarioComprador.getSaldo() - productoComprar.getPrecio(), usuarioComprador.getEmail(), usuarioComprador.getVivienda().getDireccion());
 		} else {
 			usuarioComprador.getCuentaB().setDineroTotal(usuarioComprador.getCuentaB().getDineroTotal() - productoComprar.getPrecio());
 			BaseDeDatos.modificarCuentaBancaria(usuarioComprador.getCuentaB().getnTarjeta(), usuarioComprador.getIdUsuario(), usuarioComprador.getCuentaB().getnTarjeta(), usuarioComprador.getCuentaB().getDineroTotal() - productoComprar.getPrecio());
@@ -82,12 +70,14 @@ public class FuncionesGenerales {
 	public static void sumarDinero (Producto productoComprar) {
 		Usuario usuarioVendedor = productoComprar.getUsuario();
 		usuarioVendedor.setSaldo(usuarioVendedor.getSaldo() + productoComprar.getPrecio());
-		BaseDeDatos.modificarUsuario(usuarioVendedor.getIdUsuario(), usuarioVendedor.getNombre(), usuarioVendedor.getTelefono(), usuarioVendedor.getCuentaB().getnTarjeta(), usuarioVendedor.getSaldo() + productoComprar.getPrecio(), usuarioVendedor.getEmail(), usuarioVendedor.getVivienda(), usuarioVendedor.getProductosEnVenta(), usuarioVendedor.getProductosVendidos(), usuarioVendedor.getProductosComprados(), usuarioVendedor.getProductosFavoritos());
+		BaseDeDatos.modificarUsuario(usuarioVendedor.getIdUsuario(), usuarioVendedor.getNombre(), usuarioVendedor.getTelefono(), usuarioVendedor.getCuentaB().getnTarjeta(), usuarioVendedor.getSaldo() + productoComprar.getPrecio(), usuarioVendedor.getEmail(), usuarioVendedor.getVivienda().getDireccion());
 	}
 	
 	
+	/*********************************************************************************************************************************************************
+	 * 																		FUNCIÓN RECURSIVA
+	 * **********************************************************************************************************************************************************/
 	/**
-	 * FUNCIÓN RECURSIVA
 	 * Se trata de una función recursiva donde, al pulsar el botón de recomendaciones, 
 	 * el programa se encarga de buscar todos los productos en venta de la web que el usuario pueda comprar con el saldo que tiene en DeustoPop.
 	 * 
@@ -99,9 +89,9 @@ public class FuncionesGenerales {
 	
 	
 	public static ArrayList<Producto> buscarProductosRecomendadosSaldo (Usuario u, int n, ArrayList<Producto> posibles) {
-		if (n + 1 <= BaseDeDatos.getProducto().size()) {
-			if (BaseDeDatos.getProducto().get(n).getPrecio() <= u.getSaldo() && BaseDeDatos.getProducto().get(n).isEnVenta() == true && BaseDeDatos.getProducto().get(n).getUsuario() != u) {
-				posibles.add(BaseDeDatos.getProducto().get(n));
+		if (n + 1 <= BaseDeDatos.getProductos().size()) {
+			if (BaseDeDatos.getProductosCompleto().get(n).getPrecio() <= u.getSaldo() && BaseDeDatos.getProductosCompleto().get(n).isEnVenta() == true && BaseDeDatos.getProductosCompleto().get(n).getUsuario() != u) {
+				posibles.add(BaseDeDatos.getProductosCompleto().get(n));
 			}
 			buscarProductosRecomendadosSaldo (u, n + 1, posibles);
 		}

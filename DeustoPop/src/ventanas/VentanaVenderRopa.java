@@ -25,7 +25,7 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import clases.BaseDeDatos;
+import BaseDatos.BaseDeDatos;
 import clases.Colores;
 import clases.Estado;
 import clases.FuncionesGenerales;
