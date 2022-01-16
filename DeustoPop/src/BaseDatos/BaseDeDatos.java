@@ -362,16 +362,16 @@ public class BaseDeDatos {
 	
 	
 	/**
-	 * Crea la tabla Favorito
+	 * Crea la tabla Favoritos
 	 * **/
 	
 	public static void crearTablaBDFavoritos() throws SQLException {
 		Statement statement = conexion.createStatement();
-		consulta = "DROP TABLE IF EXISTS Usuario";
+		consulta = "DROP TABLE IF EXISTS Favoritos";
 		logger.log( Level.INFO, "Statement: " + consulta );
 		statement.executeUpdate( consulta );
 		
-		consulta = "CREATE TABLE Usuario " +
+		consulta = "CREATE TABLE Favoritos " +
 				"(INT[6] idUsuario NOT NULL, INT[10] idProducto NOT NULL, DATE fechaInsertada"
 				+ "PRIMARY KEY (idUsuario), UNIQUE KEY (idProducto), FOREIGN KEY (idUsuario) REFERENCES Usuario (idUsuario), FOREIGN KEY (idProducto) REFERENCES Producto (idProducto));";
 		
@@ -392,11 +392,11 @@ public class BaseDeDatos {
 	
 	public static void crearTablaBDComentarios() throws SQLException {
 		Statement statement = conexion.createStatement();
-		consulta = "DROP TABLE IF EXISTS Usuario";
+		consulta = "DROP TABLE IF EXISTS Comentarios";
 		logger.log( Level.INFO, "Statement: " + consulta );
 		statement.executeUpdate( consulta );
 		
-		consulta = "CREATE TABLE Usuario " +
+		consulta = "CREATE TABLE Comentarios " +
 				"(INT[6] idUsuario NOT NULL, INT[10] idProducto NOT NULL, VARCHAR[200] comentario, DATE fechaInsertada"
 				+ "PRIMARY KEY (idUsuario), UNIQUE KEY (idProducto), FOREIGN KEY (idUsuario) REFERENCES Usuario (idUsuario), FOREIGN KEY (idProducto) REFERENCES Producto (idProducto));";
 		
