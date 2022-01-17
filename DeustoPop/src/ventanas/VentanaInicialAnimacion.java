@@ -100,7 +100,8 @@
 							}
 						
 							
-							VentanaPrincipal.main(null);
+							VentanaLogIn ventana = new VentanaLogIn();
+					        ventana.setVisible(true);
 							dispose();
 						}
 					});

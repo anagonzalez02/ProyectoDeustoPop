@@ -41,13 +41,13 @@ public class VentanaRegistrar extends JFrame implements ActionListener{
 	private JTextField cajaPais;
 	private JLabel textoDireccion;
 	private JTextField cajaDireccion;
-	private JButton botonVolver;
+	private JButton botonLogIn;
 	
-    public VentanaRegistrar(String ventanaVolver, Producto producto) {
+    public VentanaRegistrar() {
     	
         super();    				// usamos el contructor de la clase padre JFrame
         configurarVentana();        // configuramos la ventana
-        inicializarComponentes(ventanaVolver, producto);	// inicializamos los atributos o componentes
+        inicializarComponentes();	// inicializamos los atributos o componentes
         ventanaActual = this;
         
     }
@@ -57,13 +57,13 @@ public class VentanaRegistrar extends JFrame implements ActionListener{
         this.setTitle("DeustoPop");                   			// colocamos titulo a la ventana
         this.setSize(450, 550);                                	// colocamos tamanio a la ventana (ancho, alto)
         this.setLocationRelativeTo(null);                       // centramos la ventana en la pantalla
-        this.setLayout(null);                                   // no usamos ningun layout, solo asi podremos dar posiciones a los componentes
+        getContentPane().setLayout(null);                                   // no usamos ningun layout, solo asi podremos dar posiciones a los componentes
         this.setResizable(false);                               // hacemos que la ventana no sea redimiensionable
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    // hacemos que cuando se cierre la ventana termine todo proceso
    
     }
     
-    private void inicializarComponentes(String ventanaVolver, Producto producto) {
+    private void inicializarComponentes() {
     	
     	textoNombre = new JLabel();
     	textoPassword = new JLabel();
@@ -81,7 +81,7 @@ public class VentanaRegistrar extends JFrame implements ActionListener{
     	cajaPais= new JTextField();
     	textoDireccion= new JLabel();
     	cajaDireccion= new JTextField();
-    	botonVolver = new JButton();
+    	botonLogIn = new JButton();
     	
    
     	botonRegistrar = new JButton("Registrarme");
@@ -110,15 +110,10 @@ public class VentanaRegistrar extends JFrame implements ActionListener{
 							JOptionPane.showMessageDialog(null, "Registro realizado con exito", "REGISTRO", JOptionPane.INFORMATION_MESSAGE);
 							vaciarCampos();
 							
-							if (ventanaVolver == "VentanaUsuario") {
-								VentanaUsuario ventana = new VentanaUsuario(u);
-						        ventana.setVisible(true);
-								dispose();
-							} else if (ventanaVolver == "VentanaProducto") {
-								VentanaProducto ventana = new VentanaProducto(producto, u, ventanaVolver);
-						        ventana.setVisible(true);
-								dispose();
-							}
+							VentanaPrincipal ventana = new VentanaPrincipal();  //cuando los datos introducidos son válidos, se abre la ventana principal
+					        ventana.setVisible(true);   
+							
+
 							
 						} else {
 							JOptionPane.showMessageDialog(null, "El nombre o email introducido ya exisste. Prueba con otro", "¡¡ERROR!!",JOptionPane.ERROR_MESSAGE);
@@ -133,11 +128,13 @@ public class VentanaRegistrar extends JFrame implements ActionListener{
 			}
 		});
 		
-		botonVolver = new JButton("Volver");
+		botonLogIn = new JButton("Log In");
 		
-		botonVolver.addActionListener(new ActionListener() {
+		//el botón LogIn nos llevará a la clase LogIn en caso de haber entrado en la clase Registrar por error
+		
+		botonLogIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaLogin ventana = new VentanaLogin(ventanaVolver, producto);
+				VentanaLogIn ventana = new VentanaLogIn();
 		        ventana.setVisible(true);
 				dispose();
 			}
@@ -189,28 +186,29 @@ public class VentanaRegistrar extends JFrame implements ActionListener{
         botonRegistrar.setText("Registrarme");
         botonRegistrar.setBounds(250, 430, 150, 40);
         
-        botonVolver.setText("Volver");
-        botonVolver.setBounds(50, 430, 150, 40);
+        botonLogIn.setText("Log In");
+        botonLogIn.setBounds(50, 430, 150, 40);
 
         
-        this.add(textoNombre);
-        this.add(textoPassword);
-        this.add(cajaNombre);
-        this.add(password);
-        this.add(botonRegistrar);
-        this.add(textoEmail);
-        this.add(cajaEmail);
-        this.add(textoTelefono);
-        this.add(cajaTelefono);
-        this.add(textoDireccion);
-        this.add(cajaDireccion);
-        this.add(textoCiudad);
-        this.add(cajaCiudad);
-        this.add(textoPais);
-        this.add(cajaPais);
-        this.add(botonVolver);
-        this.add(textoTarjeta);
-        this.add(cajaTarjeta);
+        getContentPane().add(textoNombre);
+        getContentPane().add(textoPassword);
+        getContentPane().add(cajaNombre);
+        getContentPane().add(password);
+        getContentPane().add(botonRegistrar);
+        getContentPane().add(textoEmail);
+        getContentPane().add(cajaEmail);
+        getContentPane().add(textoTelefono);
+        getContentPane().add(cajaTelefono);
+        getContentPane().add(textoDireccion);
+        getContentPane().add(cajaDireccion);
+        getContentPane().add(textoCiudad);
+        getContentPane().add(cajaCiudad);
+        getContentPane().add(textoPais);
+        getContentPane().add(cajaPais);
+        getContentPane().add(botonLogIn);
+        getContentPane().add(textoTarjeta);
+        getContentPane().add(cajaTarjeta);
+        
         
     }
 
@@ -222,8 +220,8 @@ public class VentanaRegistrar extends JFrame implements ActionListener{
 }
 
     public static void main(String[] args) {
-    	//VentanaRegistrar L = new VentanaRegistrar();      // creamos una ventana
-        //L.setVisible(true);             // hacemos visible la ventana creada
+    	VentanaRegistrar L = new VentanaRegistrar();      // creamos una ventana
+        L.setVisible(true);             // hacemos visible la ventana creada
     }
 
 	private void vaciarCampos() {
