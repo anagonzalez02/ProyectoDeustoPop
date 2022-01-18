@@ -11,6 +11,7 @@ import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -22,6 +23,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import clases.Calzado;
+import clases.CuentaBancaria;
+import clases.Lugar;
+import clases.Pedido;
+import clases.Producto;
+import clases.Ropa;
 import clases.Usuario;
 
 
@@ -41,6 +48,14 @@ public class Main extends JFrame {
 	private JPanel panelBotonera;
 	
 	private JButton btnUsuarios;
+	private JButton btnCuentaBancaria;
+	private JButton btnLugar;
+	private JButton btnProducto;
+	private JButton btnCalzado;
+	private JButton btnRopa;
+	private JButton btnFavorito;
+	private JButton btnComentario;
+	private JButton btnPedido;
 	
 	
 	public Main () {
@@ -78,20 +93,103 @@ public class Main extends JFrame {
 		btnUsuarios.addActionListener( new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				lInfo = new JLabel("Clientes");
+				lInfo = new JLabel("Usuarios");
 				verUsuarios();
 			}
 		});
+
+		btnCuentaBancaria = new JButton("Cuentas bancarias");
+		btnCuentaBancaria.addActionListener( new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				lInfo = new JLabel("Cuentas bancarias");
+				verCuentasBancarias();
+			}
+		});
+		
+		btnLugar = new JButton("Lugares");
+		btnLugar.addActionListener( new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				lInfo = new JLabel("Lugares");
+				verLugar();
+			}
+		});
+		
+		btnProducto = new JButton("Productos");
+		btnProducto.addActionListener( new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				lInfo = new JLabel("Productos");
+				verProducto();
+			}
+		});
+		
+		btnCalzado = new JButton("Calzados");
+		btnCalzado.addActionListener( new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				lInfo = new JLabel("Calzados");
+				verCalzado();
+			}
+		});
+		
+		btnRopa = new JButton("Ropa");
+		btnRopa.addActionListener( new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				lInfo = new JLabel("Ropa");
+				verRopa();
+			}
+		});
+		
+		btnFavorito = new JButton("Favoritos");
+		btnFavorito.addActionListener( new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				lInfo = new JLabel("Favoritos");
+				verFavorito();
+			}
+		});
+		
+		btnComentario = new JButton("Comentarios");
+		btnComentario.addActionListener( new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				lInfo = new JLabel("Comentarios");
+				verComentario();
+			}
+		});
+		
+		btnPedido = new JButton("Pedidos");
+		btnPedido.addActionListener( new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				lInfo = new JLabel("Pedidos");
+				verPedido();
+			}
+		});
+		
+		
+		
 		
 		panelBotonera.add(btnUsuarios);
+		panelBotonera.add(btnCuentaBancaria);
+		panelBotonera.add(btnLugar);
+		panelBotonera.add(btnProducto);
+		panelBotonera.add(btnCalzado);
+		panelBotonera.add(btnRopa);
+		panelBotonera.add(btnFavorito);
+		panelBotonera.add(btnComentario);
+		panelBotonera.add(btnPedido);
 		
 		
 		Container cPanel = this.getContentPane();
 		cPanel.setLayout(new BorderLayout());
 		
 		cPanel.add(pNorte, BorderLayout.NORTH);
-		cPanel.add(new JScrollPane(tDatos));
-		cPanel.add(panelBotonera);
+		cPanel.add(new JScrollPane(tDatos), BorderLayout.CENTER);
+		cPanel.add(panelBotonera, BorderLayout.SOUTH);
 		
 		
 		
@@ -112,7 +210,129 @@ public class Main extends JFrame {
 		listaUsuarios = BaseDeDatos.getUsuarios();
 
 		for (Usuario u : listaUsuarios) {
-			mDatos.addRow(new Object[] {u.getIdUsuario(), u.getNombre(), u.getTelefono(), u.getCuentaB().getnTarjeta(), u.getSaldo(), u.getEmail(), u.getContrasenia(), u.getVivienda().getDireccion()});
+			mDatos.addRow (new Object[] {u.getIdUsuario(), u.getNombre(), u.getTelefono(), u.getCuentaB().getnTarjeta(), u.getSaldo(), u.getEmail(), u.getContrasenia(), u.getVivienda().getDireccion()});
+		}
+		tDatos.setModel(mDatos);
+	}
+	
+	private void verCuentasBancarias() {
+		Vector<String> cabeceras = new Vector<String>(
+				Arrays.asList("idUsuario", "nTarjeta", "dineroTotal"));
+		mDatos = new DefaultTableModel(new Vector<Vector<Object>>(), cabeceras);
+		ArrayList <CuentaBancaria> listaCuentas = BaseDeDatos.getCuentaBancaria();
+
+		for (CuentaBancaria c : listaCuentas) {
+			mDatos.addRow (new Object[] {c.getnTarjeta(), c.getDineroTotal()});
+		}
+		tDatos.setModel(mDatos);
+	}
+	
+	private void verLugar() {
+		Vector<String> cabeceras = new Vector<String>(
+				Arrays.asList("direccion", "nomCiud", "nomPais"));
+		mDatos = new DefaultTableModel(new Vector<Vector<Object>>(), cabeceras);
+		ArrayList <Lugar> listaLugares = BaseDeDatos.getLugar();
+
+		for (Lugar l : listaLugares) {
+			mDatos.addRow (new Object[] {l.getDireccion(), l.getNomCiud(), l.getNomPais()});
+		}
+		tDatos.setModel(mDatos);
+	}
+	
+	private void verProducto() {
+		Vector<String> cabeceras = new Vector<String>(
+				Arrays.asList("idProducto", "nombre", "fechaSubida", "etiquetas", "precio", "imagen", "estado", "color", "idUsuario", "enVenta", "tipoProucto"));
+		mDatos = new DefaultTableModel(new Vector<Vector<Object>>(), cabeceras);
+		ArrayList <Producto> listaProductos = BaseDeDatos.getProductos();
+
+		for (Producto p : listaProductos) {
+			String tipo = null;
+			String venta = null;
+			if (p.getClass().toString() == "Calzado") {tipo = "Calzado";}
+			else {tipo = "Ropa";}
+			if (p.isEnVenta() == true) {venta = "true";}
+			else {venta = "false";}
+			mDatos.addRow (new Object[] {p.getId(), p.getNombre(), p.getFechaSubida(), p.getEtiquetas(), p.getPrecio(), p.getImagen(), p.getEstado().toString(), p.getColor().toString(), p.getUsuario().getIdUsuario(), venta, tipo});
+		}
+		tDatos.setModel(mDatos);
+	}
+	
+	private void verCalzado() {
+		Vector<String> cabeceras = new Vector<String>(
+				Arrays.asList("idProducto", "nombre", "fechaSubida", "etiquetas", "precio", "imagen", "estado", "color", "idUsuario", "enVenta", "tallaCalzado"));
+		mDatos = new DefaultTableModel(new Vector<Vector<Object>>(), cabeceras);
+		ArrayList <Calzado> listaCalzados = BaseDeDatos.getTodosCalzados();
+
+		for (Calzado c : listaCalzados) {
+			String venta = null;
+			if (c.isEnVenta() == true) {venta = "true";}
+			else {venta = "false";}
+			mDatos.addRow (new Object[] {c.getId(), c.getNombre(), c.getFechaSubida(), c.getEtiquetas(), c.getPrecio(), c.getImagen(), c.getEstado().toString(), c.getColor().toString(), c.getUsuario().getIdUsuario(), venta, c.getTallaCalzado()});
+		
+		}
+		tDatos.setModel(mDatos);
+	}
+	
+	private void verRopa() {
+		Vector<String> cabeceras = new Vector<String>(
+				Arrays.asList("idProducto", "nombre", "fechaSubida", "etiquetas", "precio", "imagen", "estado", "color", "idUsuario", "enVenta", "tallaRopa"));
+		mDatos = new DefaultTableModel(new Vector<Vector<Object>>(), cabeceras);
+		ArrayList <Ropa> listaRopas = BaseDeDatos.getTodaRopa();
+
+		for (Ropa r : listaRopas) {
+			String venta = null;
+			if (r.isEnVenta() == true) {venta = "true";}
+			else {venta = "false";}
+			mDatos.addRow (new Object[] {r.getId(), r.getNombre(), r.getFechaSubida(), r.getEtiquetas(), r.getPrecio(), r.getImagen(), r.getEstado().toString(), r.getColor().toString(), r.getUsuario().getIdUsuario(), venta, r.getTallaRopa().toString()});
+		
+		}
+		tDatos.setModel(mDatos);
+	}
+	
+	private void verFavorito() {
+		Vector<String> cabeceras = new Vector<String>(
+				Arrays.asList("idProducto", "idUsuario"));
+		mDatos = new DefaultTableModel(new Vector<Vector<Object>>(), cabeceras);
+		ArrayList <Usuario> listaUsuarios = BaseDeDatos.getUsuarios();
+
+		for (Usuario u : listaUsuarios) {
+			ArrayList<Producto> listaProductos = BaseDeDatos.getFavoritosUsuario(u.getIdUsuario());
+			if (listaProductos.size() != 0) {
+				for (Producto p : listaProductos) {
+					mDatos.addRow (new Object[] {u.getIdUsuario(), p.getId()});
+				}
+			}
+		
+		}
+		tDatos.setModel(mDatos);
+	}
+	
+	private void verComentario() {
+		Vector<String> cabeceras = new Vector<String>(
+				Arrays.asList("idProducto", "idUsuario", "comentario"));
+		mDatos = new DefaultTableModel(new Vector<Vector<Object>>(), cabeceras);
+		ArrayList <Producto> listaProductos = BaseDeDatos.getProductos();
+
+		for (Producto p : listaProductos) {
+			HashMap <Usuario, String> comentarios = BaseDeDatos.getComentariosProducto(p.getId());
+			if (comentarios.size() != 0) {
+				for (Usuario u : comentarios.keySet()) {
+				    String c = comentarios.get(u);
+				    mDatos.addRow (new Object[] {p.getId(), u.getIdUsuario(), c});
+				}
+			}
+		}
+		tDatos.setModel(mDatos);
+	}
+	
+	private void verPedido() {
+		Vector<String> cabeceras = new Vector<String>(
+				Arrays.asList("precioTotal", "fechaCompra", "fechaEntrega", "numeroPedido", "usuarioComprador", "productoComprado"));
+		mDatos = new DefaultTableModel(new Vector<Vector<Object>>(), cabeceras);
+		ArrayList <Pedido> listaPedidos = BaseDeDatos.getPedidos();
+
+		for (Pedido p : listaPedidos) {
+			mDatos.addRow (new Object[] {p.getPrecioTotal(), p.getFechaCompra(), p.getFechaEntrega(), p.getNumeroPedido(), p.getUsuarioComprador().getIdUsuario(), p.getProductoComprado().getId()});
 		}
 		tDatos.setModel(mDatos);
 	}

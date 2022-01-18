@@ -138,7 +138,7 @@ public class BaseDeDatos {
 					while (scanner.hasNextLine()) {
 						String linea = scanner.nextLine();
 						String[] datos = linea.split( "\t" );
-						consulta = "INSERT INTO Favoritos (idProducto, idUsuario, fechaInsertada)"
+						consulta = "INSERT INTO Favoritos (idProducto, idUsuario)"
 								+ "VALUES (" + datos[0] + ", " + datos[1] + ", '" + datos[2] + "');";
 						logger.log( Level.INFO, "Statement: " + consulta );
 						statement.executeUpdate( consulta );
@@ -149,8 +149,8 @@ public class BaseDeDatos {
 					while (scanner.hasNextLine()) {
 						String linea = scanner.nextLine();
 						String[] datos = linea.split( "\t" );
-						consulta = "INSERT INTO Comentarios (idProducto, idUsuario, comentario, fechaInsertada)"
-								+ "VALUES (" + datos[0] + ", " + datos[1] + ", '" + datos[2] + "', '" + datos[3] + "');";
+						consulta = "INSERT INTO Comentarios (idProducto, idUsuario, comentario)"
+								+ "VALUES (" + datos[0] + ", " + datos[1] + ", '" + datos[2] + "');";
 						logger.log( Level.INFO, "Statement: " + consulta );
 						statement.executeUpdate( consulta );
 					}
@@ -410,7 +410,7 @@ public class BaseDeDatos {
 		statement.executeUpdate( consulta );
 		
 		consulta = "CREATE TABLE Comentarios " +
-				"(INT[6] idUsuario NOT NULL, INT[10] idProducto NOT NULL, VARCHAR[200] comentario, DATE fechaInsertada"
+				"(INT[6] idUsuario NOT NULL, INT[10] idProducto NOT NULL, VARCHAR[200] comentario"
 				+ "PRIMARY KEY (idUsuario), UNIQUE KEY (idProducto), FOREIGN KEY (idUsuario) REFERENCES Usuario (idUsuario), FOREIGN KEY (idProducto) REFERENCES Producto (idProducto));";
 		
 		if (statement==null) return;
@@ -1748,10 +1748,10 @@ public class BaseDeDatos {
 	 * @param fecha			Cuándo le ha dado me gusta
 	 * @return				true si la inserción es correcta, false en caso contrario
 	 */
-	public static boolean insertarFavorito (Usuario usuario, Producto producto, Date fecha) {
+	public static boolean insertarFavorito (Usuario usuario, Producto producto) {
 		try (Statement statement = conexion.createStatement()) {
 			consulta = "INSERT INTO Favoritos (idUsuario, idProducto, fechaInsertada)"
-					+ "VALUES (" + usuario.getIdUsuario() + ", " + producto.getId() + ", '" + fecha + "')";
+					+ "VALUES (" + usuario.getIdUsuario() + ", " + producto.getId() + ")";
 			
 			logger.log( Level.INFO, "Statement: " + consulta );
 			int insertados = statement.executeUpdate( consulta );

@@ -266,9 +266,11 @@ public class VentanaProducto extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (uComprador.getProductosFavoritos().contains(p)) {
 					uComprador.getProductosFavoritos().remove(p);
+					BaseDeDatos.eliminarFavoritos(u, p);
 					JOptionPane.showMessageDialog(null, p.getNombre() + "eliminado de favoritos");
 				} else {
 					uComprador.getProductosFavoritos().add(p);
+					BaseDeDatos.insertarFavorito(u, p);
 					JOptionPane.showMessageDialog(null, p.getNombre() + "añadido a favoritos");
 				}
 			}
