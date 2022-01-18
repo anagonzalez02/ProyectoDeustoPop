@@ -63,7 +63,7 @@ public class VentanaUsuario extends JFrame {
 			// En caso de que dicho usuario sea null (un usuario puede usar DeustoPop sin haber iniciado sesión, pero necesitará iniciar sesión para algunas funciones, como esta: ver el perfil)
 			// Es decir, que el cliente todavía no introducido su cuenta, no podrá ver sus datos hasta hacerlo. Por reso, se le redigirá a VentanaLogin, indicando que luego deberá volver a esta ventana.
 			
-			VentanaLogIn ventana = new VentanaLogIn();
+			VentanaLogIn ventana = new VentanaLogIn("VentanaUsuario", null);
 	        ventana.setVisible(true);
 			dispose();
 			

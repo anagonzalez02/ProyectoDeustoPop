@@ -171,7 +171,7 @@ public class Main extends JFrame {
 		});
 		
 		
-		
+		panelBotonera = new JPanel();
 		
 		panelBotonera.add(btnUsuarios);
 		panelBotonera.add(btnCuentaBancaria);
@@ -183,6 +183,9 @@ public class Main extends JFrame {
 		panelBotonera.add(btnComentario);
 		panelBotonera.add(btnPedido);
 		
+		lInfo = new JLabel("Usuarios");
+		pNorte = new JPanel();
+		pNorte.add(lInfo);
 		
 		Container cPanel = this.getContentPane();
 		cPanel.setLayout(new BorderLayout());
@@ -196,7 +199,7 @@ public class Main extends JFrame {
 		
 		
 		this.setDefaultCloseOperation (JFrame.DISPOSE_ON_CLOSE);
-		this.setSize (1400, 400);
+		this.setSize (1500, 800);
 		this.setTitle ("Visualización de la base de datos de DeustoPop");
 		
 		

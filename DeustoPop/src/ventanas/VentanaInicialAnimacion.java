@@ -18,6 +18,7 @@
 	public class VentanaInicialAnimacion extends JFrame implements ActionListener{
 		
 		private JButton botonIniciar;
+		private JButton botonSaltar;
 		private JLabel labelTexto;
 		
 		
@@ -56,12 +57,16 @@
 		private void inicializarComponentes() {
 			
 			botonIniciar = new JButton();
+			botonSaltar = new JButton();
 			
-			
-			botonIniciar.setText("Iniciar");
-		    botonIniciar.setBounds(200, 250, 200, 50);
+			botonIniciar.setText("Iniciar sesión");
+		    botonIniciar.setBounds(50, 250, 200, 50);
+		    
+		    botonSaltar.setText("Saltar");
+		    botonSaltar.setBounds(350, 250, 200, 50);
 		    
 		    getContentPane().add(botonIniciar);
+		    getContentPane().add(botonSaltar);
 		    
 		    labelTexto = new JLabel();
 		    
@@ -100,9 +105,44 @@
 							}
 						
 							
-							VentanaLogIn ventana = new VentanaLogIn();
+							VentanaLogIn ventana = new VentanaLogIn(null, null);
 					        ventana.setVisible(true);
 							dispose();
+						}
+					});
+					
+					hilo.start();
+				}
+			});
+		    
+		    
+		    botonSaltar.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					Thread hilo = new Thread(new Runnable() {
+						public void run() {
+							String palabra = "DeustoPop";
+							String frase = "";
+							for(char c : palabra.toCharArray()) {
+								frase+= c;
+								labelTexto.setText(frase);
+								try {
+									Thread.sleep(400);
+								} catch (InterruptedException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}
+							labelTexto.setText("Deusto Pop");
+							try {
+								Thread.sleep(600);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						
+							VentanaPrincipal.main(null);
+			    			dispose();
 						}
 					});
 					

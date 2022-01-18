@@ -234,7 +234,7 @@ public class VentanaProducto extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (u == null) {
-					VentanaLogIn ventana = new VentanaLogIn();
+					VentanaLogIn ventana = new VentanaLogIn("VentanaProducto", p);
 			        ventana.setVisible(true);
 					dispose();	
 				} else {

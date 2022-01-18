@@ -43,11 +43,11 @@ public class VentanaRegistrar extends JFrame implements ActionListener{
 	private JTextField cajaDireccion;
 	private JButton botonLogIn;
 	
-    public VentanaRegistrar() {
+    public VentanaRegistrar(String ventanaVolver, Producto producto) {
     	
         super();    				// usamos el contructor de la clase padre JFrame
         configurarVentana();        // configuramos la ventana
-        inicializarComponentes();	// inicializamos los atributos o componentes
+        inicializarComponentes(ventanaVolver, producto);	// inicializamos los atributos o componentes
         ventanaActual = this;
         
     }
@@ -63,7 +63,7 @@ public class VentanaRegistrar extends JFrame implements ActionListener{
    
     }
     
-    private void inicializarComponentes() {
+    private void inicializarComponentes(String ventanaVolver, Producto producto) {
     	
     	textoNombre = new JLabel();
     	textoPassword = new JLabel();
@@ -110,9 +110,18 @@ public class VentanaRegistrar extends JFrame implements ActionListener{
 							JOptionPane.showMessageDialog(null, "Registro realizado con exito", "REGISTRO", JOptionPane.INFORMATION_MESSAGE);
 							vaciarCampos();
 							
-							VentanaPrincipal ventana = new VentanaPrincipal();  //cuando los datos introducidos son válidos, se abre la ventana principal
-					        ventana.setVisible(true);   
-							
+							if (ventanaVolver == "VentanaUsuario") {
+								VentanaUsuario ventana = new VentanaUsuario(u);
+						        ventana.setVisible(true);
+								dispose();
+							} else if (ventanaVolver == "VentanaProducto") {
+								VentanaProducto ventana = new VentanaProducto(producto, u, ventanaVolver);
+						        ventana.setVisible(true);
+								dispose();
+							} else if (ventanaVolver == null) {
+								VentanaPrincipal.main(null);
+				    			dispose();
+							}
 
 							
 						} else {
@@ -134,7 +143,7 @@ public class VentanaRegistrar extends JFrame implements ActionListener{
 		
 		botonLogIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaLogIn ventana = new VentanaLogIn();
+				VentanaLogIn ventana = new VentanaLogIn(ventanaVolver, producto);
 		        ventana.setVisible(true);
 				dispose();
 			}
@@ -220,8 +229,8 @@ public class VentanaRegistrar extends JFrame implements ActionListener{
 }
 
     public static void main(String[] args) {
-    	VentanaRegistrar L = new VentanaRegistrar();      // creamos una ventana
-        L.setVisible(true);             // hacemos visible la ventana creada
+    	//VentanaRegistrar L = new VentanaRegistrar();      // creamos una ventana
+        //L.setVisible(true);             // hacemos visible la ventana creada
     }
 
 	private void vaciarCampos() {
