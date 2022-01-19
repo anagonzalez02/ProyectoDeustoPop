@@ -147,7 +147,7 @@ public class VentanaLogIn extends JFrame implements ActionListener{
 	}
 
     public static void main(String[] args) {
-    	//VentanaLogIn L = new VentanaLogIn();      // creamos una ventana
-        //L.setVisible(true);             // hacemos visible la ventana creada
+    	VentanaLogIn L = new VentanaLogIn(null, null);      // creamos una ventana
+        L.setVisible(true);             // hacemos visible la ventana creada
     }
 }

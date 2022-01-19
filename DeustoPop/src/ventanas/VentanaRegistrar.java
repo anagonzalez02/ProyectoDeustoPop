@@ -229,8 +229,8 @@ public class VentanaRegistrar extends JFrame implements ActionListener{
 }
 
     public static void main(String[] args) {
-    	//VentanaRegistrar L = new VentanaRegistrar();      // creamos una ventana
-        //L.setVisible(true);             // hacemos visible la ventana creada
+    	VentanaRegistrar L = new VentanaRegistrar(null, null);      // creamos una ventana
+        L.setVisible(true);             // hacemos visible la ventana creada
     }
 
 	private void vaciarCampos() {
