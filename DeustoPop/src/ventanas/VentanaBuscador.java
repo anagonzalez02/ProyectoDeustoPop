@@ -68,7 +68,6 @@ public class VentanaBuscador extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         //String busacado = cajaBuscador.getText();                                 // obtenemos el contenido de la caja de texto
-    	//h
     }
     
     
