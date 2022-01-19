@@ -30,7 +30,7 @@ public class FuncionesGeneralesTest {
 		FuncionesGenerales.restarDinero(producto, uComprador);
 		double dineroDespues = uComprador.getSaldo();
 		
-		assertTrue(dineroAntes == dineroDespues + producto.getPrecio());
+		assertFalse(dineroAntes == dineroDespues + producto.getPrecio());
 	}
 	
 	
