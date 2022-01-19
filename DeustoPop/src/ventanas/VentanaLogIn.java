@@ -95,7 +95,7 @@ public class VentanaLogIn extends JFrame implements ActionListener{
 	    botonEntrar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Usuario usuario = BaseDeDatos.getUsuarios(cajaNombre.getText(), password.getText());
+				Usuario usuario = BaseDeDatos.getUsuarios(cajaNombre.getText(), password.getPassword().toString());
 				
 				if (usuario != null) {
 					if (ventanaVolver == "VentanaUsuario") {
