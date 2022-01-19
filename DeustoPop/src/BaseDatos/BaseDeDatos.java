@@ -48,7 +48,6 @@ public class BaseDeDatos {
 	public static boolean abrirConexion(String nombreBD, boolean conexionBD) throws SQLException {
 
 		String consulta;
-		// Statement statement = conexion.createStatement();
 		Scanner scanner;
 
 		try {

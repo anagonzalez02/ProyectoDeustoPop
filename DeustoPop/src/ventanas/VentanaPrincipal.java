@@ -13,8 +13,6 @@ import clases.Lugar;
 import clases.Producto;
 import clases.Usuario;
 
-
-
 public class VentanaPrincipal extends JFrame{
 	public VentanaPrincipal() {
 	}
@@ -27,7 +25,7 @@ public class VentanaPrincipal extends JFrame{
     private JButton bVender;
     private JButton bFiltrar;
     private JButton bPosibles;
-    private JLabel tPrecio;
+    private JButton btnPerfil;
     private ArrayList<Producto> listaProds = new ArrayList<Producto>();
 
     
@@ -41,7 +39,7 @@ public class VentanaPrincipal extends JFrame{
 
             @Override
             public void run() {
-                new VentanaPrincipal().makeUI();
+                new VentanaPrincipal().makeUI(null);
             }
         });
     }
@@ -49,7 +47,7 @@ public class VentanaPrincipal extends JFrame{
     //esta ventana no tiene main, y solo se crea al ser ejecutada
     //al pasar de otra ventana a esta habra que volver a ejecutarla
     //la ventana invocando al main de esta "VentanaPrincipal.main(null);"
-    public void makeUI() {
+    public void makeUI(Usuario u) {
         CompTable = CreateCompTable();
         //Crea el JScrollPane
         JScrollPane CompTableScrollpane = new JScrollPane(CompTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -91,10 +89,11 @@ public class VentanaPrincipal extends JFrame{
         panelTop.add(bFiltrar, BorderLayout.CENTER);
         
       //creacion del texto saldo e implementacion en el panelTop
-        tPrecio = new JLabel();
-        tPrecio.setText("Saldo: *getSaldo*");
-        tPrecio.setPreferredSize(new Dimension(175, 50));
-        panelTop.add(tPrecio, BorderLayout.EAST);
+        btnPerfil = new JButton();
+        btnPerfil.setText("Perfil");
+        btnPerfil.setPreferredSize(new Dimension(175, 50));
+        panelTop.add(btnPerfil, BorderLayout.EAST);
+        
         
       //creacion del boton posibles compras e implementacion en el panelTop
         bPosibles = new JButton();
@@ -125,6 +124,24 @@ public class VentanaPrincipal extends JFrame{
     	        ventana.setVisible(true);
     			dispose();
     			frame.setVisible(false);
+    		}
+    	});
+        
+        //implementacion del action listener en el
+        //boton filtrar que te transporta a ventana filtrar
+        //al clicar el boton "filtrar"
+        btnPerfil.addActionListener(new ActionListener() {
+    		@Override
+    		public void actionPerformed(ActionEvent e) {
+    			if (u == null) {
+    				VentanaLogIn ventana = new VentanaLogIn("VentanaUsuario", null);
+    		        ventana.setVisible(true);
+    				dispose();
+    			} else {
+    				VentanaUsuario ventana = new VentanaUsuario(u);
+				     ventana.setVisible(true);
+					dispose();
+    			}
     		}
     	});
         

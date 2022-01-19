@@ -3,11 +3,14 @@ package ventanas;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.EventObject;
 
 import javax.swing.AbstractCellEditor;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,7 +27,8 @@ public class VentanaFavoritos {
 	private JFrame frame;
     private JTable CompTable = null;
     private PanelTableModelFav CompModel = null;
-
+    private JPanel panelInferior;
+    private JButton btnVolver;
 	
 	
 	public static void main(String args[]) {
@@ -53,6 +57,7 @@ public class VentanaFavoritos {
         JScrollPane CompTableScrollpane = new JScrollPane(CompTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         
+        
         //gestion de el frame
         frame = new JFrame("DeustoPop");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -63,6 +68,35 @@ public class VentanaFavoritos {
         frame.setVisible(true);
         frame.setResizable(false);
         
+        
+
+        panelInferior = new JPanel(new BorderLayout());
+        panelInferior.setVisible(true);
+        panelInferior.setPreferredSize(new Dimension(50, 50));
+        frame.getContentPane().add(panelInferior, BorderLayout.SOUTH);
+        
+        
+        btnVolver = new JButton();
+        btnVolver.setText("Volver");
+        btnVolver.setPreferredSize(new Dimension(175, 50));
+        panelInferior.add(btnVolver, BorderLayout.SOUTH);
+        
+        /**
+        btnVolver.addActionListener(new ActionListener() {
+    		@Override
+    		public void actionPerformed(ActionEvent e) {
+    			if (u == null) {
+    				VentanaLogIn ventana = new VentanaLogIn("VentanaUsuario", null);
+    		        ventana.setVisible(true);
+    				dispose();
+    			} else {
+    				VentanaUsuario ventana = new VentanaUsuario(u);
+				     ventana.setVisible(true);
+					dispose();
+    			}
+    		}
+    	});
+        **/
 	}
 	
 	
