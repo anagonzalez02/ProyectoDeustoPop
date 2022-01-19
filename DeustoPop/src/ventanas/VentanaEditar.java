@@ -321,7 +321,7 @@ public class VentanaEditar extends JFrame {
 						
 						BaseDeDatos.modificarLugar(viejaDireccion, nuevoDireccion, nuevoCiudad, nuevoPais);
 						BaseDeDatos.modificarUsuario(u.getIdUsuario(), nuevoNombre, nuevoTelefono, nuevoTarjeta, u.getSaldo(), nuevoEmail, nuevoDireccion);
-						BaseDeDatos.modificarCuentaBancaria(u.getCuentaB().getnTarjeta(), u.getIdUsuario(), nuevoTarjeta, u.getCuentaB().getDineroTotal());
+						BaseDeDatos.modificarCuentaBancaria(u.getIdUsuario(), nuevoTarjeta, u.getCuentaB().getDineroTotal());
 						
 						BaseDeDatos.cerrarConexion();
 						

@@ -330,12 +330,12 @@ public class Main extends JFrame {
 	
 	private void verPedido() {
 		Vector<String> cabeceras = new Vector<String>(
-				Arrays.asList("precioTotal", "fechaCompra", "fechaEntrega", "numeroPedido", "usuarioComprador", "productoComprado"));
+				Arrays.asList("numeroPedido", "precioTotal", "fechaCompra", "fechaEntrega", "usuarioComprador", "productoComprado"));
 		mDatos = new DefaultTableModel(new Vector<Vector<Object>>(), cabeceras);
 		ArrayList <Pedido> listaPedidos = BaseDeDatos.getPedidos();
 
 		for (Pedido p : listaPedidos) {
-			mDatos.addRow (new Object[] {p.getPrecioTotal(), p.getFechaCompra(), p.getFechaEntrega(), p.getNumeroPedido(), p.getUsuarioComprador().getIdUsuario(), p.getProductoComprado().getId()});
+			mDatos.addRow (new Object[] {p.getNumeroPedido(), p.getPrecioTotal(), p.getFechaCompra(), p.getFechaEntrega(), p.getUsuarioComprador().getIdUsuario(), p.getProductoComprado().getId()});
 		}
 		tDatos.setModel(mDatos);
 	}
