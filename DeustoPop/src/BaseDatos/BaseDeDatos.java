@@ -106,7 +106,7 @@ public class BaseDeDatos {
 					while (scanner.hasNextLine()) {
 						String linea = scanner.nextLine();
 						String[] datos = linea.split("\t");
-						consulta = "INSERT INTO Calzado (idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, idUsuario, enVenta, tipoProducto)"
+						consulta = "INSERT INTO Producto (idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, idUsuario, enVenta, tipoProducto)"
 								+ "VALUES (" + datos[0] + ", '" + datos[1] + "', '" + datos[2] + "', '" + datos[3]
 								+ "', " + datos[4] + ", '" + datos[5] + "', '" + datos[6] + "', '" + datos[7] + "', "
 								+ datos[8] + ", " + datos[9] + ", '" + datos[10] + "');";
@@ -239,7 +239,7 @@ public class BaseDeDatos {
 		statement.executeUpdate(consulta);
 
 		consulta = "CREATE TABLE CuentaBancaria "
-				+ "(idUsuario INTEGER, nTarjeta INTEGER PRIMARY KEY, DdineroTotal REAL, "
+				+ "(idUsuario INTEGER, nTarjeta INTEGER PRIMARY KEY, dineroTotal REAL, "
 				+ "FOREIGN KEY (idUsuario) REFERENCES CuentaBancaria (idUsuario));";
 
 		if (statement == null)

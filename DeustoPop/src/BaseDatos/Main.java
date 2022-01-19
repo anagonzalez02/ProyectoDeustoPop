@@ -220,7 +220,7 @@ public class Main extends JFrame {
 	
 	private void verCuentasBancarias() {
 		Vector<String> cabeceras = new Vector<String>(
-				Arrays.asList("idUsuario", "nTarjeta", "dineroTotal"));
+				Arrays.asList("nTarjeta", "dineroTotal"));
 		mDatos = new DefaultTableModel(new Vector<Vector<Object>>(), cabeceras);
 		ArrayList <CuentaBancaria> listaCuentas = BaseDeDatos.getCuentaBancaria();
 
