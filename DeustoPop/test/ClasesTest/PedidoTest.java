@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.awt.Image;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import org.junit.Test;
@@ -31,8 +32,13 @@ public class PedidoTest {
 	Producto producto = new Producto ("Zapatilla guay", "Cool", 10.65, Image, Estado.MALO, Colores.Azul, uVendedor);
 	Producto producto2 = new Producto ("Camiseta", "Vintage", 22.50, Image, Estado.BUENO, Colores.Multicolor, uVendedor);
 	
+	//private java.util.Date date1 = Calendar.getInstance().getTime();
+	//private java.util.Date date2 = Calendar.getInstance().getTime();
+
+	
 	
 	Pedido pedido = new Pedido(uComprador, producto);
+	//Pedido pedido2 = new Pedido(14.55, date1, date2, 1, uComprador, producto);
 	
 	
 	/**
