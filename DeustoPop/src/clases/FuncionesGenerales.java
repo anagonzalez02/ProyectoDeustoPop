@@ -1,6 +1,8 @@
 package clases;
 
+import java.io.File;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -24,6 +26,24 @@ public class FuncionesGenerales {
 	 * **/
 	
 	public static void metodoComprarProducto(Producto productoComprar, Usuario usuarioComprador) {
+		
+		if (new File("deustopop.bd").exists()) {
+			// Poner el parámetro a true si se quiere reiniciar la base de datos
+			try {
+				BaseDeDatos.abrirConexion( "deustopop.bd", false );
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}  // Abrir base de datos existente
+		} else {
+			try {
+				BaseDeDatos.abrirConexion( "deustopop.bd", true );
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}  // Crear base de datos con datos iniciales
+		}
+		
 		BaseDeDatos.modificarProductoEnVenta(productoComprar.getId());
 		restarDinero(productoComprar, usuarioComprador);
 		sumarDinero(productoComprar);
@@ -47,6 +67,24 @@ public class FuncionesGenerales {
 	 * **/
 		
 	public static void restarDinero (Producto productoComprar, Usuario usuarioComprador) {
+		
+		if (new File("deustopop.bd").exists()) {
+			// Poner el parámetro a true si se quiere reiniciar la base de datos
+			try {
+				BaseDeDatos.abrirConexion( "deustopop.bd", false );
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}  // Abrir base de datos existente
+		} else {
+			try {
+				BaseDeDatos.abrirConexion( "deustopop.bd", true );
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}  // Crear base de datos con datos iniciales
+		}
+		
 		if (usuarioComprador.getSaldo() - productoComprar.getPrecio() >= 0) {
 			usuarioComprador.setSaldo(usuarioComprador.getSaldo() - productoComprar.getPrecio());
 			BaseDeDatos.modificarUsuario(usuarioComprador.getIdUsuario(), usuarioComprador.getNombre(), usuarioComprador.getTelefono(), usuarioComprador.getCuentaB().getnTarjeta(), usuarioComprador.getSaldo() - productoComprar.getPrecio(), usuarioComprador.getEmail(), usuarioComprador.getVivienda().getDireccion());
@@ -68,6 +106,24 @@ public class FuncionesGenerales {
 	 * **/
 	
 	public static void sumarDinero (Producto productoComprar) {
+		
+		if (new File("deustopop.bd").exists()) {
+			// Poner el parámetro a true si se quiere reiniciar la base de datos
+			try {
+				BaseDeDatos.abrirConexion( "deustopop.bd", false );
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}  // Abrir base de datos existente
+		} else {
+			try {
+				BaseDeDatos.abrirConexion( "deustopop.bd", true );
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}  // Crear base de datos con datos iniciales
+		}
+		
 		Usuario usuarioVendedor = productoComprar.getUsuario();
 		usuarioVendedor.setSaldo(usuarioVendedor.getSaldo() + productoComprar.getPrecio());
 		BaseDeDatos.modificarUsuario(usuarioVendedor.getIdUsuario(), usuarioVendedor.getNombre(), usuarioVendedor.getTelefono(), usuarioVendedor.getCuentaB().getnTarjeta(), usuarioVendedor.getSaldo() + productoComprar.getPrecio(), usuarioVendedor.getEmail(), usuarioVendedor.getVivienda().getDireccion());
@@ -89,6 +145,24 @@ public class FuncionesGenerales {
 	
 	
 	public static ArrayList<Producto> buscarProductosRecomendadosSaldo (Usuario u, int n, ArrayList<Producto> posibles) {
+		
+		if (new File("deustopop.bd").exists()) {
+			// Poner el parámetro a true si se quiere reiniciar la base de datos
+			try {
+				BaseDeDatos.abrirConexion( "deustopop.bd", false );
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}  // Abrir base de datos existente
+		} else {
+			try {
+				BaseDeDatos.abrirConexion( "deustopop.bd", true );
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}  // Crear base de datos con datos iniciales
+		}
+		
 		if (n + 1 <= BaseDeDatos.getProductos().size()) {
 			if (BaseDeDatos.getProductosCompleto().get(n).getPrecio() <= u.getSaldo() && BaseDeDatos.getProductosCompleto().get(n).isEnVenta() == true && BaseDeDatos.getProductosCompleto().get(n).getUsuario() != u) {
 				posibles.add(BaseDeDatos.getProductosCompleto().get(n));
