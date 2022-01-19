@@ -3,9 +3,14 @@ package ventanas;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.EventObject;
 import javax.swing.*;
 import javax.swing.table.*;
+
+import clases.Producto;
+
+
 
 public class VentanaPrincipal extends JFrame{
 	public VentanaPrincipal() {
@@ -119,17 +124,38 @@ public class VentanaPrincipal extends JFrame{
     	});
         
         //implementacion del action listener en el
-        //boton vender que te transporta a la ventana vender
+        //boton posibles que  crea una funcion recursiva que
         //al clicar el boton "vender"
-        bPosibles.addActionListener(new ActionListener() {
-    		@Override
-    		public void actionPerformed(ActionEvent e) {
-    			
-    		}
-    	});
         
-    }
-    	
+        bPosibles.addActionListener(new ActionListener() {
+        	@Override
+        	public void actionPerformed(ActionEvent e) {
+
+
+        		private void calcularComprasPosibles( double disponible ) {
+        			ArrayList<Producto> lProds = new ArrayList<>();
+        			calcularComprasPosibles( listaProds, disponible, lProds );
+        		}
+        		private void calcularComprasPosibles( ArrayList<Producto> prods, double dineroQueda, ArrayList<Producto> lProdsComprados ) {
+        			if (dineroQueda < 0 ) {  // Caso base: compra imposible  (no hay suficiente dinero)
+        				return;
+        			} else if (dineroQueda < 50) {  // Caso base: compra posible con menos de 100 euros sobrantes
+        				System.out.println( "Posible compra (sobran " + String.format("%.2f",dineroQueda) + " euros): " + lProdsComprados );
+        			} else {  // Caso general - probar por combinatoria todos los productos posibles para comprar
+        				for (Producto p : prods) {
+        					lProdsComprados.add( p );
+        					calcularComprasPosibles( prods, dineroQueda - p.getPrecio(), lProdsComprados );
+        					lProdsComprados.remove( lProdsComprados.size()-1 );
+        					}
+        			}
+        		}
+        	
+        });
+
+
+        }
+        
+
     //creacion de la tabla
     public JTable CreateCompTable() {
         CompModel = new PanelTableModel();
