@@ -228,7 +228,7 @@ public class VentanaVenderCalzado extends JFrame implements ActionListener {
 				
 				zapato.getUsuario().getProductosEnVenta().add(zapato);
 				
-				BaseDeDatos.insertarProducto(zapato);
+				BaseDeDatos.insertarProducto(null, zapato);
 				
 			}
 		});
