@@ -1,0 +1,7 @@
+000000	000000	"Muy coloridos, me encantan (pilotes)"
+000001	000001	"Woah, es suuuuper blanca, me duelen los ojos"
+000002	000002	"Inspirados en una super estrella (litarelmente) rosadita"
+000003	000003	"Te da calorcito en invierno, ho ho ho"
+000004	000000	"Bien diva ella con el brilli-brilli"
+000005	000002	"Bien fresquitos pal verano, apenas usadas xd"
+000006	000003	"Me declaro fan de ese dedito jugueton xd"

@@ -3,9 +3,14 @@ package ventanas;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.EventObject;
 import javax.swing.*;
 import javax.swing.table.*;
+
+import clases.Producto;
+
+
 
 public class VentanaPrincipal extends JFrame{
 	public VentanaPrincipal() {
@@ -15,8 +20,10 @@ public class VentanaPrincipal extends JFrame{
     private JTable CompTable = null;
     private PanelTableModel CompModel = null;
     private JPanel panelTop;
+    private JPanel panelBot;
     private JButton bVender;
     private JButton bFiltrar;
+    private JButton bPosibles;
     private JLabel tPrecio;
 
     public static void main(String args[]) {
@@ -60,6 +67,13 @@ public class VentanaPrincipal extends JFrame{
         panelTop.setPreferredSize(new Dimension(50, 50));
         frame.getContentPane().add(panelTop, BorderLayout.NORTH);
         
+        //creacion de un panel para ponerlo debajo de la tabla,
+        //y que contenga el boton posibles
+        panelBot = new JPanel(new BorderLayout());
+        panelBot.setVisible(true);
+        panelBot.setPreferredSize(new Dimension(50, 50));
+        frame.getContentPane().add(panelBot, BorderLayout.SOUTH);
+        
         //creacion del boton vender e implementacion en el panelTop
         bVender = new JButton();
         bVender.setText("Vender");
@@ -76,6 +90,12 @@ public class VentanaPrincipal extends JFrame{
         tPrecio.setText("Saldo: *getSaldo*");
         tPrecio.setPreferredSize(new Dimension(175, 50));
         panelTop.add(tPrecio, BorderLayout.EAST);
+        
+      //creacion del boton posibles compras e implementacion en el panelTop
+        bPosibles = new JButton();
+        bPosibles.setText("Posibles compras");
+        bPosibles.setPreferredSize(new Dimension(175, 50));
+        panelBot.add(bPosibles, BorderLayout.CENTER);
         
         //implementacion del action listener en el
         //boton vender que te transporta a la ventana vender
@@ -103,8 +123,43 @@ public class VentanaPrincipal extends JFrame{
     		}
     	});
         
+        //implementacion del action listener en el
+        //boton posibles que  crea una funcion recursiva que
+        //al clicar el boton "vender"
+        
+        bPosibles.addActionListener(new ActionListener() {
+        	@Override
+        	public void actionPerformed(ActionEvent e) {
+
+
+        	//	private void calcularComprasPosibles( double disponible ) {
+        	//		ArrayList<Producto> lProds = new ArrayList<>();
+        	//		calcularComprasPosibles( listaProds, disponible, lProds );
+        	//	}
+        	//	private void calcularComprasPosibles( ArrayList<Producto> prods, double dineroQueda, ArrayList<Producto> lProdsComprados ) {
+        	//		if (dineroQueda < 0 ) {  // Caso base: compra imposible  (no hay suficiente dinero)
+        	//			return;
+        	//			
+        	//			//hay que cambiar el 50 de abajo por el precio del producto con menor precio
+        	//			
+        	//			
+        	//		} else if (dineroQueda < 50) {  // Caso base: compra posible con menos del precio del producto con menor precio
+        	//			System.out.println( "Posible compra (sobran " + String.format("%.2f",dineroQueda) + " euros): " + lProdsComprados );
+        	//		} else {  // Caso general - probar por combinatoria todos los productos posibles para comprar
+        	//			for (Producto p : prods) {
+        	//				lProdsComprados.add( p );
+        	//				calcularComprasPosibles( prods, dineroQueda - p.getPrecio(), lProdsComprados );
+        	//				lProdsComprados.remove( lProdsComprados.size()-1 );
+        	//				}
+        	//		}
+        		}
+        	
+        });
+
+
     }
-    	
+        
+
     //creacion de la tabla
     public JTable CreateCompTable() {
         CompModel = new PanelTableModel();
