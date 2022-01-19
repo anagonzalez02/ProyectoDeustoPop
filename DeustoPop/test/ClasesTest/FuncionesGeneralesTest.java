@@ -83,6 +83,7 @@ public class FuncionesGeneralesTest {
 		// Al tener saldo suficiente para pagar el producto, se le descontará el precio desde ahí directamente. Sin tener que recurrir a la cuenta bancaria.
 		// El saldo final será 73€ - 10.67€ = 62.33€
 		
+
 		assertTrue(saldoAntes - producto.getPrecio() == saldoDespues);
 		assertTrue(saldoDespues == 62.33);
 		assertTrue(dineroAntes == dineroDespues);
@@ -105,6 +106,7 @@ public class FuncionesGeneralesTest {
 		assertTrue(saldoDespues == 6);
 		assertTrue(dineroAntes - producto.getPrecio() == dineroDespues);
 		assertTrue(dineroDespues == 54.33);
+		assertFalse(dineroAntes == dineroDespues + producto.getPrecio());
 	}
 	
 	
