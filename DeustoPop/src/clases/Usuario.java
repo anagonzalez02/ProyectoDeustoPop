@@ -67,7 +67,24 @@ public class Usuario{
 		this.productosComprados = productosComprados;
 		this.productosFavoritos = productosFavoritos;
 	}
+	
 
+	public Usuario(String nombre, int telefono, CuentaBancaria cuentaB, double saldo, String email, String contrasenia, Lugar vivienda) {
+		super();
+		contadorU++;
+		this.idUsuario = contadorU;
+		this.nombre = nombre;
+		this.telefono = telefono;
+		this.cuentaB = cuentaB;
+		this.saldo = saldo;
+		this.email = email;
+		this.contrasenia = contrasenia;
+		this.vivienda = vivienda;
+		this.productosEnVenta = productosEnVenta;
+		this.productosVendidos = productosVendidos;
+		this.productosComprados = productosComprados;
+		this.productosFavoritos = productosFavoritos;
+	}
 	
 
 	public Usuario(String nombre, int telefono, CuentaBancaria cuentaB, String email, String contrasenia, Lugar vivienda) {

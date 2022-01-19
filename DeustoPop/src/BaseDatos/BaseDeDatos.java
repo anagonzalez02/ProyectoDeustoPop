@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -80,7 +79,7 @@ public class BaseDeDatos {
 						statement.executeUpdate(consulta);
 					}
 					scanner.close();
-
+					
 					scanner = new Scanner(BaseDeDatos.class.getResourceAsStream("CuentaBancaria.txt"));
 					while (scanner.hasNextLine()) {
 						String linea = scanner.nextLine();
@@ -1962,6 +1961,35 @@ public class BaseDeDatos {
 			logger.log(Level.INFO, "Statement: " + consulta);
 			ResultSet rs = statement.executeQuery(consulta);
 			int numPedido = rs.getInt("numeroPedido");
+			double precioTotal = rs.getDouble("precioTotal");
+			Date fechaCompra = rs.getDate("fechaCompra");
+			Date fechaEntrega = rs.getDate("fechaEntrega");
+			int idUsuario = rs.getInt("idUsuario");
+			int idProducto = rs.getInt("idProducto");
+
+			Usuario usuario = getUsuario(idUsuario);
+			Producto producto = getProducto(idProducto);
+
+			Pedido pedido = new Pedido(precioTotal, fechaCompra, fechaEntrega, numeroPedido, usuario, producto);
+			return pedido;
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Excepción", e);
+			return null;
+		}
+	}
+	
+	/**
+	 * Obtener un pedido concreto
+	 * @param numeroPedido 			El numero o identificativo del pedido del que se quiere saber la información
+	 * @return 						El pedido buscado
+	 */
+
+	public static Pedido getPedidoProducto(int idP) {
+		try (Statement statement = conexion.createStatement()) {
+			consulta = "SELECT * FROM Ropa WHERE idProducto = " + idP + ";";
+			logger.log(Level.INFO, "Statement: " + consulta);
+			ResultSet rs = statement.executeQuery(consulta);
+			int numeroPedido = rs.getInt("numeroPedido");
 			double precioTotal = rs.getDouble("precioTotal");
 			Date fechaCompra = rs.getDate("fechaCompra");
 			Date fechaEntrega = rs.getDate("fechaEntrega");
