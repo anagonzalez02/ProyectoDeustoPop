@@ -1,13 +1,19 @@
 package BaseDatos;
 
 import java.awt.Image;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -65,119 +71,17 @@ public class BaseDeDatos {
 				crearTablaBDPedido();
 				crearTablaBDFavoritos();
 				crearTablaBDComentarios();
+				
+				cargarUsuario();
+				cargarCuentaBancaria();
+				cargarLugar();
+				cargarProducto();
+				cargarCalzado();
+				cargarRopa();
+				cargarPedido();
+				cargarFavoritos();
+				cargarComentarios();
 
-				try {
-
-					scanner = new Scanner(BaseDeDatos.class.getResourceAsStream("Usuario.txt"));
-					while (scanner.hasNextLine()) {
-						String linea = scanner.nextLine();
-						String[] datos = linea.split("\t");
-						consulta = "INSERT INTO Usuario (idUsuario, nombre, telefono, nTarjeta, saldo, email, contrasenia, direccion)"
-								+ "VALUES (" + datos[0] + ", '" + datos[1] + "', " + datos[2] + ", " + datos[3] + ", "
-								+ datos[4] + ", '" + datos[5] + "', '" + datos[6] + "', '" + datos[7] + "');";
-						logger.log(Level.INFO, "Statement: " + consulta);
-						statement.executeUpdate(consulta);
-					}
-					scanner.close();
-					
-					scanner = new Scanner(BaseDeDatos.class.getResourceAsStream("CuentaBancaria.txt"));
-					while (scanner.hasNextLine()) {
-						String linea = scanner.nextLine();
-						String[] datos = linea.split("\t");
-						consulta = "INSERT INTO CuentaBancaria (idUsuario, nTarjeta, dineroTotal)" + "VALUES ("
-								+ datos[0] + ", " + datos[1] + ", " + datos[2] + ");";
-						logger.log(Level.INFO, "Statement: " + consulta);
-						statement.executeUpdate(consulta);
-					}
-					scanner.close();
-
-					scanner = new Scanner(BaseDeDatos.class.getResourceAsStream("Lugar.txt"));
-					while (scanner.hasNextLine()) {
-						String linea = scanner.nextLine();
-						String[] datos = linea.split("\t");
-						consulta = "INSERT INTO Lugar (direccion, nomCiud, nomPais)" + "VALUES ('" + datos[0] + "', "
-								+ datos[1] + ", '" + datos[2] + "');";
-						logger.log(Level.INFO, "Statement: " + consulta);
-						statement.executeUpdate(consulta);
-					}
-					scanner.close();
-
-					scanner = new Scanner(BaseDeDatos.class.getResourceAsStream("Producto.txt"));
-					while (scanner.hasNextLine()) {
-						String linea = scanner.nextLine();
-						String[] datos = linea.split("\t");
-						consulta = "INSERT INTO Producto (idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, idUsuario, enVenta, tipoProducto)"
-								+ "VALUES (" + datos[0] + ", '" + datos[1] + "', '" + datos[2] + "', '" + datos[3]
-								+ "', " + datos[4] + ", '" + datos[5] + "', '" + datos[6] + "', '" + datos[7] + "', "
-								+ datos[8] + ", " + datos[9] + ", '" + datos[10] + "');";
-						logger.log(Level.INFO, "Statement: " + consulta);
-						statement.executeUpdate(consulta);
-					}
-					scanner.close();
-
-					scanner = new Scanner(BaseDeDatos.class.getResourceAsStream("Calzado.txt"));
-					while (scanner.hasNextLine()) {
-						String linea = scanner.nextLine();
-						String[] datos = linea.split("\t");
-						consulta = "INSERT INTO Calzado (idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, idUsuario, enVenta, tallaCalzado)"
-								+ "VALUES (" + datos[0] + ", '" + datos[1] + "', '" + datos[2] + "', '" + datos[3]
-								+ "', " + datos[4] + ", '" + datos[5] + "', '" + datos[6] + "', '" + datos[7] + "', "
-								+ datos[8] + ", " + datos[9] + ", " + datos[10] + ");";
-						logger.log(Level.INFO, "Statement: " + consulta);
-						statement.executeUpdate(consulta);
-					}
-					scanner.close();
-
-					scanner = new Scanner(BaseDeDatos.class.getResourceAsStream("Ropa.txt"));
-					while (scanner.hasNextLine()) {
-						String linea = scanner.nextLine();
-						String[] datos = linea.split("\t");
-						consulta = "INSERT INTO Ropa (idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, idUsuario, enVenta, tallaRopa)"
-								+ "VALUES (" + datos[0] + ", '" + datos[1] + "', '" + datos[2] + "', '" + datos[3]
-								+ "', " + datos[4] + ", '" + datos[5] + "', '" + datos[6] + "', '" + datos[7] + "', "
-								+ datos[8] + ", " + datos[9] + ", '" + datos[10] + "');";
-						logger.log(Level.INFO, "Statement: " + consulta);
-						statement.executeUpdate(consulta);
-					}
-					scanner.close();
-
-					scanner = new Scanner(BaseDeDatos.class.getResourceAsStream("Favoritos.txt"));
-					while (scanner.hasNextLine()) {
-						String linea = scanner.nextLine();
-						String[] datos = linea.split("\t");
-						consulta = "INSERT INTO Favoritos (idProducto, idUsuario)" + "VALUES (" + datos[0] + ", "
-								+ datos[1] + ", '" + datos[2] + "');";
-						logger.log(Level.INFO, "Statement: " + consulta);
-						statement.executeUpdate(consulta);
-					}
-					scanner.close();
-
-					scanner = new Scanner(BaseDeDatos.class.getResourceAsStream("Comentarios.txt"));
-					while (scanner.hasNextLine()) {
-						String linea = scanner.nextLine();
-						String[] datos = linea.split("\t");
-						consulta = "INSERT INTO Comentarios (idProducto, idUsuario, comentario)" + "VALUES (" + datos[0]
-								+ ", " + datos[1] + ", '" + datos[2] + "');";
-						logger.log(Level.INFO, "Statement: " + consulta);
-						statement.executeUpdate(consulta);
-					}
-					scanner.close();
-
-					scanner = new Scanner(BaseDeDatos.class.getResourceAsStream("Pedido.txt"));
-					while (scanner.hasNextLine()) {
-						String linea = scanner.nextLine();
-						String[] datos = linea.split("\t");
-						consulta = "INSERT INTO Pedido (precioTotal, fechaCompra, fechaEntrega, numeroPedido, idUsuario, idComprador)"
-								+ "VALUES (" + datos[0] + ", '" + datos[1] + "', '" + datos[2] + "', " + datos[3] + ", "
-								+ datos[4] + ", " + datos[5] + ");";
-						logger.log(Level.INFO, "Statement: " + consulta);
-						statement.executeUpdate(consulta);
-					}
-					scanner.close();
-
-				} catch (Exception e) {
-					logger.log(Level.SEVERE, "Excepción", e);
-				}
 			}
 			return true;
 		} catch (Exception e) {
@@ -428,6 +332,268 @@ public class BaseDeDatos {
 			// e.printStackTrace();
 		}
 	}
+	
+	
+	/*********************************************************************************************************************************************************
+	 * 																CARGAR DATOS
+	 **********************************************************************************************************************************************************/
+
+	/**
+	 * Carga los datos del archivo Usuario.csv y los mete en la tabla Usuario
+	 * @throws SQLException 
+	 * @throws IOException 
+	 * **/
+	
+	public static void cargarUsuario () throws SQLException, IOException {
+		
+		Statement statement = conexion.createStatement();
+		
+		BufferedReader reader = new BufferedReader(new FileReader("Usuario.csv"));
+		
+		String line = null;
+		while ((line = reader.readLine()) != null) {
+			String[] tokens = line.split(",");
+			
+			consulta = "INSERT INTO Usuario (idUsuario, nombre, telefono, nTarjeta, saldo, email, contrasenia, direccion)"
+					+ "VALUES (" + tokens[0] + ", '" + tokens[1] + "', " + tokens[2] + ", " + tokens[3] + ", "
+					+ tokens[4] + ", '" + tokens[5] + "', '" + tokens[6] + "', '" + tokens[7] + "');";
+			
+			logger.log(Level.INFO, "Statement: " + consulta);
+			statement.executeUpdate(consulta);
+			
+		}
+		reader.close();
+		
+	}
+	
+	
+	/**
+	 * Carga los datos del archivo CuentaBancaria.csv y los mete en la tabla CuentaBancaria
+	 * @throws SQLException 
+	 * @throws IOException 
+	 * **/
+	
+	public static void cargarCuentaBancaria () throws SQLException, IOException {
+		
+		Statement statement = conexion.createStatement();
+		
+		BufferedReader reader = new BufferedReader(new FileReader("CuentaBancaria.csv"));
+		
+		String line = null;
+		while ((line = reader.readLine()) != null) {
+			String[] tokens = line.split(",");
+			
+			consulta = "INSERT INTO CuentaBancaria (idUsuario, nTarjeta, dineroTotal)" + "VALUES ("
+					+ tokens[0] + ", " + tokens[1] + ", " + tokens[2] + ");";
+			
+			logger.log(Level.INFO, "Statement: " + consulta);
+			statement.executeUpdate(consulta);
+			
+		}
+		reader.close();
+		
+	}
+	
+	
+	/**
+	 * Carga los datos del archivo Lugar.csv y los mete en la tabla Lugar
+	 * @throws SQLException 
+	 * @throws IOException 
+	 * **/
+	
+	public static void cargarLugar () throws SQLException, IOException {
+		
+		Statement statement = conexion.createStatement();
+		
+		BufferedReader reader = new BufferedReader(new FileReader("Lugar.csv"));
+		
+		String line = null;
+		while ((line = reader.readLine()) != null) {
+			String[] tokens = line.split(",");
+			
+			consulta = "INSERT INTO Lugar (direccion, nomCiud, nomPais)" + "VALUES ('" 
+					+ tokens[0] + "', " + tokens[1] + ", '" + tokens[2] + "');";
+			
+			logger.log(Level.INFO, "Statement: " + consulta);
+			statement.executeUpdate(consulta);
+			
+		}
+		reader.close();
+		
+	}
+	
+	
+	/**
+	 * Carga los datos del archivo Producto.csv y los mete en la tabla Producto
+	 * @throws SQLException 
+	 * @throws IOException 
+	 * **/
+	
+	public static void cargarProducto () throws SQLException, IOException {
+		
+		Statement statement = conexion.createStatement();
+		
+		BufferedReader reader = new BufferedReader(new FileReader("Producto.csv"));
+		
+		String line = null;
+		while ((line = reader.readLine()) != null) {
+			String[] tokens = line.split(",");
+			
+			consulta = "INSERT INTO Producto (idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, idUsuario, enVenta, tipoProducto)"
+					+ "VALUES (" + tokens[0] + ", '" + tokens[1] + "', '" + tokens[2] + "', '" + tokens[3] + "', " + tokens[4] + ", '" + tokens[5] 
+					+ "', '" + tokens[6] + "', '" + tokens[7] + "', " + tokens[8] + ", " + tokens[9] + ", '" + tokens[10] + "');";
+			
+			logger.log(Level.INFO, "Statement: " + consulta);
+			statement.executeUpdate(consulta);
+			
+		}
+		reader.close();
+		
+	}
+	
+	
+	/**
+	 * Carga los datos del archivo Calzado.csv y los mete en la tabla Calzado
+	 * @throws SQLException 
+	 * @throws IOException 
+	 * **/
+	
+	public static void cargarCalzado () throws SQLException, IOException {
+		
+		Statement statement = conexion.createStatement();
+		
+		BufferedReader reader = new BufferedReader(new FileReader("Calzado.csv"));
+		
+		String line = null;
+		while ((line = reader.readLine()) != null) {
+			String[] tokens = line.split(",");
+			
+			consulta = "INSERT INTO Calzado (idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, idUsuario, enVenta, tallaCalzado)"
+					+ "VALUES (" + tokens[0] + ", '" + tokens[1] + "', '" + tokens[2] + "', '" + tokens[3] + "', " + tokens[4] + ", '" + tokens[5] + "', '"
+					+ tokens[6] + "', '" + tokens[7] + "', " + tokens[8] + ", " + tokens[9] + ", " + tokens[10] + ");";
+			
+			logger.log(Level.INFO, "Statement: " + consulta);
+			statement.executeUpdate(consulta);
+			
+		}
+		reader.close();
+		
+	}
+	
+	
+	/**
+	 * Carga los datos del archivo Ropa.csv y los mete en la tabla Ropa
+	 * @throws SQLException 
+	 * @throws IOException 
+	 * **/
+	
+	public static void cargarRopa () throws SQLException, IOException {
+		
+		Statement statement = conexion.createStatement();
+		
+		BufferedReader reader = new BufferedReader(new FileReader("Ropa.csv"));
+		
+		String line = null;
+		while ((line = reader.readLine()) != null) {
+			String[] tokens = line.split(",");
+			
+			consulta = "INSERT INTO Ropa (idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, idUsuario, enVenta, tallaRopa)"
+					+ "VALUES (" + tokens[0] + ", '" + tokens[1] + "', '" + tokens[2] + "', '" + tokens[3] + "', " + tokens[4] + ", '"
+					+ tokens[5] + "', '" + tokens[6] + "', '" + tokens[7] + "', " + tokens[8] + ", " + tokens[9] + ", '" + tokens[10] + "');";
+			
+			logger.log(Level.INFO, "Statement: " + consulta);
+			statement.executeUpdate(consulta);
+			
+		}
+		reader.close();
+		
+	}
+	
+	
+	/**
+	 * Carga los datos del archivo Pedido.csv y los mete en la tabla Pedido
+	 * @throws SQLException 
+	 * @throws IOException 
+	 * **/
+	
+	public static void cargarPedido () throws SQLException, IOException {
+		
+		Statement statement = conexion.createStatement();
+		
+		BufferedReader reader = new BufferedReader(new FileReader("Pedido.csv"));
+		
+		String line = null;
+		while ((line = reader.readLine()) != null) {
+			String[] tokens = line.split(",");
+			
+			consulta = "INSERT INTO Pedido (precioTotal, fechaCompra, fechaEntrega, numeroPedido, idUsuario, idComprador)"
+					+ "VALUES (" + tokens[0] + ", '" + tokens[1] + "', '" + tokens[2] + "', " + tokens[3] + ", " + tokens[4] + ", " + tokens[5] + ");";
+			
+			logger.log(Level.INFO, "Statement: " + consulta);
+			statement.executeUpdate(consulta);
+			
+		}
+		reader.close();
+		
+	}
+	
+	
+	/**
+	 * Carga los datos del archivo Favoritos.csv y los mete en la tabla Favoritos
+	 * @throws SQLException 
+	 * @throws IOException 
+	 * **/
+	
+	public static void cargarFavoritos () throws SQLException, IOException {
+		
+		Statement statement = conexion.createStatement();
+		
+		BufferedReader reader = new BufferedReader(new FileReader("Favoritos.csv"));
+		
+		String line = null;
+		while ((line = reader.readLine()) != null) {
+			String[] tokens = line.split(",");
+			
+			consulta = "INSERT INTO Favoritos (idProducto, idUsuario)"
+					+ "VALUES (" + tokens[0] + ", " + tokens[1] + ", '" + tokens[2] + "');";
+			
+			logger.log(Level.INFO, "Statement: " + consulta);
+			statement.executeUpdate(consulta);
+			
+		}
+		reader.close();
+		
+	}
+	
+	
+	/**
+	 * Carga los datos del archivo Comentarios.csv y los mete en la tabla Comentarios
+	 * @throws SQLException 
+	 * @throws IOException 
+	 * **/
+	
+	public static void cargarComentarios () throws SQLException, IOException {
+		
+		Statement statement = conexion.createStatement();
+		
+		BufferedReader reader = new BufferedReader(new FileReader("Comentarios.csv"));
+		
+		String line = null;
+		while ((line = reader.readLine()) != null) {
+			String[] tokens = line.split(",");
+			
+			consulta = "INSERT INTO Comentarios (idProducto, idUsuario, comentario) "
+					+ "VALUES (" + tokens[0] + ", " + tokens[1] + ", '" + tokens[2] + "');";
+			
+			logger.log(Level.INFO, "Statement: " + consulta);
+			statement.executeUpdate(consulta);
+			
+		}
+		reader.close();
+		
+	}
+	
+	
 
 	/*********************************************************************************************************************************************************
 	 * 																TABLA USUARIO
