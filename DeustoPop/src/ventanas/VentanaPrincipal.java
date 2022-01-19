@@ -15,8 +15,10 @@ public class VentanaPrincipal extends JFrame{
     private JTable CompTable = null;
     private PanelTableModel CompModel = null;
     private JPanel panelTop;
+    private JPanel panelBot;
     private JButton bVender;
     private JButton bFiltrar;
+    private JButton bPosibles;
     private JLabel tPrecio;
 
     public static void main(String args[]) {
@@ -60,6 +62,13 @@ public class VentanaPrincipal extends JFrame{
         panelTop.setPreferredSize(new Dimension(50, 50));
         frame.getContentPane().add(panelTop, BorderLayout.NORTH);
         
+        //creacion de un panel para ponerlo debajo de la tabla,
+        //y que contenga el boton posibles
+        panelBot = new JPanel(new BorderLayout());
+        panelBot.setVisible(true);
+        panelBot.setPreferredSize(new Dimension(50, 50));
+        frame.getContentPane().add(panelBot, BorderLayout.SOUTH);
+        
         //creacion del boton vender e implementacion en el panelTop
         bVender = new JButton();
         bVender.setText("Vender");
@@ -76,6 +85,12 @@ public class VentanaPrincipal extends JFrame{
         tPrecio.setText("Saldo: *getSaldo*");
         tPrecio.setPreferredSize(new Dimension(175, 50));
         panelTop.add(tPrecio, BorderLayout.EAST);
+        
+      //creacion del boton posibles compras e implementacion en el panelTop
+        bPosibles = new JButton();
+        bPosibles.setText("Posibles compras");
+        bPosibles.setPreferredSize(new Dimension(175, 50));
+        panelBot.add(bPosibles, BorderLayout.CENTER);
         
         //implementacion del action listener en el
         //boton vender que te transporta a la ventana vender
@@ -100,6 +115,16 @@ public class VentanaPrincipal extends JFrame{
     	        ventana.setVisible(true);
     			dispose();
     			frame.setVisible(false);
+    		}
+    	});
+        
+        //implementacion del action listener en el
+        //boton vender que te transporta a la ventana vender
+        //al clicar el boton "vender"
+        bPosibles.addActionListener(new ActionListener() {
+    		@Override
+    		public void actionPerformed(ActionEvent e) {
+    			
     		}
     	});
         
