@@ -152,7 +152,7 @@ public class VentanaPrincipal extends JFrame{
         	//				lProdsComprados.remove( lProdsComprados.size()-1 );
         	//				}
         	//		}
-        	//	}
+        		}
         	
         });
 
