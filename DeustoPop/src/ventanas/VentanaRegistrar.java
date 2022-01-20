@@ -89,49 +89,41 @@ public class VentanaRegistrar extends JFrame implements ActionListener{
 		botonRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String d = FuncionesGenerales.code(password.getText());
-				if (d.length() >= 8) {
-					String er = "[0-9]{1,}[A-Z]{1,}[a-z]{1,}";
-					boolean correcto = Pattern.matches(er, d);
-					if (correcto) {
-						String n= cajaNombre.getText();
-						int telf = Integer.parseInt(cajaTelefono.getText());
-						int tarj = Integer.parseInt(cajaTarjeta.getText());
-						CuentaBancaria cuenta = new CuentaBancaria(tarj, 5.00);
-						String email= cajaEmail.getText();
-						String ciudad= cajaCiudad.getText();
-						String direccion= cajaDireccion.getText();
-						String pais = cajaPais.getText();
-						if (BaseDeDatos.existeEmailUsuario(email) == false && BaseDeDatos.existeNombreUsuario(n) == false) {
-							Lugar l = new Lugar(ciudad, direccion, pais);
-							BaseDeDatos.insertarLugar(l);
-							Usuario u = new Usuario(n, telf, cuenta, email, d, l);
-							BaseDeDatos.insertarUsuario(u);
-							BaseDeDatos.insertarCuentaBancaria(cuenta, u);
-							JOptionPane.showMessageDialog(null, "Registro realizado con exito", "REGISTRO", JOptionPane.INFORMATION_MESSAGE);
-							vaciarCampos();
-							
-							if (ventanaVolver == "VentanaUsuario") {
-								VentanaUsuario ventana = new VentanaUsuario(u);
-						        ventana.setVisible(true);
-								dispose();
-							} else if (ventanaVolver == "VentanaProducto") {
-								VentanaProducto ventana = new VentanaProducto(producto, u, ventanaVolver);
-						        ventana.setVisible(true);
-								dispose();
-							} else if (ventanaVolver == null) {
-								VentanaPrincipal.main(null);
-				    			dispose();
-							}
 
-							
-						} else {
-							JOptionPane.showMessageDialog(null, "El nombre o email introducido ya exisste. Prueba con otro", "¡¡ERROR!!",JOptionPane.ERROR_MESSAGE);
-						}
-					} else {
-						JOptionPane.showMessageDialog(null, "La contrasenia debe tener al menos 1 mayuscula, 1 minuscula, 1 numero", "¡¡ERROR!!",JOptionPane.ERROR_MESSAGE);
+				String n = cajaNombre.getText();
+				int telf = Integer.parseInt(cajaTelefono.getText());
+				int tarj = Integer.parseInt(cajaTarjeta.getText());
+				CuentaBancaria cuenta = new CuentaBancaria(tarj, 5.00);
+				String email = cajaEmail.getText();
+				String ciudad = cajaCiudad.getText();
+				String direccion = cajaDireccion.getText();
+				String pais = cajaPais.getText();
+				if (BaseDeDatos.existeEmailUsuario(email) == false && BaseDeDatos.existeNombreUsuario(n) == false) {
+					Lugar l = new Lugar(ciudad, direccion, pais);
+					BaseDeDatos.insertarLugar(l);
+					Usuario u = new Usuario(n, telf, cuenta, email, d, l);
+					BaseDeDatos.insertarUsuario(u);
+					BaseDeDatos.insertarCuentaBancaria(cuenta, u);
+					JOptionPane.showMessageDialog(null, "Registro realizado con exito", "REGISTRO",
+							JOptionPane.INFORMATION_MESSAGE);
+					vaciarCampos();
+
+					if (ventanaVolver == "VentanaUsuario") {
+						VentanaUsuario ventana = new VentanaUsuario(u);
+						ventana.setVisible(true);
+						dispose();
+					} else if (ventanaVolver == "VentanaProducto") {
+						VentanaProducto ventana = new VentanaProducto(producto, u, ventanaVolver);
+						ventana.setVisible(true);
+						dispose();
+					} else if (ventanaVolver == null) {
+						VentanaPrincipal.main(null);
+						dispose();
 					}
+
 				} else {
-					JOptionPane.showMessageDialog(null, "La contrasenia debe tener al menos 8 caracteres", "¡¡ERROR!!",JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "El nombre o email introducido ya exisste. Prueba con otro",
+							"¡¡ERROR!!", JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}
