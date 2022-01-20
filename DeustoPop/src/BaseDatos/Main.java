@@ -1,6 +1,8 @@
 package BaseDatos;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -21,6 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import clases.Calzado;
@@ -56,6 +59,8 @@ public class Main extends JFrame {
 	private JButton btnFavorito;
 	private JButton btnComentario;
 	private JButton btnPedido;
+	
+	private JButton btnEnVenta;
 	
 	
 	public Main () {
@@ -170,6 +175,27 @@ public class Main extends JFrame {
 			}
 		});
 		
+		// Boton que pondrá en verde las filas de productos que están en venta
+		btnEnVenta = new JButton("Productos en venta");
+		btnEnVenta.addActionListener( new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				lInfo = new JLabel("Pedidos");
+				verProducto();
+				tDatos.setDefaultRenderer( Object.class, new DefaultTableCellRenderer() {
+					@Override
+					public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+							int row, int column) {
+						Component elementoActual = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+						if(table.getValueAt(row, 9).toString().equals("true")){
+							elementoActual.setBackground( Color.green );
+						} 
+						return elementoActual;
+					}
+				});
+			}
+		});
+		
 		
 		panelBotonera = new JPanel();
 		
@@ -182,6 +208,7 @@ public class Main extends JFrame {
 		panelBotonera.add(btnFavorito);
 		panelBotonera.add(btnComentario);
 		panelBotonera.add(btnPedido);
+		panelBotonera.add(btnEnVenta);
 		
 		lInfo = new JLabel("Usuarios");
 		pNorte = new JPanel();
