@@ -28,21 +28,23 @@ public class VentanaPrincipal extends JFrame {
 	private JButton bPosibles;
 	private JButton btnPerfil;
 	private ArrayList<Producto> listaProds = BaseDeDatos.getProductos();
+	
+    
+    public static void main(String args[]) {
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+            //UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception fail) {
+        }
+        SwingUtilities.invokeLater(new Runnable() {
 
-	public static void main(String args[]) {
-		try {
-			UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-			// UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Exception fail) {
-		}
-		SwingUtilities.invokeLater(new Runnable() {
-
-			@Override
-			public void run() {
-				new VentanaPrincipal().makeUI(null);
-			}
-		});
-	}
+            @Override
+            public void run() {
+                new VentanaPrincipal().makeUI(null);
+            }
+        });
+    }
+    
 
 	// como si fuese el main (sin serlo)
 	// esta ventana no tiene main, y solo se crea al ser ejecutada
