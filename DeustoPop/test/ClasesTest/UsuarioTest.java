@@ -15,7 +15,7 @@ import clases.Usuario;
 
 public class UsuarioTest {
 
-	private static final Image Image = null;
+	private static final String Image = null;
 	Usuario uVendedor = new Usuario ("peepee", 600000000, new CuentaBancaria(8727193, 3), "pepeee@email.com", "contrasenya", new Lugar("Calle Dato 4", "Vitoria", "Espana"));
 
 	Producto producto = new Producto ("Zapatilla guay", "Cool", 10.65, Image, Estado.MALO, Colores.Azul, uVendedor);

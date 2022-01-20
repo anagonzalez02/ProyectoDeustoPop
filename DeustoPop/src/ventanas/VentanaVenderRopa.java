@@ -234,15 +234,14 @@ public class VentanaVenderRopa extends JFrame implements ActionListener {
 				String etiquetaRopa = cajaEtiqueta.getText();
 				double precioRopa = (double) spinnerPrecio.getValue();
 				// HAY QUE CAMBIAR ESTO (imagen)
-				Image imagenRopa = null;
+				String imagenRopa = null;
 				Estado estadoRopa = (Estado) comboEstado.getSelectedItem();
 				Colores colorRopa = (Colores) comboColor.getSelectedItem();
 				// HAY QUE CAMBIAR ESTO (usuario)
 				Usuario usuarioRopa = new Usuario();
 				TallasRopa tallaRopa = (TallasRopa) comboTalla.getSelectedItem();
 
-				Ropa prenda = new Ropa(nombreRopa, etiquetaRopa, precioRopa, imagenRopa, estadoRopa, colorRopa,
-						usuarioRopa, tallaRopa);
+				Ropa prenda = new Ropa(nombreRopa, etiquetaRopa, precioRopa, imagenRopa, estadoRopa, colorRopa, usuarioRopa, tallaRopa);
 
 				prenda.getUsuario().getProductosEnVenta().add(prenda);
 

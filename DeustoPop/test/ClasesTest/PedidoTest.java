@@ -24,7 +24,7 @@ public class PedidoTest {
 	 * Además de crear el usuario comprador y el producto.
 	 * **/
 	
-	private static final Image Image = null;
+	private static final String Image = null;
 	Usuario uVendedor = new Usuario ("peepee", 600000000, new CuentaBancaria(8727193, 3), "pepeee@email.com", "contrasenya", new Lugar("Calle Dato 4", "Vitoria", "Espana"));
 	Usuario uComprador = new Usuario ("peeepiitaa", 611111111, new CuentaBancaria(8727136, 5252.00), "pepa@email.com", "jeje", new Lugar("Gran Via 54", "Bilbao", "Españita"));
 	Usuario uComprador2 = new Usuario ("luukeee", 622222222, new CuentaBancaria(7377383, 34.00), "luke@email.com", "contra", new Lugar("Oh la la", "Paris", "Francia"));

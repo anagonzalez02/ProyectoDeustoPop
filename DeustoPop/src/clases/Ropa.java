@@ -24,12 +24,12 @@ public class Ropa extends Producto {
 	
 	private TallasRopa TallaRopa;
 	
-	public Ropa(int id, String nombre, Date fechaSubida, String etiquetas, double precio, Image imagen, Estado estado, Colores color, Usuario usuario, boolean enVenta, TallasRopa TallaRopa, HashMap <Usuario, String> comentario) {
+	public Ropa(int id, String nombre, Date fechaSubida, String etiquetas, double precio, String imagen, Estado estado, Colores color, Usuario usuario, boolean enVenta, TallasRopa TallaRopa, HashMap <Usuario, String> comentario) {
 		super(id, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, comentario);
 		this.TallaRopa = TallaRopa;
 	}
 	
-	public Ropa(String nombre, String etiquetas, double precio, Image imagen, Estado estado, Colores color, Usuario usuario, TallasRopa TallaRopa) {
+	public Ropa(String nombre, String etiquetas, double precio, String imagen, Estado estado, Colores color, Usuario usuario, TallasRopa TallaRopa) {
 		super(nombre, etiquetas, precio, imagen, estado, color, usuario);
 		this.TallaRopa = TallaRopa;
 	}

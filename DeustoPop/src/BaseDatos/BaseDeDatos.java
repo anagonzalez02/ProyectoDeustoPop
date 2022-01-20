@@ -1131,8 +1131,6 @@ public class BaseDeDatos {
 			String etiquetas = rs.getString("etiquetas");
 			Double precio = rs.getDouble("precio");
 			String imagen = rs.getString("imagen");
-			// HAY QUE CAMBIARLO
-			Image foto = null;
 			String estadoStr = rs.getString("estado");
 			Estado estado = null;
 			if (estadoStr == "MALO") {
@@ -1176,8 +1174,7 @@ public class BaseDeDatos {
 			}
 			HashMap<Usuario, String> comentarios = getComentariosProducto(idProducto);
 
-			Producto p = new Producto(idProducto, nombre, fechaSubida, etiquetas, precio, foto, estado, color, usuario,
-					enVenta, comentarios);
+			Producto p = new Producto(idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, comentarios);
 
 			return p;
 		} catch (Exception e) {
@@ -1206,8 +1203,6 @@ public class BaseDeDatos {
 				String etiquetas = rs.getString("etiquetas");
 				Double precio = rs.getDouble("precio");
 				String imagen = rs.getString("imagen");
-				// HAY QUE CAMBIARLO
-				Image foto = null;
 				String estadoStr = rs.getString("estado");
 				Estado estado = null;
 				if (estadoStr == "MALO") {
@@ -1251,8 +1246,7 @@ public class BaseDeDatos {
 				}
 				HashMap<Usuario, String> comentarios = getComentariosProducto(idProducto);
 
-				listaProductos.add(new Producto(idProducto, nombre, fechaSubida, etiquetas, precio, foto, estado, color,
-						usuario, enVenta, comentarios));
+				listaProductos.add(new Producto(idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, comentarios));
 			}
 			return listaProductos;
 		} catch (Exception e) {
@@ -1281,8 +1275,6 @@ public class BaseDeDatos {
 				String etiquetas = rs.getString("etiquetas");
 				Double precio = rs.getDouble("precio");
 				String imagen = rs.getString("imagen");
-				// HAY QUE CAMBIARLO
-				Image foto = null;
 				String estadoStr = rs.getString("estado");
 				Estado estado = null;
 				if (estadoStr == "MALO") {
@@ -1329,12 +1321,10 @@ public class BaseDeDatos {
 
 				if (tipoProducto == "Calzado") {
 					double talla = getCalzado(idProducto).getTallaCalzado();
-					listaProductos.add(new Calzado(idProducto, nombre, fechaSubida, etiquetas, precio, foto, estado,
-							color, usuario, enVenta, talla, comentarios));
+					listaProductos.add(new Calzado(idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, talla, comentarios));
 				} else if (tipoProducto == "Ropa") {
 					TallasRopa talla = getRopa(idProducto).getTallaRopa();
-					listaProductos.add(new Ropa(idProducto, nombre, fechaSubida, etiquetas, precio, foto, estado, color,
-							usuario, enVenta, talla, comentarios));
+					listaProductos.add(new Ropa(idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, talla, comentarios));
 				}
 			}
 			return listaProductos;
@@ -1363,8 +1353,6 @@ public class BaseDeDatos {
 				String etiquetas = rs.getString("etiquetas");
 				Double precio = rs.getDouble("precio");
 				String imagen = rs.getString("imagen");
-				// HAY QUE CAMBIARLO
-				Image foto = null;
 				String estadoStr = rs.getString("estado");
 				Estado estado = null;
 				if (estadoStr == "MALO") {
@@ -1411,12 +1399,10 @@ public class BaseDeDatos {
 
 				if (tipoProducto == "Calzado") {
 					double talla = getCalzado(idProducto).getTallaCalzado();
-					listaProductos.add(new Calzado(idProducto, nombre, fechaSubida, etiquetas, precio, foto, estado,
-							color, usuario, enVenta, talla, comentarios));
+					listaProductos.add(new Calzado(idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, talla, comentarios));
 				} else if (tipoProducto == "Ropa") {
 					TallasRopa talla = getRopa(idProducto).getTallaRopa();
-					listaProductos.add(new Ropa(idProducto, nombre, fechaSubida, etiquetas, precio, foto, estado, color,
-							usuario, enVenta, talla, comentarios));
+					listaProductos.add(new Ropa(idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, talla, comentarios));
 				}
 			}
 			return listaProductos;
@@ -1444,8 +1430,6 @@ public class BaseDeDatos {
 				String etiquetas = rs.getString("etiquetas");
 				Double precio = rs.getDouble("precio");
 				String imagen = rs.getString("imagen");
-				// HAY QUE CAMBIARLO
-				Image foto = null;
 				String estadoStr = rs.getString("estado");
 				Estado estado = null;
 				if (estadoStr == "MALO") {
@@ -1490,8 +1474,7 @@ public class BaseDeDatos {
 				HashMap<Usuario, String> comentarios = getComentariosProducto(idProducto);
 
 				if (enVenta) {
-					listaProductosEnVenta.add(new Producto(idProducto, nombre, fechaSubida, etiquetas, precio, foto,
-							estado, color, usuario, enVenta, comentarios));
+					listaProductosEnVenta.add(new Producto(idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, comentarios));
 				}
 			}
 			return listaProductosEnVenta;
@@ -1607,8 +1590,6 @@ public class BaseDeDatos {
 			String etiquetas = rs.getString("etiquetas");
 			Double precio = rs.getDouble("precio");
 			String imagen = rs.getString("imagen");
-			// HAY QUE CAMBIARLO
-			Image foto = null;
 			String estadoStr = rs.getString("estado");
 			Estado estado = null;
 			if (estadoStr == "MALO") {
@@ -1654,7 +1635,7 @@ public class BaseDeDatos {
 
 			HashMap<Usuario, String> comentarios = getComentariosProducto(idProducto);
 
-			Calzado calzado = new Calzado(idProducto, nombre, fechaSubida, etiquetas, precio, foto, estado, color, usuario, enVenta, talla, comentarios);
+			Calzado calzado = new Calzado(idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, talla, comentarios);
 
 			return calzado;
 		} catch (Exception e) {
@@ -1681,8 +1662,6 @@ public class BaseDeDatos {
 				String etiquetas = rs.getString("etiquetas");
 				Double precio = rs.getDouble("precio");
 				String imagen = rs.getString("imagen");
-				// HAY QUE CAMBIARLO
-				Image foto = null;
 				String estadoStr = rs.getString("estado");
 				Estado estado = null;
 				if (estadoStr == "MALO") {
@@ -1728,8 +1707,7 @@ public class BaseDeDatos {
 
 				HashMap<Usuario, String> comentarios = getComentariosProducto(id);
 
-				Calzado calzado = new Calzado(id, nombre, fechaSubida, etiquetas, precio, foto, estado, color, usuario,
-						enVenta, talla, comentarios);
+				Calzado calzado = new Calzado(id, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, talla, comentarios);
 
 				listaCalzado.add(calzado);
 			}
@@ -1846,8 +1824,6 @@ public class BaseDeDatos {
 			String etiquetas = rs.getString("etiquetas");
 			Double precio = rs.getDouble("precio");
 			String imagen = rs.getString("imagen");
-			// HAY QUE CAMBIARLO
-			Image foto = null;
 			String estadoStr = rs.getString("estado");
 			Estado estado = null;
 			if (estadoStr == "MALO") {
@@ -1905,8 +1881,7 @@ public class BaseDeDatos {
 
 			HashMap<Usuario, String> comentarios = getComentariosProducto(idProducto);
 
-			Ropa ropa = new Ropa(idProducto, nombre, fechaSubida, etiquetas, precio, foto, estado, color, usuario,
-					enVenta, talla, comentarios);
+			Ropa ropa = new Ropa(idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, talla, comentarios);
 
 			return ropa;
 		} catch (Exception e) {
@@ -1933,8 +1908,6 @@ public class BaseDeDatos {
 				String etiquetas = rs.getString("etiquetas");
 				Double precio = rs.getDouble("precio");
 				String imagen = rs.getString("imagen");
-				// HAY QUE CAMBIARLO
-				Image foto = null;
 				String estadoStr = rs.getString("estado");
 				Estado estado = null;
 				if (estadoStr == "MALO") {
@@ -1992,8 +1965,7 @@ public class BaseDeDatos {
 
 				HashMap<Usuario, String> comentarios = getComentariosProducto(id);
 
-				Ropa ropa = new Ropa(id, nombre, fechaSubida, etiquetas, precio, foto, estado, color, usuario, enVenta,
-						talla, comentarios);
+				Ropa ropa = new Ropa(id, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, talla, comentarios);
 
 				listaRopa.add(ropa);
 			}

@@ -22,7 +22,7 @@ import clases.Usuario;
 
 public class FuncionesGeneralesTest {
 	
-	Image image;
+	String image;
 	Usuario uComprador1;
 	Usuario uComprador2;
 	Usuario uVendedor;

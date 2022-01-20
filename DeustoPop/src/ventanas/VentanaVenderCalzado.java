@@ -217,7 +217,7 @@ public class VentanaVenderCalzado extends JFrame implements ActionListener {
 				String etiquetaCalzado = cajaEtiqueta.getText();
 				double precioCalzado = (double) spinnerPrecio.getValue();
 				// HAY QUE CAMBIAR ESTO (imagen)
-				Image imagenCalzado = null;
+				String imagenCalzado = null;
 				Estado estadoCalzado = (Estado) comboEstado.getSelectedItem();
 				Colores colorCalzado = (Colores) comboColor.getSelectedItem();
 				// HAY QUE CAMBIAR ESTO (usuario)

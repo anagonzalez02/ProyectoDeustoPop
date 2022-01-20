@@ -49,7 +49,7 @@ public class VentanaRecomendadosSaldo extends JFrame {
 		}
 		
 		ArrayList<Producto> listaProductos = new ArrayList<>();
-		Image imagen = null;
+		String imagen = null;
 		Producto producto1 = new Producto("Nomre1", "cosa", 8.66, imagen, Estado.BUENO, Colores.Blanco, new Usuario());
 		Producto producto2 = new Producto("Nomre2", "cosa", 6, imagen, Estado.MALO, Colores.Amarillo, new Usuario());
 		listaProductos.add(producto1);

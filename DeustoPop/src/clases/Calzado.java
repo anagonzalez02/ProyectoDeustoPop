@@ -20,12 +20,12 @@ public class Calzado extends Producto {
 	
 	private double tallaCalzado;
 	
-	public Calzado(int id, String nombre, Date fechaSubida, String etiquetas, double precio, Image imagen, Estado estado, Colores color, Usuario usuario, boolean enVenta, double tallaCalzado, HashMap <Usuario, String> comentario) {
+	public Calzado(int id, String nombre, Date fechaSubida, String etiquetas, double precio, String imagen, Estado estado, Colores color, Usuario usuario, boolean enVenta, double tallaCalzado, HashMap <Usuario, String> comentario) {
 		super(id, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, comentario);
 		this.tallaCalzado = tallaCalzado;
 	}
 	
-	public Calzado(String nombre, String etiquetas, double precio, Image imagen, Estado estado, Colores color, Usuario usuario, double tallaCalzado) {
+	public Calzado(String nombre, String etiquetas, double precio, String imagen, Estado estado, Colores color, Usuario usuario, double tallaCalzado) {
 		super(nombre, etiquetas, precio, imagen, estado, color, usuario);
 		this.tallaCalzado = tallaCalzado;
 	}

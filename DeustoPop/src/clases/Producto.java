@@ -15,7 +15,7 @@ import java.util.HashMap;
  * 		fechaSubida -> 	Para saber cuándo se registró/subió el producto a la plataforma
  * 		etiquetas -> 	Etiquetas relacionadas con el producto. Por ejemplo: vintage, gótico...
  * 		precio -> 		Precio por el que el vendedor va vender el producto
- * 		imagen -> 		Imagen que los usuarios suban del producto a la hora de vender y por la que los compradores se guíen a la hora de comprar
+ * 		imagen -> 		Nombre de la imagen que los usuarios suban del producto a la hora de vender y por la que los compradores se guíen a la hora de comprar
  * 		estado -> 		Estado del producto. Sólo hay las tres opciones de la enumeración: malo, medio, bueno. 
  *		color -> 		Color principal del producto, por si en la imagen no se ve correctamente. Las opciones serán las de la enumeración Colores.
  *		usuario -> 		Usuario vendedor
@@ -42,7 +42,7 @@ public class Producto {
 	protected Date fechaSubida;
 	protected String etiquetas;
 	protected double precio;
-	protected Image imagen;
+	protected String imagen;
 	protected Estado estado;
 	protected Colores color;
 	protected Usuario usuario;
@@ -50,7 +50,7 @@ public class Producto {
 	protected HashMap <Usuario, String> comentario;
 	
 	
-	public Producto (int id, String nombre, Date fechaSubida, String etiquetas, double precio, Image imagen, Estado estado, Colores color, Usuario usuario, boolean enVenta, HashMap <Usuario, String> comentario) {
+	public Producto (int id, String nombre, Date fechaSubida, String etiquetas, double precio, String imagen, Estado estado, Colores color, Usuario usuario, boolean enVenta, HashMap <Usuario, String> comentario) {
 		super();
 		contador++;
 		this.id = contador;
@@ -67,7 +67,7 @@ public class Producto {
 	}
 
 
-	public Producto (String nombre, String etiquetas, double precio, Image imagen, Estado estado, Colores color, Usuario usuario) {
+	public Producto (String nombre, String etiquetas, double precio, String imagen, Estado estado, Colores color, Usuario usuario) {
 		super();
 		contador++;
 		this.id = id;
@@ -124,11 +124,11 @@ public class Producto {
 		this.precio = precio;
 	}
 
-	public Image getImagen() {
+	public String getImagen() {
 		return imagen;
 	}
 
-	public void setImagen(Image imagen) {
+	public void setImagen(String imagen) {
 		this.imagen = imagen;
 	}
 

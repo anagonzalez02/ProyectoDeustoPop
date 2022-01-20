@@ -21,7 +21,7 @@ public class ProductoTest {
 	 * Al igual que hemos creado otro usuario, que lo utilizaremos posteriormente
 	 * **/
 	
-	private static final Image Image = null;
+	private static final String Image = null;
 	Usuario uVendedor = new Usuario ("peepee", 600000000, new CuentaBancaria(8727193, 3), "pepeee@email.com", "contrasenya", new Lugar("Calle Dato 4", "Vitoria", "Espana"));
 	Usuario uVendedor2 = new Usuario ("peeepiitaa", 611111111, new CuentaBancaria(8727136, 5252.00), "pepa@email.com", "jeje", new Lugar("Gran Via 54", "Bilbao", "Españita"));
 	

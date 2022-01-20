@@ -12,7 +12,9 @@ import java.sql.Date;
 import java.util.Calendar;
 import java.util.HashMap;
 
+import javax.swing.AbstractButton;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -129,10 +131,12 @@ public class VentanaProducto extends JFrame {
 		DefaultListModel<String> datosLista = new DefaultListModel<String>();
 		// RELLENAR EL DefaultListModel
 		HashMap <Usuario, String> comentarios = p.getComentario();
-		for (Usuario usuario : comentarios.keySet()) {
-		    String c = comentarios.get(usuario);
-		    String nuevoComentario = usuario.getNombre() + ": " + c;
-		    datosLista.addElement(nuevoComentario);
+		if (comentarios.size() != 0) {
+			for (Usuario usuario : comentarios.keySet()) {
+			    String c = comentarios.get(usuario);
+			    String nuevoComentario = usuario.getNombre() + ": " + c;
+			    datosLista.addElement(nuevoComentario);
+			}
 		}
 		JList<String> listaComentarios = new JList<String>(datosLista);
 		JScrollPane scrollLista = new JScrollPane(listaComentarios);
@@ -149,9 +153,12 @@ public class VentanaProducto extends JFrame {
 		// La primera será para la imagen del producto y la segunda será diferente dependiendo del comprador o del vendedor.
 		JPanel panelPrincipal = new JPanel (new GridLayout(2, 1));
 		// AQUÍ HAY QUE METER LA IMAGEN
-		panelPrincipal.add(new JLabel("Imagen"));
+		JLabel foto = null;
+		foto.setIcon(new ImageIcon("/bancoDeImagenes/" + p.getImagen()));
+		panelPrincipal.add(foto);
 		
 		if (u == p.getUsuario()) {
+			
 			// En caso de que el usuario que está en esta ventana es igual al usuario vendedor del producto,
 			// añadimos el panelIngGeneral tal cual al panelPrincipal.
 			panelPrincipal.add(panelInferior, BorderLayout.CENTER);
@@ -325,9 +332,11 @@ public class VentanaProducto extends JFrame {
 
 	
 	public static void main(String[] args) {
-		final Image Image = null;
+		final String Image = null;
 		Usuario uVendedor = new Usuario ("peepee", 600000000, new CuentaBancaria(8727193, 3), "pepeee@email.com", "contrasenya", new Lugar("Calle Dato 4", "Vitoria", "Espana"));
 		Producto producto = new Producto ("Zapatilla guay", "Cool", 10.65, Image, Estado.MALO, Colores.Azul, uVendedor);
+		HashMap<Usuario, String> comen = new HashMap();
+		producto.setComentario(comen);
     	
 		VentanaProducto C = new VentanaProducto(producto, uVendedor, null);      // creamos una ventana, de momento con producto nulo
         C.setVisible(true);             // hacemos visible la ventana creada
