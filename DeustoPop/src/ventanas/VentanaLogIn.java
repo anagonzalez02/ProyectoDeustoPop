@@ -128,7 +128,7 @@ public class VentanaLogIn extends JFrame implements ActionListener{
 				} else if (ventanaVolver == "VentanaUsuario") {
 					VentanaPrincipal.main(null);
 	    			dispose();
-					JOptionPane.showMessageDialog(null, "Para poder entrar al perfil deberás iniciar sesión en DeustoPop.");
+					//JOptionPane.showMessageDialog(null, "Para poder entrar al perfil deberás iniciar sesión en DeustoPop.");
 				} else if (ventanaVolver == null) {
 					VentanaPrincipal.main(null);
 	    			dispose();
