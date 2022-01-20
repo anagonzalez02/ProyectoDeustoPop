@@ -44,27 +44,6 @@ public class VentanaPrincipal extends JFrame {
             }
         });
     }
-    
-<<<<<<< HEAD
-		private void calcularComprasPosibles( double disponible ) {
-			ArrayList<Producto> listaProductos = new ArrayList<>();
-			calcularComprasPosibles( listaProductos, disponible, listaProductos );
-		}
-		private void calcularComprasPosibles( ArrayList<Producto> productos, double sobrante, ArrayList<Producto> lProductosComprados ) {
-			if (sobrante < 0 ) {  //si no hay dinero no se podrá comprar
-				return;
-				
-				
-			} else if (sobrante < 10) {  //valor del producto con menor precio
-				System.out.println( "Posible compra (sobran " + String.format("%.2f",sobrante) + " euros): " + lProductosComprados );
-			} else {  // posibles combinaciones de productos a comprar
-				for (Producto p : productos) {
-					lProductosComprados.add( p );
-					
-					calcularComprasPosibles( productos, sobrante - p.getPrecio(), lProductosComprados );
-					lProductosComprados.remove( lProductosComprados.size()-1 );
-					}
-=======
 
 	// como si fuese el main (sin serlo)
 	// esta ventana no tiene main, y solo se crea al ser ejecutada
@@ -206,7 +185,6 @@ public class VentanaPrincipal extends JFrame {
 				lProdsComprados.add(p);
 				calcularComprasPosibles(prods, dineroQueda - p.getPrecio(), lProdsComprados);
 				lProdsComprados.remove(lProdsComprados.size() - 1);
->>>>>>> branch 'main' of https://github.com/anagonzalez02/ProyectoDeustoPop.git
 			}
 		}
 	}
