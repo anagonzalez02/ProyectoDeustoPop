@@ -138,10 +138,12 @@ public class VentanaPrincipal extends JFrame {
 					VentanaLogIn ventana = new VentanaLogIn("VentanaUsuario", null);
 					ventana.setVisible(true);
 					dispose();
+					frame.setVisible(false);
 				} else {
 					VentanaUsuario ventana = new VentanaUsuario(u);
 					ventana.setVisible(true);
 					dispose();
+					frame.setVisible(false);
 				}
 			}
 		});
