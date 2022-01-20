@@ -124,7 +124,8 @@ public class VentanaLogIn extends JFrame implements ActionListener{
 					VentanaProducto ventana = new VentanaProducto(producto, null, ventanaVolver);
 			        ventana.setVisible(true);
 					dispose();
-					JOptionPane.showMessageDialog(null, "Para poder comprar el producto deberás iniciar sesión en DeustoPop.");
+					JOptionPane.showMessageDialog(null, "Para poder comprar el producto deberás iniciar sesión en DeustoPop." );
+					
 				} else if (ventanaVolver == "VentanaUsuario") {
 					VentanaPrincipal.main(null);
 	    			dispose();
