@@ -44,7 +44,6 @@ public class VentanaPrincipal extends JFrame {
             }
         });
     }
-    
 
 	// como si fuese el main (sin serlo)
 	// esta ventana no tiene main, y solo se crea al ser ejecutada
