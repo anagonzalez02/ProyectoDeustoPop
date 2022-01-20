@@ -165,26 +165,24 @@ public class VentanaPrincipal extends JFrame {
 	}
 
 	private void calcularComprasPosibles(double disponible) {
-		ArrayList<Producto> lProds = new ArrayList<>();
-		calcularComprasPosibles(listaProds, disponible, lProds);
+		ArrayList<Producto> listaProductos = new ArrayList<>();
+		calcularComprasPosibles(listaProductos, disponible, listaProductos);
 	}
 
-	private void calcularComprasPosibles(ArrayList<Producto> prods, double dineroQueda,
-			ArrayList<Producto> lProdsComprados) {
-		if (dineroQueda < 0) { // Caso base: compra imposible (no hay suficiente dinero)
+	private void calcularComprasPosibles(ArrayList<Producto> productos, double sobrante,
+			ArrayList<Producto> lProductosComprados) {
+		if (sobrante < 0) { // si no hay dinero no se podrá comprar
 			return;
 
-			// hay que cambiar el 50 de abajo por el precio del producto con menor precio
-
-		} else if (dineroQueda < 10) { // Caso base: compra posible con menos del precio del producto con menor precio
+		} else if (sobrante < 10) { // valor del producto con menor precio
 			System.out.println(
-					"Posible compra (sobran " + String.format("%.2f", dineroQueda) + " euros): " + lProdsComprados);
-		} else { // Caso general - probar por combinatoria todos los productos posibles para
-					// comprar
-			for (Producto p : prods) {
-				lProdsComprados.add(p);
-				calcularComprasPosibles(prods, dineroQueda - p.getPrecio(), lProdsComprados);
-				lProdsComprados.remove(lProdsComprados.size() - 1);
+					"Posible compra (sobran " + String.format("%.2f", sobrante) + " euros): " + lProductosComprados);
+		} else { // posibles combinaciones de productos a comprar
+			for (Producto p : productos) {
+				lProductosComprados.add(p);
+
+				calcularComprasPosibles(productos, sobrante - p.getPrecio(), lProductosComprados);
+				lProductosComprados.remove(lProductosComprados.size() - 1);
 			}
 		}
 	}
