@@ -1,5 +1,6 @@
 package clases;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.swing.JPasswordField;
@@ -48,10 +49,11 @@ public class Usuario{
 	ArrayList<Producto> productosVendidos;
 	ArrayList<Producto> productosComprados;
 	ArrayList<Producto> productosFavoritos;
+	Date fechaRegistro;
 	
 
 	public Usuario(int idUsuario, String nombre, int telefono, CuentaBancaria cuentaB, double saldo, String email, String contrasenia, Lugar vivienda,
-			ArrayList<Producto> productosEnVenta, ArrayList<Producto> productosVendidos, ArrayList<Producto> productosComprados, ArrayList<Producto> productosFavoritos) {
+			ArrayList<Producto> productosEnVenta, ArrayList<Producto> productosVendidos, ArrayList<Producto> productosComprados, ArrayList<Producto> productosFavoritos, Date fechaRegistro) {
 		super();
 		contadorU++;
 		this.idUsuario = contadorU;
@@ -66,6 +68,7 @@ public class Usuario{
 		this.productosVendidos = productosVendidos;
 		this.productosComprados = productosComprados;
 		this.productosFavoritos = productosFavoritos;
+		this.fechaRegistro = fechaRegistro;
 	}
 	
 
@@ -84,6 +87,7 @@ public class Usuario{
 		this.productosVendidos = productosVendidos;
 		this.productosComprados = productosComprados;
 		this.productosFavoritos = productosFavoritos;
+		this.fechaRegistro = fechaRegistro;
 	}
 	
 
@@ -102,6 +106,7 @@ public class Usuario{
 		this.productosVendidos = productosVendidos;
 		this.productosComprados = productosComprados;
 		this.productosFavoritos = productosFavoritos;
+		this.fechaRegistro = fechaRegistro;
 	}
 
 
@@ -123,6 +128,7 @@ public class Usuario{
 		this.productosVendidos = productosVendidos;
 		this.productosComprados = productosComprados;
 		this.productosFavoritos = productosFavoritos;
+		this.fechaRegistro = fechaRegistro;
 	}
 	
 
@@ -222,8 +228,14 @@ public class Usuario{
 		this.productosFavoritos = productosFavoritos;
 	}
 
+	public Date getFechaRegistro() {
+		return fechaRegistro;
+	}
 
-
+	public void setFechaRegistro(Date fechaRegistro) {
+		this.fechaRegistro = fechaRegistro;
+	}
+	
 	@Override
 	public String toString() {
 		return "Usuario [idUsuario=" + idUsuario + ", nombre=" + nombre + ", telefono=" + telefono + ", cuentaB="
@@ -237,6 +249,3 @@ public class Usuario{
 	
 	
 }
-	
-	
-

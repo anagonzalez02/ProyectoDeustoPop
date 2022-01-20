@@ -598,12 +598,8 @@ public class BaseDeDatos {
 	 * 																TABLA USUARIO
 	 **********************************************************************************************************************************************************/
 
-	/**
-	 * Lista los usuarios de la base de datos
-	 * @return 			Lista completa de los Usuarios de nuestra plataforma, null si hay algún error
-	 */
 
-	public static ArrayList<Usuario> getUsuarios() {
+public static ArrayList<Usuario> getUsuarios() {
 		try (Statement statement = conexion.createStatement()) {
 			ArrayList<Usuario> listaUsuarios = new ArrayList<>();
 			consulta = "SELECT * FROM Usuario;";
@@ -619,6 +615,7 @@ public class BaseDeDatos {
 				String email = rs.getString("email");
 				String contrasenia = rs.getString("contrasenia");
 				String direccion = rs.getString("direccion");
+				Date fechaRegistro = rs.getDate("fechaRegistro");
 
 				CuentaBancaria cuenta = getCuentaBancaria(idUsuario);
 
@@ -639,9 +636,10 @@ public class BaseDeDatos {
 				ArrayList<Producto> productosComprados = new ArrayList<>();
 
 				ArrayList<Producto> productosFavoritos = getFavoritosUsuario(idUsuario);
+				
 
 				listaUsuarios.add(new Usuario(idUsuario, nombre, telefono, cuenta, saldo, email, contrasenia, vivienda,
-						productosEnVenta, productosVendidos, productosComprados, productosFavoritos));
+						productosEnVenta, productosVendidos, productosComprados, productosFavoritos, fechaRegistro));
 			}
 			return listaUsuarios;
 		} catch (Exception e) {
@@ -671,6 +669,7 @@ public class BaseDeDatos {
 			String contrasenia = rs.getString("contrasenia");
 			String direccion = rs.getString("direccion");
 
+			Date fechaRegistro = rs.getDate("fechaRegistro");
 			CuentaBancaria cuenta = getCuentaBancaria(idUsuario);
 
 			Lugar vivienda = getLugar(direccion);
@@ -691,7 +690,7 @@ public class BaseDeDatos {
 			ArrayList<Producto> productosFavoritos = getFavoritosUsuario(idUsuario);
 
 			Usuario usuario = new Usuario(idUsuario, nombre, telefono, cuenta, saldo, email, contrasenia, vivienda,
-					productosEnVenta, productosVendidos, productosComprados, productosFavoritos);
+					productosEnVenta, productosVendidos, productosComprados, productosFavoritos, fechaRegistro);
 
 			return usuario;
 		} catch (Exception e) {
@@ -733,6 +732,7 @@ public class BaseDeDatos {
 
 				CuentaBancaria cuenta = getCuentaBancaria(idUsuario);
 
+				Date fechaRegistro = rs.getDate("fechaRegistro");
 				Lugar vivienda = getLugar(direccion);
 
 				ArrayList<Producto> listaProductos = getProductosCompleto(idUsuario);
@@ -752,7 +752,7 @@ public class BaseDeDatos {
 				ArrayList<Producto> productosFavoritos = getFavoritosUsuario(idUsuario);
 
 				Usuario usuario = new Usuario(idUsuario, nombre, telefono, cuenta, saldo, email, contrasenia, vivienda,
-						productosEnVenta, productosVendidos, productosComprados, productosFavoritos);
+						productosEnVenta, productosVendidos, productosComprados, productosFavoritos, fechaRegistro);
 
 				return usuario;
 			} else {
@@ -764,6 +764,8 @@ public class BaseDeDatos {
 			return null;
 		}
 	}
+
+
 
 	/**
 	 * Inserta un usuario en la base de datos abierta
