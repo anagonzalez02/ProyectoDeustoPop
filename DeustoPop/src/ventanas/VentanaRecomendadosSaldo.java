@@ -1,9 +1,13 @@
 package ventanas;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.EventObject;
 
@@ -22,6 +26,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
+import clases.Colores;
+import clases.Estado;
 import clases.Producto;
 import clases.Usuario;
 
@@ -41,18 +47,26 @@ public class VentanaRecomendadosSaldo extends JFrame {
 			// UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception fail) {
 		}
+		
+		ArrayList<Producto> listaProductos = new ArrayList<>();
+		Image imagen = null;
+		Producto producto1 = new Producto("Nomre1", "cosa", 8.66, imagen, Estado.BUENO, Colores.Blanco, new Usuario());
+		Producto producto2 = new Producto("Nomre2", "cosa", 6, imagen, Estado.MALO, Colores.Amarillo, new Usuario());
+		listaProductos.add(producto1);
+		listaProductos.add(producto2);
+		
 		SwingUtilities.invokeLater(new Runnable() {
 
 			@Override
 			public void run() {
-				new VentanaRecomendadosSaldo().makeUI(null, null);
+				new VentanaRecomendadosSaldo().makeUI(null, listaProductos);
 			}
 		});
 	}
 
 	public void makeUI(Usuario u, ArrayList<Producto> listaProductos) {
 
-		CompTable = CreateCompTable(listaProductos);
+		CompTable = CreateCompTable(u, listaProductos);
 		// Crea el JScrollPane
 		JScrollPane CompTableScrollpane = new JScrollPane(CompTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -77,20 +91,26 @@ public class VentanaRecomendadosSaldo extends JFrame {
 		btnVolver.setPreferredSize(new Dimension(175, 50));
 		panelInferior.add(btnVolver, BorderLayout.SOUTH);
 
-		/**
-		 * btnVolver.addActionListener(new ActionListener() {
-		 * 
-		 * @Override public void actionPerformed(ActionEvent e) { if (u == null) {
-		 *           VentanaLogIn ventana = new VentanaLogIn("VentanaUsuario", null);
-		 *           ventana.setVisible(true); dispose(); } else { VentanaUsuario
-		 *           ventana = new VentanaUsuario(u); ventana.setVisible(true);
-		 *           dispose(); } } });
-		 **/
+		
+		btnVolver.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (u == null) {
+					VentanaLogIn ventana = new VentanaLogIn("VentanaUsuario", null);
+					ventana.setVisible(true);
+					dispose();
+				} else {
+					VentanaUsuario ventana = new VentanaUsuario(u);
+					ventana.setVisible(true);
+					dispose();
+				}
+			}
+		});
 
 	}
 
 	//creacion de la tabla
-    public JTable CreateCompTable(ArrayList<Producto> listaProductos) {
+    public JTable CreateCompTable(Usuario u, ArrayList<Producto> listaProductos) {
         CompModel = new PanelTableModel();
         JTable table = new JTable(CompModel);
         table.setRowHeight(350);
@@ -100,9 +120,11 @@ public class VentanaRecomendadosSaldo extends JFrame {
         table.setDefaultRenderer(Object.class, PanelCellEditorRenderer);
         table.setDefaultEditor(Object.class, PanelCellEditorRenderer);
         
+        JButton btnProd1 = null;
+        JButton btnProd2 = null;
         
         if (listaProductos.size() % 2 == 0) {
-	        for (int i=0; i <= listaProductos.size(); i=i+2) {
+	        for (int i=0; i < listaProductos.size(); i=i+2) {
 	        	
 	        	Producto producto1 = listaProductos.get(i);
 	        	JPanel panelProducto1 = new JPanel(new BorderLayout());
@@ -113,9 +135,18 @@ public class VentanaRecomendadosSaldo extends JFrame {
 	        	panelProducto1.add(panelInfProd1, BorderLayout.NORTH);
 	        	//panelProducto1.add(producto1.getImagen(), BorderLayout.CENTER);
 	        	
-	        	JButton btnProd1 = new JButton();
+	        	btnProd1 = new JButton();
 	        	btnProd1.setText("Comprar producto " + producto1.getId());
 	        	panelProducto1.add(btnProd1);
+	        	
+	        	btnProd1.addActionListener(new ActionListener() {
+	    			@Override
+	    			public void actionPerformed(ActionEvent e) {
+	    				VentanaProducto ventana = new VentanaProducto(producto1, u, "VentanaRecomendadosSaldo");
+	    				ventana.setVisible(true);
+	    				dispose();
+	    			}
+	    		});
 	        	
 	        	
 	        	Producto producto2 = listaProductos.get(i+1);
@@ -127,18 +158,27 @@ public class VentanaRecomendadosSaldo extends JFrame {
 	        	panelProducto2.add(panelInfProd2, BorderLayout.NORTH);
 	        	//panelProducto2.add(producto2.getImagen(), BorderLayout.CENTER);
 	        	
-	        	JButton btnProd2 = new JButton();
+	        	btnProd2 = new JButton();
 	        	btnProd2.setText("Comprar producto " + producto2.getId());
 	        	panelProducto2.add(btnProd2);
 	        	
+	        	btnProd2.addActionListener(new ActionListener() {
+	    			@Override
+	    			public void actionPerformed(ActionEvent e) {
+	    				VentanaProducto ventana = new VentanaProducto(producto2, u, "VentanaRecomendadosSaldo");
+	    				ventana.setVisible(true);
+	    				dispose();
+	    			}
+	    		});
 	        	
-	        	//CompModel.addRow(panelProducto1, panelProducto2);
+	        	
+	        	CompModel.addRow(panelProducto1, panelProducto2);
 	        	
 	        }
 	        
         } else {
         	
-        	for (int i=0; i <= listaProductos.size() - 1; i=i+2) {
+        	for (int i=0; i < listaProductos.size() - 1; i=i+2) {
 	        	
         		if (i != listaProductos.size()) {
         			
@@ -151,9 +191,18 @@ public class VentanaRecomendadosSaldo extends JFrame {
 		        	panelProducto1.add(panelInfProd1, BorderLayout.NORTH);
 		        	//panelProducto1.add(producto1.getImagen(), BorderLayout.CENTER);
 		        	
-		        	JButton btnProd1 = new JButton();
+		        	btnProd1 = new JButton();
 		        	btnProd1.setText("Comprar producto " + producto1.getId());
 		        	panelProducto1.add(btnProd1);
+		        	
+		        	btnProd1.addActionListener(new ActionListener() {
+		    			@Override
+		    			public void actionPerformed(ActionEvent e) {
+		    				VentanaProducto ventana = new VentanaProducto(producto1, u, "VentanaRecomendadosSaldo");
+		    				ventana.setVisible(true);
+		    				dispose();
+		    			}
+		    		});
 		        	
 		        	
 		        	Producto producto2 = listaProductos.get(i+1);
@@ -165,12 +214,21 @@ public class VentanaRecomendadosSaldo extends JFrame {
 		        	panelProducto2.add(panelInfProd2, BorderLayout.NORTH);
 		        	//panelProducto2.add(producto2.getImagen(), BorderLayout.CENTER);
 		        	
-		        	JButton btnProd2 = new JButton();
+		        	btnProd2 = new JButton();
 		        	btnProd2.setText("Comprar producto " + producto2.getId());
 		        	panelProducto2.add(btnProd2);
 		        	
+		        	btnProd2.addActionListener(new ActionListener() {
+		    			@Override
+		    			public void actionPerformed(ActionEvent e) {
+		    				VentanaProducto ventana = new VentanaProducto(producto2, u, "VentanaRecomendadosSaldo");
+		    				ventana.setVisible(true);
+		    				dispose();
+		    			}
+		    		});
 		        	
-		        	//CompModel.addRow(panelProducto1, panelProducto2);
+		        	
+		        	CompModel.addRow(panelProducto1, panelProducto2);
 		        	
         		} else {
         			
@@ -183,12 +241,21 @@ public class VentanaRecomendadosSaldo extends JFrame {
 		        	panelProducto1.add(panelInfProd1, BorderLayout.NORTH);
 		        	//panelProducto1.add(producto1.getImagen(), BorderLayout.CENTER);
 		        	
-		        	JButton btnProd1 = new JButton();
+		        	btnProd1 = new JButton();
 		        	btnProd1.setText("Comprar producto " + producto1.getId());
 		        	panelProducto1.add(btnProd1);
 		        	
+		        	btnProd1.addActionListener(new ActionListener() {
+		    			@Override
+		    			public void actionPerformed(ActionEvent e) {
+		    				VentanaProducto ventana = new VentanaProducto(producto1, u, "VentanaRecomendadosSaldo");
+		    				ventana.setVisible(true);
+		    				dispose();
+		    			}
+		    		});
 		        	
-		        	//CompModel.addRow(panelProducto1, null);
+		        	
+		        	CompModel.addRow(panelProducto1, null);
         			
         		}
 	        }
