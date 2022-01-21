@@ -270,7 +270,7 @@ class PanelTableModel extends DefaultTableModel {
 
 	public void addRow(JPanel panelProducto1, JPanel panelProducto2) {
 		// TODO Auto-generated method stub
-
+		super.addRow(new Object[] { panelProducto1, panelProducto2 });
 	}
 }
 

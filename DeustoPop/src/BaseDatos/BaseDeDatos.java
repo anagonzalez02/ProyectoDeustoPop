@@ -57,19 +57,24 @@ public class BaseDeDatos {
 			logger.log(Level.INFO, "Abriendo conexión con " + nombreBD);
 			conexion = DriverManager.getConnection("jdbc:sqlite:" + nombreBD);
 
-			if (conexionBD) {
+			if (!conexionBD) {
 
 				Statement statement = conexion.createStatement();
 
+				System.out.println("x3");
 				crearTablaBDUsuario();
+				System.out.println("xCuenta1");
 				crearTablaBDCuentaBancaria();
+				System.out.println("xCuenta2");
 				crearTablaBDLugar();
+				System.out.println("x1");
 				crearTablaBDProducto();
 				crearTablaBDCalzado();
 				crearTablaBDRopa();
 				crearTablaBDPedido();
 				crearTablaBDFavoritos();
 				crearTablaBDComentarios();
+				System.out.println("x2");
 				
 				cargarUsuario();
 				cargarCuentaBancaria();
@@ -276,10 +281,12 @@ public class BaseDeDatos {
 			return;
 		try {
 			logger.log(Level.INFO, "Statement: " + consulta);
+			System.out.println("xxx");
 			statement.executeUpdate(consulta);
 		} catch (SQLException e) {
 			// Si hay excepción es que la tabla ya existía (lo cual es correcto)
-			// e.printStackTrace();
+			e.printStackTrace();
+			//System.out.println();
 		}
 	}
 
