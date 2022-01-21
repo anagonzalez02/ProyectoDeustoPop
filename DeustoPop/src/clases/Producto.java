@@ -22,6 +22,7 @@ import java.util.HashMap;
  *		enVenta -> 		Un booleano que nos hará saber si el producto está en venta (true) o no (false). 
  *						En caso de estarlo, estará visible para todos usuarios compradores. De no estarlo, no será visible para nadie, pero seguirá existiendo en los registros de DeustoPop
  *						La única forma de borrarlo completamente, será mediante eliminarProducto() de la base de datos.
+ *		esRopa ->		Booleano que nos hará saber si el producto es una prenda de ropa (true) o no (false). 
  * 		comentario ->	Un HashMap de comentarios en el que los usuarios interesados en comprarlo puedan comentar: opiniones, Pros, Contras... Esto facilitará al resto de compradores su decisión de compra.
  * 
  * 
@@ -47,10 +48,11 @@ public class Producto {
 	protected Colores color;
 	protected Usuario usuario;
 	public boolean enVenta;
+	public boolean esRopa;
 	protected HashMap <Usuario, String> comentario;
 	
 	
-	public Producto (int id, String nombre, Date fechaSubida, String etiquetas, double precio, String imagen, Estado estado, Colores color, Usuario usuario, boolean enVenta, HashMap <Usuario, String> comentario) {
+	public Producto (int id, String nombre, Date fechaSubida, String etiquetas, double precio, String imagen, Estado estado, Colores color, Usuario usuario, boolean enVenta, boolean esRopa, HashMap <Usuario, String> comentario) {
 		super();
 		contador++;
 		this.id = contador;
@@ -63,6 +65,7 @@ public class Producto {
 		this.color = color;
 		this.usuario = usuario;
 		this.enVenta = true;
+		this.esRopa = true;
 		this.comentario = comentario;
 	}
 
@@ -175,12 +178,23 @@ public class Producto {
 	}
 
 
+	public boolean isEsRopa() {
+		return esRopa;
+	}
+
+
+	public void setEsRopa(boolean esRopa) {
+		this.esRopa = esRopa;
+	}
 	@Override
 	public String toString() {
 		return "Producto [id=" + id + ", nombre=" + nombre + ", fechaSubida=" + fechaSubida + ", etiquetas=" + etiquetas
 				+ ", precio=" + precio + ", imagen=" + imagen + ", estado=" + estado + ", color=" + color + ", usuario="
-				+ usuario + ", enVenta=" + enVenta + ", comentario=" + comentario + "]";
+				+ usuario + ", enVenta=" + enVenta + ", esRopa=" + esRopa + ", comentario=" + comentario + "]";
 	}
+
+
+
 
 
 	

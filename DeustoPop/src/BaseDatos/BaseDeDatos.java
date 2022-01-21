@@ -247,9 +247,7 @@ public class BaseDeDatos {
 		statement.executeUpdate(consulta);
 
 		consulta = "CREATE TABLE Ropa "
-				+ "(idProducto INTEGER PRIMARY KEY, nombre TEXT, fechaSubida NUMERIC, etiquetas NUMERIC, precio REAL, "
-				+ "imagen TEXT, estado TEXT, color TEXT, idUsuario INTEGER, enVenta TEXT, tallaCalzado TEXT, "
-				+ "FOREIGN KEY (idUsuario) REFERENCES Usuario (idUsuario));";
+				+ "(idProducto INTEGER PRIMARY KEY, tallaCalzado TEXT);";
 
 		if (statement == null)
 			return;
@@ -274,7 +272,7 @@ public class BaseDeDatos {
 
 		consulta = "CREATE TABLE Producto "
 				+ "(idProducto INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, fechaSubida NUMERIC, etiquetas TEXT,  "
-				+ "precio REAL, imagen TEXT, estado TEXT, color TEXT, idUsuario INTEGER, enVenta TEXT, tipoProducto TEXT, "
+				+ "precio REAL, imagen TEXT, estado TEXT, color TEXT, idUsuario INTEGER, enVenta TEXT, esRopa TEXT, tipoProducto TEXT, "
 				+ "FOREIGN KEY (idUsuario) REFERENCES Usuario (idUsuario));";
 
 		if (statement == null)
@@ -446,9 +444,9 @@ public class BaseDeDatos {
 		while ((line = reader.readLine()) != null) {
 			String[] tokens = line.split(",");
 			
-			consulta = "INSERT INTO Producto (idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, idUsuario, enVenta, tipoProducto)"
+			consulta = "INSERT INTO Producto (idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, idUsuario, enVenta, esRopa, tipoProducto)"
 					+ "VALUES (" + tokens[0] + ", '" + tokens[1] + "', '" + tokens[2] + "', '" + tokens[3] + "', " + tokens[4] + ", '" + tokens[5] 
-					+ "', '" + tokens[6] + "', '" + tokens[7] + "', " + tokens[8] + ", " + tokens[9] + ", '" + tokens[10] + "');";
+					+ "', '" + tokens[6] + "', '" + tokens[7] + "', " + tokens[8] + ", " + tokens[9] + ", '" + tokens[10] + ", '" + tokens[11] + "');";
 			
 			logger.log(Level.INFO, "Statement: " + consulta);
 			statement.executeUpdate(consulta);
@@ -475,9 +473,8 @@ public class BaseDeDatos {
 		while ((line = reader.readLine()) != null) {
 			String[] tokens = line.split(",");
 			
-			consulta = "INSERT INTO Calzado (idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, idUsuario, enVenta, tallaCalzado)"
-					+ "VALUES (" + tokens[0] + ", '" + tokens[1] + "', '" + tokens[2] + "', '" + tokens[3] + "', " + tokens[4] + ", '" + tokens[5] + "', '"
-					+ tokens[6] + "', '" + tokens[7] + "', " + tokens[8] + ", " + tokens[9] + ", " + tokens[10] + ");";
+			consulta = "INSERT INTO Calzado (idProducto, tallaCalzado)"
+					+ "VALUES (" + tokens[0] + ", '" + tokens[1]+ ");";
 			
 			logger.log(Level.INFO, "Statement: " + consulta);
 			statement.executeUpdate(consulta);
@@ -504,9 +501,8 @@ public class BaseDeDatos {
 		while ((line = reader.readLine()) != null) {
 			String[] tokens = line.split(",");
 			
-			consulta = "INSERT INTO Ropa (idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, idUsuario, enVenta, tallaRopa)"
-					+ "VALUES (" + tokens[0] + ", '" + tokens[1] + "', '" + tokens[2] + "', '" + tokens[3] + "', " + tokens[4] + ", '"
-					+ tokens[5] + "', '" + tokens[6] + "', '" + tokens[7] + "', " + tokens[8] + ", " + tokens[9] + ", '" + tokens[10] + "');";
+			consulta = "INSERT INTO Ropa (idProducto1, tallaRopa)"
+					+ "VALUES (" + tokens[0] + ", '" + tokens[1] + "');";
 			
 			logger.log(Level.INFO, "Statement: " + consulta);
 			statement.executeUpdate(consulta);
@@ -1183,9 +1179,16 @@ public static ArrayList<Usuario> getUsuarios() {
 			} else {
 				enVenta = false;
 			}
+			String esRopaStr = rs.getString("esRopa");
+			Boolean esRopa;
+			if (esRopaStr == "true") {
+				esRopa = true;
+			} else {
+				esRopa = false;
+			}
 			HashMap<Usuario, String> comentarios = getComentariosProducto(idProducto);
 
-			Producto p = new Producto(idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, comentarios);
+			Producto p = new Producto(idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, esRopa, comentarios);
 
 			return p;
 		} catch (Exception e) {
@@ -1255,9 +1258,16 @@ public static ArrayList<Usuario> getUsuarios() {
 				} else {
 					enVenta = false;
 				}
+				String esRopaStr = rs.getString("esRopa");
+				Boolean esRopa;
+				if (esRopaStr == "true") {
+					esRopa = true;
+				} else {
+					esRopa = false;
+				}
 				HashMap<Usuario, String> comentarios = getComentariosProducto(idProducto);
 
-				listaProductos.add(new Producto(idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, comentarios));
+				listaProductos.add(new Producto(idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, esRopa, comentarios));
 			}
 			return listaProductos;
 		} catch (Exception e) {
@@ -1327,15 +1337,22 @@ public static ArrayList<Usuario> getUsuarios() {
 				} else {
 					enVenta = false;
 				}
+				String esRopaStr = rs.getString("esRopa");
+				Boolean esRopa;
+				if (esRopaStr == "true") {
+					esRopa = true;
+				} else {
+					esRopa = false;
+				}
 				HashMap<Usuario, String> comentarios = getComentariosProducto(idProducto);
 				String tipoProducto = rs.getString("tipoProducto");
 
 				if (tipoProducto == "Calzado") {
 					double talla = getCalzado(idProducto).getTallaCalzado();
-					listaProductos.add(new Calzado(idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, talla, comentarios));
+					listaProductos.add(new Calzado(idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, esRopa, talla, comentarios));
 				} else if (tipoProducto == "Ropa") {
 					TallasRopa talla = getRopa(idProducto).getTallaRopa();
-					listaProductos.add(new Ropa(idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, talla, comentarios));
+					listaProductos.add(new Ropa(idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, esRopa, talla, comentarios));
 				}
 			}
 			return listaProductos;
@@ -1405,15 +1422,22 @@ public static ArrayList<Usuario> getUsuarios() {
 				} else {
 					enVenta = false;
 				}
+				String esRopaStr = rs.getString("esRopa");
+				Boolean esRopa;
+				if (esRopaStr == "true") {
+					esRopa = true;
+				} else {
+					esRopa = false;
+				}
 				HashMap<Usuario, String> comentarios = getComentariosProducto(idProducto);
 				String tipoProducto = rs.getString("tipoProducto");
 
 				if (tipoProducto == "Calzado") {
 					double talla = getCalzado(idProducto).getTallaCalzado();
-					listaProductos.add(new Calzado(idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, talla, comentarios));
+					listaProductos.add(new Calzado(idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, esRopa, talla, comentarios));
 				} else if (tipoProducto == "Ropa") {
 					TallasRopa talla = getRopa(idProducto).getTallaRopa();
-					listaProductos.add(new Ropa(idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, talla, comentarios));
+					listaProductos.add(new Ropa(idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, esRopa, talla, comentarios));
 				}
 			}
 			return listaProductos;
@@ -1482,10 +1506,17 @@ public static ArrayList<Usuario> getUsuarios() {
 				} else {
 					enVenta = false;
 				}
+				String esRopaStr = rs.getString("esRopa");
+				Boolean esRopa;
+				if (esRopaStr == "true") {
+					esRopa = true;
+				} else {
+					esRopa = false;
+				}
 				HashMap<Usuario, String> comentarios = getComentariosProducto(idProducto);
 
 				if (enVenta) {
-					listaProductosEnVenta.add(new Producto(idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, comentarios));
+					listaProductosEnVenta.add(new Producto(idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, esRopa, comentarios));
 				}
 			}
 			return listaProductosEnVenta;
@@ -1644,9 +1675,17 @@ public static ArrayList<Usuario> getUsuarios() {
 			}
 			double talla = rs.getDouble("tallaCalzado");
 
+			String esRopaStr = rs.getString("esRopa");
+			Boolean esRopa;
+			if (esRopaStr == "true") {
+				esRopa = true;
+			} else {
+				esRopa = false;
+			}
+			
 			HashMap<Usuario, String> comentarios = getComentariosProducto(idProducto);
 
-			Calzado calzado = new Calzado(idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, talla, comentarios);
+			Calzado calzado = new Calzado(idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, esRopa, talla, comentarios);
 
 			return calzado;
 		} catch (Exception e) {
@@ -1716,9 +1755,17 @@ public static ArrayList<Usuario> getUsuarios() {
 				}
 				double talla = rs.getDouble("tallaCalzado");
 
+				String esRopaStr = rs.getString("esRopa");
+				Boolean esRopa;
+				if (esRopaStr == "true") {
+					esRopa = true;
+				} else {
+					esRopa = false;
+				}
+				
 				HashMap<Usuario, String> comentarios = getComentariosProducto(id);
 
-				Calzado calzado = new Calzado(id, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, talla, comentarios);
+				Calzado calzado = new Calzado(id, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, esRopa, talla, comentarios);
 
 				listaCalzado.add(calzado);
 			}
@@ -1889,10 +1936,18 @@ public static ArrayList<Usuario> getUsuarios() {
 			} else if (tallaR == "XL") {
 				talla = TallasRopa.XL;
 			}
+			
+			String esRopaStr = rs.getString("esRopa");
+			Boolean esRopa;
+			if (esRopaStr == "true") {
+				esRopa = true;
+			} else {
+				esRopa = false;
+			}
 
 			HashMap<Usuario, String> comentarios = getComentariosProducto(idProducto);
 
-			Ropa ropa = new Ropa(idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, talla, comentarios);
+			Ropa ropa = new Ropa(idProducto, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, esRopa, talla, comentarios);
 
 			return ropa;
 		} catch (Exception e) {
@@ -1973,10 +2028,18 @@ public static ArrayList<Usuario> getUsuarios() {
 				} else if (tallaR == "XL") {
 					talla = TallasRopa.XL;
 				}
+				
+				String esRopaStr = rs.getString("esRopa");
+				Boolean esRopa;
+				if (esRopaStr == "true") {
+					esRopa = true;
+				} else {
+					esRopa = false;
+				}
 
 				HashMap<Usuario, String> comentarios = getComentariosProducto(id);
 
-				Ropa ropa = new Ropa(id, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, talla, comentarios);
+				Ropa ropa = new Ropa(id, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, esRopa, talla, comentarios);
 
 				listaRopa.add(ropa);
 			}

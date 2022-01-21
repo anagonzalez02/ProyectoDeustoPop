@@ -24,8 +24,8 @@ public class Ropa extends Producto {
 	
 	private TallasRopa TallaRopa;
 	
-	public Ropa(int id, String nombre, Date fechaSubida, String etiquetas, double precio, String imagen, Estado estado, Colores color, Usuario usuario, boolean enVenta, TallasRopa TallaRopa, HashMap <Usuario, String> comentario) {
-		super(id, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, comentario);
+	public Ropa(int id, String nombre, Date fechaSubida, String etiquetas, double precio, String imagen, Estado estado, Colores color, Usuario usuario, boolean enVenta, boolean esRopa, TallasRopa TallaRopa, HashMap <Usuario, String> comentario) {
+		super(id, nombre, fechaSubida, etiquetas, precio, imagen, estado, color, usuario, enVenta, esRopa, comentario);
 		this.TallaRopa = TallaRopa;
 	}
 	
