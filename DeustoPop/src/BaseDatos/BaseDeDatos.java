@@ -123,7 +123,7 @@ public class BaseDeDatos {
 
 		consulta = "CREATE TABLE Usuario "
 				+ "(idUsuario INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, telefono INTEGER, nTarjeta INTEGER, saldo REAL DEFAULT 5, email TEXT, "
-				+ " contrasenia TEXT, direccion TEXT, FOREIGN KEY (nTarjeta) REFERENCES CuentaBancaria (nTarjeta), FOREIGN KEY (direccion) REFERENCES Lugar (direccion));";
+				+ " contrasenia TEXT, direccion TEXT, fechaRegistro NUMERIC, FOREIGN KEY (nTarjeta) REFERENCES CuentaBancaria (nTarjeta), FOREIGN KEY (direccion) REFERENCES Lugar (direccion));";
 
 		if (statement == null)
 			return;
@@ -361,9 +361,9 @@ public class BaseDeDatos {
 		while ((line = reader.readLine()) != null) {
 			String[] tokens = line.split(",");
 			
-			consulta = "INSERT INTO Usuario (idUsuario, nombre, telefono, nTarjeta, saldo, email, contrasenia, direccion)"
+			consulta = "INSERT INTO Usuario (idUsuario, nombre, telefono, nTarjeta, saldo, email, contrasenia, direccion, fechaRegistro)"
 					+ "VALUES (" + tokens[0] + ", '" + tokens[1] + "', " + tokens[2] + ", " + tokens[3] + ", "
-					+ tokens[4] + ", '" + tokens[5] + "', '" + tokens[6] + "', '" + tokens[7] + "');";
+					+ tokens[4] + ", '" + tokens[5] + "', '" + tokens[6] + "', '" + tokens[7] + "', '" + tokens[8] +"');";
 			
 			logger.log(Level.INFO, "Statement: " + consulta);
 			statement.executeUpdate(consulta);
@@ -758,7 +758,8 @@ public static ArrayList<Usuario> getUsuarios() {
 				ArrayList<Producto> productosComprados = new ArrayList<>();
 
 				ArrayList<Producto> productosFavoritos = getFavoritosUsuario(idUsuario);
-
+				
+				
 				Usuario usuario = new Usuario(idUsuario, nombre, telefono, cuenta, saldo, email, contrasenia, vivienda,
 						productosEnVenta, productosVendidos, productosComprados, productosFavoritos, fechaRegistro);
 
@@ -782,9 +783,9 @@ public static ArrayList<Usuario> getUsuarios() {
 	 */
 	public static boolean insertarUsuario(Usuario usuario) {
 		try (Statement statement = conexion.createStatement()) {
-			consulta = "INSERT INTO Usuario (idUsuario, nombre, telefono, nTarjeta, saldo, email, contrasenia, direccion)"
+			consulta = "INSERT INTO Usuario (idUsuario, nombre, telefono, nTarjeta, saldo, email, contrasenia, direccion, fechaRegistro)"
 					+ "VALUES (" + usuario.getIdUsuario() + ", '" + usuario.getNombre() + "', " + usuario.getTelefono() + ", " + usuario.getCuentaB().getnTarjeta() 
-					+ ", " + usuario.getSaldo() + ", '" + usuario.getEmail() + "', '" + usuario.getContrasenia() + "', '" + usuario.getVivienda().getDireccion() + "')";
+					+ ", " + usuario.getSaldo() + ", '" + usuario.getEmail() + "', '" + usuario.getContrasenia() + "', '" + usuario.getVivienda().getDireccion() + "', '" + usuario.getFechaRegistro() +"')";
 			// Al ser un usuario nuevo, no tendrá ningún producto en venta, venidido,
 			// comprado ni en favoritos
 
@@ -837,11 +838,11 @@ public static ArrayList<Usuario> getUsuarios() {
 	 */
 
 	public static boolean modificarUsuario(int id, String nombre, int telefono, int nTarjeta, double saldo,
-			String email, String direccion) {
+			String email, String direccion, Date fechaRegistro) {
 		try {
 			Statement statement = conexion.createStatement();
 			consulta = "UPDATE Usuario SET nombre = '" + nombre + "', telefono = " + telefono + ", nTarjeta = " + nTarjeta
-					+ ", saldo = " + saldo + ", email = '" + email + "', direccion = '" + direccion + "' WHERE idUsuario = " + id + ";";
+					+ ", saldo = " + saldo + ", email = '" + email + "', direccion = '" + direccion + "', fechaRegistro = '" + fechaRegistro +"' WHERE idUsuario = " + id + ";";
 			logger.log(Level.INFO, "Statement: " + consulta);
 			statement.executeUpdate(consulta);
 			return true;
