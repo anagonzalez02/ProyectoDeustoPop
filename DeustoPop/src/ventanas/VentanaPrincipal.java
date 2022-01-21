@@ -293,9 +293,9 @@ class CompCellPanel extends JPanel {
 	private JPanel pSup = new JPanel(new BorderLayout());
 	private JLabel lTexto1 = new JLabel("", JLabel.CENTER);
 	private JLabel precio = new JLabel();
-	private ImageIcon imagen = new ImageIcon("DeustoPop/src/bancoDeImagenes/kitten hills.jpg");
+	private ImageIcon imagen = new ImageIcon("DeustoPop/src/bancoDeImagenes/defaultImage.png");
 	private JLabel lImagen = new JLabel(imagen, JLabel.CENTER);
-	private ArrayList<Image> listaImagenes = new ArrayList<Image>();
+	private ArrayList<ImageIcon> listaImagenes = new ArrayList<ImageIcon>();
 
 
 	CompCellPanel() {
