@@ -242,7 +242,7 @@ public class BaseDeDatos {
 		statement.executeUpdate(consulta);
 
 		consulta = "CREATE TABLE Ropa "
-				+ "(idProducto INTEGER PRIMERY KEY, nombre TEXT, fechaSubida NUMERIC, etiquetas NUMERIC, precio REAL, "
+				+ "(idProducto INTEGER PRIMARY KEY, nombre TEXT, fechaSubida NUMERIC, etiquetas NUMERIC, precio REAL, "
 				+ "imagen TEXT, estado TEXT, color TEXT, idUsuario INTEGER, enVenta TEXT, tallaCalzado TEXT, "
 				+ "FOREIGN KEY (idUsuario) REFERENCES Usuario (idUsuario));";
 
@@ -268,7 +268,7 @@ public class BaseDeDatos {
 		statement.executeUpdate(consulta);
 
 		consulta = "CREATE TABLE Producto "
-				+ "(idProducto INTEGER PRIMERY KEY AUTOINCREMENT, nombre TEXT, fechaSubida NUMERIC, etiquetas TEXT,  "
+				+ "(idProducto INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, fechaSubida NUMERIC, etiquetas TEXT,  "
 				+ "precio REAL, imagen TEXT, estado TEXT, color TEXT, idUsuario INTEGER, enVenta TEXT, tipoProducto TEXT, "
 				+ "FOREIGN KEY (idUsuario) REFERENCES Usuario (idUsuario));";
 
@@ -294,7 +294,7 @@ public class BaseDeDatos {
 		statement.executeUpdate(consulta);
 
 		consulta = "CREATE TABLE Favoritos "
-				+ "(idUsuario INTEGER PRIMERY KEY, idProducto INTEGER, fechaInsertada NUMERIC, "
+				+ "(idUsuario INTEGER PRIMARY KEY, idProducto INTEGER, fechaInsertada NUMERIC, "
 				+ "FOREIGN KEY (idUsuario) REFERENCES Usuario (idUsuario), FOREIGN KEY (idProducto) REFERENCES Producto (idProducto));";
 
 		if (statement == null)
@@ -318,7 +318,8 @@ public class BaseDeDatos {
 		logger.log(Level.INFO, "Statement: " + consulta);
 		statement.executeUpdate(consulta);
 
-		consulta = "CREATE TABLE Comentarios " + "(idUsuario INTEGER, idProducto INTEGERL, comentario TEXT, "
+		consulta = "CREATE TABLE Comentarios "
+				+ "(idUsuario INTEGER, idProducto INTEGERL, comentario TEXT, "
 				+ "FOREIGN KEY (idUsuario) REFERENCES Usuario (idUsuario), FOREIGN KEY (idProducto) REFERENCES Producto (idProducto));";
 
 		if (statement == null)
