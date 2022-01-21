@@ -270,7 +270,7 @@ class PanelTableModel extends DefaultTableModel {
 
 	public void addRow(JPanel panelProducto1, JPanel panelProducto2) {
 		// TODO Auto-generated method stub
-
+		super.addRow(new Object[] { panelProducto1, panelProducto2 });
 	}
 }
 
@@ -293,9 +293,10 @@ class CompCellPanel extends JPanel {
 	private JPanel pSup = new JPanel(new BorderLayout());
 	private JLabel lTexto1 = new JLabel("", JLabel.CENTER);
 	private JLabel precio = new JLabel();
-	private ImageIcon imagen = new ImageIcon(
-			"C:\\Users\\aitor\\git\\ProyectoDeustoPop\\DeustoPop\\src\\ventanas\\defaultImage.png", null);
+	private ImageIcon imagen = new ImageIcon("DeustoPop/src/bancoDeImagenes/kitten hills.jpg");
 	private JLabel lImagen = new JLabel(imagen, JLabel.CENTER);
+	private ArrayList<Image> listaImagenes = new ArrayList<Image>();
+
 
 	CompCellPanel() {
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
@@ -317,13 +318,18 @@ class CompCellPanel extends JPanel {
 			return;
 		}
 		// disenyo del resto de casillas en la tabla
-		lImagen.setVisible(true);
-		lImagen.setIcon(imagen);
 		lImagen.setPreferredSize(new Dimension(10, 10));
 		lTexto1.setText("Producto " + comp.numero);
 		precio.setVisible(true);
 		precio.setPreferredSize(new Dimension(0, 30));
 		precio.setText("precio " + "€");
+		
+//		for (ImageIcon Imagen : listaImagenes) {
+//			
+//		}
+		
+		lImagen.setIcon(imagen);
+		lImagen.setVisible(true);
 
 	}
 

@@ -77,8 +77,7 @@ public class VentanaRecomendadosSaldo extends JFrame {
 		frame.getContentPane().add(CompTableScrollpane, BorderLayout.CENTER);
 		frame.setPreferredSize(new Dimension(550, 700));
 		frame.setLocation(400, 25);
-		frame.pack();
-		frame.setVisible(true);
+		
 		frame.setResizable(false);
 
 		panelInferior = new JPanel(new BorderLayout());
@@ -106,6 +105,9 @@ public class VentanaRecomendadosSaldo extends JFrame {
 				}
 			}
 		});
+		
+		frame.pack();
+		frame.setVisible(true);
 
 	}
 
