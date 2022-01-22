@@ -2,10 +2,15 @@ package ventanas;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import BaseDatos.BaseDeDatos;
+import clases.Producto;
 
 
 public class VentanaBuscador extends JFrame implements ActionListener {
@@ -47,7 +52,7 @@ public class VentanaBuscador extends JFrame implements ActionListener {
 //        botonVolver.addActionListener(this);			// hacemos que el botonVolver tenga una accion y esa accion estara en esta clase
         botonBuscar.setText("Buscar");					// colocamos un texto al botonBuscar
         botonBuscar.setBounds(375, 80, 75, 35);			// colocamos posicion y tamanio al botonBuscar (x, y, ancho, alto)
-//        botonBuscar.addActionListener(this);			// hacemos que el botonBuscar tenga una accion y esa accion estara en esta clase
+        botonBuscar.addActionListener(this);			// hacemos que el botonBuscar tenga una accion y esa accion estara en esta clase
         // anyadimos los componentes a la ventana
         this.add(textoBuscador);
         this.add(cajaBuscador);
@@ -62,12 +67,34 @@ public class VentanaBuscador extends JFrame implements ActionListener {
     			dispose();
     		}
     	});
+        
+        botonBuscar.addActionListener(new ActionListener() {
+    		@Override
+    		public void actionPerformed(ActionEvent e) {
+    		      String buscado = cajaBuscador.getText();                                 // obtenemos el contenido de la caja de texto
+    		        ArrayList<Producto> todos = BaseDeDatos.getProductos();
+    		        ArrayList<Producto> resul = new ArrayList();
+    		        for (int i = 0; i<todos.size();i++) {
+    		        	Producto prod = todos.get(i);
+    		        	String nom = prod.getNombre();
+    		        	String etiqueta = prod.getEtiquetas();
+    		        	if (nom.contains(buscado)) {
+    		        		resul.add(prod);
+    		        	}
+    		        	else if(etiqueta.contains(buscado)) {
+    		        		resul.add(prod);
+    		        	}
+    		        }
+    		}
+    	});
+        
+  
     }
 
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        //String busacado = cajaBuscador.getText();                                 // obtenemos el contenido de la caja de texto
+    	//String buscado = cajaBuscador.getText();                                 // obtenemos el contenido de la caja de texto
     }
     
     
