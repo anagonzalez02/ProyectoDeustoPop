@@ -235,12 +235,12 @@ public class Main extends JFrame {
 	
 	private void verUsuarios() {
 		Vector<String> cabeceras = new Vector<String>(
-				Arrays.asList("idUsuario", "nombre", "telefono", "nTarjeta", "saldo", "email", "contrasenia", "direccion"));
+				Arrays.asList("idUsuario", "nombre", "telefono", "nTarjeta", "saldo", "email", "contrasenia", "direccion", "fechaRegistro"));
 		mDatos = new DefaultTableModel(new Vector<Vector<Object>>(), cabeceras);
 		listaUsuarios = BaseDeDatos.getUsuarios();
 
 		for (Usuario u : listaUsuarios) {
-			mDatos.addRow (new Object[] {u.getIdUsuario(), u.getNombre(), u.getTelefono(), u.getCuentaB().getnTarjeta(), u.getSaldo(), u.getEmail(), u.getContrasenia(), u.getVivienda().getDireccion()});
+			mDatos.addRow (new Object[] {u.getIdUsuario(), u.getNombre(), u.getTelefono(), u.getCuentaB().getnTarjeta(), u.getSaldo(), u.getEmail(), u.getContrasenia(), u.getVivienda().getDireccion(), u.getFechaRegistro()});
 		}
 		tDatos.setModel(mDatos);
 	}
