@@ -34,7 +34,7 @@ public class Pedido {
 		super();
 		this.precioTotal = productoComprado.getPrecio() + 3.90;
 		this.fechaCompra = (Date) Calendar.getInstance().getTime();
-		this.fechaEntrega = sumarDiasFecha(fechaCompra);
+		this.fechaEntrega = sumarDiasFecha(fechaCompra, productoComprado, usuarioComprador);
 		this.numeroPedido = numeroPedido;
 		this.usuarioComprador = usuarioComprador;
 		this.productoComprado = productoComprado;
@@ -44,7 +44,7 @@ public class Pedido {
 		super();
 		this.precioTotal = productoComprado.getPrecio() + 3.90;
 		this.fechaCompra = (Date) Calendar.getInstance().getTime();
-		this.fechaEntrega = sumarDiasFecha(fechaCompra);
+		this.fechaEntrega = sumarDiasFecha(fechaCompra, productoComprado, usuarioComprador);
 		this.numeroPedido = numeroPedido;
 		this.usuarioComprador = usuarioComprador;
 		this.productoComprado = productoComprado;
@@ -58,7 +58,7 @@ public class Pedido {
 	 * 
 	 * **/
 	
-	public static Date sumarDiasFecha(Date fecha){
+	public static Date sumarDiasFecha(Date fecha, Producto productoComprado, Usuario usuarioComprador){
 		int dias = 0;
 		if (productoComprado.getUsuario().getVivienda().getNomCiud() == usuarioComprador.getVivienda().getNomCiud() && productoComprado.getUsuario().getVivienda().getNomPais() == usuarioComprador.getVivienda().getNomPais()) {
 			dias = 3;

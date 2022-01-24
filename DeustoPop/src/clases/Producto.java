@@ -48,11 +48,10 @@ public class Producto {
 	protected Colores color;
 	protected Usuario usuario;
 	public boolean enVenta;
-	public boolean esRopa;
 	protected HashMap <Usuario, String> comentario;
 	
 	
-	public Producto (int id, String nombre, Date fechaSubida, String etiquetas, double precio, String imagen, Estado estado, Colores color, Usuario usuario, boolean enVenta, boolean esRopa, HashMap <Usuario, String> comentario) {
+	public Producto (int id, String nombre, Date fechaSubida, String etiquetas, double precio, String imagen, Estado estado, Colores color, Usuario usuario, boolean enVenta, HashMap <Usuario, String> comentario) {
 		super();
 		contador++;
 		this.id = contador;
@@ -65,7 +64,6 @@ public class Producto {
 		this.color = color;
 		this.usuario = usuario;
 		this.enVenta = true;
-		this.esRopa = true;
 		this.comentario = comentario;
 	}
 
@@ -82,7 +80,6 @@ public class Producto {
 		this.estado = estado;
 		this.color = color;
 		this.usuario = usuario;
-		this.enVenta = true;
 		this.comentario = comentario;
 	}
 	
@@ -177,20 +174,11 @@ public class Producto {
 		this.comentario = comentario;
 	}
 
-
-	public boolean isEsRopa() {
-		return esRopa;
-	}
-
-
-	public void setEsRopa(boolean esRopa) {
-		this.esRopa = esRopa;
-	}
 	@Override
 	public String toString() {
 		return "Producto [id=" + id + ", nombre=" + nombre + ", fechaSubida=" + fechaSubida + ", etiquetas=" + etiquetas
 				+ ", precio=" + precio + ", imagen=" + imagen + ", estado=" + estado + ", color=" + color + ", usuario="
-				+ usuario + ", enVenta=" + enVenta + ", esRopa=" + esRopa + ", comentario=" + comentario + "]";
+				+ usuario + ", enVenta=" + enVenta + ", comentario=" + comentario + "]";
 	}
 
 

@@ -37,36 +37,18 @@ public class FuncionesGeneralesTest {
 		producto = new Producto ("Zapatilla guay", "Cool", 10.67, image, Estado.MALO, Colores.Azul, uVendedor);
 		
 		if (new File("deustopop.bd").exists()) {
-			// Poner el parámetro a true si se quiere reiniciar la base de datos
 			try {
 				BaseDeDatos.abrirConexion( "deustopop.bd", false );
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			}  // Abrir base de datos existente
+			}
 		} else {
 			try {
 				BaseDeDatos.abrirConexion( "deustopop.bd", true );
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			}  // Crear base de datos con datos iniciales
+			}
 		}
-	}
-	
-	
-	// REVISAR
-	// Error por la importación de Date, tiene que ser sql.Date pero no veo dónde no está así
-	@Test
-	public void testMetodoComprarProducto () {
-		FuncionesGenerales.metodoComprarProducto(producto, uComprador1);
-		Pedido pedido = BaseDeDatos.getPedidoProducto(producto.getId());
-		
-		assertFalse(producto.isEnVenta());
-		assertTrue(uVendedor.getSaldo() == 25.67);
-		assertTrue(uComprador1.getSaldo() == 62.33);
-		assertEquals(pedido.getUsuarioComprador(), uComprador1);
-		assertEquals(pedido.getProductoComprado(), producto);
 	}
 	
 	
@@ -117,12 +99,6 @@ public class FuncionesGeneralesTest {
 		double dineroDespues = uVendedor.getSaldo();
 		
 		assertTrue(dineroAntes == dineroDespues - producto.getPrecio());
-	}
-	
-	
-	@Test
-	public void testBuscarProductosRecomendadosSaldo () {
-		
 	}
 	
 

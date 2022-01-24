@@ -24,16 +24,16 @@ public class CuentaBancaria {
 		return nTarjeta;
 	}
 	
-	public void setnTarjeta(double dineroTotal) {
-		this.dineroTotal = dineroTotal;
+	public void setnTarjeta(int nTarjeta) {
+		this.nTarjeta = nTarjeta;
 	}
 	
 	public double getDineroTotal() {
 		return dineroTotal;
 	}
 	
-	public void setDineroTotal(double d) {
-		this.dineroTotal = d;
+	public void setDineroTotal(double dineroTotal) {
+		this.dineroTotal = dineroTotal;
 	}
 
 

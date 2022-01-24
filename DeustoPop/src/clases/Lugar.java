@@ -45,9 +45,13 @@ public class Lugar {
 		this.nomPais = nomPais;
 	}
 
-	
-	
 
+	@Override
+	public String toString() {
+		return "Lugar [direccion=" + direccion + ", nomCiud=" + nomCiud + ", nomPais=" + nomPais + "]";
+	}
+
+	
 	
 	
 }          
