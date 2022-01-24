@@ -1,0 +1,7 @@
+000001	kitten_hills	2021-11-28	juvenil	20€	"/ProyectoDeustoPop/DeustoPop/src/bancoDeImagenes/kitten hills.jpg"	BUENO	verde	000002	TRUE	Calzado
+000002	sudadera_blanca	2021-12-01	ecologico	25€	"/ProyectoDeustoPop/DeustoPop/src/bancoDeImagenes/sudadera blanca.jpg"	BUENO	blanco	000001	TRUE	Ropa
+000003	tacones_bota	2021-12-03	diva	80€	"/ProyectoDeustoPop/DeustoPop/src/bancoDeImagenes/tacones bota.jpg"	BUENO	negro	000003	TRUE	Calzado
+000004	chaqueta_arizona	2021-12-06	invierno	45€	"/ProyectoDeustoPop/DeustoPop/src/bancoDeImagenes/chaqueta arizona	vintage.jpg"	MEDIO	negro	000001	TRUE	Ropa
+000005	top_lentejuelas	2021-12-08	fiesta	10€	"/ProyectoDeustoPop/DeustoPop/src/bancoDeImagenes/top lentejuelas.jpg"	MEDIO	blanco	000003	TRUE	Ropa
+000006	zapatillas_usadas	2021-12-19	usadas	5€	"/ProyectoDeustoPop/DeustoPop/src/bancoDeImagenes//zapatillas muy usadas.jpg"	MALO	negro	000000	FALSE	Calzado
+000006	zapatillas_rotas	2021-12-20	rotas	5€	"/ProyectoDeustoPop/DeustoPop/src/bancoDeImagenes/zapatillas rotas.jpg"	MALO	negro	000000	TRUE	Calzado
