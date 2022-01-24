@@ -61,20 +61,15 @@ public class BaseDeDatos {
 
 				Statement statement = conexion.createStatement();
 
-				System.out.println("x3");
 				crearTablaBDUsuario();
-				System.out.println("xCuenta1");
 				crearTablaBDCuentaBancaria();
-				System.out.println("xCuenta2");
 				crearTablaBDLugar();
-				System.out.println("x1");
 				crearTablaBDProducto();
 				crearTablaBDCalzado();
 				crearTablaBDRopa();
 				crearTablaBDPedido();
 				crearTablaBDFavoritos();
 				crearTablaBDComentarios();
-				System.out.println("x2");
 				
 				cargarUsuario();
 				cargarCuentaBancaria();
@@ -2212,6 +2207,39 @@ public static ArrayList<Usuario> getUsuarios() {
 
 			Pedido pedido = new Pedido(precioTotal, fechaCompra, fechaEntrega, numeroPedido, usuario, producto);
 			return pedido;
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Excepción", e);
+			return null;
+		}
+	}
+	
+	/**
+	 * Obtener llista de pedidos de un cliente.
+	 * @param idUsuario 			El numero o identificativo del pedido del que se quiere saber la información
+	 * @return 						Los pedidos buscados
+	 */
+
+	public static ArrayList<Pedido> getPedidoUsuario(int idUsuario) {
+		try (Statement statement = conexion.createStatement()) {
+			consulta = "SELECT * FROM Ropa WHERE idUsuario = " + idUsuario + ";";
+			logger.log(Level.INFO, "Statement: " + consulta);
+			ArrayList<Pedido> listaPedidos = new ArrayList<Pedido>();
+			ResultSet rs = statement.executeQuery(consulta);
+			while (rs.next()) {
+				int numPedido = rs.getInt("numeroPedido");
+				double precioTotal = rs.getDouble("precioTotal");
+				Date fechaCompra = rs.getDate("fechaCompra");
+				Date fechaEntrega = rs.getDate("fechaEntrega");
+				int idU = rs.getInt("idUsuario");
+				int idProducto = rs.getInt("idProducto");
+
+				Usuario usuario = getUsuario(idUsuario);
+				Producto producto = getProducto(idProducto);
+
+				Pedido pedido = new Pedido(precioTotal, fechaCompra, fechaEntrega, numPedido, usuario, producto);
+				listaPedidos.add(pedido);
+			}
+			return listaPedidos;
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Excepción", e);
 			return null;
